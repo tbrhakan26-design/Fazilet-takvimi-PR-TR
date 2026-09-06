@@ -8,6 +8,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Calendário Fazilet">
 <title>Calendário Fazilet</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 @font-face{font-family:'Uthman Taha';src:url('fonts/KFGQPC Uthman Taha Naskh Regular/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'KoHo';src:local('KoHo');font-weight:100 900;font-style:normal;font-display:swap}
@@ -18,7 +21,7 @@ html,body{margin:0;background:#e9e1d4;color:var(--brown);font-family:"KoHo",sans
 body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;background:var(--cream);position:relative;padding-bottom:25px;overflow-x:hidden}
 .header{padding:18px 25px 0;position:relative}.date{display:flex;gap:12px}.day{font-size:76px;line-height:.76;letter-spacing:-5px;color:#612f10}.month{font-size:22px;font-weight:700;padding-top:3px}.week{font-size:18px;margin-top:4px}.hijri{font-size:17px;color:var(--green);line-height:1.45;margin-top:14px}
 .menuBtn{position:absolute;right:23px;top:11px;width:58px;height:58px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:27px;line-height:1}
-.menuBtn span{display:block;font:28px -apple-system,BlinkMacSystemFont,sans-serif;line-height:1}
+.menuBtn{touch-action:manipulation}.menuBtn span{display:block;font:28px -apple-system,BlinkMacSystemFont,sans-serif;line-height:1}
 .ornament{height:38px;margin:5px 18px 0;position:relative}.ornament:before{content:"❧  ───  ✦  ───  ❧";position:absolute;left:50%;transform:translateX(-50%);color:var(--brown2);font-size:20px;white-space:nowrap}.todayBackBtn{display:none;position:absolute;left:-2px;top:0;width:44px;height:34px;border:1px solid rgba(220,197,160,.55);border-radius:18px;background:rgba(255,250,240,.72);color:var(--brown2);font:32px/27px -apple-system,BlinkMacSystemFont,sans-serif;align-items:center;justify-content:center;z-index:5;box-shadow:0 2px 8px rgba(79,42,17,.08)}.todayBackBtn.show{display:flex}.todayBackBtn span{display:block;transform:translateY(-1px)}
 .prayerTitle{text-align:center;font-size:19px;font-weight:700;margin:1px 0 8px;color:var(--brown2)}
 .prayers{display:flex;gap:10px;overflow-x:auto;padding:0 18px 8px;scrollbar-width:none}.prayers::-webkit-scrollbar{display:none}
@@ -40,7 +43,7 @@ body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;backgrou
 .studyLegend span{padding:3px 7px;border-radius:8px;font-weight:700}.studyLegend .l1{background:#dcebdc;color:#18553d}.studyLegend .l2{background:#e8def3;color:#56377a}.studyLegend .l3{background:#f7dfbd;color:#7a4518}
 .story{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:visible;box-shadow:0 2px 8px #4f2a1110}
 .storyHeader{width:100%;border:0;background:transparent;color:var(--brown);padding:15px 16px 12px;display:flex;flex-direction:column;align-items:flex-start;position:relative;text-align:left;font-family:Georgia,serif;cursor:pointer}.storyArrow{position:relative;left:auto;top:auto;transform:none;margin:8px auto 0;width:48px;height:32px;flex:0 0 32px;border-radius:17px;background:rgba(255,250,240,.12);border:1px solid rgba(220,197,160,.22);display:flex;align-items:center;justify-content:center;font:36px/1 -apple-system,BlinkMacSystemFont,sans-serif;color:rgba(190,105,35,.72);transform-origin:center}.story.open .storyArrow{transform:rotate(180deg)}.storyTitle{font-size:21px;font-weight:700}.storyContent{display:none;padding:0 16px 17px;border-top:1px solid var(--line)}.story.open .storyContent{display:block}.storyContent .lang{border:0;padding:12px 0 0;margin:0;background:transparent}.storyContent .lang p{font-size:16px}
-.inlineWord{position:absolute;z-index:30;width:min(330px,calc(100% - 20px));display:none;background:#fffaf0;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 10px 30px #4f2a1126;text-align:center}.inlineWord.show{display:block;animation:wordPop .16s ease-out}@keyframes wordPop{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}.wordLabel{font-size:11px;color:#7b6b5b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}.wordMeaning{font-size:18px!important;line-height:1.35;color:#173f31;margin:0 0 8px}.wordMeaning small{display:block;font-size:12px;color:#7b6b5b;margin-top:3px}.bubbles{display:flex;justify-content:center;gap:7px;margin:0}.bubble{flex:1;min-width:0;height:58px;border:1px solid #e1cda9;border-radius:14px;background:#fffdf8;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,sans-serif;color:#30241c;padding:5px 3px;cursor:pointer}.bubble i{display:block;width:25px;height:25px;border-radius:50%;margin:0 auto 3px;color:#fff;font:14px -apple-system,BlinkMacSystemFont,sans-serif;line-height:25px;font-style:normal}.bubble.s i{background:var(--orange)}.bubble.e i{background:var(--green)}.bubble.k i{background:#87501f}.bubble.saved{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.bubble.saved i{background:#18553d}.exampleBox{display:none;margin:0 auto 8px;max-width:310px;background:#f2e5f8;border:1px solid #d8c2e4;border-radius:13px;padding:9px;font-size:13px;line-height:1.45;text-align:left}.exampleBox.show{display:block}.pronunciationBox{display:none;margin:0 auto 8px;max-width:310px;background:#e5f0e9;border:1px solid #bfd8c8;border-radius:13px;padding:8px;font-size:14px;color:#18553d;font-weight:700}.pronunciationBox.show{display:block}.exampleBox b{color:#56377a}.exampleBox .exTr{display:block;margin-top:4px;color:#5c5148}
+.inlineWord{position:absolute;z-index:30;width:min(330px,calc(100% - 16px));display:none;max-height:min(70vh,520px);overflow:auto;background:#fffaf0;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 10px 30px #4f2a1126;text-align:center}.inlineWord.show{display:block;animation:wordPop .16s ease-out}@keyframes wordPop{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}.wordLabel{font-size:11px;color:#7b6b5b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}.wordMeaning{font-size:18px!important;line-height:1.35;color:#173f31;margin:0 0 8px}.wordMeaning small{display:block;font-size:12px;color:#7b6b5b;margin-top:3px}.bubbles{display:flex;justify-content:center;gap:7px;margin:0}.bubble{flex:1;touch-action:manipulation;min-width:0;height:58px;border:1px solid #e1cda9;border-radius:14px;background:#fffdf8;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,sans-serif;color:#30241c;padding:5px 3px;cursor:pointer}.bubble i{display:block;width:25px;height:25px;border-radius:50%;margin:0 auto 3px;color:#fff;font:14px -apple-system,BlinkMacSystemFont,sans-serif;line-height:25px;font-style:normal}.bubble.s i{background:var(--orange)}.bubble.e i{background:var(--green)}.bubble.k i{background:#87501f}.bubble.saved{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.bubble.saved i{background:#18553d}.exampleBox{display:none;margin:0 auto 8px;max-width:310px;background:#f2e5f8;border:1px solid #d8c2e4;border-radius:13px;padding:9px;font-size:13px;line-height:1.45;text-align:left}.exampleBox.show{display:block}.pronunciationBox{display:none;margin:0 auto 8px;max-width:310px;background:#e5f0e9;border:1px solid #bfd8c8;border-radius:13px;padding:8px;font-size:14px;color:#18553d;font-weight:700}.pronunciationBox.show{display:block}.exampleBox b{color:#56377a}.exampleBox .exTr{display:block;margin-top:4px;color:#5c5148}
 .studyLegend{justify-content:flex-start}.lang.tr .term.c1,.lang.tr .term.c2,.lang.tr .term.c3{font-weight:700}.storyContent .lang p{font-size:16px;line-height:1.72}.storyContent .lang.tr p{font-size:16px;line-height:1.72}
 .wordPopupArrow{position:absolute;width:12px;height:12px;background:#fffaf0;border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg);top:-7px;left:28px}
 .drawerShade{display:none;position:fixed;inset:0;background:#3b26165c;z-index:40}.drawerShade.show{display:block}.drawer{position:fixed;z-index:41;right:0;top:0;height:100%;width:min(330px,86%);background:var(--paper);box-shadow:-10px 0 35px #0003;padding:23px 20px;transform:translateX(100%);transition:.25s}.drawer.show{transform:translateX(0)}.drawerTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:15px}.drawerTop h2{margin:0;font-size:25px}.closeMenu{border:0;background:#fae6c1;border-radius:50%;width:43px;height:43px;color:var(--brown);font-size:24px}.drawer a,.drawer button.item{display:block;width:100%;border:0;background:none;text-align:left;color:var(--brown);font:19px "KoHo",sans-serif;padding:17px 6px;border-bottom:1px solid #ead9bc}.drawer .favCount{color:var(--green);font-size:14px;margin-left:5px}
@@ -67,6 +70,11 @@ body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;backgrou
 .story .shareBtn{top:8px;right:12px}
 .hadithArabicHeader{width:100%;border:0;background:transparent;padding:50px 14px 12px;display:block;position:relative;cursor:pointer;text-align:center;overflow:hidden}.hadithArabicHeader .accArrow{left:12px;top:10px;margin-left:0;transform:none}.hadithArabicPreview{margin:0!important;font-size:22px!important;line-height:1.85!important}.hadithAccordion .accordionContent{padding:0 12px 16px}.hadithAccordion.open .hadithArabicHeader{border-bottom:1px solid var(--line)}
 
+/* Pequenos aprimoramentos de uso no celular */
+html{scroll-behavior:smooth}
+button{font-family:inherit}
+button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+@media(max-width:520px){.inlineWord{font-size:14px}.wordMeaning{font-size:17px!important}.bubble{height:54px;font-size:10.5px}.bubble i{width:23px;height:23px;line-height:23px}.storyContent .lang p,.hadithAccordion .lang p{font-size:16px}}
 @media(min-width:700px){body{padding:18px}.app{border-radius:34px;box-shadow:0 12px 50px #0002}}
 
 @font-face{font-family:'UthmanTaha';src:url('fonts/KFGQPC Uthman Taha Naskh Regular/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
@@ -363,12 +371,17 @@ function updateTodayBack(){
  document.querySelectorAll('.todayBackBtn').forEach((btn,i)=>btn.classList.toggle('show',currentDay!==todayIndex));
 }
 function setDay(day, animate=true){
- currentDay=Math.max(0,Math.min(calendarData.length-1,day));
+ const next=Math.max(0,Math.min(calendarData.length-1,day));
+ const changed=next!==currentDay;
+ currentDay=next;
  const track=document.getElementById('dayTrack');
  track.style.transition=animate?'transform .32s ease':'none';
  track.style.transform=`translateX(-${currentDay*(100/calendarData.length)}%)`;
  document.querySelectorAll('.dayContentPage').forEach(p=>p.style.display=(Number(p.dataset.contentDay)===currentDay?'block':'none'));
+ document.querySelectorAll('.inlineWord.show').forEach(p=>p.classList.remove('show'));
+ document.querySelectorAll('.term.tap.selected').forEach(x=>x.classList.remove('selected'));
  updateTodayBack();
+ if(changed && animate) window.scrollTo({top:0,behavior:'smooth'});
 }
 function goToday(){
  todayIndex=findTodayIndex();
@@ -381,7 +394,7 @@ function goToday(){
  app.addEventListener('touchend',e=>{
   const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
   if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(dy)){
-   if(e.target.closest('.prayers')) return;
+   if(e.target.closest('.prayers,.drawer,.inlineWord,button,a,input,textarea,select')) return;
    // Sağa doğru değil, ekranda sağdan sola kaydırma (swipe left) bir sonraki güne götürür.
    if(dx<0)setDay(currentDay+1);else setDay(currentDay-1);
   }
@@ -413,5 +426,6 @@ function shareSection(event,btn){
  if(navigator.share){ navigator.share(data).catch(()=>{}); }
  else if(navigator.clipboard){ navigator.clipboard.writeText(text+'\n'+location.href).then(()=>{btn.setAttribute('aria-label','Copiado');setTimeout(()=>btn.setAttribute('aria-label','Compartilhar esta seção'),1200)}).catch(()=>{}); }
 }
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 </script>
 </body></html>
