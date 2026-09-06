@@ -1,0 +1,9 @@
+{
+  "name":"Calendário Fazilet",
+  "short_name":"Fazilet",
+  "start_url":"./",
+  "display":"standalone",
+  "background_color":"#fbf2df",
+  "theme_color":"#fbf2df",
+  "lang":"pt-BR"
+}
