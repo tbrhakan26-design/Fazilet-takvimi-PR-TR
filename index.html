@@ -673,8 +673,6 @@ function goToday(){
    }
  },1000);
 })();
-setupPrayerTracker(); updateFavCount(); updateSettingsUI(); renderFontChoices(); renderVoiceChoices();
-
 function closeUtility(id){const el=document.getElementById(id);if(el)el.classList.remove('show')}
 ['settingsPanel','malumatPanel'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('click',e=>{if(e.target===el)closeUtility(id)})});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeFavorites();closeUtility('settingsPanel');closeUtility('malumatPanel')}});
@@ -761,6 +759,15 @@ function shareSection(event,btn){
  if(navigator.share){ navigator.share(data).catch(()=>{}); }
  else if(navigator.clipboard){ navigator.clipboard.writeText(text+'\n'+location.href).then(()=>{btn.setAttribute('aria-label','Copiado');setTimeout(()=>btn.setAttribute('aria-label','Compartilhar esta seção'),1200)}).catch(()=>{}); }
 }
+// Final initialization: font arrays/functions must exist before they are used.
+(function initAppSystems(){
+  setupPrayerTracker();
+  updateFavCount();
+  updateSettingsUI();
+  renderFontChoices();
+  renderVoiceChoices();
+})();
+
 // Service worker registration intentionally disabled so GitHub Pages always serves the newest index.html.
 </script>
 </body></html>
