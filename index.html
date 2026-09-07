@@ -93,7 +93,7 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .arFont-naskh .arabic,.arFont-naskh .arabic *,.arFont-naskh .arWord{font-family:"Noto Naskh Arabic",serif!important}
 .arFont-scheherazade .arabic,.arFont-scheherazade .arabic *,.arFont-scheherazade .arWord{font-family:"Scheherazade New",serif!important}
 .arFont-lateef .arabic,.arFont-lateef .arabic *,.arFont-lateef .arWord{font-family:"Lateef",serif!important}
-.arFont-sulus .arabic,.arFont-sulus .arabic *,.arFont-sulus .arWord{font-family:"Aref Ruqaa",serif!important}
+.arFont-sulus .arabic,.arFont-sulus .arabic *,.arFont-sulus .arWord{font-family:"Rakkas",serif!important}
 .arFont-cairo .arabic,.arFont-cairo .arabic *,.arFont-cairo .arWord{font-family:"Cairo",sans-serif!important}
 .arFont-changa .arabic,.arFont-changa .arabic *,.arFont-changa .arWord{font-family:"Changa",sans-serif!important}
 .arFont-elmessiri .arabic,.arFont-elmessiri .arabic *,.arFont-elmessiri .arWord{font-family:"El Messiri",sans-serif!important}
@@ -109,7 +109,9 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .trFont-merriweather .tr,.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
 .trFont-montserrat .tr,.trFont-montserrat .tr *{font-family:"Montserrat",sans-serif!important}
 .trFont-playfair .tr,.trFont-playfair .tr *{font-family:"Playfair Display",serif!important}
-.fontChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.fontChoices button,.voiceChoices button{border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:10px;padding:8px 7px;font:600 12px -apple-system,BlinkMacSystemFont,sans-serif}.fontChoices button.active,.voiceChoices button.active{background:#e7f1e9;border-color:#9fc4aa;color:#18553d}.voiceChoices{display:grid;grid-template-columns:1fr;gap:7px}
+
+.settingGroup{padding:13px 0;border-bottom:1px solid #ead9bc}.settingGroup:last-child{border-bottom:0}.settingTitle{font-size:15px;font-weight:800;color:var(--brown2);margin:0}.settingToggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;background:transparent;color:var(--brown2);padding:2px 0;text-align:left;font:inherit}.settingToggle .chev{font-size:20px;transition:transform .2s ease}.settingGroup.open .settingToggle .chev{transform:rotate(180deg)}.settingOptions{display:none;margin-top:12px}.settingGroup.open .settingOptions{display:block}.fontChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.fontCard,.voiceCard{position:relative;min-height:78px;border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:13px;padding:9px 8px;text-align:center;cursor:pointer;box-shadow:0 1px 4px #4f2a1108}.fontCard.active,.voiceCard.active{background:#e7f1e9;border:2px solid #7eaf8d;color:#18553d}.fontCard .fontName{display:block;font:700 12px -apple-system,BlinkMacSystemFont,sans-serif;margin-top:6px;line-height:1.15}.fontCard .arabicSample{display:block;direction:rtl;font-size:27px;line-height:1.1;white-space:nowrap}.fontCard .latinSample{display:block;font-size:18px;line-height:1.25;margin-top:5px}.voiceChoices{display:grid;grid-template-columns:1fr;gap:9px}.voiceCard{display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:62px;padding:10px 12px}.voiceMain{display:flex;flex-direction:column;gap:3px}.voiceName{font-weight:800;font-size:14px}.voiceMeta{font-size:11px;color:#806f5f}.voiceTest{border:1px solid var(--line);background:#faedd7;color:var(--brown);border-radius:50%;width:38px;height:38px;font-size:16px}.settingHint{font-size:11px;color:#806f5f;margin:8px 0 0;line-height:1.4}
+
 .utilityPanel{display:none;position:fixed;inset:0;z-index:60;background:#3b26165c;padding:20px 14px;align-items:flex-start;justify-content:center;overflow:auto}.utilityPanel.show{display:flex}.utilityBox{width:min(500px,100%);margin-top:6vh;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 15px 40px #0004;padding:18px}.utilityTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px}.utilityTop h2{margin:0;font-size:21px}.utilityTop button{width:40px;height:40px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:24px}.settingGroup{padding:18px 0;border-bottom:1px solid #ead9bc}.settingGroup:last-child{border-bottom:0}.settingTitle{font-weight:700;margin-bottom:10px;color:var(--brown2)}.sizeRow{display:flex;align-items:center;justify-content:center;gap:20px}.sizeRow button,.fontRow button{border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:12px;padding:11px 15px;font-weight:700}.sizeRow button{font-size:17px}.fontRow{display:flex;gap:8px;flex-wrap:wrap}.fontRow button.active{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.malumatGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.malumatCard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fffdf8}.malumatCard img{display:block;width:100%;height:auto}.malumatCard div{padding:8px;font-weight:700;text-align:center}.storyText{line-height:1.65}.wordListItem{padding:11px 4px;border-bottom:1px solid #ead9bc;cursor:pointer}.wordListItem b{color:var(--brown2)}
 .textScale{font-size:var(--user-scale,1)}
 
@@ -118,7 +120,7 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .favArchiveItem{padding:12px 2px 14px;border-bottom:1px solid #ddcbaa}.favArchiveTitle{font-size:15px;line-height:1.55}.favNum{color:var(--brown2);font-weight:800}.favArabic{font-family:"Amiri",serif;font-size:17px;direction:rtl}.favEx{margin:7px 0 0 18px;padding:7px 9px;background:#f5eadb;border-left:3px solid var(--green);border-radius:8px;font-size:13px;line-height:1.6}.favEx b{color:var(--brown2)}.favEx span{color:#5b4d43}.utilityBox{max-height:88vh;overflow:auto}.settingGroup{padding:13px 0}.settingTitle{font-size:14px;margin-bottom:8px}.fontChoices button,.voiceChoices button{min-height:38px}@media(max-width:420px){.fontChoices{grid-template-columns:1fr 1fr}.fontChoices button,.voiceChoices button{font-size:11px;padding:7px 5px}}
 
 /* Historical 15 Arabic + 5 Latin font choices */
-body.arFont-sulus .arabic,body.arFont-sulus .arabic *{font-family:"Aref Ruqaa",serif!important}
+body.arFont-sulus .arabic,body.arFont-sulus .arabic *{font-family:"Rakkas",serif!important}
 body.arFont-elmessiri .arabic,body.arFont-elmessiri .arabic *{font-family:"El Messiri",sans-serif!important}
 body.arFont-reem .arabic,body.arFont-reem .arabic *{font-family:"Reem Kufi",sans-serif!important}
 body.arFont-ruqaa .arabic,body.arFont-ruqaa .arabic *{font-family:"Aref Ruqaa",serif!important}
@@ -131,7 +133,7 @@ body.arFont-amiri .arabic,body.arFont-amiri .arabic *{font-family:"Amiri",serif!
 body.arFont-naskh .arabic,body.arFont-naskh .arabic *{font-family:"Noto Naskh Arabic",serif!important}
 body.arFont-scheherazade .arabic,body.arFont-scheherazade .arabic *{font-family:"Scheherazade New",serif!important}
 body.arFont-lateef .arabic,body.arFont-lateef .arabic *{font-family:"Lateef",serif!important}
-body.arFont-sulus .arabic,body.arFont-sulus .arabic *{font-family:"Aref Ruqaa",serif!important}
+body.arFont-sulus .arabic,body.arFont-sulus .arabic *{font-family:"Rakkas",serif!important}
 body.arFont-cairo .arabic,body.arFont-cairo .arabic *{font-family:"Cairo",sans-serif!important}
 body.arFont-changa .arabic,body.arFont-changa .arabic *{font-family:"Changa",sans-serif!important}
 body.arFont-elmessiri .arabic,body.arFont-elmessiri .arabic *{font-family:"El Messiri",sans-serif!important}
@@ -183,9 +185,9 @@ body.trFont-playfair .tr,body.trFont-playfair .tr *{font-family:"Playfair Displa
 <div class="utilityPanel" id="settingsPanel">
  <div class="utilityBox"><div class="utilityTop"><h2>Configurações</h2><button onclick="closeUtility('settingsPanel')">×</button></div>
  <div class="settingGroup"><div class="settingTitle">Tamanho do texto</div><div class="sizeRow"><button onclick="changeTextSize(-1)">A−</button><div id="sizeValue">100%</div><button onclick="changeTextSize(1)">A+</button></div></div>
- <div class="settingGroup"><div class="settingTitle">Fonte árabe • 10 opções</div><div class="fontChoices" id="arabicFontChoices"></div></div>
- <div class="settingGroup"><div class="settingTitle">Fonte Türkçe • 5 opções</div><div class="fontChoices" id="turkishFontChoices"></div></div>
- <div class="settingGroup"><div class="settingTitle">Voz • Português do Brasil • 5 opções</div><div class="voiceChoices" id="voiceChoices"></div></div>
+ <div class="settingGroup" id="arabicSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('arabicSettingGroup')"><span class="settingTitle">Arapça yazı stilleri (15)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="arabicFontChoices"></div><div class="settingHint">İstediğiniz stile dokunarak Arapça yazılarını anında değiştirebilirsiniz.</div></div></div>
+ <div class="settingGroup" id="turkishSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('turkishSettingGroup')"><span class="settingTitle">Latin içerikler için yazı stilleri (5)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="turkishFontChoices"></div><div class="settingHint">Türkçe ve Latin içeriklerin yazı stilini buradan seçebilirsiniz.</div></div></div>
+ <div class="settingGroup" id="voiceSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('voiceSettingGroup')"><span class="settingTitle">Brezilya Portekizcesi ses seçenekleri (5)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="voiceChoices" id="voiceChoices"></div><div class="settingHint">Seçtiğiniz ses, kelime telaffuzlarında kullanılacaktır. 🔊 düğmesiyle sesi deneyebilirsiniz.</div></div></div>
  </div></div>
 <div class="utilityPanel" id="malumatPanel">
  <div class="utilityBox"><div class="utilityTop"><h2>Malumatlar</h2><button onclick="closeUtility('malumatPanel')">×</button></div>
@@ -646,8 +648,16 @@ function closeUtility(id){const el=document.getElementById(id);if(el)el.classLis
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeFavorites();closeUtility('settingsPanel');closeUtility('malumatPanel')}});
 document.querySelectorAll('.utilityPanel').forEach(p=>p.addEventListener('click',e=>{if(e.target===p)p.classList.remove('show')}));
 
-const ARABIC_FONTS=[['amiri','Amiri'],['naskh','Noto Naskh Arabic'],['scheherazade','Scheherazade New'],['lateef','Lateef'],['sulus','Sülüs'],['cairo','Cairo'],['changa','Changa'],['elmessiri','El Messiri'],['harmattan','Harmattan'],['uthman','KFGQPC Uthman Taha Naskh Regular']];
+const ARABIC_FONTS=[
+ ['amiri','Amiri'],['naskh','Noto Naskh Arabic'],['scheherazade','Scheherazade New'],['lateef','Lateef'],['sulus','Sülüs'],
+ ['cairo','Cairo'],['changa','Changa'],['elmessiri','El Messiri'],['harmattan','Harmattan'],['mada','Mada'],
+ ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular']
+];
 const TURKISH_FONTS=[['inter','Inter'],['lora','Lora'],['merriweather','Merriweather'],['montserrat','Montserrat'],['playfair','Playfair Display']];
+const ARABIC_SAMPLE='بِسْمِ اللّٰهِ';
+const LATIN_SAMPLE='Peygamber Efendimiz';
+const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha'};
+const LATIN_SAMPLE_FONTS={inter:'Inter',lora:'Lora',merriweather:'Merriweather',montserrat:'Montserrat',playfair:'Playfair Display'};
 function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
 function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
 const VOICE_PROFILES=[
@@ -658,23 +668,29 @@ const VOICE_PROFILES=[
  {name:'Akıcı Ses',rate:1.00,pitch:1.01}
 ];
 function getVoiceOptions(){
-  if(!('speechSynthesis' in window)) return [];
-  const all=speechSynthesis.getVoices().filter(v=>/^pt(?:-BR)?(?:$|-)/i.test(v.lang)||/^pt_/i.test(v.lang));
-  const score=v=>{const n=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();let s=0;if(lang==='pt-br')s+=60;else if(lang.startsWith('pt-br'))s+=40;if(/fernanda|francisca|helena|bruna|camila|joana|luciana|marcia|daniela/i.test(n))s+=35;if(/enhanced|premium|natural|neural|high quality|qualidade/i.test(n))s+=30;if(v.localService===false)s+=8;return s};
-  return [...all].sort((a,b)=>score(b)-score(a)).slice(0,5);
+ if(!('speechSynthesis' in window)) return [];
+ const all=speechSynthesis.getVoices().filter(v=>/^pt(?:-BR)?(?:$|-)/i.test(v.lang)||/^pt_/i.test(v.lang));
+ const score=v=>{const n=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();let s=0;if(lang==='pt-br')s+=60;else if(lang.startsWith('pt-br'))s+=40;if(/fernanda|francisca|helena|bruna|camila|joana|luciana|marcia|daniela/i.test(n))s+=35;if(/enhanced|premium|natural|neural|high quality|qualidade/i.test(n))s+=30;if(v.localService===false)s+=8;return s};
+ return [...all].sort((a,b)=>score(b)-score(a)).slice(0,5);
 }
 function setVoiceOption(i){localStorage.setItem('fazilet-voice-index',String(i));renderVoiceChoices()}
+function toggleSettingGroup(id){const group=document.getElementById(id);if(!group)return;group.classList.toggle('open')}
 function renderFontChoices(){
  const ar=document.getElementById('arabicFontChoices'),tr=document.getElementById('turkishFontChoices');
  const av=localStorage.getItem('fazilet-ar-font')||'amiri',tv=localStorage.getItem('fazilet-tr-font')||'lora';
- if(ar)ar.innerHTML=ARABIC_FONTS.map(([id,n])=>'<button class="'+(id===av?'active':'')+'" onclick="setArabicFont(\''+id+'\')">'+n+'</button>').join('');
- if(tr)tr.innerHTML=TURKISH_FONTS.map(([id,n])=>'<button class="'+(id===tv?'active':'')+'" onclick="setTurkishFont(\''+id+'\')">'+n+'</button>').join('');
+ if(ar)ar.innerHTML=ARABIC_FONTS.map(([id,n])=>'<button type="button" class="fontCard '+(id===av?'active':'')+'" onclick="setArabicFont(\''+id+'\')"><span class="arabicSample" style="font-family:\''+ARABIC_SAMPLE_FONTS[id]+'\',serif">'+ARABIC_SAMPLE+'</span><span class="fontName">'+n+'</span></button>').join('');
+ if(tr)tr.innerHTML=TURKISH_FONTS.map(([id,n])=>'<button type="button" class="fontCard '+(id===tv?'active':'')+'" onclick="setTurkishFont(\''+id+'\')"><span class="latinSample" style="font-family:\''+LATIN_SAMPLE_FONTS[id]+'\',serif">'+LATIN_SAMPLE+'</span><span class="fontName">'+n+'</span></button>').join('');
 }
 function renderVoiceChoices(){
-  const box=document.getElementById('voiceChoices');if(!box)return;
-  const voices=getVoiceOptions(), selected=Math.max(0,Math.min(4,Number(localStorage.getItem('fazilet-voice-index')||0)));
-  const labels=['Doğal Ses','Yumuşak Ses','Net Ses','Sakin Ses','Akıcı Ses'];
-  box.innerHTML=labels.map((n,i)=>'<button class="'+(i===selected?'active':'')+'" onclick="setVoiceOption('+i+')">🔊 '+n+(voices[i]?' • '+escapeHTML(voices[i].name):'')+'</button>').join('');
+ const box=document.getElementById('voiceChoices');if(!box)return;
+ const voices=getVoiceOptions(), selected=Math.max(0,Math.min(4,Number(localStorage.getItem('fazilet-voice-index')||0)));
+ box.innerHTML=VOICE_PROFILES.map((profile,i)=>{const v=voices[i];return '<div class="voiceCard '+(i===selected?'active':'')+'" onclick="setVoiceOption('+i+')"><div class="voiceMain"><span class="voiceName">🔊 '+profile.name+'</span><span class="voiceMeta">'+(v?escapeHTML(v.name)+' • '+escapeHTML(v.lang):'Brezilya Portekizcesi • profil '+(i+1))+'</span></div><button type="button" class="voiceTest" onclick="event.stopPropagation();testVoiceOption('+i+')">▶</button></div>'}).join('');
+}
+function testVoiceOption(i){
+ if(!('speechSynthesis' in window))return;
+ const text='Olá. Esta é uma demonstração da voz selecionada.';
+ const voices=getVoiceOptions(),v=voices[i]||voices[0]||getBestPortugueseVoice(),profile=VOICE_PROFILES[i]||VOICE_PROFILES[0];
+ const u=new SpeechSynthesisUtterance(text);u.lang=v?.lang||'pt-BR';if(v)u.voice=v;u.rate=profile.rate;u.pitch=profile.pitch;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u);
 }
 function updateSettingsUI(){
  applyTextScale();
