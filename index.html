@@ -12,6 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Changa:wght@400;600;700&family=Harmattan:wght@400;700&family=Katibeh&family=Lateef&family=Mada:wght@400;600;700&family=Markazi+Text:wght@400;500;600;700&family=Mirza:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;500;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Nunito:wght@400;600;700&family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
 @font-face{font-family:'Uthman Taha';src:url('fonts/KFGQPC Uthman Taha Naskh Regular/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'KoHo';src:local('KoHo');font-weight:100 900;font-style:normal;font-display:swap}
 
@@ -78,18 +79,69 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 @media(min-width:700px){body{padding:18px}.app{border-radius:34px;box-shadow:0 12px 50px #0002}}
 
 @font-face{font-family:'AmiriFazilet';src:url('fonts/Amiri-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
-.arabic,.arabic *,.arWord,.arabicWord{font-family:'AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}.font-uthman .arabic,.font-uthman .arabic *{font-family:"Uthman Taha",serif!important}.font-amiri .arabic,.font-amiri .arabic *{font-family:"AmiriFazilet","Amiri","Noto Naskh Arabic","Geeza Pro",serif!important}.font-system .arabic,.font-system .arabic *{font-family:"Geeza Pro","Noto Naskh Arabic",serif!important}
+.arabic,.arabic *,.arWord,.arabicWord{font-family:'AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}.legacy-font-uthman .arabic,.legacy-font-uthman .arabic *{font-family:"Uthman Taha",serif!important}.legacy-font-amiri .arabic,.legacy-font-amiri .arabic *{font-family:"AmiriFazilet","Amiri","Noto Naskh Arabic","Geeza Pro",serif!important}.legacy-font-system .arabic,.legacy-font-system .arabic *{font-family:"Geeza Pro","Noto Naskh Arabic",serif!important}
 
 .accArrow::before,.storyArrow::before{content:"";width:13px;height:13px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg) translateY(-2px);transform-origin:center}.accordion.open .accArrow{transform:rotate(180deg)}.story.open .storyArrow{transform:rotate(180deg)}
 .dayViewport{overflow:hidden;width:100%;position:relative}.dayTrack{display:flex;width:200%;transition:transform .32s ease}.dayPage{width:50%;flex:0 0 50%;overflow:hidden}.dayPage .header{padding-top:18px}.dayContent{position:relative}.dayContentPage{width:100%}.dayContentPage .section{margin-top:0}.dayPage .prayers{padding-bottom:8px}.dayPage .prayer{scroll-snap-align:center}
 .dayPage .prayers{overflow-x:auto}.dayPage .prayer{min-width:94px}
 .dayContentPage{animation:dayFade .2s ease}.dayPage{min-height:1px}@keyframes dayFade{from{opacity:.5;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
 
+
+/* 15 Arabic fonts + 5 Turkish text fonts */
+.arFont-uthman .arabic,.arFont-uthman .arabic *,.arFont-uthman .arWord{font-family:'Uthman Taha',serif!important}
+.trFont-koho .tr,.trFont-koho .tr *{font-family:'KoHo',sans-serif!important}
+.arabic,.arabic *,.arWord,.arabicWord{transition:font-family .15s ease}
+.arFont-amiri .arabic,.arFont-amiri .arabic *,.arFont-amiri .arWord{font-family:"Amiri",serif!important}
+.arFont-noto-naskh .arabic,.arFont-noto-naskh .arabic *,.arFont-noto-naskh .arWord{font-family:"Noto Naskh Arabic",serif!important}
+.arFont-noto-kufi .arabic,.arFont-noto-kufi .arabic *,.arFont-noto-kufi .arWord{font-family:"Noto Kufi Arabic",sans-serif!important}
+.arFont-cairo .arabic,.arFont-cairo .arabic *,.arFont-cairo .arWord{font-family:"Cairo",sans-serif!important}
+.arFont-tajawal .arabic,.arFont-tajawal .arabic *,.arFont-tajawal .arWord{font-family:"Tajawal",sans-serif!important}
+.arFont-scheherazade .arabic,.arFont-scheherazade .arabic *,.arFont-scheherazade .arWord{font-family:"Scheherazade New",serif!important}
+.arFont-lateef .arabic,.arFont-lateef .arabic *,.arFont-lateef .arWord{font-family:"Lateef",serif!important}
+.arFont-reem-kufi .arabic,.arFont-reem-kufi .arabic *,.arFont-reem-kufi .arWord{font-family:"Reem Kufi",sans-serif!important}
+.arFont-aref-ruqaa .arabic,.arFont-aref-ruqaa .arabic *,.arFont-aref-ruqaa .arWord{font-family:"Aref Ruqaa",serif!important}
+.arFont-harmattan .arabic,.arFont-harmattan .arabic *,.arFont-harmattan .arWord{font-family:"Harmattan",sans-serif!important}
+.arFont-katibeh .arabic,.arFont-katibeh .arabic *,.arFont-katibeh .arWord{font-family:"Katibeh",serif!important}
+.arFont-mirza .arabic,.arFont-mirza .arabic *,.arFont-mirza .arWord{font-family:"Mirza",serif!important}
+.arFont-markazi .arabic,.arFont-markazi .arabic *,.arFont-markazi .arWord{font-family:"Markazi Text",serif!important}
+.arFont-mada .arabic,.arFont-mada .arabic *,.arFont-mada .arWord{font-family:"Mada",sans-serif!important}
+.arFont-changa .arabic,.arFont-changa .arabic *,.arFont-changa .arWord{font-family:"Changa",sans-serif!important}
+.trFont-lora .tr,.trFont-lora .tr *{font-family:"Lora",serif!important}
+.trFont-merriweather .tr,.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
+.trFont-roboto .tr,.trFont-roboto .tr *{font-family:"Roboto",sans-serif!important}
+.trFont-open-sans .tr,.trFont-open-sans .tr *{font-family:"Open Sans",sans-serif!important}
+.trFont-nunito .tr,.trFont-nunito .tr *{font-family:"Nunito",sans-serif!important}
+.fontChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.fontChoices button,.voiceChoices button{border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:10px;padding:8px 7px;font:600 12px -apple-system,BlinkMacSystemFont,sans-serif}.fontChoices button.active,.voiceChoices button.active{background:#e7f1e9;border-color:#9fc4aa;color:#18553d}.voiceChoices{display:grid;grid-template-columns:1fr;gap:7px}
 .utilityPanel{display:none;position:fixed;inset:0;z-index:60;background:#3b26165c;padding:20px 14px;align-items:flex-start;justify-content:center;overflow:auto}.utilityPanel.show{display:flex}.utilityBox{width:min(500px,100%);margin-top:6vh;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 15px 40px #0004;padding:18px}.utilityTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px}.utilityTop h2{margin:0;font-size:21px}.utilityTop button{width:40px;height:40px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:24px}.settingGroup{padding:18px 0;border-bottom:1px solid #ead9bc}.settingGroup:last-child{border-bottom:0}.settingTitle{font-weight:700;margin-bottom:10px;color:var(--brown2)}.sizeRow{display:flex;align-items:center;justify-content:center;gap:20px}.sizeRow button,.fontRow button{border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:12px;padding:11px 15px;font-weight:700}.sizeRow button{font-size:17px}.fontRow{display:flex;gap:8px;flex-wrap:wrap}.fontRow button.active{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.malumatGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.malumatCard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fffdf8}.malumatCard img{display:block;width:100%;height:auto}.malumatCard div{padding:8px;font-weight:700;text-align:center}.storyText{line-height:1.65}.wordListItem{padding:11px 4px;border-bottom:1px solid #ead9bc;cursor:pointer}.wordListItem b{color:var(--brown2)}
 .textScale{font-size:var(--user-scale,1)}
 
 /* Daha kompakt telefon görünümü */
 .header{padding:12px 18px 0}.day{font-size:54px}.month,.week{font-size:14px}.hijri{font-size:14px;margin-top:11px}.menuBtn{width:44px;height:44px;right:16px;top:6px}.menuBtn span{font-size:22px}.ornament{height:32px;margin-top:2px}.prayer{min-width:86px;padding:7px 6px;border-radius:13px}.prayer .pname{font-size:12px}.prayer .ptime{font-size:18px;margin-top:4px}.next{font-size:12px;margin-bottom:14px}.section{margin:0 14px 13px}.hadithCard{padding:14px 14px;border-radius:16px}.arabic{font-size:21px;line-height:1.8}.hadithArabicPreview{font-size:20px!important;line-height:1.78!important}.hadithArabicHeader{padding:43px 12px 10px}.hadithAccordion .accordionContent{padding:0 9px 13px}.lang{margin-top:10px;padding:10px 11px;border-radius:12px}.langTitle{font-size:14px;margin-bottom:6px}.lang p,.ptSentence{font-size:15px;line-height:1.6}.storyContent .lang p,.storyContent .ptSentence{font-size:14.5px;line-height:1.62}.trSentence{font-size:12.5px;padding:6px 8px}.storyContent .trSentence{font-size:12.5px;padding:8px 9px}.storyTitle{font-size:18px}.storyHeader{padding:9px 2px 8px}.inlineWord{width:min(285px,calc(100% - 10px));padding:9px;border-radius:14px}.wordMeaning{font-size:15px!important}.bubble{height:46px;font-size:9.5px}.bubble i{width:21px;height:21px;line-height:21px;font-size:12px}.drawer{width:min(285px,82%);padding:16px 15px}.drawerTop h2{font-size:20px}.drawer a,.drawer button.item{font-size:15px;padding:14px 5px}
+.favArchiveItem{padding:12px 2px 14px;border-bottom:1px solid #ddcbaa}.favArchiveTitle{font-size:15px;line-height:1.55}.favNum{color:var(--brown2);font-weight:800}.favArabic{font-family:"Amiri",serif;font-size:17px;direction:rtl}.favEx{margin:7px 0 0 18px;padding:7px 9px;background:#f5eadb;border-left:3px solid var(--green);border-radius:8px;font-size:13px;line-height:1.6}.favEx b{color:var(--brown2)}.favEx span{color:#5b4d43}.utilityBox{max-height:88vh;overflow:auto}.settingGroup{padding:13px 0}.settingTitle{font-size:14px;margin-bottom:8px}.fontChoices button,.voiceChoices button{min-height:38px}@media(max-width:420px){.fontChoices{grid-template-columns:1fr 1fr}.fontChoices button,.voiceChoices button{font-size:11px;padding:7px 5px}}
+
+/* Final selected-font precedence */
+body[class*="arFont-"] .arabic,body[class*="arFont-"] .arabic *{font-family:inherit!important}
+body.arFont-uthman .arabic,body.arFont-uthman .arabic *{font-family:"Uthman Taha",serif!important}
+body.arFont-amiri .arabic,body.arFont-amiri .arabic *{font-family:"Amiri",serif!important}
+body.arFont-noto-naskh .arabic,body.arFont-noto-naskh .arabic *{font-family:"Noto Naskh Arabic",serif!important}
+body.arFont-noto-kufi .arabic,body.arFont-noto-kufi .arabic *{font-family:"Noto Kufi Arabic",sans-serif!important}
+body.arFont-cairo .arabic,body.arFont-cairo .arabic *{font-family:"Cairo",sans-serif!important}
+body.arFont-tajawal .arabic,body.arFont-tajawal .arabic *{font-family:"Tajawal",sans-serif!important}
+body.arFont-scheherazade .arabic,body.arFont-scheherazade .arabic *{font-family:"Scheherazade New",serif!important}
+body.arFont-lateef .arabic,body.arFont-lateef .arabic *{font-family:"Lateef",serif!important}
+body.arFont-reem-kufi .arabic,body.arFont-reem-kufi .arabic *{font-family:"Reem Kufi",sans-serif!important}
+body.arFont-aref-ruqaa .arabic,body.arFont-aref-ruqaa .arabic *{font-family:"Aref Ruqaa",serif!important}
+body.arFont-harmattan .arabic,body.arFont-harmattan .arabic *{font-family:"Harmattan",sans-serif!important}
+body.arFont-katibeh .arabic,body.arFont-katibeh .arabic *{font-family:"Katibeh",serif!important}
+body.arFont-mirza .arabic,body.arFont-mirza .arabic *{font-family:"Mirza",serif!important}
+body.arFont-markazi .arabic,body.arFont-markazi .arabic *{font-family:"Markazi Text",serif!important}
+body.arFont-mada .arabic,body.arFont-mada .arabic *{font-family:"Mada",sans-serif!important}
+body[class*="trFont-"] .tr,body[class*="trFont-"] .tr *{font-family:inherit!important}
+body.trFont-koho .tr,body.trFont-koho .tr *{font-family:"KoHo",sans-serif!important}
+body.trFont-lora .tr,body.trFont-lora .tr *{font-family:"Lora",serif!important}
+body.trFont-merriweather .tr,body.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
+body.trFont-roboto .tr,body.trFont-roboto .tr *{font-family:"Roboto",sans-serif!important}
+body.trFont-open-sans .tr,body.trFont-open-sans .tr *{font-family:"Open Sans",sans-serif!important}
 </style>
 </head>
 <body>
@@ -107,7 +159,9 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 <div class="utilityPanel" id="settingsPanel">
  <div class="utilityBox"><div class="utilityTop"><h2>Configurações</h2><button onclick="closeUtility('settingsPanel')">×</button></div>
  <div class="settingGroup"><div class="settingTitle">Tamanho do texto</div><div class="sizeRow"><button onclick="changeTextSize(-1)">A−</button><div id="sizeValue">100%</div><button onclick="changeTextSize(1)">A+</button></div></div>
- <div class="settingGroup"><div class="settingTitle">Fonte árabe</div><div class="fontRow"><button onclick="setArabicFont('uthman')">Uthman Taha</button><button onclick="setArabicFont('amiri')">Amiri</button><button onclick="setArabicFont('system')">Sistema</button></div></div>
+ <div class="settingGroup"><div class="settingTitle">Fonte árabe • 15 opções</div><div class="fontChoices" id="arabicFontChoices"></div></div>
+ <div class="settingGroup"><div class="settingTitle">Fonte Türkçe • 5 opções</div><div class="fontChoices" id="turkishFontChoices"></div></div>
+ <div class="settingGroup"><div class="settingTitle">Seslendirme • 5 opções</div><div class="voiceChoices" id="voiceChoices"></div></div>
  </div></div>
 <div class="utilityPanel" id="malumatPanel">
  <div class="utilityBox"><div class="utilityTop"><h2>Malumatlar</h2><button onclick="closeUtility('malumatPanel')">×</button></div>
@@ -182,10 +236,10 @@ const words={
 'Resûlullah Efendimiz':{ar:'رَسُولُ الله',pt:'Mensageiro de Allah',tr:'Resûlullah Efendimiz',example:'Resûlullah Efendimiz recomendou fazer o bem.',lang:'both'},
 'Allah':{ar:'الله',pt:'Allah',tr:'Allah / Allâhü Teâlâ',example:'Allah ama o bem e a misericórdia.',lang:'both'},
 'Allâhü Teâlâ':{ar:'الله تعالى',pt:'Allah, o Altíssimo',tr:'Allâhü Teâlâ',example:'Allah, o Altíssimo, criou o bem.',lang:'both'},
-'bem':{ar:'مَعْرُوف',pt:'bem',tr:'iyilik',example:'Fazer o bem é uma virtude.'},
-'pessoas':{ar:'أَشْخَاص',pt:'pessoas',tr:'insanlar / kimseler',example:'As pessoas ajudam umas às outras.'},
+'bem':{ar:'مَعْرُوف',pt:'bem',tr:'iyilik',example:'Fazer o bem é uma virtude.',exampleTr:'İyilik yapmak bir fazilettir.'},
+'pessoas':{ar:'أَشْخَاص',pt:'pessoas',tr:'insanlar / kimseler',example:'As pessoas ajudam umas às outras.',exampleTr:'İnsanlar birbirlerine yardım eder.'},
 'boas ações':{ar:'أَعْمَال صَالِحَة',pt:'boas ações',tr:'iyi ameller',example:'As boas ações aproximam o servo de Allah.'},
-'água':{ar:'مَاء',pt:'água',tr:'su',example:'A água é uma bênção de Allah.'},
+'água':{ar:'مَاء',pt:'água',tr:'su',example:'A água é uma bênção de Allah.',exampleTr:'Su, Allah’ın bir nimetidir.'},
 'iyiliği':{ar:'الْمَعْرُوف',pt:'bem / bondade',tr:'iyiliği',example:'Allah criou o bem e fez com que as pessoas o amassem.'},
 'ehil kimseler':{ar:'أَهْل',pt:'pessoas dignas',tr:'ehil kimseler',example:'Há pessoas dignas que amam fazer o bem.'},
 'iyilik yapmayı':{ar:'فِعَالَهُ',pt:'fazer o bem',tr:'iyilik yapmayı',example:'Ele gosta de fazer o bem.'},
@@ -213,7 +267,8 @@ const words={
 'sorumluluk':{ar:'مَسْؤُولِيَّة',pt:'responsabilidade',tr:'sorumluluk',example:'A responsabilidade é uma confiança.'},
 'elevar':{ar:'رَفَعَ',pt:'elevar',tr:'yüceltmek',example:'Devemos elevar os valores do Islã.'},
 'devoto':{ar:'عَابِد',pt:'devoto',tr:'âbid',example:'O devoto adora Allah com sinceridade.'},
-'conhecimento':{ar:'عِلْم',pt:'conhecimento',tr:'ilim',example:'O conhecimento ilumina o coração.'},
+'conhecimento':{ar:'عِلْم',pt:'conhecimento',tr:'ilim',example:'O conhecimento ilumina o coração.',exampleTr:'İlim kalbi aydınlatır.'},
+'conhecimentos':{ar:'عُلُوم',pt:'Conhecimentos',tr:'ilimler',example:'Tem que aprender conhecimentos.',exampleTr:'İlim öğrenmek gerekir.'},
 'espiritualidade':{ar:'رُوحَانِيَّة',pt:'espiritualidade',tr:'maneviyat',example:'A espiritualidade dá vida ao coração.'},
 'Âlim':{ar:'عَالِم',pt:'sábio',tr:'âlim',example:'O âlim deve agir de acordo com seu conhecimento.'},
 'âbid':{ar:'عَابِد',pt:'devoto',tr:'âbid',example:'O âbid dedica-se à adoração.'},
@@ -347,7 +402,7 @@ function speakCurrent(){
  const pron=activeWordPanel?.querySelector('.pronunciationBox');
  if(pron){pron.textContent='Pronúncia: '+pronunciation(currentKey);pron.classList.add('show');}
  if(!('speechSynthesis' in window)) return;
- const speak=()=>{const u=new SpeechSynthesisUtterance(w.pt||currentKey);const voice=getBestPortugueseVoice();u.lang=voice?.lang||'pt-BR';if(voice)u.voice=voice;u.rate=.84;u.pitch=.98;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u);};
+ const speak=()=>{const u=new SpeechSynthesisUtterance(w.pt||currentKey);const options=getVoiceOptions();const selected=Math.max(0,Math.min(4,Number(localStorage.getItem('fazilet-voice-index')||0)));const voice=options[selected]||getBestPortugueseVoice();u.lang=voice?.lang||'pt-BR';if(voice)u.voice=voice;const profiles=[.84,.78,.88,.82,.92];const pitches=[.98,1.02,1.00,.96,1.01];u.rate=profiles[selected]||.84;u.pitch=pitches[selected]||.98;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u);};
  const voices=speechSynthesis.getVoices();
  if(!voices.length){const old=speechSynthesis.onvoiceschanged;speechSynthesis.onvoiceschanged=()=>{speechSynthesis.onvoiceschanged=old||null;speak()};setTimeout(speak,600)}else speak();
 }
@@ -386,9 +441,19 @@ function openMenu(){document.getElementById('drawer').classList.add('show');docu
 function closeMenu(){document.getElementById('drawer').classList.remove('show');document.getElementById('shade').classList.remove('show');document.body.style.overflow=''}
 function goHome(){closeMenu();document.getElementById('favorites').classList.remove('show');scrollTo(0,0)}
 function showFavorites(){
- closeMenu();const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');const box=document.getElementById('favList');
- box.innerHTML=fav.length?fav.map(k=>{const w=getWordData(k)||{pt:k,tr:'',ar:''};return '<div style="padding:10px 0;border-bottom:1px solid #ddcbaa"><b>'+escapeHTML(w.pt||k)+'</b> → '+escapeHTML(w.tr||'')+'</div>'}).join(''):'<div class="favEmpty">Ainda não há palavras salvas.</div>';
- document.getElementById('favorites').classList.add('show');document.getElementById('favorites').scrollIntoView({behavior:'smooth'});
+ closeMenu();
+ const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
+ const box=document.getElementById('favList');
+ if(!fav.length){box.innerHTML='<div class="favEmpty">Ainda não há palavras salvas.</div>';}else{
+   box.innerHTML=fav.map((k,i)=>{
+     const w=getWordData(k)||{pt:k,tr:'',ar:'',example:'',exampleTr:''};
+     const exPt=w.example||('A palavra "'+k+'" aparece nesta frase.');
+     const exTr=w.exampleTr||('Bu cümlede “'+(w.tr||k)+'” anlamı kullanılmıştır.');
+     return '<div class="favArchiveItem"><div class="favArchiveTitle"><span class="favNum">'+(i+1)+'.</span> <b>'+escapeHTML(w.pt||k)+'</b> - <span>'+escapeHTML(w.tr||'')+'</span> - <span class="favArabic">'+escapeHTML(w.ar||'')+'</span></div><div class="favEx"><b>Ex:</b><br>• '+escapeHTML(exPt)+'<br><span>'+escapeHTML(exTr)+'</span></div></div>';
+   }).join('');
+ }
+ document.getElementById('favorites').classList.add('show');
+ document.getElementById('favorites').scrollIntoView({behavior:'smooth'});
 }
 function toggleStory(id='story'){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
 function toggleAccordion(id){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
@@ -489,12 +554,43 @@ function closeUtility(id){const el=document.getElementById(id);if(el)el.classLis
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeUtility('settingsPanel');closeUtility('malumatPanel')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeUtility('settingsPanel');closeUtility('malumatPanel');}});
 document.querySelectorAll('.utilityPanel').forEach(p=>p.addEventListener('click',e=>{if(e.target===p)p.classList.remove('show')}));
-function showSettings(){closeMenu();document.getElementById('settingsPanel').classList.add('show');updateSettingsUI()}
+
+const ARABIC_FONTS=[
+ ['uthman','Uthman Taha'],['amiri','Amiri'],['noto-naskh','Noto Naskh Arabic'],['noto-kufi','Noto Kufi Arabic'],['cairo','Cairo'],['tajawal','Tajawal'],['scheherazade','Scheherazade New'],['lateef','Lateef'],['reem-kufi','Reem Kufi'],['aref-ruqaa','Aref Ruqaa'],['harmattan','Harmattan'],['katibeh','Katibeh'],['mirza','Mirza'],['markazi','Markazi Text'],['mada','Mada']
+];
+const TURKISH_FONTS=[['koho','KoHo'],['lora','Lora'],['merriweather','Merriweather'],['roboto','Roboto'],['open-sans','Open Sans']];
+function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
+function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
+function getVoiceOptions(){
+ if(!('speechSynthesis' in window)) return [];
+ const all=speechSynthesis.getVoices().filter(v=>/^pt(?:-BR)?(?:$|-)/i.test(v.lang)||/^pt_/i.test(v.lang));
+ const score=v=>{const n=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();let s=0;if(lang==='pt-br')s+=60;else if(lang.startsWith('pt-br'))s+=40;if(/fernanda|francisca|helena|bruna|camila|joana|luciana|marcia/i.test(n))s+=35;if(/enhanced|premium|natural|neural|high quality|qualidade/i.test(n))s+=20;if(v.localService===false)s+=5;return s};
+ return [...all].sort((a,b)=>score(b)-score(a)).slice(0,5);
+}
+function setVoiceOption(i){localStorage.setItem('fazilet-voice-index',String(i));renderVoiceChoices()}
+function renderFontChoices(){
+ const ar=document.getElementById('arabicFontChoices'),tr=document.getElementById('turkishFontChoices');
+ const av=localStorage.getItem('fazilet-ar-font')||'amiri',tv=localStorage.getItem('fazilet-tr-font')||'lora';
+ if(ar)ar.innerHTML=ARABIC_FONTS.map(([id,n])=>'<button class="'+(id===av?'active':'')+'" onclick="setArabicFont(\''+id+'\')">'+n+'</button>').join('');
+ if(tr)tr.innerHTML=TURKISH_FONTS.map(([id,n])=>'<button class="'+(id===tv?'active':'')+'" onclick="setTurkishFont(\''+id+'\')">'+n+'</button>').join('');
+}
+function renderVoiceChoices(){
+ const box=document.getElementById('voiceChoices');if(!box)return;
+ const voices=getVoiceOptions(), selected=Number(localStorage.getItem('fazilet-voice-index')||0);
+ const labels=voices.length?voices.map((v,i)=>(i+1)+'. '+v.name):['1. Doğal Ses','2. Yumuşak Ses','3. Net Ses','4. Sakin Ses','5. Akıcı Ses'];
+ box.innerHTML=labels.slice(0,5).map((n,i)=>'<button class="'+(i===selected?'active':'')+'" onclick="setVoiceOption('+i+')">🔊 '+escapeHTML(n)+'</button>').join('');
+}
+function updateSettingsUI(){
+ applyTextScale();
+ const av=localStorage.getItem('fazilet-ar-font')||'amiri',tv=localStorage.getItem('fazilet-tr-font')||'lora';
+ ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));
+ document.body.classList.add('arFont-'+av,'trFont-'+tv);
+ renderFontChoices();renderVoiceChoices();
+}
+function showSettings(){closeMenu();document.getElementById('settingsPanel').classList.add('show');updateSettingsUI();if('speechSynthesis' in window){const old=speechSynthesis.onvoiceschanged;speechSynthesis.onvoiceschanged=()=>{speechSynthesis.onvoiceschanged=old||null;renderVoiceChoices()};setTimeout(renderVoiceChoices,500)}}
 function showMalumatlar(){closeMenu();document.getElementById('malumatPanel').classList.add('show')}
 function applyTextScale(){const v=Number(localStorage.getItem('fazilet-text-scale')||100);document.documentElement.style.setProperty('--user-scale',(v/100).toFixed(2));const sizeEl=document.getElementById('sizeValue'); if(sizeEl) sizeEl.textContent=v+'%'}
 function changeTextSize(dir){let v=Number(localStorage.getItem('fazilet-text-scale')||100);v=Math.max(85,Math.min(115,v+dir*5));localStorage.setItem('fazilet-text-scale',v);applyTextScale()}
-function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);const cls=document.body;cls.classList.remove('font-uthman','font-amiri','font-system');cls.classList.add('font-'+name);updateSettingsUI()}
-function updateSettingsUI(){applyTextScale();const name=localStorage.getItem('fazilet-ar-font')||'amiri';document.body.classList.remove('font-uthman','font-amiri','font-system');document.body.classList.add('font-'+name);document.querySelectorAll('.fontRow button').forEach(b=>b.classList.remove('active'));const map={'Uthman Taha':'uthman','Amiri':'amiri','Sistema':'system'};document.querySelectorAll('.fontRow button').forEach(b=>{if(map[b.textContent]===name)b.classList.add('active')})}
 function showWords(){
  closeMenu();
  document.getElementById('favorites').classList.remove('show');
