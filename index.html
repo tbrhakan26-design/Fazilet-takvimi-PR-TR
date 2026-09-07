@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@400;700&family=Amiri:wght@400;700&family=Lateef:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa+Ink:wght@400;700&family=Cairo:wght@400;600;700&family=Changa:wght@400;600;700&family=El+Messiri:wght@400;600;700&family=Harmattan:wght@400;700&family=Katibeh&family=Lateef:wght@400;500;600;700&family=Mada:wght@400;600;700&family=Markazi+Text:wght@400;600;700&family=Mirza:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Scheherazade+New:wght@400;500;600;700&family=Tajawal:wght@400;500;700&family=Inter:wght@400;600;700&family=Lora:wght@400;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 @font-face{font-family:'KoHo';src:local('KoHo');font-weight:100 900;font-style:normal;font-display:swap}
 
 :root{--cream:#fbf2df;--paper:#fffaf0;--brown:#5a2d12;--brown2:#7b401b;--green:#23664c;--orange:#e9791b;--blue:#2875c6;--line:#dcc5a0;--shadow:0 7px 22px rgba(75,39,15,.13)}
@@ -81,13 +81,23 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 @media(max-width:520px){.inlineWord{font-size:14px}.wordMeaning{font-size:17px!important}.bubble{height:54px;font-size:10.5px}.bubble i{width:23px;height:23px;line-height:23px}.storyContent .lang p,.hadithAccordion .lang p{font-size:16px}}
 @media(min-width:700px){body{padding:18px}.app{border-radius:34px;box-shadow:0 12px 50px #0002}}
 
-.arabic,.arabic *,.arWord,.arabicWord{font-family:'Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}
+/* Yazı stilleri */
+.arabic,.arabic *,.arWord,.arabicWord{font-family:'Amiri',serif!important;font-weight:400}
 body.arabic-font-amiri .arabic,body.arabic-font-amiri .arabic *{font-family:'Amiri',serif!important}
 body.arabic-font-naskh .arabic,body.arabic-font-naskh .arabic *{font-family:'Noto Naskh Arabic',serif!important}
 body.arabic-font-scheherazade .arabic,body.arabic-font-scheherazade .arabic *{font-family:'Scheherazade New',serif!important}
-body.arabic-font-lateef .arabic,body.arabic-font-lateef .arabic *{font-family:'Lateef',serif!important;font-size:1.12em}
-body.arabic-font-sulus .arabic,body.arabic-font-sulus .arabic *{font-family:'Aref Ruqaa Ink',serif!important;font-weight:700!important;font-size:1.08em!important}
-@font-face{font-family:'KFGQPC Uthman Taha Naskh Regular';src:url('fonts/KFGQPC Uthman Taha Naskh Regular/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+body.arabic-font-lateef .arabic,body.arabic-font-lateef .arabic *{font-family:'Lateef',serif!important;font-size:1.08em}
+body.arabic-font-sulus .arabic,body.arabic-font-sulus .arabic *{font-family:'Aref Ruqaa Ink',serif!important}
+body.arabic-font-cairo .arabic,body.arabic-font-cairo .arabic *{font-family:'Cairo',sans-serif!important}
+body.arabic-font-changa .arabic,body.arabic-font-changa .arabic *{font-family:'Changa',sans-serif!important}
+body.arabic-font-elmessiri .arabic,body.arabic-font-elmessiri .arabic *{font-family:'El Messiri',sans-serif!important}
+body.arabic-font-harmattan .arabic,body.arabic-font-harmattan .arabic *{font-family:'Harmattan',sans-serif!important}
+body.arabic-font-mada .arabic,body.arabic-font-mada .arabic *{font-family:'Mada',sans-serif!important}
+body.arabic-font-markazi .arabic,body.arabic-font-markazi .arabic *{font-family:'Markazi Text',serif!important}
+body.arabic-font-mirza .arabic,body.arabic-font-mirza .arabic *{font-family:'Mirza',serif!important}
+body.arabic-font-reem .arabic,body.arabic-font-reem .arabic *{font-family:'Reem Kufi',sans-serif!important}
+body.arabic-font-ruqaa .arabic,body.arabic-font-ruqaa .arabic *{font-family:'Aref Ruqaa Ink',serif!important}
+body.arabic-font-uthman .arabic,body.arabic-font-uthman .arabic *{font-family:'Noto Naskh Arabic',serif!important}
 body.arabic-font-uthman .arabic,body.arabic-font-uthman .arabic *{font-family:'KFGQPC Uthman Taha Naskh Regular',serif!important}
 .accArrow::before,.storyArrow::before{content:"";width:13px;height:13px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg) translateY(-2px);transform-origin:center}.accordion.open .accArrow{transform:rotate(180deg)}.story.open .storyArrow{transform:rotate(180deg)}
 .dayViewport{overflow:hidden;width:100%;position:relative}.dayTrack{display:flex;width:200%;transition:transform .32s ease}.dayPage{width:50%;flex:0 0 50%;overflow:hidden}.dayPage .header{padding-top:18px}.dayContent{position:relative}.dayContentPage{width:100%}.dayContentPage .section{margin-top:0}.dayPage .prayers{padding-bottom:8px}.dayPage .prayer{scroll-snap-align:center}
@@ -100,6 +110,13 @@ body.arabic-font-uthman .arabic,body.arabic-font-uthman .arabic *{font-family:'K
 .settingsPage{display:none;position:fixed;inset:0;z-index:65;background:var(--cream);overflow:hidden}.settingsPage.show{display:block;animation:malFade .18s ease-out}.settingsBody{height:calc(100% - 72px);overflow-y:auto;padding:18px 16px 40px}.settingsCard{max-width:510px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 5px 16px rgba(75,39,15,.10)}.settingsTitle{font-size:21px;font-weight:800;color:var(--green);margin:0 0 6px}.settingsDesc{font-size:14px;color:#75685d;line-height:1.55;margin:0 0 16px}.fontChoices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fontChoice{border:1px solid var(--line);border-radius:14px;background:#fffaf0;padding:12px;text-align:center;color:var(--brown);cursor:pointer}.fontChoice.active{border:2px solid var(--orange);background:#fff1dc}.fontChoice .sample{display:block;direction:rtl;font-size:25px;line-height:1.5;margin-bottom:5px}.fontChoice .name{font:700 13px KoHo,sans-serif}.malumatIntro{max-width:510px;margin:0 auto 15px;background:#fffaf0;border:1px solid var(--line);border-radius:16px;padding:13px 14px;color:#5c4d40;font-size:14px;line-height:1.55}.imageViewer{position:fixed;inset:0;z-index:80;background:#111;display:none;flex-direction:column}.imageViewer.show{display:flex}.imageViewerTop{height:64px;display:flex;align-items:center;gap:10px;padding:8px 12px;background:#21170f;color:#fff}.imageViewerTop button{width:44px;height:44px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font:30px/40px -apple-system,BlinkMacSystemFont,sans-serif}.imageViewerTop span{font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.imageViewerBody{flex:1;display:flex;align-items:center;justify-content:center;padding:10px;overflow:auto}.imageViewerBody img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px}.malumatCard{cursor:pointer}.malumatPdf{cursor:pointer}
 
 
+
+.hadithAccordion .arabic,.hadithArabicPreview{color:#9bcf68!important}
+.hadithAccordion .ptSentence{color:#5a2d12!important;font-weight:600}
+.savedHighlight{padding:1px 4px;border-radius:6px;font-weight:800;box-shadow:0 0 0 1px currentColor inset}
+.savedHighlight.saved0{background:#f6c6c6;color:#7b2020}.savedHighlight.saved1{background:#c7def5;color:#174d79}.savedHighlight.saved2{background:#cde8bf;color:#285d27}.savedHighlight.saved3{background:#f2d49d;color:#744b10}.savedHighlight.saved4{background:#dec8ef;color:#59347b}.savedHighlight.saved5{background:#bfe5e1;color:#145b58}.savedHighlight.saved6{background:#f1c5d9;color:#713052}.savedHighlight.saved7{background:#ddd9ae;color:#5d5b22}.savedHighlight.saved8{background:#cfd6f2;color:#35457e}.savedHighlight.saved9{background:#f1c7a8;color:#7a3d16}.savedHighlight.saved10{background:#c7e6d7;color:#1c5b40}.savedHighlight.saved11{background:#e8d1ba;color:#6b4324}.savedHighlight.saved12{background:#d4e7ee;color:#28576c}.savedHighlight.saved13{background:#ead4e0;color:#6b3c57}.savedHighlight.saved14{background:#d9dfc2;color:#4e5e25}
+.favorites{display:none;position:fixed;inset:0;z-index:75;background:var(--cream);overflow:hidden}.favorites.show{display:block;animation:malFade .18s ease-out}.favBody{height:calc(100% - 72px);overflow-y:auto;padding:18px 16px 40px}.favCard{max-width:510px;margin:0 auto 12px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:13px 14px;box-shadow:0 4px 14px rgba(75,39,15,.08)}.favNumber{font-weight:800;color:var(--orange);font-size:15px;margin-bottom:7px}.favPt{font-size:18px;font-weight:800;color:var(--brown)}.favAr{direction:rtl;text-align:right;font-size:23px;line-height:1.7;margin-top:6px;color:#4f8d38}.favTr{font-size:16px;line-height:1.6;margin-top:5px;color:#5a4b3f}
+body.latin-font-inter{font-family:'Inter',sans-serif!important}body.latin-font-lora{font-family:'Lora',serif!important}body.latin-font-merriweather{font-family:'Merriweather',serif!important}body.latin-font-montserrat{font-family:'Montserrat',sans-serif!important}body.latin-font-playfair{font-family:'Playfair Display',serif!important}
 </style>
 </head>
 <body>
@@ -110,15 +127,14 @@ body.arabic-font-uthman .arabic,body.arabic-font-uthman .arabic *{font-family:'K
 
 <div class="dayContent" id="dayContent"></div>
 
-<div class="favorites" id="favorites"><div class="section"><div class="sectionHead"><span class="book">🔖</span><h2>Minhas Palavras Favoritas</h2></div><div id="favList" class="storyText"></div></div></div>
+<div class="favorites" id="favorites"><div class="malumatTop"><button class="malumatBack" onclick="closeFavorites()" aria-label="Geri">‹</button><h2>🔖 Kelimelerim</h2></div><div class="favBody"><div id="favList"></div></div></div>
 </div>
 
 <div class="drawerShade" id="shade" onclick="closeMenu()"></div>
 <aside class="drawer" id="drawer">
  <div class="drawerTop"><h2>Menu</h2><button class="closeMenu" onclick="closeMenu()">×</button></div>
  <button class="item" onclick="goHome()">⌂ &nbsp; Página Inicial</button>
- <button class="item" onclick="showFavorites()">🔤 &nbsp; Palavras</button>
- <button class="item" onclick="showFavorites()">♡ &nbsp; Palavras Favoritas <span class="favCount" id="favCount"></span></button>
+  <button class="item" onclick="showFavorites()">🔖 &nbsp; Kaydettiğim Kelimeler <span class="favCount" id="favCount"></span></button>
  <button class="item" onclick="openMalumat()">📚 &nbsp; Mâlumatlar</button>
  <button class="item" onclick="openSettings()">⚙ &nbsp; Configurações</button>
 </aside>
@@ -146,14 +162,9 @@ body.arabic-font-uthman .arabic,body.arabic-font-uthman .arabic *{font-family:'K
   <div class="settingsCard">
    <div class="settingsTitle">Estilo de escrita árabe</div>
    <p class="settingsDesc">Escolha aqui, quando quiser, o estilo dos textos árabes do calendário. A sua escolha fica salva no telefone.</p>
-   <div class="fontChoices">
-    <button class="fontChoice" data-font="amiri" onclick="setArabicFont('amiri')"><span class="sample" style="font-family:Amiri">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Amiri</span></button>
-    <button class="fontChoice" data-font="naskh" onclick="setArabicFont('naskh')"><span class="sample" style="font-family:'Noto Naskh Arabic'">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Noto Naskh Arabic</span></button>
-    <button class="fontChoice" data-font="scheherazade" onclick="setArabicFont('scheherazade')"><span class="sample" style="font-family:'Scheherazade New'">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Scheherazade New</span></button>
-    <button class="fontChoice" data-font="lateef" onclick="setArabicFont('lateef')"><span class="sample" style="font-family:Lateef">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Lateef</span></button>
-    <button class="fontChoice" data-font="sulus" onclick="setArabicFont('sulus')"><span class="sample" style="font-family:'Aref Ruqaa Ink'">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Sülüs</span></button>
-    <button class="fontChoice" data-font="uthman" onclick="setArabicFont('uthman')"><span class="sample" style="font-family:'KFGQPC Uthman Taha Naskh Regular'">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">KFGQPC Uthman Taha Naskh Regular</span></button>
-   </div>
+   <div class="settingsTitle">Arapça yazı stili</div>
+   <p class="settingsDesc">Takvimdeki Arapça metin için 15 farklı yazı stilinden birini seç.</p>
+   <div class="fontChoices"><button class="fontChoice" data-font="amiri" onclick="setArabicFont('amiri')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Amiri</span></button><button class="fontChoice" data-font="naskh" onclick="setArabicFont('naskh')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Noto Naskh Arabic</span></button><button class="fontChoice" data-font="scheherazade" onclick="setArabicFont('scheherazade')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Scheherazade New</span></button><button class="fontChoice" data-font="lateef" onclick="setArabicFont('lateef')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Lateef</span></button><button class="fontChoice" data-font="sulus" onclick="setArabicFont('sulus')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Sülüs</span></button><button class="fontChoice" data-font="cairo" onclick="setArabicFont('cairo')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Cairo</span></button><button class="fontChoice" data-font="changa" onclick="setArabicFont('changa')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Changa</span></button><button class="fontChoice" data-font="elmessiri" onclick="setArabicFont('elmessiri')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">El Messiri</span></button><button class="fontChoice" data-font="harmattan" onclick="setArabicFont('harmattan')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Harmattan</span></button><button class="fontChoice" data-font="mada" onclick="setArabicFont('mada')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Mada</span></button><button class="fontChoice" data-font="markazi" onclick="setArabicFont('markazi')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Markazi Text</span></button><button class="fontChoice" data-font="mirza" onclick="setArabicFont('mirza')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Mirza</span></button><button class="fontChoice" data-font="reem" onclick="setArabicFont('reem')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Reem Kufi</span></button><button class="fontChoice" data-font="ruqaa" onclick="setArabicFont('ruqaa')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">Ruqaa</span></button><button class="fontChoice" data-font="uthman" onclick="setArabicFont('uthman')"><span class="sample">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيمِ</span><span class="name">KFGQPC Uthman Taha Naskh Regular</span></button></div><div class="settingsTitle" style="margin-top:22px">Latin yazı stili</div><p class="settingsDesc">Portekizce ve diğer Latin metinler için 5 stil.</p><div class="fontChoices latinChoices"><button class="fontChoice" data-latin-font="inter" onclick="setLatinFont('inter')"><span class="sample" style="direction:ltr;font-family:'Inter'">Fazilet Takvimi</span><span class="name">Inter</span></button><button class="fontChoice" data-latin-font="lora" onclick="setLatinFont('lora')"><span class="sample" style="direction:ltr;font-family:'Lora'">Fazilet Takvimi</span><span class="name">Lora</span></button><button class="fontChoice" data-latin-font="merriweather" onclick="setLatinFont('merriweather')"><span class="sample" style="direction:ltr;font-family:'Merriweather'">Fazilet Takvimi</span><span class="name">Merriweather</span></button><button class="fontChoice" data-latin-font="montserrat" onclick="setLatinFont('montserrat')"><span class="sample" style="direction:ltr;font-family:'Montserrat'">Fazilet Takvimi</span><span class="name">Montserrat</span></button><button class="fontChoice" data-latin-font="playfair" onclick="setLatinFont('playfair')"><span class="sample" style="direction:ltr;font-family:'Playfair Display'">Fazilet Takvimi</span><span class="name">Playfair Display</span></button></div>
   </div>
  </div>
 </div>
@@ -339,7 +350,7 @@ async function selectWord(el){
  const pron=activeWordPanel.querySelector('.pronunciationBox');
  const saveBtn=activeWordPanel.querySelector('.bubble.k');
  const w=getWordData(currentKey);
- if(meaning) meaning.innerHTML='<b>'+escapeHTML(w?.tr || 'Anlam aranıyor…')+'</b>';
+ if(meaning) meaning.innerHTML='<b>'+escapeHTML(w?.pt || currentKey)+'</b><small style="display:block;direction:rtl;color:#4f8d38;font-size:20px;margin:3px 0">'+escapeHTML(w?.ar || '')+'</small><span style="display:block;color:#5a4b3f">'+escapeHTML(w?.tr || 'Anlam aranıyor…')+'</span>';
  if(example){example.classList.remove('show');example.innerHTML='';}
  if(pron){pron.classList.remove('show');pron.textContent='';}
  const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
@@ -351,7 +362,7 @@ async function selectWord(el){
    const tr=await translatePTtoTR(currentKey);
    el.classList.remove('loading');
    if(el.classList.contains('selected') && activeWordPanel?.classList.contains('show') && currentKey===el.dataset.key){
-     if(meaning) meaning.innerHTML='<b>'+escapeHTML(tr)+'</b>';
+     if(meaning) meaning.innerHTML='<b>'+escapeHTML(w?.pt || currentKey)+'</b><span style="display:block;color:#5a4b3f">'+escapeHTML(tr)+'</span>';
      positionWordPanel(el,activeWordPanel,root);
    }
  }
@@ -381,6 +392,19 @@ function getWordData(key){
  return found?words[found]:null;
 }
 const translationCache=JSON.parse(localStorage.getItem('fazilet-translations')||'{}');
+async function translatePTtoAR(word){
+ const clean=String(word).trim(); if(!clean) return '';
+ const cacheKey='ar:'+clean.toLowerCase();
+ if(translationCache[cacheKey]) return translationCache[cacheKey];
+ try{
+   const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(clean)+'&langpair=pt|ar';
+   const res=await fetch(url,{headers:{'Accept':'application/json'}});
+   const data=await res.json();
+   const ar=data?.responseData?.translatedText?.trim();
+   if(ar){translationCache[cacheKey]=ar;localStorage.setItem('fazilet-translations',JSON.stringify(translationCache));return ar;}
+ }catch(e){}
+ return '';
+}
 async function translatePTtoTR(word){
  const clean=String(word).trim(); if(!clean) return '';
  const cacheKey=clean.toLowerCase();
@@ -452,18 +476,24 @@ function showExample(){
  b.innerHTML='<b>'+escapeHTML(ptExample)+'</b><span class="exTr">'+escapeHTML(trText)+'</span>';
  b.classList.add('show'); if(activeWordElement) positionWordPanel(activeWordElement,activeWordPanel,activeWordPanel.closest('.hadithCard,.story'));
 }
-function saveCurrent(){
+async function saveCurrent(){
  const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
- if(!fav.includes(currentKey)){fav.push(currentKey);localStorage.setItem('fazilet-favs',JSON.stringify(fav));}
+ const w=getWordData(currentKey)||{pt:currentKey,tr:'',ar:''};
+ if(!w.tr){w.tr=translationCache[String(currentKey).trim().toLowerCase()]||await translatePTtoTR(currentKey);}
+ if(!w.ar){w.ar=await translatePTtoAR(w.pt||currentKey);}
+ if(!fav.some(x=>x===currentKey)){
+   const record={key:currentKey,pt:w.pt||currentKey,tr:w.tr||'',ar:w.ar||'',color:fav.length%15};
+   fav.push(record);
+   localStorage.setItem('fazilet-favs',JSON.stringify(fav));
+ }else{
+   localStorage.setItem('fazilet-favs',JSON.stringify(fav));
+ }
  applySavedWordColors();
  updateFavCount();
+ renderSavedHighlights();
+ showFavorites(true);
  const btn=activeWordPanel?.querySelector('.bubble.k');
- if(btn){
-   btn.classList.add('saved');
-   btn.innerHTML='<i>✓</i>Salvo';
-   clearTimeout(btn._savedTimer);
-   btn._savedTimer=setTimeout(()=>{btn.classList.remove('saved');btn.innerHTML='<i>🔖</i>Salvar'},1400);
- }
+ if(btn){btn.classList.add('saved');btn.innerHTML='<i>✓</i>Kaydedildi';}
 }
 document.addEventListener('click',e=>{
  if(e.target.closest('.term.tap')||e.target.closest('.inlineWord')) return;
@@ -471,23 +501,59 @@ document.addEventListener('click',e=>{
  document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
 });
 
+function normalizeText(v){return String(v||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function favoriteRecords(){
+ const raw=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
+ return raw.map((x,i)=>typeof x==='string'?({key:x,pt:getWordData(x)?.pt||x,tr:getWordData(x)?.tr||'',ar:getWordData(x)?.ar||'',color:i%15}):({...x,color:Number.isFinite(x.color)?x.color:i%15}));
+}
+function saveFavoriteRecords(list){localStorage.setItem('fazilet-favs',JSON.stringify(list));}
 function applySavedWordColors(){
- const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
- document.querySelectorAll('.term.tap').forEach(el=>{
-   const key=el.dataset.key||''; const idx=fav.indexOf(key);
-   el.classList.remove('savedWord','saved0','saved1','saved2','saved3','saved4','saved5','saved6','saved7');
-   if(idx>=0){el.classList.add('savedWord','saved'+(idx%8));}
+ const fav=favoriteRecords();
+ document.querySelectorAll('.term').forEach(el=>{
+   const key=el.dataset.key||el.textContent.trim();
+   const rec=fav.find(x=>normalizeText(x.key)===normalizeText(key)||normalizeText(x.pt)===normalizeText(key));
+   el.classList.remove('savedWord');for(let i=0;i<15;i++)el.classList.remove('saved'+i);
+   if(rec){el.classList.add('savedWord','saved'+(rec.color%15));}
  });
 }
-function updateFavCount(){const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
+function wrapSavedOccurrence(container, target, rec){
+ if(!target || !container || container.closest('.inlineWord')) return;
+ const wanted=normalizeText(target);
+ if(!wanted) return;
+ const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
+ const nodes=[];let n;
+ while(n=walker.nextNode()){if(!n.parentElement?.closest('.savedHighlight')) nodes.push(n);}
+ nodes.forEach(node=>{
+   const raw=node.nodeValue, norm=normalizeText(raw), pos=norm.indexOf(wanted);
+   if(pos<0)return;
+   const before=raw.slice(0,pos), hit=raw.slice(pos,pos+target.length), after=raw.slice(pos+target.length);
+   const frag=document.createDocumentFragment();
+   if(before)frag.appendChild(document.createTextNode(before));
+   const span=document.createElement('span');span.className='savedHighlight saved'+(rec.color%15);span.dataset.key=rec.key;span.textContent=hit;frag.appendChild(span);
+   if(after)frag.appendChild(document.createTextNode(after));
+   node.parentNode.replaceChild(frag,node);
+ });
+}
+function renderSavedHighlights(){
+ applySavedWordColors();
+ const fav=favoriteRecords();
+ document.querySelectorAll('.ptSentence').forEach(c=>fav.forEach(r=>wrapSavedOccurrence(c,r.pt,r)));
+ document.querySelectorAll('.arabic').forEach(c=>fav.forEach(r=>wrapSavedOccurrence(c,r.ar,r)));
+}
+function updateFavCount(){const fav=favoriteRecords();document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
 function openMenu(){document.getElementById('drawer').classList.add('show');document.getElementById('shade').classList.add('show');updateFavCount()}
 function closeMenu(){document.getElementById('drawer').classList.remove('show');document.getElementById('shade').classList.remove('show')}
-function goHome(){closeMenu();document.getElementById('favorites').classList.remove('show');scrollTo(0,0)}
-function showFavorites(){
- closeMenu();const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');const box=document.getElementById('favList');
- box.innerHTML=fav.length?fav.map(k=>{const w=getWordData(k)||{pt:k,tr:'',ar:''};return '<div style="padding:10px 0;border-bottom:1px solid #ddcbaa"><b>'+escapeHTML(w.pt||k)+'</b> → '+escapeHTML(w.tr||'')+'<br><small>'+escapeHTML(w.ar||'')+'</small></div>'}).join(''):'<div class="favEmpty">Ainda não há palavras salvas.</div>';
- document.getElementById('favorites').classList.add('show');document.getElementById('favorites').scrollIntoView({behavior:'smooth'});
+function goHome(){closeMenu();closeFavorites();scrollTo(0,0)}
+function showFavorites(fromSave=false){
+ closeMenu();
+ const fav=favoriteRecords();
+ const box=document.getElementById('favList');
+ box.innerHTML=fav.length?fav.map((r,i)=>`<div class="favCard"><div class="favNumber">${i+1}.</div><div class="favPt">${escapeHTML(r.pt||r.key)}</div><div class="favAr">${escapeHTML(r.ar||'')}</div><div class="favTr">${escapeHTML(r.tr||'')}</div></div>`).join(''):'<div class="favCard favEmpty">Henüz kaydettiğin kelime yok.</div>';
+ document.getElementById('favorites').classList.add('show');
+ document.getElementById('favorites').scrollTop=0;
+ if(!fromSave)document.body.style.overflow='hidden';
 }
+function closeFavorites(){document.getElementById('favorites').classList.remove('show');document.body.style.overflow=''}
 function toggleStory(id='story'){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
 function toggleAccordion(id){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
 function setupPrayerTracker(){
@@ -542,7 +608,7 @@ function setDay(day, animate=true){
  document.querySelectorAll('.inlineWord.show').forEach(p=>p.classList.remove('show'));
  document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
  updateTodayBack();
- if(changed && animate) window.scrollTo({top:0,behavior:'smooth'});
+ if(changed && animate) window.scrollTo({top:0,behavior:'smooth'}); setTimeout(renderSavedHighlights,20);
 }
 function goToday(){
  todayIndex=findTodayIndex();
@@ -575,7 +641,7 @@ function goToday(){
    }
  },1000);
 })();
-setupPrayerTracker(); applySavedWordColors(); updateFavCount();
+setupPrayerTracker(); applySavedWordColors(); updateFavCount(); setTimeout(renderSavedHighlights,80);
 
 function openSettings(){
  closeMenu();
@@ -589,17 +655,27 @@ function closeSettings(){
  p.classList.remove('show');p.setAttribute('aria-hidden','true');
  document.body.style.overflow='';
 }
+const ARABIC_FONT_CLASSES=['amiri','naskh','scheherazade','lateef','sulus','cairo','changa','elmessiri','harmattan','mada','markazi','mirza','reem','tajawal','uthman'];
+const LATIN_FONT_CLASSES=['inter','lora','merriweather','montserrat','playfair'];
 function setArabicFont(font){
- document.body.classList.remove('arabic-font-amiri','arabic-font-naskh','arabic-font-scheherazade','arabic-font-lateef','arabic-font-sulus','arabic-font-uthman');
+ document.body.classList.remove(...ARABIC_FONT_CLASSES.map(x=>'arabic-font-'+x));
  document.body.classList.add('arabic-font-'+font);
  localStorage.setItem('fazilet-arabic-font',font);
  updateFontChoices();
 }
+function setLatinFont(font){
+ document.body.classList.remove(...LATIN_FONT_CLASSES.map(x=>'latin-font-'+x));
+ document.body.classList.add('latin-font-'+font);
+ localStorage.setItem('fazilet-latin-font',font);
+ updateFontChoices();
+}
 function updateFontChoices(){
  const font=localStorage.getItem('fazilet-arabic-font')||'amiri';
- document.body.classList.remove('arabic-font-amiri','arabic-font-naskh','arabic-font-scheherazade','arabic-font-lateef','arabic-font-sulus','arabic-font-uthman');
- document.body.classList.add('arabic-font-'+font);
- document.querySelectorAll('.fontChoice').forEach(b=>b.classList.toggle('active',b.dataset.font===font));
+ const latin=localStorage.getItem('fazilet-latin-font')||'inter';
+ document.body.classList.remove(...ARABIC_FONT_CLASSES.map(x=>'arabic-font-'+x),...LATIN_FONT_CLASSES.map(x=>'latin-font-'+x));
+ document.body.classList.add('arabic-font-'+font,'latin-font-'+latin);
+ document.querySelectorAll('.fontChoice[data-font]').forEach(b=>b.classList.toggle('active',b.dataset.font===font));
+ document.querySelectorAll('.fontChoice[data-latin-font]').forEach(b=>b.classList.toggle('active',b.dataset.latinFont===latin));
 }
 function openImage(src,title){
  const v=document.getElementById('imageViewer');
@@ -612,6 +688,11 @@ function closeImage(){
  v.classList.remove('show');v.setAttribute('aria-hidden','true');
  document.getElementById('imageViewerImg').src='';
 }
+(function setupFavoritesSwipe(){
+ let sx=0,sy=0,active=false; const v=document.getElementById('favorites');
+ v.addEventListener('touchstart',e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;active=sx<80},{passive:true});
+ v.addEventListener('touchend',e=>{if(!active)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(dx>70&&Math.abs(dx)>Math.abs(dy))closeFavorites()},{passive:true});
+})();
 (function setupImageViewerSwipe(){
  let sx=0,sy=0,active=false; const v=document.getElementById('imageViewer');
  v.addEventListener('touchstart',e=>{const t=e.changedTouches[0];sx=t.clientX;sy=t.clientY;active=sx<80},{passive:true});
