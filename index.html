@@ -85,6 +85,8 @@ body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;backgrou
 .shareBtn{position:absolute;right:14px;top:10px;width:42px;height:42px;border:0;background:transparent;color:rgba(126,101,61,.82);display:flex;align-items:center;justify-content:center;padding:0;z-index:4;cursor:pointer}
 .shareBtn svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .shareBtn:active{transform:scale(.94)}
+.hadithShareTop{height:40px;position:relative;display:flex;align-items:center;justify-content:flex-end;padding-right:2px}
+.hadithShareTop .shareBtn{position:relative;right:auto;top:auto;width:42px;height:40px}
 .hadithAccordion,.story{position:relative}
 .story .shareBtn{top:8px;right:12px}
 .hadithAccordion .shareBtn{top:8px;right:12px}
@@ -320,7 +322,7 @@ const calendarData = [
 function shareIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'}
 function prayerHTML(d){return d.prayers.map(p=>`<div class="prayer"><div class="pname">${p[0]}</div><div class="ptime">${p[1]}</div></div>`).join('')}
 function dayPageHTML(d,i){return `<div class="dayPage" data-day="${i}"><div class="header"><div class="date"><div class="day">${d.date}</div><div><div class="month">${d.month}</div><div class="week">${d.week}</div></div></div><div class="hijri">${d.hijri}<br>Calendário Fazilet</div><button class="menuBtn" onclick="openMenu()" aria-label="Menu"><span>☰</span></button></div><div class="ornament"><button class="todayBackBtn" id="todayBack${i}" onclick="goToday()" aria-label="Voltar para hoje"><span>‹</span></button></div><div class="prayers">${prayerHTML(d)}</div></div>`}
-function hadithHTML(d,i){return `<section class="section"><div class="accordion hadithAccordion" id="hadithAccordion${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><button class="hadithArabicHeader" onclick="toggleAccordion('hadithAccordion${i}')" aria-label="Arapça metne dokunarak aç veya kapat"><div class="arabic hadithArabicPreview">${d.hadithArabic}</div></button><div class="accordionContent"><div class="hadithCard"><div class="lang"><div class="studyLegend"><span class="l1">Dinî ifade</span><span class="l2">Önemli kelime</span><span class="l3">Yeni kelime</span></div><p>${d.hadithPt}</p></div><div class="inlineWord" id="wordPanel${i}"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning" id="wordMeaning${i}"></div><div class="pronunciationBox" id="pronunciationBox${i}"></div><div class="exampleBox" id="exampleBox${i}"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div><div class="source">${d.source}</div></div></div></div></section>`}
+function hadithHTML(d,i){return `<section class="section hadithSection"><div class="hadithShareTop"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar hadith" title="Compartilhar">${shareIcon()}</button></div><div class="accordion hadithAccordion" id="hadithAccordion${i}"><button class="hadithArabicHeader" onclick="toggleAccordion('hadithAccordion${i}')" aria-label="Arapça metne dokunarak aç veya kapat"><div class="arabic hadithArabicPreview">${d.hadithArabic}</div></button><div class="accordionContent"><div class="hadithCard"><div class="lang"><p>${d.hadithPt}</p></div><div class="inlineWord" id="wordPanel${i}"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning" id="wordMeaning${i}"></div><div class="pronunciationBox" id="pronunciationBox${i}"></div><div class="exampleBox" id="exampleBox${i}"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div><div class="source">${d.source}</div></div></div></div></section>`}
 function storyHTML(d,i){return `<section class="section"><div class="story" id="story${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><div class="storyHeader"><span class="storyTitle">${d.storyTitle}</span></div><div class="storyContent"><div class="lang"><div class="langTitle">Português</div>${d.storyPt.startsWith('<p>')?d.storyPt:`<p>${d.storyPt}</p>`}</div><div class="inlineWord storyWordPanel"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning"></div><div class="pronunciationBox"></div><div class="exampleBox"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div></div></div></section>`}
 function renderCalendar(){
  const track=document.getElementById('dayTrack');
@@ -503,17 +505,22 @@ function speakCurrent(){
  const pron=activeWordPanel?.querySelector('.pronunciationBox');
  if(pron){pron.textContent='Pronúncia: '+pronunciation(currentKey);pron.classList.add('show');}
  if(!('speechSynthesis' in window)) return;
- const selected=Math.max(0,Math.min(4,Number(localStorage.getItem('fazilet-voice-index')||0)));
+ const selected=Math.max(0,Math.min(9,Number(localStorage.getItem('fazilet-voice-index')||0)));
  const profiles=[
-   {label:'Doğal',rate:.90,pitch:1.00},
-   {label:'Yumuşak',rate:.78,pitch:1.05},
-   {label:'Net',rate:1.00,pitch:.98},
-   {label:'Sakin',rate:.84,pitch:.93},
-   {label:'Akıcı',rate:1.08,pitch:1.01}
+   {label:'Doğal',rate:.92,pitch:1.00},
+   {label:'Yumuşak',rate:.82,pitch:1.04},
+   {label:'Net',rate:.96,pitch:.98},
+   {label:'Sakin',rate:.78,pitch:.94},
+   {label:'Akıcı',rate:1.02,pitch:1.01},
+   {label:'Feminina Natural',rate:.90,pitch:1.06},
+   {label:'Feminina Clara',rate:.96,pitch:1.10},
+   {label:'Feminina Suave',rate:.84,pitch:1.08},
+   {label:'Masculina Natural',rate:.90,pitch:.86},
+   {label:'Masculina Clara',rate:.98,pitch:.82}
  ];
  const speak=()=>{
    const u=new SpeechSynthesisUtterance(w.pt||currentKey);
-   const voices=getVoiceOptions(); const voice=voices[selected]||voices[0]||getBestPortugueseVoice();
+   const voice=voiceForProfile(selected);
    u.lang=voice?.lang||'pt-BR'; if(voice)u.voice=voice;
    u.rate=profiles[selected].rate; u.pitch=profiles[selected].pitch; u.volume=1;
    speechSynthesis.cancel(); speechSynthesis.speak(u);
@@ -635,13 +642,19 @@ function setDay(day, animate=true){
  currentDay=next;
  const track=document.getElementById('dayTrack');
  track.style.transition=animate?'transform .32s ease':'none';
- track.style.transform=`translateX(-${currentDay*(100/calendarData.length)}%)`;
+ const viewport=document.getElementById('dayViewport');
+ const pageWidth=viewport ? viewport.clientWidth : document.documentElement.clientWidth;
+ track.style.transform=`translate3d(-${currentDay*pageWidth}px,0,0)`;
  document.querySelectorAll('.dayContentPage').forEach(p=>p.style.display=(Number(p.dataset.contentDay)===currentDay?'block':'none'));
  document.querySelectorAll('.inlineWord.show').forEach(p=>p.classList.remove('show'));
  document.querySelectorAll('.term.selected,.autoWord.selected').forEach(x=>x.classList.remove('selected')); activeWordPanel=null; activeWordElement=null;
  updateTodayBack();
  if(changed && animate) window.scrollTo({top:0,behavior:'smooth'});
 }
+window.addEventListener('resize',()=>{ 
+ const track=document.getElementById('dayTrack'), viewport=document.getElementById('dayViewport');
+ if(track&&viewport) track.style.transform=`translate3d(-${currentDay*viewport.clientWidth}px,0,0)`;
+});
 function goToday(){
  todayIndex=findTodayIndex();
  setDay(todayIndex,true);
@@ -691,17 +704,27 @@ const LATIN_SAMPLE_FONTS={nunito:'Nunito',bitter:'Bitter',koho:'KoHo',raleway:'R
 function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
 function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
 const VOICE_PROFILES=[
- {name:'Doğal Ses',rate:.92,pitch:1.00},
- {name:'Yumuşak Ses',rate:.82,pitch:1.04},
- {name:'Net Ses',rate:.88,pitch:.98},
- {name:'Sakin Ses',rate:.78,pitch:.94},
- {name:'Akıcı Ses',rate:1.00,pitch:1.01}
+ {name:'Doğal Ses',rate:.92,pitch:1.00,prefer:/fernanda|francisca|helena|bruna|camila/i},
+ {name:'Yumuşak Ses',rate:.82,pitch:1.04,prefer:/francisca|helena|fernanda|bruna/i},
+ {name:'Net Ses',rate:.96,pitch:.98,prefer:/camila|joana|luciana|daniela/i},
+ {name:'Sakin Ses',rate:.78,pitch:.94,prefer:/helena|francisca|fernanda/i},
+ {name:'Akıcı Ses',rate:1.02,pitch:1.01,prefer:/camila|joana|bruna/i},
+ {name:'Feminina Natural',rate:.90,pitch:1.06,prefer:/fernanda|francisca|helena|bruna|camila|joana|luciana|daniela/i},
+ {name:'Feminina Clara',rate:.96,pitch:1.10,prefer:/camila|joana|daniela|luciana/i},
+ {name:'Feminina Suave',rate:.84,pitch:1.08,prefer:/helena|francisca|fernanda/i},
+ {name:'Masculina Natural',rate:.90,pitch:.86,prefer:/felipe|ricardo|thiago|rafael|gustavo/i},
+ {name:'Masculina Clara',rate:.98,pitch:.82,prefer:/felipe|ricardo|thiago|rafael|gustavo/i}
 ];
 function getVoiceOptions(){
  if(!('speechSynthesis' in window)) return [];
  const all=speechSynthesis.getVoices().filter(v=>/^pt(?:-BR)?(?:$|-)/i.test(v.lang)||/^pt_/i.test(v.lang));
- const score=v=>{const n=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();let s=0;if(lang==='pt-br')s+=60;else if(lang.startsWith('pt-br'))s+=40;if(/fernanda|francisca|helena|bruna|camila|joana|luciana|marcia|daniela/i.test(n))s+=35;if(/enhanced|premium|natural|neural|high quality|qualidade/i.test(n))s+=30;if(v.localService===false)s+=8;return s};
- return [...all].sort((a,b)=>score(b)-score(a)).slice(0,5);
+ const score=v=>{const n=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();let s=0;if(lang==='pt-br')s+=60;else if(lang.startsWith('pt-br'))s+=40;if(/fernanda|francisca|helena|bruna|camila|joana|luciana|marcia|daniela|felipe|ricardo|thiago|rafael|gustavo/i.test(n))s+=35;if(/enhanced|premium|natural|neural|high quality|qualidade/i.test(n))s+=30;if(v.localService===false)s+=8;return s};
+ return [...all].sort((a,b)=>score(b)-score(a));
+}
+function voiceForProfile(i){
+ const voices=getVoiceOptions(); if(!voices.length)return getBestPortugueseVoice();
+ const profile=VOICE_PROFILES[i]||VOICE_PROFILES[0];
+ return voices.find(v=>profile.prefer?.test(v.name||'')) || voices[i % voices.length] || voices[0];
 }
 function setVoiceOption(i){localStorage.setItem('fazilet-voice-index',String(i));renderVoiceChoices()}
 function toggleSettingGroup(id){
@@ -711,16 +734,6 @@ function toggleSettingGroup(id){
  const options=group.querySelector('.settingOptions');
  if(options) options.style.display=open?'block':'none';
 }
-function setupSettingToggles(){
- document.querySelectorAll('.settingToggle').forEach(btn=>{
-   btn.addEventListener('click',e=>{
-     e.preventDefault();
-     e.stopPropagation();
-     const group=btn.closest('.settingGroup');
-     if(group) group.classList.toggle('open');
-   });
- });
-}
 function renderFontChoices(){
  const ar=document.getElementById('arabicFontChoices'),tr=document.getElementById('turkishFontChoices');
  const av=localStorage.getItem('fazilet-ar-font')||'amiri',tv=localStorage.getItem('fazilet-tr-font')||'lora';
@@ -729,13 +742,13 @@ function renderFontChoices(){
 }
 function renderVoiceChoices(){
  const box=document.getElementById('voiceChoices');if(!box)return;
- const voices=getVoiceOptions(), selected=Math.max(0,Math.min(4,Number(localStorage.getItem('fazilet-voice-index')||0)));
+ const voices=getVoiceOptions(), selected=Math.max(0,Math.min(9,Number(localStorage.getItem('fazilet-voice-index')||0)));
  box.innerHTML=VOICE_PROFILES.map((profile,i)=>{const v=voices[i];return '<div class="voiceCard '+(i===selected?'active':'')+'" onclick="setVoiceOption('+i+')"><div class="voiceMain"><span class="voiceName">🔊 '+profile.name+'</span><span class="voiceMeta">'+(v?escapeHTML(v.name)+' • '+escapeHTML(v.lang):'Brezilya Portekizcesi • profil '+(i+1))+'</span></div><button type="button" class="voiceTest" onclick="event.stopPropagation();testVoiceOption('+i+')">▶</button></div>'}).join('');
 }
 function testVoiceOption(i){
  if(!('speechSynthesis' in window))return;
  const text='Olá. Esta é uma demonstração da voz selecionada.';
- const voices=getVoiceOptions(),v=voices[i]||voices[0]||getBestPortugueseVoice(),profile=VOICE_PROFILES[i]||VOICE_PROFILES[0];
+ const v=voiceForProfile(i),profile=VOICE_PROFILES[i]||VOICE_PROFILES[0];
  const u=new SpeechSynthesisUtterance(text);u.lang=v?.lang||'pt-BR';if(v)u.voice=v;u.rate=profile.rate;u.pitch=profile.pitch;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u);
 }
 function updateSettingsUI(){
@@ -751,7 +764,7 @@ function applyTextScale(){const v=Number(localStorage.getItem('fazilet-text-scal
 function changeTextSize(dir){let v=Number(localStorage.getItem('fazilet-text-scale')||100);v=Math.max(85,Math.min(115,v+dir*5));localStorage.setItem('fazilet-text-scale',v);applyTextScale()}
 function shareSection(event,btn){
  event.preventDefault(); event.stopPropagation();
- const root=btn.closest('.accordion,.story');
+ const root=btn.closest('.accordion,.story') || btn.closest('.section')?.querySelector('.hadithAccordion,.story');
  if(!root) return;
  const title=root.querySelector('.storyTitle')?.textContent?.trim() || 'Hadith';
  const text=root.innerText.replace(/\s+/g,' ').trim();
