@@ -293,8 +293,6 @@ const calendarData = [
   }
 ];
 
-makeEveryPortugueseWordClickable();
-
 function shareIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'}
 function prayerHTML(d){return d.prayers.map(p=>`<div class="prayer"><div class="pname">${p[0]}</div><div class="ptime">${p[1]}</div></div>`).join('')}
 function dayPageHTML(d,i){return `<div class="dayPage" data-day="${i}"><div class="header"><div class="date"><div class="day">${d.date}</div><div><div class="month">${d.month}</div><div class="week">${d.week}</div></div></div><div class="hijri">${d.hijri}<br>Calendário Fazilet</div><button class="favTopBtn" onclick="showFavorites()" aria-label="Kaydettiğim kelimeler" title="Kaydettiğim kelimeler">🔖</button><button class="menuBtn" onclick="openMenu()" aria-label="Menu"><span>☰</span></button></div><div class="ornament"><button class="todayBackBtn" id="todayBack${i}" onclick="goToday()" aria-label="Voltar para hoje"><span>‹</span></button></div><div class="prayers">${prayerHTML(d)}</div></div>`}
@@ -352,6 +350,7 @@ const words={
 'âbid':{ar:'عَابِد',pt:'devoto',tr:'âbid',example:'O âbid dedica-se à adoração.'},
 'ilim':{ar:'عِلْم',pt:'conhecimento',tr:'ilim',example:'O conhecimento espiritual purifica o coração.'}
 };
+makeEveryPortugueseWordClickable();
 let currentKey='bem';
 let activeWordPanel=null;
 let activeWordElement=null;
