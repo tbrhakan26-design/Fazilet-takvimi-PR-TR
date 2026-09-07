@@ -8,6 +8,24 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Calendário Fazilet">
 <title>Calendário Fazilet</title>
+<script>
+// Cache temizliği: eski GitHub Pages/service-worker sürümleri siteyi kilitlemesin.
+(function(){
+  try{
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.getRegistrations().then(function(regs){
+        if(regs.length){
+          return Promise.all(regs.map(function(r){return r.unregister();}));
+        }
+      }).then(function(){
+        if(window.caches && caches.keys){
+          return caches.keys().then(function(keys){return Promise.all(keys.map(function(k){return caches.delete(k);}));});
+        }
+      }).catch(function(){});
+    }
+  }catch(e){}
+})();
+</script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -735,6 +753,6 @@ function shareSection(event,btn){
  if(navigator.share){ navigator.share(data).catch(()=>{}); }
  else if(navigator.clipboard){ navigator.clipboard.writeText(text+'\n'+location.href).then(()=>{btn.setAttribute('aria-label','Copiado');setTimeout(()=>btn.setAttribute('aria-label','Compartilhar esta seção'),1200)}).catch(()=>{}); }
 }
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+// Service worker registration intentionally disabled so GitHub Pages always serves the newest index.html.
 </script>
 </body></html>
