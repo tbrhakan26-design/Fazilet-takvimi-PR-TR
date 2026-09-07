@@ -17,7 +17,7 @@
 
 :root{--cream:#fbf2df;--paper:#fffaf0;--brown:#5a2d12;--brown2:#7b401b;--green:#23664c;--orange:#e9791b;--blue:#2875c6;--line:#dcc5a0;--shadow:0 7px 22px rgba(75,39,15,.13)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:#e9e1d4;color:var(--brown);font-family:"KoHo",sans-serif;font-size:15px}
+html,body{margin:0;background:#e9e1d4;color:var(--brown);font-family:"KoHo",sans-serif;font-size:calc(15px * var(--user-scale,1))}
 body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;background:var(--cream);position:relative;padding-bottom:25px;overflow-x:hidden}
 .header{padding:14px 20px 0;position:relative}.date{display:flex;gap:12px}.day{font-size:62px;line-height:.76;letter-spacing:-5px;color:#612f10}.month{font-size:16px;font-weight:700;padding-top:3px}.week{font-size:16px;margin-top:4px}.hijri{font-size:15px;color:var(--green);line-height:1.45;margin-top:14px}
 .menuBtn{position:absolute;right:18px;top:8px;width:50px;height:50px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:27px;line-height:1}
@@ -78,11 +78,18 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 @media(min-width:700px){body{padding:18px}.app{border-radius:34px;box-shadow:0 12px 50px #0002}}
 
 @font-face{font-family:'AmiriFazilet';src:url('fonts/Amiri-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
-.arabic,.arabic *,.arWord,.arabicWord{font-family:'AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}
+.arabic,.arabic *,.arWord,.arabicWord{font-family:'AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}.font-uthman .arabic,.font-uthman .arabic *{font-family:"Uthman Taha",serif!important}.font-amiri .arabic,.font-amiri .arabic *{font-family:"AmiriFazilet","Amiri","Noto Naskh Arabic","Geeza Pro",serif!important}.font-system .arabic,.font-system .arabic *{font-family:"Geeza Pro","Noto Naskh Arabic",serif!important}
+
 .accArrow::before,.storyArrow::before{content:"";width:13px;height:13px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg) translateY(-2px);transform-origin:center}.accordion.open .accArrow{transform:rotate(180deg)}.story.open .storyArrow{transform:rotate(180deg)}
 .dayViewport{overflow:hidden;width:100%;position:relative}.dayTrack{display:flex;width:200%;transition:transform .32s ease}.dayPage{width:50%;flex:0 0 50%;overflow:hidden}.dayPage .header{padding-top:18px}.dayContent{position:relative}.dayContentPage{width:100%}.dayContentPage .section{margin-top:0}.dayPage .prayers{padding-bottom:8px}.dayPage .prayer{scroll-snap-align:center}
 .dayPage .prayers{overflow-x:auto}.dayPage .prayer{min-width:94px}
 .dayContentPage{animation:dayFade .2s ease}.dayPage{min-height:1px}@keyframes dayFade{from{opacity:.5;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
+
+.utilityPanel{display:none;position:fixed;inset:0;z-index:60;background:#3b26165c;padding:20px 14px;align-items:flex-start;justify-content:center;overflow:auto}.utilityPanel.show{display:flex}.utilityBox{width:min(500px,100%);margin-top:6vh;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 15px 40px #0004;padding:18px}.utilityTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px}.utilityTop h2{margin:0;font-size:21px}.utilityTop button{width:40px;height:40px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:24px}.settingGroup{padding:18px 0;border-bottom:1px solid #ead9bc}.settingGroup:last-child{border-bottom:0}.settingTitle{font-weight:700;margin-bottom:10px;color:var(--brown2)}.sizeRow{display:flex;align-items:center;justify-content:center;gap:20px}.sizeRow button,.fontRow button{border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:12px;padding:11px 15px;font-weight:700}.sizeRow button{font-size:17px}.fontRow{display:flex;gap:8px;flex-wrap:wrap}.fontRow button.active{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.malumatGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.malumatCard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fffdf8}.malumatCard img{display:block;width:100%;height:auto}.malumatCard div{padding:8px;font-weight:700;text-align:center}.storyText{line-height:1.65}.wordListItem{padding:11px 4px;border-bottom:1px solid #ead9bc;cursor:pointer}.wordListItem b{color:var(--brown2)}
+.textScale{font-size:var(--user-scale,1)}
+
+/* Daha kompakt telefon görünümü */
+.header{padding:12px 18px 0}.day{font-size:54px}.month,.week{font-size:14px}.hijri{font-size:14px;margin-top:11px}.menuBtn{width:44px;height:44px;right:16px;top:6px}.menuBtn span{font-size:22px}.ornament{height:32px;margin-top:2px}.prayer{min-width:86px;padding:7px 6px;border-radius:13px}.prayer .pname{font-size:12px}.prayer .ptime{font-size:18px;margin-top:4px}.next{font-size:12px;margin-bottom:14px}.section{margin:0 14px 13px}.hadithCard{padding:14px 14px;border-radius:16px}.arabic{font-size:21px;line-height:1.8}.hadithArabicPreview{font-size:20px!important;line-height:1.78!important}.hadithArabicHeader{padding:43px 12px 10px}.hadithAccordion .accordionContent{padding:0 9px 13px}.lang{margin-top:10px;padding:10px 11px;border-radius:12px}.langTitle{font-size:14px;margin-bottom:6px}.lang p,.ptSentence{font-size:15px;line-height:1.6}.storyContent .lang p,.storyContent .ptSentence{font-size:14.5px;line-height:1.62}.trSentence{font-size:12.5px;padding:6px 8px}.storyContent .trSentence{font-size:12.5px;padding:8px 9px}.storyTitle{font-size:18px}.storyHeader{padding:9px 2px 8px}.inlineWord{width:min(285px,calc(100% - 10px));padding:9px;border-radius:14px}.wordMeaning{font-size:15px!important}.bubble{height:46px;font-size:9.5px}.bubble i{width:21px;height:21px;line-height:21px;font-size:12px}.drawer{width:min(285px,82%);padding:16px 15px}.drawerTop h2{font-size:20px}.drawer a,.drawer button.item{font-size:15px;padding:14px 5px}
 </style>
 </head>
 <body>
@@ -94,15 +101,26 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 <div class="dayContent" id="dayContent"></div>
 
 <div class="favorites" id="favorites"><div class="section"><div class="sectionHead"><span class="book">🔖</span><h2>Minhas Palavras Favoritas</h2></div><div id="favList" class="storyText"></div></div></div>
+<div class="favorites" id="wordsView"><div class="section"><div class="sectionHead"><span class="book">🔤</span><h2>Palavras</h2></div><div id="wordsList" class="storyText"></div></div></div>
 </div>
 
+<div class="utilityPanel" id="settingsPanel">
+ <div class="utilityBox"><div class="utilityTop"><h2>Configurações</h2><button onclick="closeUtility('settingsPanel')">×</button></div>
+ <div class="settingGroup"><div class="settingTitle">Tamanho do texto</div><div class="sizeRow"><button onclick="changeTextSize(-1)">A−</button><div id="sizeValue">100%</div><button onclick="changeTextSize(1)">A+</button></div></div>
+ <div class="settingGroup"><div class="settingTitle">Fonte árabe</div><div class="fontRow"><button onclick="setArabicFont('uthman')">Uthman Taha</button><button onclick="setArabicFont('amiri')">Amiri</button><button onclick="setArabicFont('system')">Sistema</button></div></div>
+ </div></div>
+<div class="utilityPanel" id="malumatPanel">
+ <div class="utilityBox"><div class="utilityTop"><h2>Malumatlar</h2><button onclick="closeUtility('malumatPanel')">×</button></div>
+ <div class="malumatGrid">${[1,2,3,4,5].map(n=>`<div class="malumatCard"><img src="malumat_0${n}.jpeg" alt="Malumat ${n}" loading="lazy"><div>Malumat ${n}</div></div>`).join('')}</div>
+ </div></div>
 <div class="drawerShade" id="shade" onclick="closeMenu()"></div>
 <aside class="drawer" id="drawer">
  <div class="drawerTop"><h2>Menu</h2><button class="closeMenu" onclick="closeMenu()">×</button></div>
  <button class="item" onclick="goHome()">⌂ &nbsp; Página Inicial</button>
  <button class="item" onclick="showWords()">🔤 &nbsp; Palavras</button>
  <button class="item" onclick="showFavorites()">♡ &nbsp; Palavras Favoritas <span class="favCount" id="favCount"></span></button>
- <button class="item" onclick="alert('A seção de configurações está sendo preparada.')">⚙ &nbsp; Configurações</button>
+ <button class="item" onclick="showMalumatlar()">📚 &nbsp; Malumatlar</button>
+ <button class="item" onclick="showSettings()">⚙ &nbsp; Configurações</button>
 </aside>
 
 <script>
@@ -469,8 +487,25 @@ function goToday(){
    }
  },1000);
 })();
-setupPrayerTracker(); updateFavCount();
+setupPrayerTracker(); updateFavCount(); updateSettingsUI();
 
+function closeUtility(id){const el=document.getElementById(id);if(el)el.classList.remove('show')}
+function showSettings(){closeMenu();document.getElementById('settingsPanel').classList.add('show');updateSettingsUI()}
+function showMalumatlar(){closeMenu();document.getElementById('malumatPanel').classList.add('show')}
+function applyTextScale(){const v=Number(localStorage.getItem('fazilet-text-scale')||100);document.documentElement.style.setProperty('--user-scale',(v/100).toFixed(2));const sizeEl=document.getElementById('sizeValue'); if(sizeEl) sizeEl.textContent=v+'%'}
+function changeTextSize(dir){let v=Number(localStorage.getItem('fazilet-text-scale')||100);v=Math.max(85,Math.min(115,v+dir*5));localStorage.setItem('fazilet-text-scale',v);applyTextScale()}
+function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);const cls=document.body;cls.classList.remove('font-uthman','font-amiri','font-system');cls.classList.add('font-'+name);updateSettingsUI()}
+function updateSettingsUI(){applyTextScale();const name=localStorage.getItem('fazilet-ar-font')||'uthman';document.body.classList.remove('font-uthman','font-amiri','font-system');document.body.classList.add('font-'+name);document.querySelectorAll('.fontRow button').forEach(b=>b.classList.remove('active'));const map={'Uthman Taha':'uthman','Amiri':'amiri','Sistema':'system'};document.querySelectorAll('.fontRow button').forEach(b=>{if(map[b.textContent]===name)b.classList.add('active')})}
+function showWords(){
+ closeMenu();
+ document.getElementById('favorites').classList.remove('show');
+ const box=document.getElementById('wordsList');
+ const list=Object.keys(words).filter(k=>/^[A-Za-zÀ-ÖØ-öø-ÿ]/.test(k));
+ box.innerHTML=list.map(k=>{const w=words[k];return '<div class="wordListItem" onclick="openWordFromList('+JSON.stringify(k)+')"><b>'+escapeHTML(w.pt||k)+'</b><br><span>'+escapeHTML(w.tr||'')+'</span></div>'}).join('');
+ document.getElementById('wordsView').classList.add('show');
+ document.getElementById('wordsView').scrollIntoView({behavior:'smooth'});
+}
+function openWordFromList(key){const target=[...document.querySelectorAll('.autoWord')].find(x=>(x.dataset.key||x.textContent.trim())===key);if(target){document.getElementById('wordsView').classList.remove('show');target.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>selectWord(target),250)}else{currentKey=key;activeWordElement=null;alert((getWordData(key)?.tr)||'Türkçe anlam bulunamadı')}}
 function shareSection(event,btn){
  event.preventDefault(); event.stopPropagation();
  const root=btn.closest('.accordion,.story');
