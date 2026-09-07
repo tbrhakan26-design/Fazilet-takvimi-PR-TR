@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700&family=Changa:wght@400;600;700&family=El+Messiri:wght@400;500;600;700&family=Harmattan:wght@400;700&family=Lateef&family=Mada:wght@400;600;700&family=Markazi+Text:wght@400;500;600;700&family=Mirza:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700&family=Changa:wght@400;600;700&family=El+Messiri:wght@400;500;600;700&family=Harmattan:wght@400;700&family=Lateef&family=Mada:wght@400;600;700&family=Markazi+Text:wght@400;500;600;700&family=Mirza:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Bitter:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=KoHo:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
 @font-face{font-family:'Uthman Taha';src:url('fonts/KFGQPC Uthman Taha Naskh Regular/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'KoHo';src:local('KoHo');font-weight:100 900;font-style:normal;font-display:swap}
 
@@ -69,7 +69,7 @@ body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;backgrou
 .shareBtn:active{transform:scale(.94)}
 .hadithAccordion,.story{position:relative}
 .story .shareBtn{top:8px;right:12px}
-.hadithArabicHeader{width:100%;border:0;background:transparent;padding:50px 14px 12px;display:block;position:relative;cursor:pointer;text-align:center;overflow:hidden}.hadithArabicHeader .accArrow{left:12px;top:10px;margin-left:0;transform:none}.hadithArabicPreview{margin:0!important;font-size:22px!important;line-height:1.85!important}.hadithAccordion .accordionContent{padding:0 12px 16px}.hadithAccordion.open .hadithArabicHeader{border-bottom:1px solid var(--line)}
+.hadithArabicHeader{width:100%;border:0;background:transparent;padding:50px 14px 12px;display:block;position:relative;cursor:pointer;text-align:center;overflow:hidden}.hadithArabicHeader .accArrow{display:none}.hadithArabicPreview{margin:0!important;font-size:22px!important;line-height:1.85!important;cursor:pointer}.hadithArabicHeader:active .hadithArabicPreview{opacity:.72}.hadithAccordion .accordionContent{padding:0 12px 16px}.hadithAccordion.open .hadithArabicHeader{border-bottom:1px solid var(--line)}
 
 /* Pequenos aprimoramentos de uso no celular */
 html{scroll-behavior:smooth}
@@ -128,6 +128,12 @@ body.arFont-uthman .arabic,body.arFont-uthman .arabic *{font-family:"Uthman Taha
 body.trFont-inter .tr,body.trFont-inter .tr *{font-family:"Inter",sans-serif!important}
 body.trFont-montserrat .tr,body.trFont-montserrat .tr *{font-family:"Montserrat",sans-serif!important}
 body.trFont-playfair .tr,body.trFont-playfair .tr *{font-family:"Playfair Display",serif!important}
+body.trFont-nunito .tr,body.trFont-nunito .tr *,body.trFont-nunito .lang p,body.trFont-nunito .ptSentence{font-family:"Nunito",sans-serif!important}
+body.trFont-bitter .tr,body.trFont-bitter .tr *,body.trFont-bitter .lang p,body.trFont-bitter .ptSentence{font-family:"Bitter",serif!important}
+body.trFont-koho .tr,body.trFont-koho .tr *,body.trFont-koho .lang p,body.trFont-koho .ptSentence{font-family:"KoHo",sans-serif!important}
+body.trFont-raleway .tr,body.trFont-raleway .tr *,body.trFont-raleway .lang p,body.trFont-raleway .ptSentence{font-family:"Raleway",sans-serif!important}
+body.trFont-lora .tr,body.trFont-lora .tr *,body.trFont-lora .lang p,body.trFont-lora .ptSentence{font-family:"Lora",serif!important}
+
 /* Font selection precedence */
 body.arFont-amiri .arabic,body.arFont-amiri .arabic *{font-family:"Amiri",serif!important}
 body.arFont-naskh .arabic,body.arFont-naskh .arabic *{font-family:"Noto Naskh Arabic",serif!important}
@@ -149,6 +155,12 @@ body.trFont-lora .tr,body.trFont-lora .tr *{font-family:"Lora",serif!important}
 body.trFont-merriweather .tr,body.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
 body.trFont-montserrat .tr,body.trFont-montserrat .tr *{font-family:"Montserrat",sans-serif!important}
 body.trFont-playfair .tr,body.trFont-playfair .tr *{font-family:"Playfair Display",serif!important}
+body.trFont-nunito .tr,body.trFont-nunito .tr *,body.trFont-nunito .lang p,body.trFont-nunito .ptSentence{font-family:"Nunito",sans-serif!important}
+body.trFont-bitter .tr,body.trFont-bitter .tr *,body.trFont-bitter .lang p,body.trFont-bitter .ptSentence{font-family:"Bitter",serif!important}
+body.trFont-koho .tr,body.trFont-koho .tr *,body.trFont-koho .lang p,body.trFont-koho .ptSentence{font-family:"KoHo",sans-serif!important}
+body.trFont-raleway .tr,body.trFont-raleway .tr *,body.trFont-raleway .lang p,body.trFont-raleway .ptSentence{font-family:"Raleway",sans-serif!important}
+body.trFont-lora .tr,body.trFont-lora .tr *,body.trFont-lora .lang p,body.trFont-lora .ptSentence{font-family:"Lora",serif!important}
+
 
 /* Son kullanıcı arayüzü: kelime balonu her zaman küçük ve kelimenin hemen üstünde */
 .inlineWord{position:absolute;z-index:80;width:min(270px,calc(100vw - 28px));background:#fffaf0;border:1px solid #dcc5a0;border-radius:14px;padding:10px;box-shadow:0 10px 28px rgba(75,39,15,.18)}
@@ -288,7 +300,7 @@ const calendarData = [
 function shareIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'}
 function prayerHTML(d){return d.prayers.map(p=>`<div class="prayer"><div class="pname">${p[0]}</div><div class="ptime">${p[1]}</div></div>`).join('')}
 function dayPageHTML(d,i){return `<div class="dayPage" data-day="${i}"><div class="header"><div class="date"><div class="day">${d.date}</div><div><div class="month">${d.month}</div><div class="week">${d.week}</div></div></div><div class="hijri">${d.hijri}<br>Calendário Fazilet</div><button class="menuBtn" onclick="openMenu()" aria-label="Menu"><span>☰</span></button></div><div class="ornament"><button class="todayBackBtn" id="todayBack${i}" onclick="goToday()" aria-label="Voltar para hoje"><span>‹</span></button></div><div class="prayers">${prayerHTML(d)}</div></div>`}
-function hadithHTML(d,i){return `<section class="section"><div class="accordion hadithAccordion" id="hadithAccordion${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><button class="hadithArabicHeader" onclick="toggleAccordion('hadithAccordion${i}')" aria-label="Abrir ou fechar o hadith"><span class="accArrow" aria-hidden="true"></span><div class="arabic hadithArabicPreview">${d.hadithArabic}</div></button><div class="accordionContent"><div class="hadithCard"><div class="lang"><div class="studyLegend"><span class="l1">Dinî ifade</span><span class="l2">Önemli kelime</span><span class="l3">Yeni kelime</span></div><p>${d.hadithPt}</p></div><div class="inlineWord" id="wordPanel${i}"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning" id="wordMeaning${i}"></div><div class="pronunciationBox" id="pronunciationBox${i}"></div><div class="exampleBox" id="exampleBox${i}"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div><div class="source">${d.source}</div></div></div></div></section>`}
+function hadithHTML(d,i){return `<section class="section"><div class="accordion hadithAccordion" id="hadithAccordion${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><button class="hadithArabicHeader" onclick="toggleAccordion('hadithAccordion${i}')" aria-label="Arapça metne dokunarak aç veya kapat"><div class="arabic hadithArabicPreview">${d.hadithArabic}</div></button><div class="accordionContent"><div class="hadithCard"><div class="lang"><div class="studyLegend"><span class="l1">Dinî ifade</span><span class="l2">Önemli kelime</span><span class="l3">Yeni kelime</span></div><p>${d.hadithPt}</p></div><div class="inlineWord" id="wordPanel${i}"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning" id="wordMeaning${i}"></div><div class="pronunciationBox" id="pronunciationBox${i}"></div><div class="exampleBox" id="exampleBox${i}"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div><div class="source">${d.source}</div></div></div></div></section>`}
 function storyHTML(d,i){return `<section class="section"><div class="story" id="story${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><div class="storyHeader"><span class="storyTitle">${d.storyTitle}</span></div><div class="storyContent"><div class="lang"><div class="langTitle">Português</div>${d.storyPt.startsWith('<p>')?d.storyPt:`<p>${d.storyPt}</p>`}</div><div class="inlineWord storyWordPanel"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning"></div><div class="pronunciationBox"></div><div class="exampleBox"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div></div></div></section>`}
 function renderCalendar(){
  const track=document.getElementById('dayTrack');
@@ -641,7 +653,7 @@ function goToday(){
    }
  },1000);
 })();
-setupPrayerTracker(); updateFavCount(); updateSettingsUI(); renderFontChoices(); renderVoiceChoices(); setupSettingToggles();
+setupPrayerTracker(); updateFavCount(); updateSettingsUI(); renderFontChoices(); renderVoiceChoices();
 
 function closeUtility(id){const el=document.getElementById(id);if(el)el.classList.remove('show')}
 ['settingsPanel','malumatPanel'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('click',e=>{if(e.target===el)closeUtility(id)})});
@@ -653,11 +665,11 @@ const ARABIC_FONTS=[
  ['cairo','Cairo'],['changa','Changa'],['elmessiri','El Messiri'],['harmattan','Harmattan'],['mada','Mada'],
  ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular']
 ];
-const TURKISH_FONTS=[['inter','Inter'],['lora','Lora'],['merriweather','Merriweather'],['montserrat','Montserrat'],['playfair','Playfair Display']];
+const TURKISH_FONTS=[['nunito','Nunito'],['bitter','Bitter'],['koho','KoHo'],['raleway','Raleway'],['lora','Lora']];
 const ARABIC_SAMPLE='بِسْمِ اللّٰهِ';
 const LATIN_SAMPLE='Peygamber Efendimiz';
 const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha'};
-const LATIN_SAMPLE_FONTS={inter:'Inter',lora:'Lora',merriweather:'Merriweather',montserrat:'Montserrat',playfair:'Playfair Display'};
+const LATIN_SAMPLE_FONTS={nunito:'Nunito',bitter:'Bitter',koho:'KoHo',raleway:'Raleway',lora:'Lora'};
 function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
 function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
 const VOICE_PROFILES=[
