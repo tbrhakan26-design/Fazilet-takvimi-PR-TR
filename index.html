@@ -114,11 +114,11 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
  <div class="malumatTop"><button class="malumatBack" onclick="closeMalumat()" aria-label="Geri">‹</button><h2>Mâlumatlar</h2></div>
  <div class="malumatBody" id="malumatBody">
   <div class="malumatGrid">
-   <div class="malumatCard"><img src="assets/malumat_01.jpeg" alt="Mâlumat 1"><div class="malumatTitle">Mâlumat 1</div></div>
-   <div class="malumatCard"><img src="assets/malumat_02.jpeg" alt="Mâlumat 2"><div class="malumatTitle">Mâlumat 2</div></div>
-   <div class="malumatCard"><img src="assets/malumat_03.jpeg" alt="Mâlumat 3"><div class="malumatTitle">Mâlumat 3</div></div>
-   <div class="malumatCard"><img src="assets/malumat_04.jpeg" alt="Mâlumat 4"><div class="malumatTitle">Mâlumat 4</div></div>
-   <div class="malumatCard"><img src="assets/malumat_05.jpeg" alt="Mâlumat 5"><div class="malumatTitle">Mâlumat 5</div></div>
+   <div class="malumatCard"><img src="malumat_01.jpeg" alt="Mâlumat 1"><div class="malumatTitle">Mâlumat 1</div></div>
+   <div class="malumatCard"><img src="malumat_02.jpeg" alt="Mâlumat 2"><div class="malumatTitle">Mâlumat 2</div></div>
+   <div class="malumatCard"><img src="malumat_03.jpeg" alt="Mâlumat 3"><div class="malumatTitle">Mâlumat 3</div></div>
+   <div class="malumatCard"><img src="malumat_04.jpeg" alt="Mâlumat 4"><div class="malumatTitle">Mâlumat 4</div></div>
+   <div class="malumatCard"><img src="malumat_05.jpeg" alt="Mâlumat 5"><div class="malumatTitle">Mâlumat 5</div></div>
    <button class="malumatCard malumatPdf" onclick="openPDF()"><div class="malumatPdfIcon">📄</div><div class="malumatPdfText"><strong>PDF Belgesi</strong><span>PDF dosyasını aç</span></div></button>
   </div>
  </div>
@@ -553,7 +553,7 @@ function closeMalumat(){
 }
 function openPDF(){
  const v=document.getElementById('pdfViewer');
- document.getElementById('pdfFrame').src='assets/malumat_01.pdf';
+ document.getElementById('pdfFrame').src='malumat_01.pdf';
  v.classList.add('show');v.setAttribute('aria-hidden','false');
 }
 function closePDF(){
