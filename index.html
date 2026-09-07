@@ -762,46 +762,68 @@ function showSettings(){closeMenu();document.getElementById('settingsPanel').cla
 function showMalumatlar(){closeMenu();document.getElementById('malumatPanel').classList.add('show')}
 function applyTextScale(){const v=Number(localStorage.getItem('fazilet-text-scale')||100);document.documentElement.style.setProperty('--user-scale',(v/100).toFixed(2));const sizeEl=document.getElementById('sizeValue'); if(sizeEl) sizeEl.textContent=v+'%'}
 function changeTextSize(dir){let v=Number(localStorage.getItem('fazilet-text-scale')||100);v=Math.max(85,Math.min(115,v+dir*5));localStorage.setItem('fazilet-text-scale',v);applyTextScale()}
+async function ensureHtml2Canvas(){
+ if(window.html2canvas) return window.html2canvas;
+ return await new Promise((resolve,reject)=>{
+   const old=document.querySelector('script[data-h2c="1"]');
+   if(old){old.addEventListener('load',()=>resolve(window.html2canvas));old.addEventListener('error',reject);return;}
+   const sc=document.createElement('script');
+   sc.src='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+   sc.async=true;sc.dataset.h2c='1';
+   sc.onload=()=>window.html2canvas?resolve(window.html2canvas):reject(new Error('Görsel motoru yüklenemedi'));
+   sc.onerror=()=>reject(new Error('Görsel motoru yüklenemedi'));
+   document.head.appendChild(sc);
+ });
+}
 async function shareSection(event,btn){
  event.preventDefault(); event.stopPropagation();
  const section=btn.closest('.section') || btn.parentElement;
  const source=section?.querySelector('.hadithAccordion,.story');
  if(!source) return;
  const isHadith=source.classList.contains('hadithAccordion');
- const title=isHadith?'Hadith':'Fazilet Takvimi';
  btn.disabled=true;
+ let clone=null;
  try{
-   if(window.html2canvas){
-     const clone=source.cloneNode(true);
-     clone.classList.add('open');
-     clone.style.cssText='position:fixed;left:-100000px;top:0;width:760px;max-width:none;display:block;opacity:1;overflow:visible;background:#fffaf0;border-radius:24px;box-shadow:none;z-index:-1;';
-     clone.querySelectorAll('.shareBtn,.inlineWord,.wordPopupArrow,.wordLabel,.bubbles').forEach(el=>el.remove());
-     clone.querySelectorAll('.accordionContent').forEach(el=>{el.style.display='block';el.style.padding='0 28px 24px';el.style.borderTop='0';});
-     clone.querySelectorAll('.hadithArabicHeader').forEach(el=>{el.style.cursor='default';el.style.padding='34px 28px 24px';});
-     clone.querySelectorAll('.hadithArabicPreview').forEach(el=>{el.style.fontSize='30px';el.style.lineHeight='1.9';});
-     clone.querySelectorAll('.hadithCard').forEach(el=>{el.style.padding='18px 10px 10px';});
-     clone.querySelectorAll('.lang').forEach(el=>{el.style.marginTop='10px';});
-     clone.querySelectorAll('.source').forEach(el=>{el.style.fontSize='22px';});
-     document.body.appendChild(clone);
-     await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
-     const canvas=await html2canvas(clone,{backgroundColor:'#fffaf0',scale:Math.min(3,Math.max(2,window.devicePixelRatio||2)),useCORS:true,allowTaint:false,logging:false});
-     clone.remove();
-     const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png',1));
-     if(!blob) throw new Error('Görsel oluşturulamadı');
-     const file=new File([blob],'fazilet-takvimi-hadis.png',{type:'image/png'});
-     if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-       await navigator.share({title:'Fazilet Takvimi • Hadis-i Şerif',text:'Hadis-i Şerif',files:[file]});
-     }else if(navigator.share){
-       await navigator.share({title:'Fazilet Takvimi • Hadis-i Şerif',text:'Hadis-i Şerif'});
-     }else{
-       const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fazilet-takvimi-hadis.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500);
-     }
+   const h2c=await ensureHtml2Canvas();
+   clone=source.cloneNode(true);
+   clone.classList.add('open');
+   clone.removeAttribute('id');
+   clone.style.cssText='position:absolute;left:-100000px;top:0;width:760px;max-width:760px;display:block;opacity:1;overflow:visible;background:#fffaf0;border-radius:24px;box-shadow:none;z-index:-1;margin:0;padding:0;';
+   clone.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+   clone.querySelectorAll('.shareBtn,.inlineWord,.wordPopupArrow,.wordLabel,.bubbles').forEach(el=>el.remove());
+   clone.querySelectorAll('.accordionContent').forEach(el=>{el.style.display='block';el.style.padding='0 28px 24px';el.style.borderTop='0';});
+   clone.querySelectorAll('.hadithArabicHeader').forEach(el=>{el.style.cursor='default';el.style.padding='34px 28px 24px';});
+   clone.querySelectorAll('.hadithArabicPreview').forEach(el=>{el.style.fontSize='30px';el.style.lineHeight='1.9';});
+   clone.querySelectorAll('.hadithCard').forEach(el=>{el.style.padding='18px 10px 10px';});
+   clone.querySelectorAll('.lang').forEach(el=>{el.style.marginTop='10px';});
+   clone.querySelectorAll('.source').forEach(el=>{el.style.fontSize='22px';});
+   clone.querySelectorAll('.term.tap').forEach(el=>{el.style.cursor='default';});
+   document.body.appendChild(clone);
+   if(document.fonts?.ready) await document.fonts.ready;
+   await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+   const rect=clone.getBoundingClientRect();
+   const canvas=await h2c(clone,{backgroundColor:'#fffaf0',scale:Math.min(3,Math.max(2,window.devicePixelRatio||2)),useCORS:true,allowTaint:false,logging:false,width:Math.ceil(rect.width),height:Math.ceil(clone.scrollHeight)});
+   clone.remove(); clone=null;
+   const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png',1));
+   if(!blob) throw new Error('Hadis görseli oluşturulamadı');
+   const file=new File([blob],'fazilet-takvimi-hadis.png',{type:'image/png'});
+   if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+     await navigator.share({title:'Fazilet Takvimi • Hadis-i Şerif',files:[file]});
+   }else if(navigator.share){
+     const url=URL.createObjectURL(blob);
+     window.open(url,'_blank');
+     setTimeout(()=>URL.revokeObjectURL(url),60000);
    }else{
-     const text=source.innerText.replace(/\s+/g,' ').trim();
-     if(navigator.share) await navigator.share({title:'Fazilet Takvimi • '+title,text:text,url:location.href});
+     const url=URL.createObjectURL(blob);
+     const a=document.createElement('a');a.href=url;a.download='fazilet-takvimi-hadis.png';document.body.appendChild(a);a.click();a.remove();
+     setTimeout(()=>URL.revokeObjectURL(url),1500);
    }
  }catch(err){
-   if(err?.name!=='AbortError') console.warn('Hadis paylaşımı:',err);
+   if(clone) clone.remove();
+   if(err?.name!=='AbortError'){
+     console.error('Hadis görsel paylaşımı:',err);
+     alert('Hadis görseli hazırlanırken bir sorun oluştu. Lütfen tekrar deneyin.');
+   }
  }finally{btn.disabled=false;}
 }
 // Final initialization: font arrays/functions must exist before they are used.
