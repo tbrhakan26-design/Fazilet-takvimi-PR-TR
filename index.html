@@ -840,63 +840,122 @@ async function shareSection(event,btn){
  }finally{btn.disabled=false;}
 }
 
-// En üstteyken aşağı doğru çekme hareketiyle ayrı Portekizce uygulamasını aç.
+// Portekizce uygulaması: yalnızca sayfanın en üstündeyken aşağı çekme ile açılır.
 (function setupPortuguesePull(){
   const layer=document.getElementById('ptPullLayer');
   const hint=document.getElementById('ptPullHint');
   const close=document.getElementById('ptPullClose');
-  const app=document.querySelector('.app');
-  if(!layer||!app)return;
-  let sy=0,sx=0,pulling=false,locked=false;
-  const threshold=105;
+  if(!layer) return;
+
+  let startY=0,startX=0,currentY=0,tracking=false,opened=false;
+  const THRESHOLD=72;
+  const MAX_PULL=260;
+
+  function pageAtTop(){
+    return (window.scrollY||document.documentElement.scrollTop||document.body.scrollTop||0) <= 2;
+  }
+  function resetPull(){
+    tracking=false;
+    currentY=0;
+    layer.classList.remove('dragging');
+    layer.style.transform='';
+    layer.style.visibility='';
+    if(hint) hint.classList.remove('show');
+  }
   function openPT(){
-    pulling=false; locked=true;
+    tracking=false;
+    opened=true;
+    layer.classList.remove('dragging');
     layer.classList.add('open');
+    layer.style.transform='';
+    layer.style.visibility='visible';
     layer.setAttribute('aria-hidden','false');
-    if(hint)hint.classList.remove('show');
+    if(hint) hint.classList.remove('show');
+    document.documentElement.style.overflow='hidden';
     document.body.style.overflow='hidden';
   }
   function closePT(){
-    locked=false; pulling=false;
+    opened=false;
+    resetPull();
     layer.classList.remove('open');
     layer.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow='';
     document.body.style.overflow='';
   }
-  close?.addEventListener('click',closePT);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&locked)closePT()});
-  app.addEventListener('touchstart',e=>{
-    if(locked||e.touches.length!==1)return;
-    if(window.scrollY>2)return;
-    const t=e.touches[0]; sx=t.clientX; sy=t.clientY; pulling=true;
-  },{passive:true});
-  app.addEventListener('touchmove',e=>{
-    if(!pulling||locked||e.touches.length!==1)return;
-    const t=e.touches[0],dx=t.clientX-sx,dy=t.clientY-sy;
-    if(dy<=0||Math.abs(dy)<Math.abs(dx))return;
-    if(window.scrollY>2){pulling=false;return;}
-    e.preventDefault();
-    const progress=Math.min(1.12,dy/threshold);
-    const eased=Math.min(1,progress);
+
+  if(close) close.addEventListener('click',closePT);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)closePT()});
+
+  function begin(e){
+    if(opened || tracking || !pageAtTop()) return;
+    if(e.touches && e.touches.length!==1) return;
+    const t=e.touches ? e.touches[0] : e;
+    startY=t.clientY; startX=t.clientX; currentY=startY; tracking=true;
+  }
+
+  function move(e){
+    if(!tracking || opened) return;
+    if(e.touches && e.touches.length!==1){resetPull();return;}
+    const t=e.touches ? e.touches[0] : e;
+    const dx=t.clientX-startX;
+    const dy=t.clientY-startY;
+    currentY=t.clientY;
+    if(dy<=0 || Math.abs(dy)<Math.abs(dx)*0.85){
+      if(dy< -8 || Math.abs(dx)>Math.abs(dy)*1.25) resetPull();
+      return;
+    }
+    if(!pageAtTop()){resetPull();return;}
+
+    // Hareket başladıktan sonra tarayıcının lastik çekme efektini devre dışı bırak.
+    if(e.cancelable) e.preventDefault();
+
+    const pull=Math.min(MAX_PULL,dy);
+    const progress=Math.min(1,pull/THRESHOLD);
+    const eased=1-Math.pow(1-progress,0.72);
+    layer.classList.add('dragging');
     layer.style.visibility='visible';
-    layer.style.transform=`translateY(${(-100+eased*100)}%)`;
-    if(hint)hint.classList.toggle('show',dy>38);
-  },{passive:false});
-  app.addEventListener('touchend',e=>{
-    if(!pulling||locked)return;
-    const t=e.changedTouches[0],dy=t.clientY-sy;
-    pulling=false;
-    if(dy>=threshold){
-      layer.style.transform='';
+    layer.style.transform='translate3d(0,'+((-100+eased*100))+'%,0)';
+    if(hint) hint.classList.toggle('show',dy>24);
+  }
+
+  function end(){
+    if(!tracking) return;
+    const distance=currentY-startY;
+    if(distance>=THRESHOLD){
       openPT();
     }else{
-      layer.style.transform='';
-      layer.style.visibility='';
-      if(hint)hint.classList.remove('show');
+      resetPull();
     }
-  },{passive:true});
-  app.addEventListener('touchcancel',()=>{
-    pulling=false; layer.style.transform=''; layer.style.visibility=''; if(hint)hint.classList.remove('show');
-  },{passive:true});
+  }
+
+  // Touch olayları capture aşamasında tek bir yerde dinleniyor. Böylece
+  // butonlar, kartlar ve gün kaydırma kodları bu hareketi yutamıyor.
+  document.addEventListener('touchstart',begin,{passive:true,capture:true});
+  document.addEventListener('touchmove',move,{passive:false,capture:true});
+  document.addEventListener('touchend',end,{passive:true,capture:true});
+  document.addEventListener('touchcancel',resetPull,{passive:true,capture:true});
+
+  // Dokunmatik olmayan cihazlarda da test edilebilsin.
+  document.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='touch') return;
+    if(opened || !pageAtTop()) return;
+    startY=e.clientY; startX=e.clientX; currentY=startY; tracking=true;
+  },{passive:true,capture:true});
+  document.addEventListener('pointermove',e=>{
+    if(e.pointerType==='touch' || !tracking || opened) return;
+    move(e);
+  },{passive:false,capture:true});
+  document.addEventListener('pointerup',e=>{
+    if(e.pointerType==='touch') return;
+    end();
+  },{passive:true,capture:true});
+
+  setTimeout(()=>{
+    if(pageAtTop()&&!opened&&hint){
+      hint.classList.add('show');
+      setTimeout(()=>hint.classList.remove('show'),2600);
+    }
+  },900);
 })();
 
 // Final initialization: font arrays/functions must exist before they are used.
@@ -921,60 +980,5 @@ async function shareSection(event,btn){
   <iframe id="ptPullFrame" class="ptPullFrame" src="portekizce.html" title="Portekizce Öğreniyorum A1"></iframe>
 </div>
 
-<script id="ptPullScript">
-(function(){
-  const layer=document.getElementById('ptPullLayer');
-  const frame=document.getElementById('ptPullFrame');
-  const close=document.getElementById('ptPullClose');
-  const hint=document.getElementById('ptPullHint');
-  if(!layer)return;
-  let startY=0,startX=0,dy=0,tracking=false,opened=false;
-  const THRESHOLD=90;
-  function atTop(){return (window.scrollY||document.documentElement.scrollTop||document.body.scrollTop||0)<=1;}
-  function openPT(){
-    tracking=false; opened=true;
-    layer.classList.remove('dragging'); layer.classList.add('open');
-    layer.style.transform=''; layer.style.visibility='visible';
-    layer.setAttribute('aria-hidden','false');
-    if(hint)hint.classList.remove('show');
-    document.body.style.overflow='hidden';
-  }
-  function closePT(){
-    opened=false; tracking=false;
-    layer.classList.remove('open','dragging');
-    layer.style.transform=''; layer.style.visibility='';
-    layer.setAttribute('aria-hidden','true');
-    document.body.style.overflow='';
-  }
-  close&&close.addEventListener('click',closePT);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)closePT();});
-  document.addEventListener('touchstart',e=>{
-    if(opened||!atTop()||e.touches.length!==1)return;
-    const t=e.touches[0]; startY=t.clientY; startX=t.clientX; dy=0; tracking=true;
-  },{passive:true,capture:true});
-  document.addEventListener('touchmove',e=>{
-    if(!tracking||opened||e.touches.length!==1)return;
-    const t=e.touches[0];
-    const dx=t.clientX-startX; dy=t.clientY-startY;
-    if(dy<=0 || Math.abs(dy)<Math.abs(dx)){return;}
-    if(!atTop()){tracking=false;return;}
-    e.preventDefault();
-    const progress=Math.min(1,dy/(THRESHOLD*1.25));
-    layer.classList.add('dragging'); layer.style.visibility='visible';
-    layer.style.transform='translateY('+((-100+progress*100))+'%)';
-    if(hint)hint.classList.toggle('show',dy>30);
-  },{passive:false,capture:true});
-  document.addEventListener('touchend',()=>{
-    if(!tracking)return; tracking=false;
-    layer.classList.remove('dragging');
-    if(dy>=THRESHOLD){openPT();}
-    else {layer.style.transform='';layer.style.visibility='';if(hint)hint.classList.remove('show');}
-  },{passive:true,capture:true});
-  document.addEventListener('touchcancel',()=>{
-    tracking=false; layer.classList.remove('dragging'); layer.style.transform='';layer.style.visibility='';if(hint)hint.classList.remove('show');
-  },{passive:true,capture:true});
-  // İlk kullanımda kullanıcıya hareketi göster.
-  setTimeout(()=>{if(atTop()&&!opened&&hint){hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),2600);}},900);
-})();
-</script>
+
 </body></html>
