@@ -124,7 +124,8 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .arFont-mirza .arabic,.arFont-mirza .arabic *,.arFont-mirza .arWord{font-family:"Mirza",serif!important}
 .arFont-reem .arabic,.arFont-reem .arabic *,.arFont-reem .arWord{font-family:"Reem Kufi",sans-serif!important}
 .arFont-ruqaa .arabic,.arFont-ruqaa .arabic *,.arFont-ruqaa .arWord{font-family:"Aref Ruqaa",serif!important}
-.arFont-uthman .arabic,.arFont-uthman .arabic *,.arFont-uthman .arWord{font-family:"Uthman Taha",serif!important}
+.arFont-uthman .arabic,.arFont-uthman .arabic *,.arFont-uthman .arWord{font-family:"Uthman Taha",serif!important}.arFont-naskhclassic .arabic,.arFont-naskhclassic .arabic *,.arFont-naskhclassic .arWord{font-family:"Uthman Taha",serif!important}
+.arFont-diwani .arabic,.arFont-diwani .arabic *,.arFont-diwani .arWord{font-family:"Aref Ruqaa",serif!important}
 .trFont-inter .tr,.trFont-inter .tr *{font-family:"Inter",sans-serif!important}
 .trFont-lora .tr,.trFont-lora .tr *{font-family:"Lora",serif!important}
 .trFont-merriweather .tr,.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
@@ -233,7 +234,7 @@ html.pt-open,body.pt-open{overflow:hidden!important;overscroll-behavior:none!imp
 <div class="utilityPanel" id="settingsPanel">
  <div class="utilityBox"><div class="utilityTop"><h2>Configurações</h2><button onclick="closeUtility('settingsPanel')">×</button></div>
  <div class="settingGroup"><div class="settingTitle">Tamanho do texto</div><div class="sizeRow"><button onclick="changeTextSize(-1)">A−</button><div id="sizeValue">100%</div><button onclick="changeTextSize(1)">A+</button></div></div>
- <div class="settingGroup" id="arabicSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('arabicSettingGroup')"><span class="settingTitle">Arapça yazı stilleri (15)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="arabicFontChoices"></div><div class="settingHint">İstediğiniz stile dokunarak Arapça yazılarını anında değiştirebilirsiniz.</div></div></div>
+ <div class="settingGroup" id="arabicSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('arabicSettingGroup')"><span class="settingTitle">Arapça yazı stilleri (17)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="arabicFontChoices"></div><div class="settingHint">İstediğiniz stile dokunarak Arapça yazılarını anında değiştirebilirsiniz.</div></div></div>
  <div class="settingGroup" id="turkishSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('turkishSettingGroup')"><span class="settingTitle">Latin içerikler için yazı stilleri (5)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="turkishFontChoices"></div><div class="settingHint">Türkçe ve Latin içeriklerin yazı stilini buradan seçebilirsiniz.</div></div></div>
  <div class="settingGroup" id="voiceSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('voiceSettingGroup')"><span class="settingTitle">Brezilya Portekizcesi ses seçenekleri (10)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="voiceChoices" id="voiceChoices"></div><div class="settingHint">Seçtiğiniz ses, kelime telaffuzlarında kullanılacaktır. 🔊 düğmesiyle sesi deneyebilirsiniz.</div></div></div>
  </div></div>
@@ -708,12 +709,13 @@ document.querySelectorAll('.utilityPanel').forEach(p=>p.addEventListener('click'
 const ARABIC_FONTS=[
  ['amiri','Amiri'],['naskh','Noto Naskh Arabic'],['scheherazade','Scheherazade New'],['lateef','Lateef'],['sulus','Sülüs'],
  ['cairo','Cairo'],['changa','Changa'],['elmessiri','El Messiri'],['harmattan','Harmattan'],['mada','Mada'],
- ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular']
+ ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular'],
+ ['naskhclassic','Naskh Klasik'],['diwani','Divanî']
 ];
 const TURKISH_FONTS=[['nunito','Nunito'],['bitter','Bitter'],['koho','KoHo'],['raleway','Raleway'],['lora','Lora']];
 const ARABIC_SAMPLE='بِسْمِ اللّٰهِ';
 const LATIN_SAMPLE='Peygamber Efendimiz';
-const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha'};
+const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha',naskhclassic:'Uthman Taha',diwani:'Aref Ruqaa'};
 const LATIN_SAMPLE_FONTS={nunito:'Nunito',bitter:'Bitter',koho:'KoHo',raleway:'Raleway',lora:'Lora'};
 function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
 function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
@@ -842,7 +844,7 @@ async function shareSection(event,btn){
 }
 
 // Portekizce uygulaması: iPhone/Safari için en üstten aşağı çekme ile açılır.
-(function setupPortuguesePull(){
+function setupPortuguesePull(){
   const layer=document.getElementById('ptPullLayer');
   const hint=document.getElementById('ptPullHint');
   const close=document.getElementById('ptPullClose');
@@ -932,7 +934,10 @@ async function shareSection(event,btn){
       setTimeout(()=>hint.classList.remove('show'),2600);
     }
   },700);
-})();
+}
+
+// DOM içindeki Portekizce katmanı oluştuktan sonra sistemi başlat.
+document.addEventListener('DOMContentLoaded', setupPortuguesePull);
 
 // Final initialization: font arrays/functions must exist before they are used.
 (function initAppSystems(){
