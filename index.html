@@ -201,8 +201,26 @@ body.trFont-lora .tr,body.trFont-lora .tr *,body.trFont-lora .trSentence,body.tr
 .favoritesPageTop span{display:block}
 .favorites>.section{margin-top:14px}
 </style>
+
+<style id="portuguese-layer-style">
+#portugueseLayer{position:fixed;inset:0;z-index:99999;background:#f6f0e6;transform:translateY(100%);transition:transform .38s cubic-bezier(.22,.8,.24,1);will-change:transform;display:flex;flex-direction:column;overscroll-behavior:contain;}
+#portugueseLayer.open{transform:translateY(0)}
+#portugueseLayer.dragging{transition:none}
+#portugueseTop{height:48px;min-height:48px;display:flex;align-items:center;justify-content:center;position:relative;background:#f6f0e6;border-bottom:1px solid #e4ddd1;font-size:14px;color:#756d64;font-weight:700;}
+#portugueseClose{position:absolute;left:12px;top:7px;width:36px;height:34px;border:0;border-radius:12px;background:#fffdf8;color:#403a34;font-size:22px;line-height:1;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+#portugueseFrame{width:100%;height:calc(100% - 48px);border:0;display:block;background:#f6f0e6;}
+#portuguesePullHint{position:fixed;left:50%;top:8px;transform:translateX(-50%);z-index:99998;pointer-events:none;background:rgba(255,253,248,.92);color:#718172;border:1px solid #e4ddd1;border-radius:18px;padding:5px 11px;font-size:12px;opacity:0;transition:opacity .2s;}
+#portuguesePullHint.show{opacity:1}
+@media(min-width:800px){#portugueseLayer{left:50%;width:760px;transform:translate(-50%,100%);border-left:1px solid #e4ddd1;border-right:1px solid #e4ddd1;box-shadow:0 -8px 35px rgba(0,0,0,.12)}#portugueseLayer.open{transform:translate(-50%,0)}}
+</style>
 </head>
 <body>
+<div id="portuguesePullHint">↓ Portekizce uygulamasını açmak için çek</div>
+<div id="portugueseLayer" aria-hidden="true">
+  <div id="portugueseTop"><button id="portugueseClose" type="button" aria-label="Takvime dön">‹</button><span>🇧🇷 Portekizce Öğreniyorum · A1</span></div>
+  <iframe id="portugueseFrame" src="portekizce.html" title="Portekizce Öğreniyorum A1"></iframe>
+</div>
+
 <div class="app">
 <div class="dayViewport" id="dayViewport">
  <div class="dayTrack" id="dayTrack"></div>
@@ -838,4 +856,27 @@ async function shareSection(event,btn){
 // Service worker registration intentionally disabled so GitHub Pages always serves the newest index.html.
 </script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script id="portugueseLayerScript">
+(function(){
+  const layer=document.getElementById('portugueseLayer');
+  const close=document.getElementById('portugueseClose');
+  const hint=document.getElementById('portuguesePullHint');
+  if(!layer)return;
+  let startY=0,current=0,tracking=false,opened=false;
+  function setOpen(v){opened=v;layer.classList.toggle('open',v);layer.classList.remove('dragging');layer.style.transform='';layer.setAttribute('aria-hidden',v?'false':'true');if(hint)hint.classList.remove('show');}
+  function topOfPage(){return (window.scrollY||document.documentElement.scrollTop||0)<=1;}
+  function onStart(e){if(opened||!topOfPage())return; const t=e.touches&&e.touches[0]; if(!t)return; startY=t.clientY;current=0;tracking=true;layer.classList.add('dragging');}
+  function onMove(e){if(!tracking)return; const t=e.touches&&e.touches[0];if(!t)return; current=t.clientY-startY; if(current<=0){current=0;return;} e.preventDefault(); const h=window.innerHeight||1; const y=Math.max(0,Math.min(h,h-current)); layer.style.transform='translateY('+y+'px)'; if(hint)hint.classList.toggle('show',current>30);}
+  function onEnd(){if(!tracking)return;tracking=false;layer.classList.remove('dragging');const h=window.innerHeight||1; if(current>110||current>h*.16){setOpen(true);}else{layer.style.transform='';if(hint)hint.classList.remove('show');}}
+  document.addEventListener('touchstart',onStart,{passive:true});
+  document.addEventListener('touchmove',onMove,{passive:false});
+  document.addEventListener('touchend',onEnd,{passive:true});
+  close.addEventListener('click',()=>setOpen(false));
+  window.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)setOpen(false);});
+  // İlk kullanım için hafif ipucu: sadece sayfanın en üstündeyken görünür.
+  let hinted=false;
+  window.addEventListener('scroll',()=>{if(!hinted&&topOfPage()&&hint){hinted=true;setTimeout(()=>hint.classList.add('show'),700);setTimeout(()=>hint.classList.remove('show'),3500);}});
+})();
+</script>
 </body></html>
