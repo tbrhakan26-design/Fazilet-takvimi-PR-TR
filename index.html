@@ -841,95 +841,97 @@ async function shareSection(event,btn){
  }finally{btn.disabled=false;}
 }
 
-// Portekizce uygulaması: yalnızca sayfanın en üstündeyken aşağı çekme ile açılır.
+// Portekizce uygulaması: iPhone/Safari için en üstten aşağı çekme ile açılır.
 (function setupPortuguesePull(){
   const layer=document.getElementById('ptPullLayer');
   const hint=document.getElementById('ptPullHint');
   const close=document.getElementById('ptPullClose');
   if(!layer) return;
 
-  let sx=0, sy=0, lastY=0, tracking=false, opened=false;
-  const THRESHOLD=85, MAX_PULL=300;
+  let startY=0,lastY=0,tracking=false,opened=false,moved=false;
+  const THRESHOLD=90, MAX=360;
+  const atTop=()=>window.scrollY<=2 && document.documentElement.scrollTop<=2 && document.body.scrollTop<=2;
 
-  const atTop=()=>Math.max(0,window.scrollY||document.documentElement.scrollTop||document.body.scrollTop||0)<=2;
-  const setPull=(dy)=>{
-    const pull=Math.min(MAX_PULL,Math.max(0,dy));
+  function draw(dy){
+    const pull=Math.min(MAX,Math.max(0,dy));
     const progress=Math.min(1,pull/THRESHOLD);
     const eased=1-Math.pow(1-progress,.72);
-    layer.classList.add('dragging');
     layer.style.visibility='visible';
-    layer.style.transform='translate3d(0,'+((-100+eased*100))+'%,0)';
-    if(hint) hint.classList.toggle('show',pull>22);
-  };
-  const reset=()=>{
-    tracking=false;
+    layer.style.transform=`translate3d(0,${(-100+eased*100)}%,0)`;
+    if(hint){
+      hint.style.opacity=pull>18?'1':'0';
+      hint.style.transform=pull>18?'translate(-50%,0)':'translate(-50%,-120%)';
+    }
+  }
+
+  function reset(){
+    tracking=false;moved=false;
     layer.classList.remove('dragging');
-    layer.style.transform='';
-    layer.style.visibility='';
-    if(hint) hint.classList.remove('show');
-  };
-  const openPT=()=>{
-    tracking=false; opened=true;
-    layer.classList.remove('dragging'); layer.classList.add('open');
-    layer.style.transform=''; layer.style.visibility='visible';
+    layer.style.transform='';layer.style.visibility='';
+    if(hint){hint.style.opacity='';hint.style.transform='';hint.classList.remove('show');}
+  }
+
+  function openPT(){
+    tracking=false;moved=false;opened=true;
+    layer.classList.remove('dragging');layer.classList.add('open');
+    layer.style.transform='';layer.style.visibility='visible';
     layer.setAttribute('aria-hidden','false');
     document.documentElement.classList.add('pt-open');
     document.body.classList.add('pt-open');
-    if(hint) hint.classList.remove('show');
-  };
-  const closePT=()=>{
-    opened=false; layer.classList.remove('open'); layer.setAttribute('aria-hidden','true');
-    document.documentElement.classList.remove('pt-open'); document.body.classList.remove('pt-open');
+    if(hint)hint.classList.remove('show');
+  }
+
+  function closePT(){
+    opened=false;
+    layer.classList.remove('open');
+    layer.setAttribute('aria-hidden','true');
+    document.documentElement.classList.remove('pt-open');
+    document.body.classList.remove('pt-open');
     reset();
-  };
-  if(close) close.addEventListener('click',closePT);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)closePT()});
+  }
 
-  function start(e){
+  close?.addEventListener('click',closePT);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)closePT();});
+
+  // Tek bir dokunmatik takip sistemi kullanıyoruz. Kritik nokta:
+  // parmak hareket ederken Safari sayfayı birkaç piksel kaydırsa bile
+  // hareketi iptal etmiyoruz. Aksi halde pull-down hiç tamamlanamıyordu.
+  document.addEventListener('touchstart',e=>{
     if(opened || tracking || !atTop()) return;
-    const t=e.touches&&e.touches[0]; if(!t) return;
-    sx=t.clientX; sy=t.clientY; lastY=sy; tracking=true;
-  }
-  function move(e){
+    const t=e.touches[0];
+    if(!t) return;
+    startY=t.clientY;lastY=startY;tracking=true;moved=false;
+    layer.classList.add('dragging');
+  },{capture:true,passive:true});
+
+  document.addEventListener('touchmove',e=>{
     if(!tracking || opened) return;
-    const t=e.touches&&e.touches[0]; if(!t){reset();return;}
-    const dx=t.clientX-sx, dy=t.clientY-sy; lastY=t.clientY;
-    if(dy<=4 || Math.abs(dx)>Math.abs(dy)*1.15){ if(dy<0||Math.abs(dx)>40) reset(); return; }
-    if(!atTop()){reset();return;}
-    if(e.cancelable) e.preventDefault();
-    setPull(dy);
-  }
-  function end(){
-    if(!tracking) return;
-    const dy=lastY-sy;
-    if(dy>=THRESHOLD) openPT(); else reset();
-  }
-
-  // iPhone/Safari için olayları window seviyesinde capture + non-passive dinliyoruz.
-  window.addEventListener('touchstart',start,{capture:true,passive:true});
-  window.addEventListener('touchmove',move,{capture:true,passive:false});
-  window.addEventListener('touchend',end,{capture:true,passive:true});
-  window.addEventListener('touchcancel',reset,{capture:true,passive:true});
-
-  // Dokunmatik olmayan cihazlarda fare/pointer ile de test edilebilir.
-  let pointerTracking=false, px=0, py=0;
-  window.addEventListener('pointerdown',e=>{
-    if(e.pointerType==='touch'||opened||!atTop()) return;
-    px=e.clientX; py=e.clientY; lastY=py; pointerTracking=true;
-  },{capture:true,passive:true});
-  window.addEventListener('pointermove',e=>{
-    if(e.pointerType==='touch'||!pointerTracking||opened) return;
-    const dy=e.clientY-py, dx=e.clientX-px; lastY=e.clientY;
-    if(dy>4&&Math.abs(dx)<=Math.abs(dy)*1.15&&atTop()){
-      if(e.cancelable)e.preventDefault(); setPull(dy);
-    }else if(dy<0||Math.abs(dx)>40){pointerTracking=false;reset();}
+    const t=e.touches[0];
+    if(!t){reset();return;}
+    const dy=t.clientY-startY;
+    lastY=t.clientY;
+    if(dy<=0){reset();return;}
+    moved=true;
+    // Bu noktadan sonra native scroll'u durdurup hareketi bize bırak.
+    if(e.cancelable)e.preventDefault();
+    draw(dy);
   },{capture:true,passive:false});
-  window.addEventListener('pointerup',()=>{
-    if(!pointerTracking)return; const dy=lastY-py; pointerTracking=false;
-    if(dy>=THRESHOLD)openPT();else reset();
+
+  document.addEventListener('touchend',e=>{
+    if(!tracking) return;
+    const dy=lastY-startY;
+    if(dy>=THRESHOLD) openPT();
+    else reset();
   },{capture:true,passive:true});
 
-  setTimeout(()=>{if(atTop()&&!opened&&hint){hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),2600)}},900);
+  document.addEventListener('touchcancel',reset,{capture:true,passive:true});
+
+  setTimeout(()=>{
+    if(atTop()&&!opened&&hint){
+      hint.classList.add('show');
+      setTimeout(()=>hint.classList.remove('show'),2600);
+    }
+  },700);
 })();
 
 // Final initialization: font arrays/functions must exist before they are used.
