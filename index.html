@@ -124,8 +124,7 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .arFont-mirza .arabic,.arFont-mirza .arabic *,.arFont-mirza .arWord{font-family:"Mirza",serif!important}
 .arFont-reem .arabic,.arFont-reem .arabic *,.arFont-reem .arWord{font-family:"Reem Kufi",sans-serif!important}
 .arFont-ruqaa .arabic,.arFont-ruqaa .arabic *,.arFont-ruqaa .arWord{font-family:"Aref Ruqaa",serif!important}
-.arFont-uthman .arabic,.arFont-uthman .arabic *,.arFont-uthman .arWord{font-family:"Uthman Taha",serif!important}.arFont-naskhclassic .arabic,.arFont-naskhclassic .arabic *,.arFont-naskhclassic .arWord{font-family:"Uthman Taha",serif!important}
-.arFont-diwani .arabic,.arFont-diwani .arabic *,.arFont-diwani .arWord{font-family:"Aref Ruqaa",serif!important}
+.arFont-uthman .arabic,.arFont-uthman .arabic *,.arFont-uthman .arWord{font-family:"Uthman Taha",serif!important}
 .trFont-inter .tr,.trFont-inter .tr *{font-family:"Inter",sans-serif!important}
 .trFont-lora .tr,.trFont-lora .tr *{font-family:"Lora",serif!important}
 .trFont-merriweather .tr,.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
@@ -207,9 +206,7 @@ body.trFont-lora .tr,body.trFont-lora .tr *,body.trFont-lora .trSentence,body.tr
 .ptPullLayer.open{transform:translateY(0);visibility:visible}
 .ptPullLayer.dragging{transition:none}
 .ptPullFrame{width:100%;height:100%;border:0;display:block;background:#f6f0e6}
-.ptPullClose{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);right:14px;z-index:2;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,253,248,.94);color:#403a34;font-size:25px;line-height:44px;box-shadow:0 3px 14px rgba(40,25,10,.16);display:none}
-.ptPullLayer.open .ptPullClose{display:block}
-.ptPullHint{position:fixed;left:50%;top:0;transform:translate(-50%,-120%);z-index:100000;background:rgba(35,102,76,.96);color:#fffaf0;border-radius:0 0 18px 18px;padding:9px 18px;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(40,25,10,.18);pointer-events:none;opacity:0;transition:opacity .2s,transform .2s}
+.ptPullHint{position:fixed;left:50%;top:0;transform:translate(-50%,-120%);z-index:100000;background:rgba(35,102,76,.96);color:#fffaf0;border-radius:0 0 18px 18px;padding:9px 18px;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(40,25,10,.18);pointer-events:auto;opacity:0;transition:opacity .2s,transform .2s}
 .ptPullHint.show{opacity:1;transform:translate(-50%,0)}
 html,body{overscroll-behavior-y:none}
 html.pt-open,body.pt-open{overflow:hidden!important;overscroll-behavior:none!important}
@@ -234,7 +231,7 @@ html.pt-open,body.pt-open{overflow:hidden!important;overscroll-behavior:none!imp
 <div class="utilityPanel" id="settingsPanel">
  <div class="utilityBox"><div class="utilityTop"><h2>Configurações</h2><button onclick="closeUtility('settingsPanel')">×</button></div>
  <div class="settingGroup"><div class="settingTitle">Tamanho do texto</div><div class="sizeRow"><button onclick="changeTextSize(-1)">A−</button><div id="sizeValue">100%</div><button onclick="changeTextSize(1)">A+</button></div></div>
- <div class="settingGroup" id="arabicSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('arabicSettingGroup')"><span class="settingTitle">Arapça yazı stilleri (17)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="arabicFontChoices"></div><div class="settingHint">İstediğiniz stile dokunarak Arapça yazılarını anında değiştirebilirsiniz.</div></div></div>
+ <div class="settingGroup" id="arabicSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('arabicSettingGroup')"><span class="settingTitle">Arapça yazı stilleri (15)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="arabicFontChoices"></div><div class="settingHint">İstediğiniz stile dokunarak Arapça yazılarını anında değiştirebilirsiniz.</div></div></div>
  <div class="settingGroup" id="turkishSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('turkishSettingGroup')"><span class="settingTitle">Latin içerikler için yazı stilleri (5)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="turkishFontChoices"></div><div class="settingHint">Türkçe ve Latin içeriklerin yazı stilini buradan seçebilirsiniz.</div></div></div>
  <div class="settingGroup" id="voiceSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('voiceSettingGroup')"><span class="settingTitle">Brezilya Portekizcesi ses seçenekleri (10)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="voiceChoices" id="voiceChoices"></div><div class="settingHint">Seçtiğiniz ses, kelime telaffuzlarında kullanılacaktır. 🔊 düğmesiyle sesi deneyebilirsiniz.</div></div></div>
  </div></div>
@@ -709,13 +706,12 @@ document.querySelectorAll('.utilityPanel').forEach(p=>p.addEventListener('click'
 const ARABIC_FONTS=[
  ['amiri','Amiri'],['naskh','Noto Naskh Arabic'],['scheherazade','Scheherazade New'],['lateef','Lateef'],['sulus','Sülüs'],
  ['cairo','Cairo'],['changa','Changa'],['elmessiri','El Messiri'],['harmattan','Harmattan'],['mada','Mada'],
- ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular'],
- ['naskhclassic','Naskh Klasik'],['diwani','Divanî']
+ ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular']
 ];
 const TURKISH_FONTS=[['nunito','Nunito'],['bitter','Bitter'],['koho','KoHo'],['raleway','Raleway'],['lora','Lora']];
 const ARABIC_SAMPLE='بِسْمِ اللّٰهِ';
 const LATIN_SAMPLE='Peygamber Efendimiz';
-const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha',naskhclassic:'Uthman Taha',diwani:'Aref Ruqaa'};
+const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha'};
 const LATIN_SAMPLE_FONTS={nunito:'Nunito',bitter:'Bitter',koho:'KoHo',raleway:'Raleway',lora:'Lora'};
 function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
 function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
@@ -847,93 +843,41 @@ async function shareSection(event,btn){
 function setupPortuguesePull(){
   const layer=document.getElementById('ptPullLayer');
   const hint=document.getElementById('ptPullHint');
-  const close=document.getElementById('ptPullClose');
   if(!layer) return;
-
-  let startY=0,lastY=0,tracking=false,opened=false,moved=false;
-  const THRESHOLD=90, MAX=360;
+  let startY=0,lastY=0,tracking=false,opened=false;
+  const THRESHOLD=90,MAX=360;
   const atTop=()=>window.scrollY<=2 && document.documentElement.scrollTop<=2 && document.body.scrollTop<=2;
-
   function draw(dy){
     const pull=Math.min(MAX,Math.max(0,dy));
     const progress=Math.min(1,pull/THRESHOLD);
     const eased=1-Math.pow(1-progress,.72);
     layer.style.visibility='visible';
     layer.style.transform=`translate3d(0,${(-100+eased*100)}%,0)`;
-    if(hint){
-      hint.style.opacity=pull>18?'1':'0';
-      hint.style.transform=pull>18?'translate(-50%,0)':'translate(-50%,-120%)';
-    }
+    if(hint){hint.style.opacity=pull>18?'1':'0';hint.style.transform=pull>18?'translate(-50%,0)':'translate(-50%,-120%)';hint.textContent='↓ Portekizce Öğreniyorum';}
   }
-
   function reset(){
-    tracking=false;moved=false;
-    layer.classList.remove('dragging');
-    layer.style.transform='';layer.style.visibility='';
-    if(hint){hint.style.opacity='';hint.style.transform='';hint.classList.remove('show');}
+    tracking=false;layer.classList.remove('dragging');layer.style.transform='';layer.style.visibility='';
+    if(hint){hint.style.opacity='';hint.style.transform='';hint.classList.remove('show');hint.textContent='↓ Portekizce Öğreniyorum';}
   }
-
   function openPT(){
-    tracking=false;moved=false;opened=true;
-    layer.classList.remove('dragging');layer.classList.add('open');
-    layer.style.transform='';layer.style.visibility='visible';
-    layer.setAttribute('aria-hidden','false');
-    document.documentElement.classList.add('pt-open');
-    document.body.classList.add('pt-open');
-    if(hint)hint.classList.remove('show');
+    tracking=false;opened=true;layer.classList.remove('dragging');layer.classList.add('open');layer.style.transform='';layer.style.visibility='visible';layer.setAttribute('aria-hidden','false');document.documentElement.classList.add('pt-open');document.body.classList.add('pt-open');
+    if(hint){hint.classList.add('show');hint.style.opacity='1';hint.style.transform='translate(-50%,0)';hint.textContent='↑ Fazilet Takvimi';}
   }
-
   function closePT(){
-    opened=false;
-    layer.classList.remove('open');
-    layer.setAttribute('aria-hidden','true');
-    document.documentElement.classList.remove('pt-open');
-    document.body.classList.remove('pt-open');
-    reset();
+    opened=false;layer.classList.remove('open');layer.setAttribute('aria-hidden','true');document.documentElement.classList.remove('pt-open');document.body.classList.remove('pt-open');reset();
   }
-
-  close?.addEventListener('click',closePT);
+  hint?.addEventListener('click',closePT);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)closePT();});
-
-  // Tek bir dokunmatik takip sistemi kullanıyoruz. Kritik nokta:
-  // parmak hareket ederken Safari sayfayı birkaç piksel kaydırsa bile
-  // hareketi iptal etmiyoruz. Aksi halde pull-down hiç tamamlanamıyordu.
   document.addEventListener('touchstart',e=>{
-    if(opened || tracking || !atTop()) return;
-    const t=e.touches[0];
-    if(!t) return;
-    startY=t.clientY;lastY=startY;tracking=true;moved=false;
-    layer.classList.add('dragging');
+    if(opened||tracking||!atTop())return;
+    const t=e.touches[0];if(!t)return;startY=t.clientY;lastY=startY;tracking=true;layer.classList.add('dragging');
   },{capture:true,passive:true});
-
   document.addEventListener('touchmove',e=>{
-    if(!tracking || opened) return;
-    const t=e.touches[0];
-    if(!t){reset();return;}
-    const dy=t.clientY-startY;
-    lastY=t.clientY;
-    if(dy<=0){reset();return;}
-    moved=true;
-    // Bu noktadan sonra native scroll'u durdurup hareketi bize bırak.
-    if(e.cancelable)e.preventDefault();
-    draw(dy);
+    if(!tracking||opened)return;const t=e.touches[0];if(!t){reset();return;}const dy=t.clientY-startY;lastY=t.clientY;if(dy<=0){reset();return;}if(e.cancelable)e.preventDefault();draw(dy);
   },{capture:true,passive:false});
-
-  document.addEventListener('touchend',e=>{
-    if(!tracking) return;
-    const dy=lastY-startY;
-    if(dy>=THRESHOLD) openPT();
-    else reset();
-  },{capture:true,passive:true});
-
+  document.addEventListener('touchend',()=>{if(!tracking)return;const dy=lastY-startY;if(dy>=THRESHOLD)openPT();else reset();},{capture:true,passive:true});
   document.addEventListener('touchcancel',reset,{capture:true,passive:true});
-
-  setTimeout(()=>{
-    if(atTop()&&!opened&&hint){
-      hint.classList.add('show');
-      setTimeout(()=>hint.classList.remove('show'),2600);
-    }
-  },700);
+  setTimeout(()=>{if(atTop()&&!opened&&hint){hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),2600)}},700);
 }
 
 // DOM içindeki Portekizce katmanı oluştuktan sonra sistemi başlat.
@@ -957,7 +901,6 @@ document.addEventListener('DOMContentLoaded', setupPortuguesePull);
 
 <div id="ptPullHint" class="ptPullHint">↓ Portekizce Öğreniyorum</div>
 <div id="ptPullLayer" class="ptPullLayer" aria-hidden="true">
-  <button class="ptPullClose" id="ptPullClose" type="button" aria-label="Fazilet Takvimi'ne dön">×</button>
   <iframe id="ptPullFrame" class="ptPullFrame" src="portekizce.html" title="Portekizce Öğreniyorum A1"></iframe>
 </div>
 
