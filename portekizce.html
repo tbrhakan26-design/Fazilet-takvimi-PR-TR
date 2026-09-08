@@ -29,9 +29,9 @@ main{max-width:760px;margin:auto;padding:4px 16px 70px}.card{background:var(--ca
 .khutbahBlock{padding:15px 0;border-bottom:1px solid var(--line)}.khutbahBlock:last-child{border-bottom:0}
 .khutbahPt{font-family:inherit;font-size:18px;font-weight:800;line-height:1.82;margin:0 0 10px}
 .khutbahTr{font-family:inherit;background:#f2eadc;border-left:4px solid var(--green);border-radius:12px;padding:12px 14px;color:#5e564e;line-height:1.65;font-size:16px}
-.khutbahHead{font-size:18px;font-weight:750;margin:0 0 10px}.khTok{border-bottom:1px dotted var(--gold);cursor:pointer;padding-bottom:1px}.khTok.active{background:var(--green2);border-radius:5px}
-.khutbahLookup{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);width:min(92vw,420px);background:#fffdf8;border:1px solid var(--line);box-shadow:0 10px 35px rgba(64,58,52,.18);border-radius:16px;padding:12px 14px;z-index:50;display:none}
-.khutbahLookup.show{display:block}.khutbahLookup b{font-size:17px}.khutbahLookup .closeWord{float:right;border:0;background:#eee7db;border-radius:9px;padding:4px 8px}
+.khutbahHead{font-size:18px;font-weight:750;margin:0 0 10px}.khTok{border-bottom:0!important;text-decoration:none!important;cursor:pointer;padding:2px 4px;margin:0 1px;border-radius:6px;transition:background .15s,box-shadow .15s}.khTok.active{background:#dfe7de!important;box-shadow:0 0 0 1px rgba(47,107,85,.12)}
+.khutbahLookup{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);width:min(92vw,430px);background:#fffaf0;border:1px solid #dfc9a7;box-shadow:0 14px 38px rgba(64,58,52,.22);border-radius:20px;padding:16px 18px;z-index:50;display:none}
+.khutbahLookup.show{display:block}.khutbahLookup b{font-size:20px;color:#285f49}.khutbahLookup span{display:block;margin-top:5px;color:var(--muted);font-size:16px}.khutbahLookup .closeWord{float:right;border:0;background:#eee7db;border-radius:9px;padding:4px 8px}
 
 /* Öğrenme görünümü ve kişiselleştirme */
 :root{--learn-size:18px;--tr-learn-size:16px;--learn-font:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -46,12 +46,12 @@ body .tr{font-size:var(--tr-learn-size)!important}
 .verbHead{font-size:calc(var(--learn-size) + 1px)!important}
 .verbPt{font-weight:650!important}.verbNo{font-weight:700!important}
 .verbExample .ptEx{font-size:calc(var(--learn-size) - 2px)!important}.verbExample .trEx{font-size:calc(var(--tr-learn-size) - 1px)!important}
-.khutbahPt{font-size:var(--learn-size)!important;font-weight:500!important;line-height:1.75!important}
-.khutbahTr{font-size:var(--tr-learn-size)!important}
+.khutbahPt{font-size:var(--learn-size)!important;font-weight:450!important;line-height:1.78!important;text-decoration:none!important;border:0!important}
+.khutbahTr{font-size:var(--tr-learn-size)!important;text-decoration:none!important;border:0!important}
 .settingsBtn{position:fixed;right:14px;bottom:18px;width:48px;height:48px;border:0;border-radius:50%;background:var(--green);color:#fff;font-size:21px;box-shadow:0 8px 24px rgba(64,58,52,.2);z-index:100}
 .settingsPanel{position:fixed;right:12px;bottom:76px;width:min(92vw,400px);max-height:78vh;overflow:auto;background:#fffdf8;border:1px solid var(--line);border-radius:20px;box-shadow:0 16px 45px rgba(64,58,52,.22);padding:16px;z-index:99;display:none}
 .settingsPanel.show{display:block}.settingsPanel h3{margin:0 0 12px}.settingRow{margin:13px 0}.settingRow label{display:block;font-size:14px;color:var(--muted);margin-bottom:7px}.settingBtns{display:flex;flex-wrap:wrap;gap:7px}.settingBtns button{border:1px solid var(--line);background:#f4eee5;color:var(--text);border-radius:11px;padding:8px 10px;font-size:13px}.settingBtns button.active{background:var(--green);color:#fff;border-color:var(--green)}
-.khutbahBlock .khTok.khC1{color:#8a4931}.khutbahBlock .khTok.khC2{color:#2f6b55}.khutbahBlock .khTok.khC3{color:#9a762e}.khutbahBlock .khTok.khC4{color:#655d86}.khutbahBlock .khTok.active{background:var(--green2);color:var(--text)!important}
+.khutbahBlock .khTok.khC1{color:#7b351f;background:#f5dfd6}.khutbahBlock .khTok.khC2{color:#205c48;background:#dfeee6}.khutbahBlock .khTok.khC3{color:#765b16;background:#f4e9c9}.khutbahBlock .khTok.khC4{color:#51466f;background:#e8e2f3}.khutbahBlock .khTok.active{background:#cfe2d5!important;color:#183f31!important}
 .khWordActions{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}.khWordActions button{border:0;background:#eee7db;color:var(--text);border-radius:10px;padding:8px 10px;font-weight:600}.khWordActions button.saved{background:#d5e1d4}
 
 body.arabic-amiri .verbAr,body.arabic-amiri .khutbahAyah{font-family:"Amiri",serif!important}
