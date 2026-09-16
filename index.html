@@ -8,51 +8,32 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Calendário Fazilet">
 <title>Calendário Fazilet</title>
-<script>
-// Cache temizliği: eski GitHub Pages/service-worker sürümleri siteyi kilitlemesin.
-(function(){
-  try{
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.getRegistrations().then(function(regs){
-        if(regs.length){
-          return Promise.all(regs.map(function(r){return r.unregister();}));
-        }
-      }).then(function(){
-        if(window.caches && caches.keys){
-          return caches.keys().then(function(keys){return Promise.all(keys.map(function(k){return caches.delete(k);}));});
-        }
-      }).catch(function(){});
-    }
-  }catch(e){}
-})();
-</script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700&family=Changa:wght@400;600;700&family=El+Messiri:wght@400;500;600;700&family=Harmattan:wght@400;700&family=Lateef&family=Mada:wght@400;600;700&family=Markazi+Text:wght@400;500;600;700&family=Mirza:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Bitter:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=KoHo:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
-@font-face{font-family:'Uthman Taha';src:url('fonts/KFGQPC Uthman Taha Naskh Regular/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+
 @font-face{font-family:'KoHo';src:local('KoHo');font-weight:100 900;font-style:normal;font-display:swap}
 
 :root{--cream:#fbf2df;--paper:#fffaf0;--brown:#5a2d12;--brown2:#7b401b;--green:#23664c;--orange:#e9791b;--blue:#2875c6;--line:#dcc5a0;--shadow:0 7px 22px rgba(75,39,15,.13)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:#e9e1d4;color:var(--brown);font-family:"KoHo",sans-serif;font-size:calc(15px * var(--user-scale,1))}
+html,body{margin:0;background:#e9e1d4;color:var(--brown);font-family:"KoHo",sans-serif}
 body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;background:var(--cream);position:relative;padding-bottom:25px;overflow-x:hidden}
-.header{padding:14px 20px 0;position:relative}.date{display:flex;gap:12px}.day{font-size:62px;line-height:.76;letter-spacing:-5px;color:#612f10}.month{font-size:16px;font-weight:700;padding-top:3px}.week{font-size:16px;margin-top:4px}.hijri{font-size:15px;color:var(--green);line-height:1.45;margin-top:14px}
-.menuBtn{position:absolute;right:18px;top:8px;width:50px;height:50px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:27px;line-height:1}
-.menuBtn{touch-action:manipulation}.menuBtn span{display:block;font:24px -apple-system,BlinkMacSystemFont,sans-serif;line-height:1}
-.ornament{height:38px;margin:4px 16px 0;position:relative}.ornament:before{content:"❧  ───  ✦  ───  ❧";position:absolute;left:50%;transform:translateX(-50%);color:var(--brown2);font-size:17px;white-space:nowrap}.todayBackBtn{display:none;position:absolute;left:-2px;top:0;width:44px;height:34px;border:1px solid rgba(220,197,160,.55);border-radius:18px;background:rgba(255,250,240,.72);color:var(--brown2);font:32px/27px -apple-system,BlinkMacSystemFont,sans-serif;align-items:center;justify-content:center;z-index:5;box-shadow:0 2px 8px rgba(79,42,17,.08)}.todayBackBtn.show{display:flex}.todayBackBtn span{display:block;transform:translateY(-1px)}
+.header{padding:18px 25px 0;position:relative}.date{display:flex;gap:12px}.day{font-size:76px;line-height:.76;letter-spacing:-5px;color:#612f10}.month{font-size:22px;font-weight:700;padding-top:3px}.week{font-size:18px;margin-top:4px}.hijri{font-size:17px;color:var(--green);line-height:1.45;margin-top:14px}
+.menuBtn{position:absolute;right:23px;top:11px;width:58px;height:58px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:27px;line-height:1}
+.menuBtn{touch-action:manipulation}.menuBtn span{display:block;font:28px -apple-system,BlinkMacSystemFont,sans-serif;line-height:1}
+.ornament{height:38px;margin:5px 18px 0;position:relative}.ornament:before{content:"❧  ───  ✦  ───  ❧";position:absolute;left:50%;transform:translateX(-50%);color:var(--brown2);font-size:20px;white-space:nowrap}.todayBackBtn{display:none;position:absolute;left:-2px;top:0;width:44px;height:34px;border:1px solid rgba(220,197,160,.55);border-radius:18px;background:rgba(255,250,240,.72);color:var(--brown2);font:32px/27px -apple-system,BlinkMacSystemFont,sans-serif;align-items:center;justify-content:center;z-index:5;box-shadow:0 2px 8px rgba(79,42,17,.08)}.todayBackBtn.show{display:flex}.todayBackBtn span{display:block;transform:translateY(-1px)}
 .prayerTitle{text-align:center;font-size:19px;font-weight:700;margin:1px 0 8px;color:var(--brown2)}
 .prayers{display:flex;gap:10px;overflow-x:auto;padding:0 18px 8px;scrollbar-width:none}.prayers::-webkit-scrollbar{display:none}
-.prayer{min-width:94px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px 7px;text-align:center;box-shadow:0 2px 8px #4f2a1110;scroll-snap-align:center;transition:.2s}.prayer.active{background:#fff3df;border:2px solid var(--orange);box-shadow:0 5px 16px #e9791b33;transform:scale(1.03)}.prayer.active .pname,.prayer.active .ptime{color:var(--orange);font-weight:800}.prayers{scroll-snap-type:x mandatory}.prayer .pname{font-size:13px;color:var(--green)}.prayer .ptime{font-size:20px;font-weight:700;margin-top:5px;color:var(--brown)}
+.prayer{min-width:104px;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:10px 8px;text-align:center;box-shadow:0 2px 8px #4f2a1110;scroll-snap-align:center;transition:.2s}.prayer.active{background:#fff3df;border:2px solid var(--orange);box-shadow:0 5px 16px #e9791b33;transform:scale(1.03)}.prayer.active .pname,.prayer.active .ptime{color:var(--orange);font-weight:800}.prayers{scroll-snap-type:x mandatory}.prayer .pname{font-size:15px;color:var(--green)}.prayer .ptime{font-size:23px;font-weight:700;margin-top:5px;color:var(--brown)}
 .next{text-align:center;font-size:13px;color:#6d5c4e;margin:1px 0 17px}.next b{color:var(--orange)}
-.section{margin:0 16px 15px}.sectionHead{display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--line);padding:0 3px 7px}.sectionHead h2{margin:0;font-size:20px;letter-spacing:.2px;color:#18563f}.sectionHead .book{color:var(--brown2);font-size:20px}
+.section{margin:0 20px 17px}.sectionHead{display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--line);padding:0 3px 7px}.sectionHead h2{margin:0;font-size:23px;letter-spacing:.2px;color:#18563f}.sectionHead .book{color:var(--brown2);font-size:22px}
 .hadithCard{position:relative;background:var(--paper);border:1.5px solid var(--brown2);border-radius:19px;padding:18px 17px;box-shadow:var(--shadow)}
 .arabic{font-family:"Uthman Taha",serif;direction:rtl;text-align:center;color:#111;font-size:24px;line-height:1.9;margin-bottom:9px}.source{text-align:center;color:var(--green);font-size:14px}
-.lang{margin-top:13px;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#fffaf0}.langTitle{font-size:16px;font-weight:700;color:var(--brown2);margin-bottom:7px}.lang p{margin:0;font-size:17px;line-height:1.68;color:#2b211a;letter-spacing:.01px}.sentencePair{padding:7px 0 9px;border-bottom:1px dashed #e1cfb2}.sentencePair:last-child{border-bottom:0}.ptSentence{font-size:17px;line-height:1.68;color:#2b211a}.trSentence{margin-top:5px;padding:6px 9px;background:#f4eadb;border-left:3px solid var(--green);border-radius:8px;font-size:14px;line-height:1.55;color:#5a4b3f}.trSentence b{color:var(--green)}.tr p{font-family:"KoHo",sans-serif;color:#514740}
+.lang{margin-top:13px;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#fffaf0}.langTitle{font-size:18px;font-weight:700;color:var(--brown2);margin-bottom:7px}.lang p{margin:0;font-size:17px;line-height:1.68;color:#2b211a;letter-spacing:.01px}.sentencePair{padding:7px 0 9px;border-bottom:1px dashed #e1cfb2}.sentencePair:last-child{border-bottom:0}.ptSentence{font-size:17px;line-height:1.68;color:#2b211a}.trSentence{margin-top:5px;padding:6px 9px;background:#f4eadb;border-left:3px solid var(--green);border-radius:8px;font-size:14px;line-height:1.55;color:#5a4b3f}.trSentence b{color:var(--green)}.tr p{font-family:"KoHo",sans-serif;color:#514740}
 .tap{background:#cce1eb;border-radius:4px;padding:1px 3px;cursor:pointer;position:relative}
 .tap.selected{outline:2px solid var(--orange);background:#f7dfb9}.tap{touch-action:manipulation;-webkit-tap-highlight-color:transparent}.inlineWord button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.term{font-weight:700;border-radius:5px;padding:1px 4px;cursor:pointer;transition:.15s}.autoWord{cursor:pointer;border-radius:4px;padding:0 1px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .12s}.autoWord:hover,.autoWord.selected{background:#f7dfb9}.autoWord.loading{opacity:.65}
+.term{font-weight:700;border-radius:5px;padding:1px 4px;cursor:pointer;transition:.15s}.autoWord{cursor:pointer;border-radius:4px;padding:0 1px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.autoWord:hover,.autoWord.selected{background:#f7dfb9}.autoWord.loading{opacity:.65}
 .term:hover{filter:brightness(.96)}
 .term.c1{background:#dcebdc;color:#18553d}
 .term.c2{background:#e8def3;color:#56377a}
@@ -61,15 +42,15 @@ body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;backgrou
 .studyLegend{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0 0;padding:8px 10px;border-radius:12px;background:#f8efdf;border:1px solid #e4d2b4;font-size:12px;color:#62564d}
 .studyLegend span{padding:3px 7px;border-radius:8px;font-weight:700}.studyLegend .l1{background:#dcebdc;color:#18553d}.studyLegend .l2{background:#e8def3;color:#56377a}.studyLegend .l3{background:#f7dfbd;color:#7a4518}
 .story{background:transparent;border:0;border-radius:0;overflow:visible;box-shadow:none}
-.storyHeader{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--brown);padding:12px 2px 10px;display:block;position:relative;text-align:left;font-family:Georgia,serif;cursor:default}.storyTitle{font-size:20px;font-weight:700;display:block;text-align:center;letter-spacing:.2px}.storyContent{display:block;padding:0 0 10px}.storyContent .lang{border:0;padding:14px 0 0;margin:0;background:transparent}.storyContent .lang p{font-size:15px;line-height:1.68}.storyContent .sentencePair{padding:8px 0 13px}.storyContent .ptSentence{font-size:15px;line-height:1.68}.storyContent .trSentence{font-size:13px;line-height:1.55;margin-top:7px;padding:9px 11px;border-left-width:4px;border-radius:10px}
-.inlineWord{position:absolute;z-index:30;width:min(300px,calc(100% - 12px));display:none;max-height:min(70vh,520px);overflow:auto;background:#fffaf0;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 10px 30px #4f2a1126;text-align:center}.inlineWord.show{display:block;animation:wordPop .16s ease-out}@keyframes wordPop{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}.wordLabel{font-size:11px;color:#7b6b5b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}.wordMeaning{font-size:16px!important;line-height:1.35;color:#173f31;margin:0 0 8px}.wordMeaning small{display:block;font-size:12px;color:#7b6b5b;margin-top:3px}.bubbles{display:flex;justify-content:center;gap:7px;margin:0}.bubble{flex:1;touch-action:manipulation;min-width:0;height:50px;border:1px solid #e1cda9;border-radius:14px;background:#fffdf8;box-shadow:none;font:700 10px -apple-system,BlinkMacSystemFont,sans-serif;color:#30241c;padding:5px 3px;cursor:pointer}.bubble i{display:block;width:23px;height:23px;border-radius:50%;margin:0 auto 3px;color:#fff;font:13px -apple-system,BlinkMacSystemFont,sans-serif;line-height:23px;font-style:normal}.bubble.s i{background:var(--orange)}.bubble.e i{background:var(--green)}.bubble.k i{background:#87501f}.bubble.saved{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.bubble.saved i{background:#18553d}.exampleBox{display:none;margin:0 auto 8px;max-width:310px;background:#f2e5f8;border:1px solid #d8c2e4;border-radius:13px;padding:9px;font-size:13px;line-height:1.45;text-align:left}.exampleBox.show{display:block}.pronunciationBox{display:none;margin:0 auto 8px;max-width:310px;background:#e5f0e9;border:1px solid #bfd8c8;border-radius:13px;padding:8px;font-size:14px;color:#18553d;font-weight:700}.pronunciationBox.show{display:block}.exampleBox b{color:#56377a}.exampleBox .exTr{display:block;margin-top:4px;color:#5c5148}
+.storyHeader{width:100%;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--brown);padding:12px 2px 10px;display:block;position:relative;text-align:left;font-family:Georgia,serif;cursor:default}.storyTitle{font-size:24px;font-weight:700;display:block;text-align:center;letter-spacing:.2px}.storyContent{display:block;padding:0 0 10px}.storyContent .lang{border:0;padding:14px 0 0;margin:0;background:transparent}.storyContent .lang p{font-size:18px;line-height:1.78}.storyContent .sentencePair{padding:8px 0 13px}.storyContent .ptSentence{font-size:18px;line-height:1.78}.storyContent .trSentence{font-size:14px;line-height:1.62;margin-top:7px;padding:9px 11px;border-left-width:4px;border-radius:10px}
+.inlineWord{position:absolute;z-index:30;width:min(330px,calc(100% - 16px));display:none;max-height:min(70vh,520px);overflow:auto;background:#fffaf0;border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 10px 30px #4f2a1126;text-align:center}.inlineWord.show{display:block;animation:wordPop .16s ease-out}@keyframes wordPop{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}.wordLabel{font-size:11px;color:#7b6b5b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}.wordMeaning{font-size:18px!important;line-height:1.35;color:#173f31;margin:0 0 8px}.wordMeaning small{display:block;font-size:12px;color:#7b6b5b;margin-top:3px}.bubbles{display:flex;justify-content:center;gap:7px;margin:0}.bubble{flex:1;touch-action:manipulation;min-width:0;height:58px;border:1px solid #e1cda9;border-radius:14px;background:#fffdf8;box-shadow:none;font:700 11px -apple-system,BlinkMacSystemFont,sans-serif;color:#30241c;padding:5px 3px;cursor:pointer}.bubble i{display:block;width:25px;height:25px;border-radius:50%;margin:0 auto 3px;color:#fff;font:14px -apple-system,BlinkMacSystemFont,sans-serif;line-height:25px;font-style:normal}.bubble.s i{background:var(--orange)}.bubble.e i{background:var(--green)}.bubble.k i{background:#87501f}.bubble.saved{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.bubble.saved i{background:#18553d}.exampleBox{display:none;margin:0 auto 8px;max-width:310px;background:#f2e5f8;border:1px solid #d8c2e4;border-radius:13px;padding:9px;font-size:13px;line-height:1.45;text-align:left}.exampleBox.show{display:block}.pronunciationBox{display:none;margin:0 auto 8px;max-width:310px;background:#e5f0e9;border:1px solid #bfd8c8;border-radius:13px;padding:8px;font-size:14px;color:#18553d;font-weight:700}.pronunciationBox.show{display:block}.exampleBox b{color:#56377a}.exampleBox .exTr{display:block;margin-top:4px;color:#5c5148}
 .studyLegend{justify-content:flex-start}.lang.tr .term.c1,.lang.tr .term.c2,.lang.tr .term.c3{font-weight:700}.storyContent .lang p{font-size:16px;line-height:1.72}.storyContent .lang.tr p{font-size:16px;line-height:1.72}
 .wordPopupArrow{position:absolute;width:12px;height:12px;background:#fffaf0;border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg);top:-7px;left:28px}
-.drawerShade{display:none;position:fixed;inset:0;background:#3b26165c;z-index:40}.drawerShade.show{display:block}.drawer{position:fixed;z-index:41;right:0;top:0;height:100%;width:min(310px,84%);background:var(--paper);box-shadow:-10px 0 35px #0003;padding:20px 17px;transform:translateX(100%);transition:.25s}.drawer.show{transform:translateX(0)}.drawerTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:15px}.drawerTop h2{margin:0;font-size:22px}.closeMenu{border:0;background:#fae6c1;border-radius:50%;width:43px;height:43px;color:var(--brown);font-size:24px}.drawer a,.drawer button.item{touch-action:manipulation;display:block;width:100%;border:0;background:none;text-align:left;color:var(--brown);font:16px "KoHo",sans-serif;padding:17px 6px;border-bottom:1px solid #ead9bc}.drawer .favCount{color:var(--green);font-size:14px;margin-left:5px}
+.drawerShade{display:none;position:fixed;inset:0;background:#3b26165c;z-index:40}.drawerShade.show{display:block}.drawer{position:fixed;z-index:41;right:0;top:0;height:100%;width:min(330px,86%);background:var(--paper);box-shadow:-10px 0 35px #0003;padding:23px 20px;transform:translateX(100%);transition:.25s}.drawer.show{transform:translateX(0)}.drawerTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:15px}.drawerTop h2{margin:0;font-size:25px}.closeMenu{border:0;background:#fae6c1;border-radius:50%;width:43px;height:43px;color:var(--brown);font-size:24px}.drawer a,.drawer button.item{display:block;width:100%;border:0;background:none;text-align:left;color:var(--brown);font:19px "KoHo",sans-serif;padding:17px 6px;border-bottom:1px solid #ead9bc}.drawer .favCount{color:var(--green);font-size:14px;margin-left:5px}
 .favorites{display:none}.favorites.show{display:block}.favEmpty{padding:18px;text-align:center;color:#75685d}
 
 .accordion{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:visible;box-shadow:0 2px 8px #4f2a1110}
-.accordionHeader{width:100%;border:0;background:transparent;color:var(--brown);padding:34px 14px 12px;display:block;position:relative;text-align:left;font-family:"KoHo",sans-serif;cursor:pointer}
+.accordionHeader{width:100%;border:0;background:transparent;color:var(--brown);padding:42px 16px 15px;display:block;position:relative;text-align:left;font-family:"KoHo",sans-serif;cursor:pointer}
 .accArrow{position:absolute;left:12px;top:10px;transform:none;width:48px;height:32px;border-radius:17px;background:rgba(255,250,240,.12);border:1px solid rgba(220,197,160,.22);display:flex;align-items:center;justify-content:center;font:36px/1 -apple-system,BlinkMacSystemFont,sans-serif;color:rgba(190,105,35,.72);transform-origin:center;transition:.2s}
 .accordion.open .accArrow{transform:rotate(180deg)}
 .accordionTitle{font-size:22px;font-weight:700;color:#18563f}
@@ -85,12 +66,9 @@ body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;backgrou
 .shareBtn{position:absolute;right:14px;top:10px;width:42px;height:42px;border:0;background:transparent;color:rgba(126,101,61,.82);display:flex;align-items:center;justify-content:center;padding:0;z-index:4;cursor:pointer}
 .shareBtn svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .shareBtn:active{transform:scale(.94)}
-.hadithShareTop{height:40px;position:relative;display:flex;align-items:center;justify-content:flex-end;padding-right:2px}
-.hadithShareTop .shareBtn{position:relative;right:auto;top:auto;width:42px;height:40px}
 .hadithAccordion,.story{position:relative}
 .story .shareBtn{top:8px;right:12px}
-.hadithAccordion .shareBtn{top:8px;right:12px}
-.hadithArabicHeader{width:100%;border:0;background:transparent;padding:50px 14px 12px;display:block;position:relative;cursor:pointer;text-align:center;overflow:hidden}.hadithArabicHeader .accArrow{display:none}.hadithArabicPreview{margin:0!important;font-size:22px!important;line-height:1.85!important;cursor:pointer}.hadithArabicHeader:active .hadithArabicPreview{opacity:.72}.hadithAccordion .accordionContent{padding:0 12px 16px}.hadithAccordion.open .hadithArabicHeader{border-bottom:1px solid var(--line)}
+.hadithArabicHeader{width:100%;border:0;background:transparent;padding:50px 14px 12px;display:block;position:relative;cursor:pointer;text-align:center;overflow:hidden}.hadithArabicHeader .accArrow{left:12px;top:10px;margin-left:0;transform:none}.hadithArabicPreview{margin:0!important;font-size:22px!important;line-height:1.85!important}.hadithAccordion .accordionContent{padding:0 12px 16px}.hadithAccordion.open .hadithArabicHeader{border-bottom:1px solid var(--line)}
 
 /* Pequenos aprimoramentos de uso no celular */
 html{scroll-behavior:smooth}
@@ -100,119 +78,15 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 @media(min-width:700px){body{padding:18px}.app{border-radius:34px;box-shadow:0 12px 50px #0002}}
 
 @font-face{font-family:'AmiriFazilet';src:url('fonts/Amiri-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
-.arabic,.arabic *,.arWord,.arabicWord{font-family:'AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}.legacy-font-uthman .arabic,.legacy-font-uthman .arabic *{font-family:"Uthman Taha",serif!important}.legacy-font-amiri .arabic,.legacy-font-amiri .arabic *{font-family:"AmiriFazilet","Amiri","Noto Naskh Arabic","Geeza Pro",serif!important}.legacy-font-system .arabic,.legacy-font-system .arabic *{font-family:"Geeza Pro","Noto Naskh Arabic",serif!important}
-
+.arabic,.arabic *,.arWord,.arabicWord{font-family:'AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif!important;font-weight:400}
 .accArrow::before,.storyArrow::before{content:"";width:13px;height:13px;border-right:3px solid currentColor;border-bottom:3px solid currentColor;transform:rotate(45deg) translateY(-2px);transform-origin:center}.accordion.open .accArrow{transform:rotate(180deg)}.story.open .storyArrow{transform:rotate(180deg)}
 .dayViewport{overflow:hidden;width:100%;position:relative}.dayTrack{display:flex;width:200%;transition:transform .32s ease}.dayPage{width:50%;flex:0 0 50%;overflow:hidden}.dayPage .header{padding-top:18px}.dayContent{position:relative}.dayContentPage{width:100%}.dayContentPage .section{margin-top:0}.dayPage .prayers{padding-bottom:8px}.dayPage .prayer{scroll-snap-align:center}
-.dayPage .prayers{overflow-x:auto}.dayPage .prayer{min-width:94px}
+.dayPage .prayers{overflow-x:auto}.dayPage .prayer{min-width:104px}
 .dayContentPage{animation:dayFade .2s ease}.dayPage{min-height:1px}@keyframes dayFade{from{opacity:.5;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
 
-
-/* 15 Arabic fonts + 5 Turkish text fonts */
-.arabic,.arabic *,.arWord,.arabicWord{transition:font-family .15s ease}
-.arFont-amiri .arabic,.arFont-amiri .arabic *,.arFont-amiri .arWord{font-family:"Amiri",serif!important}
-.arFont-naskh .arabic,.arFont-naskh .arabic *,.arFont-naskh .arWord{font-family:"Noto Naskh Arabic",serif!important}
-.arFont-scheherazade .arabic,.arFont-scheherazade .arabic *,.arFont-scheherazade .arWord{font-family:"Scheherazade New",serif!important}
-.arFont-lateef .arabic,.arFont-lateef .arabic *,.arFont-lateef .arWord{font-family:"Lateef",serif!important}
-.arFont-sulus .arabic,.arFont-sulus .arabic *,.arFont-sulus .arWord{font-family:"Rakkas",serif!important}
-.arFont-cairo .arabic,.arFont-cairo .arabic *,.arFont-cairo .arWord{font-family:"Cairo",sans-serif!important}
-.arFont-changa .arabic,.arFont-changa .arabic *,.arFont-changa .arWord{font-family:"Changa",sans-serif!important}
-.arFont-elmessiri .arabic,.arFont-elmessiri .arabic *,.arFont-elmessiri .arWord{font-family:"El Messiri",sans-serif!important}
-.arFont-harmattan .arabic,.arFont-harmattan .arabic *,.arFont-harmattan .arWord{font-family:"Harmattan",sans-serif!important}
-.arFont-mada .arabic,.arFont-mada .arabic *,.arFont-mada .arWord{font-family:"Mada",sans-serif!important}
-.arFont-markazi .arabic,.arFont-markazi .arabic *,.arFont-markazi .arWord{font-family:"Markazi Text",serif!important}
-.arFont-mirza .arabic,.arFont-mirza .arabic *,.arFont-mirza .arWord{font-family:"Mirza",serif!important}
-.arFont-reem .arabic,.arFont-reem .arabic *,.arFont-reem .arWord{font-family:"Reem Kufi",sans-serif!important}
-.arFont-ruqaa .arabic,.arFont-ruqaa .arabic *,.arFont-ruqaa .arWord{font-family:"Aref Ruqaa",serif!important}
-.arFont-uthman .arabic,.arFont-uthman .arabic *,.arFont-uthman .arWord{font-family:"Uthman Taha",serif!important}
-.trFont-inter .tr,.trFont-inter .tr *{font-family:"Inter",sans-serif!important}
-.trFont-lora .tr,.trFont-lora .tr *{font-family:"Lora",serif!important}
-.trFont-merriweather .tr,.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
-.trFont-montserrat .tr,.trFont-montserrat .tr *{font-family:"Montserrat",sans-serif!important}
-.trFont-playfair .tr,.trFont-playfair .tr *{font-family:"Playfair Display",serif!important}
-
-.settingGroup{padding:13px 0;border-bottom:1px solid #ead9bc}.settingGroup:last-child{border-bottom:0}.settingTitle{font-size:15px;font-weight:800;color:var(--brown2);margin:0}.settingToggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;background:transparent;color:var(--brown2);padding:2px 0;text-align:left;font:inherit}.settingToggle .chev{font-size:20px;transition:transform .2s ease}.settingGroup.open .settingToggle .chev{transform:rotate(180deg)}.settingOptions{display:none;margin-top:12px}.settingGroup.open > .settingOptions{display:block}.fontChoices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.fontCard,.voiceCard{position:relative;min-height:78px;border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:13px;padding:9px 8px;text-align:center;cursor:pointer;box-shadow:0 1px 4px #4f2a1108}.fontCard.active,.voiceCard.active{background:#e7f1e9;border:2px solid #7eaf8d;color:#18553d}
-.fontCard:active,.voiceCard:active{transform:scale(.98)}.fontCard .fontName{display:block;font:700 12px -apple-system,BlinkMacSystemFont,sans-serif;margin-top:6px;line-height:1.15}.fontCard .arabicSample{display:block;direction:rtl;font-size:27px;line-height:1.1;white-space:nowrap}.fontCard .latinSample{display:block;font-size:18px;line-height:1.25;margin-top:5px}.voiceChoices{display:grid;grid-template-columns:1fr;gap:9px}.voiceCard{display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:62px;padding:10px 12px}.voiceMain{display:flex;flex-direction:column;gap:3px}.voiceName{font-weight:800;font-size:14px}.voiceMeta{font-size:11px;color:#806f5f}.voiceTest{border:1px solid var(--line);background:#faedd7;color:var(--brown);border-radius:50%;width:38px;height:38px;font-size:16px}.settingHint{font-size:11px;color:#806f5f;margin:8px 0 0;line-height:1.4}
-
-.utilityPanel{display:none;position:fixed;inset:0;z-index:60;background:#3b26165c;padding:20px 14px;align-items:flex-start;justify-content:center;overflow:auto}.utilityPanel.show{display:flex}.utilityBox{width:min(500px,100%);margin-top:6vh;background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 15px 40px #0004;padding:18px}.utilityTop{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px}.utilityTop h2{margin:0;font-size:21px}.utilityTop button{width:40px;height:40px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:24px}.settingGroup{padding:18px 0;border-bottom:1px solid #ead9bc}.settingGroup:last-child{border-bottom:0}.settingTitle{font-weight:700;margin-bottom:10px;color:var(--brown2)}.sizeRow{display:flex;align-items:center;justify-content:center;gap:20px}.sizeRow button,.fontRow button{border:1px solid var(--line);background:#fffdf8;color:var(--brown);border-radius:12px;padding:11px 15px;font-weight:700}.sizeRow button{font-size:17px}.fontRow{display:flex;gap:8px;flex-wrap:wrap}.fontRow button.active{background:#e8f2ea;border-color:#b7d2be;color:#18553d}.malumatGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}.malumatCard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fffdf8}.malumatCard img{display:block;width:100%;height:auto}.malumatCard div{padding:8px;font-weight:700;text-align:center}.storyText{line-height:1.65}.wordListItem{padding:11px 4px;border-bottom:1px solid #ead9bc;cursor:pointer}.wordListItem b{color:var(--brown2)}
-.textScale{font-size:var(--user-scale,1)}
-
-/* Daha kompakt telefon görünümü */
-.header{padding:12px 18px 0}.day{font-size:54px}.month,.week{font-size:14px}.hijri{font-size:14px;margin-top:11px}.menuBtn{width:44px;height:44px;right:16px;top:6px}.menuBtn span{font-size:22px}.ornament{height:32px;margin-top:2px}.prayer{min-width:86px;padding:7px 6px;border-radius:13px}.prayer .pname{font-size:12px}.prayer .ptime{font-size:18px;margin-top:4px}.next{font-size:12px;margin-bottom:14px}.section{margin:0 14px 13px}.hadithCard{padding:14px 14px;border-radius:16px}.arabic{font-size:21px;line-height:1.8}.hadithArabicPreview{font-size:20px!important;line-height:1.78!important}.hadithArabicHeader{padding:43px 12px 10px}.hadithAccordion .accordionContent{padding:0 9px 13px}.lang{margin-top:10px;padding:10px 11px;border-radius:12px}.langTitle{font-size:14px;margin-bottom:6px}.lang p,.ptSentence{font-size:15px;line-height:1.6}.storyContent .lang p,.storyContent .ptSentence{font-size:14.5px;line-height:1.62}.trSentence{font-size:12.5px;padding:6px 8px}.storyContent .trSentence{font-size:12.5px;padding:8px 9px}.storyTitle{font-size:18px}.storyHeader{padding:9px 2px 8px}.inlineWord{width:min(285px,calc(100% - 10px));padding:9px;border-radius:14px}.wordMeaning{font-size:15px!important}.bubble{height:46px;font-size:9.5px}.bubble i{width:21px;height:21px;line-height:21px;font-size:12px}.drawer{width:min(285px,82%);padding:16px 15px}.drawerTop h2{font-size:20px}.drawer a,.drawer button.item{font-size:15px;padding:14px 5px}
-.favArchiveItem{padding:12px 2px 14px;border-bottom:1px solid #ddcbaa}.favArchiveTitle{font-size:15px;line-height:1.55}.favNum{color:var(--brown2);font-weight:800}.favArabic{font-family:"Amiri",serif;font-size:17px;direction:rtl}.favEx{margin:7px 0 0 18px;padding:7px 9px;background:#f5eadb;border-left:3px solid var(--green);border-radius:8px;font-size:13px;line-height:1.6}.favEx b{color:var(--brown2)}.favEx span{color:#5b4d43}.utilityBox{max-height:88vh;overflow:auto}.settingGroup{padding:13px 0}.settingTitle{font-size:14px;margin-bottom:8px}.fontChoices button,.voiceChoices button{min-height:38px}@media(max-width:420px){.fontChoices{grid-template-columns:1fr 1fr}.fontChoices button,.voiceChoices button{font-size:11px;padding:7px 5px}}
-
-/* Historical 15 Arabic + 5 Latin font choices */
-body.arFont-sulus .arabic,body.arFont-sulus .arabic *{font-family:"Rakkas",serif!important}
-body.arFont-elmessiri .arabic,body.arFont-elmessiri .arabic *{font-family:"El Messiri",sans-serif!important}
-body.arFont-reem .arabic,body.arFont-reem .arabic *{font-family:"Reem Kufi",sans-serif!important}
-body.arFont-ruqaa .arabic,body.arFont-ruqaa .arabic *{font-family:"Aref Ruqaa",serif!important}
-body.arFont-uthman .arabic,body.arFont-uthman .arabic *{font-family:"Uthman Taha",serif!important}
-body.trFont-inter .tr,body.trFont-inter .tr *{font-family:"Inter",sans-serif!important}
-body.trFont-montserrat .tr,body.trFont-montserrat .tr *{font-family:"Montserrat",sans-serif!important}
-body.trFont-playfair .tr,body.trFont-playfair .tr *{font-family:"Playfair Display",serif!important}
-body.trFont-nunito .tr,body.trFont-nunito .tr *,body.trFont-nunito .trSentence,body.trFont-nunito .lang p,body.trFont-nunito .ptSentence{font-family:"Nunito",sans-serif!important}
-body.trFont-bitter .tr,body.trFont-bitter .tr *,body.trFont-bitter .trSentence,body.trFont-bitter .lang p,body.trFont-bitter .ptSentence{font-family:"Bitter",serif!important}
-body.trFont-koho .tr,body.trFont-koho .tr *,body.trFont-koho .trSentence,body.trFont-koho .lang p,body.trFont-koho .ptSentence{font-family:"KoHo",sans-serif!important}
-body.trFont-raleway .tr,body.trFont-raleway .tr *,body.trFont-raleway .trSentence,body.trFont-raleway .lang p,body.trFont-raleway .ptSentence{font-family:"Raleway",sans-serif!important}
-body.trFont-lora .tr,body.trFont-lora .tr *,body.trFont-lora .trSentence,body.trFont-lora .lang p,body.trFont-lora .ptSentence{font-family:"Lora",serif!important}
-
-/* Font selection precedence */
-body.arFont-amiri .arabic,body.arFont-amiri .arabic *{font-family:"Amiri",serif!important}
-body.arFont-naskh .arabic,body.arFont-naskh .arabic *{font-family:"Noto Naskh Arabic",serif!important}
-body.arFont-scheherazade .arabic,body.arFont-scheherazade .arabic *{font-family:"Scheherazade New",serif!important}
-body.arFont-lateef .arabic,body.arFont-lateef .arabic *{font-family:"Lateef",serif!important}
-body.arFont-sulus .arabic,body.arFont-sulus .arabic *{font-family:"Rakkas",serif!important}
-body.arFont-cairo .arabic,body.arFont-cairo .arabic *{font-family:"Cairo",sans-serif!important}
-body.arFont-changa .arabic,body.arFont-changa .arabic *{font-family:"Changa",sans-serif!important}
-body.arFont-elmessiri .arabic,body.arFont-elmessiri .arabic *{font-family:"El Messiri",sans-serif!important}
-body.arFont-harmattan .arabic,body.arFont-harmattan .arabic *{font-family:"Harmattan",sans-serif!important}
-body.arFont-mada .arabic,body.arFont-mada .arabic *{font-family:"Mada",sans-serif!important}
-body.arFont-markazi .arabic,body.arFont-markazi .arabic *{font-family:"Markazi Text",serif!important}
-body.arFont-mirza .arabic,body.arFont-mirza .arabic *{font-family:"Mirza",serif!important}
-body.arFont-reem .arabic,body.arFont-reem .arabic *{font-family:"Reem Kufi",sans-serif!important}
-body.arFont-ruqaa .arabic,body.arFont-ruqaa .arabic *{font-family:"Aref Ruqaa",serif!important}
-body.arFont-uthman .arabic,body.arFont-uthman .arabic *{font-family:"Uthman Taha",serif!important}
-body.trFont-inter .tr,body.trFont-inter .tr *{font-family:"Inter",sans-serif!important}
-body.trFont-lora .tr,body.trFont-lora .tr *{font-family:"Lora",serif!important}
-body.trFont-merriweather .tr,body.trFont-merriweather .tr *{font-family:"Merriweather",serif!important}
-body.trFont-montserrat .tr,body.trFont-montserrat .tr *{font-family:"Montserrat",sans-serif!important}
-body.trFont-playfair .tr,body.trFont-playfair .tr *{font-family:"Playfair Display",serif!important}
-body.trFont-nunito .tr,body.trFont-nunito .tr *,body.trFont-nunito .trSentence,body.trFont-nunito .lang p,body.trFont-nunito .ptSentence{font-family:"Nunito",sans-serif!important}
-body.trFont-bitter .tr,body.trFont-bitter .tr *,body.trFont-bitter .trSentence,body.trFont-bitter .lang p,body.trFont-bitter .ptSentence{font-family:"Bitter",serif!important}
-body.trFont-koho .tr,body.trFont-koho .tr *,body.trFont-koho .trSentence,body.trFont-koho .lang p,body.trFont-koho .ptSentence{font-family:"KoHo",sans-serif!important}
-body.trFont-raleway .tr,body.trFont-raleway .tr *,body.trFont-raleway .trSentence,body.trFont-raleway .lang p,body.trFont-raleway .ptSentence{font-family:"Raleway",sans-serif!important}
-body.trFont-lora .tr,body.trFont-lora .tr *,body.trFont-lora .trSentence,body.trFont-lora .lang p,body.trFont-lora .ptSentence{font-family:"Lora",serif!important}
-
-
-/* Son kullanıcı arayüzü: kelime balonu her zaman küçük ve kelimenin hemen üstünde */
-.inlineWord{position:absolute;z-index:80;width:min(270px,calc(100vw - 28px));background:#fffaf0;border:1px solid #dcc5a0;border-radius:14px;padding:10px;box-shadow:0 10px 28px rgba(75,39,15,.18)}
-.inlineWord .wordMeaning{font-size:16px;line-height:1.25;text-align:center;margin-bottom:8px}
-.inlineWord .bubbleRow{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.inlineWord .bubble{min-height:38px;border:1px solid #dcc5a0;border-radius:10px;background:#fff;color:#5a2d12;font-weight:700;font-size:12px;padding:5px 3px}
-.inlineWord .bubble i{font-style:normal;display:block;font-size:14px;line-height:1.05;margin-bottom:2px}
-.autoWord,.term.tap{cursor:pointer;-webkit-user-select:none;user-select:none}
-
-/* Favori kelimeler: ayrı tam sayfa görünümü */
-.favorites{position:fixed;inset:0;z-index:55;background:var(--cream);overflow-y:auto;padding:0 0 28px;display:none}
-.favorites.show{display:block}
-.favoritesPageTop{position:sticky;top:0;z-index:2;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;padding:14px 16px;background:rgba(251,242,223,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
-.favoritesPageTop h2{margin:0;text-align:center;color:var(--brown);font-size:21px}
-.favoritesPageTop button{width:40px;height:40px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:30px;line-height:1}
-.favoritesPageTop span{display:block}
-.favorites>.section{margin-top:14px}
-
-/* Portekizce uygulaması: en üstten aşağı çekerek açılır */
-.ptPullLayer{position:fixed;inset:0;z-index:99999;background:#f6f0e6;transform:translateY(-100%);transition:transform .38s cubic-bezier(.22,.8,.25,1);visibility:hidden;will-change:transform;overscroll-behavior:none;box-shadow:0 12px 40px rgba(40,25,10,.24);touch-action:none}
-.ptPullLayer.open{transform:translateY(0);visibility:visible}
-.ptPullLayer.dragging{transition:none}
-.ptPullFrame{width:100%;height:100%;border:0;display:block;background:#f6f0e6}
-.ptPullHint{position:fixed;left:50%;top:0;transform:translate(-50%,-120%);z-index:100000;background:rgba(35,102,76,.96);color:#fffaf0;border-radius:0 0 18px 18px;padding:9px 18px;font-size:13px;font-weight:700;box-shadow:0 4px 16px rgba(40,25,10,.18);pointer-events:auto;opacity:0;transition:opacity .2s,transform .2s}
-.ptPullHint.show{opacity:1;transform:translate(-50%,0)}
-html,body{overscroll-behavior-y:none}
-html.pt-open,body.pt-open{overflow:hidden!important;overscroll-behavior:none!important}
-</style>
-
-
+/* Mektuplar ve bazı mesâil-i Muhimme */
+.muhimmePage{display:none;padding:12px 0 30px}.muhimmePage.show{display:block}.muhimmeHero{margin:0 20px 14px;background:linear-gradient(135deg,#1f624a,#2f795e);border:1px solid #b98a3d;border-radius:18px;padding:17px 16px;text-align:center;color:#fff8e9;box-shadow:var(--shadow)}.muhimmeHero .arTitle{font-family:"Uthman Taha",serif;direction:rtl;font-size:29px;line-height:1.55}.muhimmeHero .subTitle{font-family:Georgia,serif;font-size:18px;margin-top:3px}.muhimmeBack{margin:0 20px 12px;width:calc(100% - 40px);border:1px solid var(--line);background:#fffaf0;color:var(--green);border-radius:12px;padding:10px;font:700 15px "KoHo",sans-serif}.muhimmeList{margin:0 20px}.muhimmeCard{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 3px 12px rgba(75,39,15,.08);cursor:pointer}.muhimmeCard:active{transform:scale(.99)}.muhimmeCardHead{display:flex;align-items:center;gap:10px}.muhimmeNo{width:32px;height:32px;border-radius:50%;background:#d7ae5b;color:#fff;border:2px solid #9a6b1e;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}.muhimmeCard h3{margin:0;color:var(--green);font-size:17px}.muhimmePreview{direction:rtl;text-align:right;font-family:"Uthman Taha",serif;font-size:19px;line-height:1.7;color:#211a14;margin-top:8px}.muhimmeDetail{display:none;margin:0 20px}.muhimmeDetail.show{display:block}.muhimmeDetailHead{display:flex;align-items:center;gap:10px;margin:2px 0 12px}.muhimmeDetailHead h3{margin:0;color:var(--green);font-size:21px}.muhimmeTextBox{background:var(--paper);border:1.5px solid var(--brown2);border-radius:18px;padding:16px 14px;box-shadow:var(--shadow)}.muhimmeOttoman{direction:rtl;text-align:right;font-family:"Uthman Taha",serif;font-size:23px;line-height:2.05;color:#17130f}.muhWord{display:inline;border-radius:5px;padding:0 2px;cursor:pointer}.muhWord:hover,.muhWord.selected{background:#f3ddb7;outline:1px solid #d79b48}.muhWord.c1{color:#c95617}.muhWord.c2{color:#23664c}.muhWord.c3{color:#111}.muhInfo{display:none;margin-top:13px;background:#f4eadb;border:1px solid var(--line);border-left:4px solid var(--green);border-radius:12px;padding:12px}.muhInfo.show{display:block}.muhInfoTitle{font-weight:800;color:var(--green);margin-bottom:5px}.muhInfoLine{font-size:15px;line-height:1.55;margin:3px 0}.muhInfoAr{font-family:"Uthman Taha",serif;direction:rtl;text-align:right;font-size:21px}.muhSection{margin-top:14px;background:#fffaf0;border:1px solid var(--line);border-radius:14px;padding:13px}.muhSectionTitle{font-weight:800;color:var(--brown2);margin-bottom:7px}.muhSection p{margin:0;font-size:15px;line-height:1.65}.muhNav{display:flex;gap:8px;margin-top:12px}.muhNav button{flex:1;border:1px solid var(--line);border-radius:12px;background:#fffaf0;color:var(--green);padding:10px;font:700 14px "KoHo",sans-serif}.muhNav button.primary{background:var(--green);color:#fff}.muhKeywords{margin:14px 20px}.muhKeyword{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:9px 11px;margin:7px 0}.muhKeywordAr{direction:rtl;text-align:right;font-family:"Uthman Taha",serif;font-size:19px}.muhKeywordTr{font-size:14px;color:#5a4b3f;margin-top:2px}
+.muhimmeHint{margin:-4px 20px 12px;padding:9px 12px;text-align:center;background:#eef4ee;border:1px solid #cbdccc;border-radius:12px;color:#2d624e;font-size:13px;line-height:1.45}.muhInfo{scroll-margin-top:18px}.muhWord{transition:.15s ease}.muhWord:active{background:#ead09e}</style>
 </head>
 <body>
 <div class="app">
@@ -222,33 +96,56 @@ html.pt-open,body.pt-open{overflow:hidden!important;overscroll-behavior:none!imp
 
 <div class="dayContent" id="dayContent"></div>
 
-<div class="favorites" id="favorites">
- <div class="favoritesPageTop"><button type="button" onclick="closeFavorites()">‹</button><h2>Palavras Favoritas</h2><span></span></div>
- <div class="section"><div class="sectionHead"><span class="book">🔖</span><h2>Minhas Palavras Favoritas</h2></div><div id="favList" class="storyText"></div></div>
-</div>
+<div class="favorites" id="favorites"><div class="section"><div class="sectionHead"><span class="book">🔖</span><h2>Minhas Palavras Favoritas</h2></div><div id="favList" class="storyText"></div></div></div>
 </div>
 
-<div class="utilityPanel" id="settingsPanel">
- <div class="utilityBox"><div class="utilityTop"><h2>Configurações</h2><button onclick="closeUtility('settingsPanel')">×</button></div>
- <div class="settingGroup"><div class="settingTitle">Tamanho do texto</div><div class="sizeRow"><button onclick="changeTextSize(-1)">A−</button><div id="sizeValue">100%</div><button onclick="changeTextSize(1)">A+</button></div></div>
- <div class="settingGroup" id="arabicSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('arabicSettingGroup')"><span class="settingTitle">Arapça yazı stilleri (15)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="arabicFontChoices"></div><div class="settingHint">İstediğiniz stile dokunarak Arapça yazılarını anında değiştirebilirsiniz.</div></div></div>
- <div class="settingGroup" id="turkishSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('turkishSettingGroup')"><span class="settingTitle">Latin içerikler için yazı stilleri (5)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="fontChoices" id="turkishFontChoices"></div><div class="settingHint">Türkçe ve Latin içeriklerin yazı stilini buradan seçebilirsiniz.</div></div></div>
- <div class="settingGroup" id="voiceSettingGroup"><button class="settingToggle" type="button" onclick="toggleSettingGroup('voiceSettingGroup')"><span class="settingTitle">Brezilya Portekizcesi ses seçenekleri (10)</span><span class="chev">⌄</span></button><div class="settingOptions"><div class="voiceChoices" id="voiceChoices"></div><div class="settingHint">Seçtiğiniz ses, kelime telaffuzlarında kullanılacaktır. 🔊 düğmesiyle sesi deneyebilirsiniz.</div></div></div>
- </div></div>
-<div class="utilityPanel" id="malumatPanel">
- <div class="utilityBox"><div class="utilityTop"><h2>Malumatlar</h2><button onclick="closeUtility('malumatPanel')">×</button></div>
- <div class="malumatGrid"><div class="malumatCard"><img src="malumat_01.jpeg" alt="Malumat 1" loading="lazy"><div>Malumat 1</div></div><div class="malumatCard"><img src="malumat_02.jpeg" alt="Malumat 2" loading="lazy"><div>Malumat 2</div></div><div class="malumatCard"><img src="malumat_03.jpeg" alt="Malumat 3" loading="lazy"><div>Malumat 3</div></div><div class="malumatCard"><img src="malumat_04.jpeg" alt="Malumat 4" loading="lazy"><div>Malumat 4</div></div><div class="malumatCard"><img src="malumat_05.jpeg" alt="Malumat 5" loading="lazy"><div>Malumat 5</div></div></div>
- </div></div>
+
+<div class="muhimmePage" id="muhimmePage">
+ <button class="muhimmeBack" onclick="closeMuhimme()">‹ &nbsp; Ana sayfaya dön</button>
+ <div class="muhimmeHero"><div class="arTitle">خَتْمِ خَواجَگانِ آدابی</div><div class="subTitle">Hatm-i Hâcegân Âdâbı</div></div>
+ <div class="muhimmeHint">Metindeki renkli kelimelere dokun. Türkçe okunuşu ve kısa izahı hemen altında açılır.</div>
+ <div class="muhimmeList" id="muhimmeList">
+  <div class="muhimmeCard" onclick="openMuhimmeItem(1)"><div class="muhimmeCardHead"><span class="muhimmeNo">1</span><h3>Birinci cümle</h3></div><div class="muhimmePreview">ختم خواجگان؛ طریقت علیه نقشبندیه‌نک ارکان عظیمه‌سندن اولوب...</div></div>
+  <div class="muhimmeCard" onclick="openMuhimmeItem(2)"><div class="muhimmeCardHead"><span class="muhimmeNo">2</span><h3>İkinci cümle</h3></div><div class="muhimmePreview">بو طریقت جلیله‌ده خواجه عبدالخالق حضرتلرین زمان سعادتلرندن...</div></div>
+  <div class="muhimmeCard" onclick="openMuhimmeItem(3)"><div class="muhimmeCardHead"><span class="muhimmeNo">3</span><h3>İkinci paragraf</h3></div><div class="muhimmePreview">ختم خواجگان؛ اصلاً و فرعاً کتاب و سنتدن مأخوذ و مقتبستدر.</div></div>
+  <div class="muhimmeCard" onclick="openMuhimmeItem(4)"><div class="muhimmeCardHead"><span class="muhimmeNo">4</span><h3>Üçüncü paragrafın ilk kısmı</h3></div><div class="muhimmePreview">زیرا متضمن اولدیغی امور الله تعالی‌یه استغفار و نیازدن...</div></div>
+  <div class="muhimmeCard" onclick="openMuhimmeItem(5)"><div class="muhimmeCardHead"><span class="muhimmeNo">5</span><h3>Üçüncü paragrafın ikinci kısmı</h3></div><div class="muhimmePreview">بونلرك ایجراسی ایسه داخل دایره تکالیفات و مأمورات...</div></div>
+  <div class="muhimmeCard" onclick="openMuhimmeItem(6)"><div class="muhimmeCardHead"><span class="muhimmeNo">6</span><h3>Dördüncü paragraf</h3></div><div class="muhimmePreview">بو حیثیله ختم خواجگان بدعات و خرافاتدن معنا بولان...</div></div>
+ </div>
+ <div class="muhimmeDetail" id="muhimmeDetail"></div>
+ <div class="muhKeywords" id="muhKeywords"><div class="muhSectionTitle">Anahtar Kelimeler</div>
+  <div class="muhKeyword"><div class="muhKeywordAr">ختم خواجگان</div><div class="muhKeywordTr">Hatm-i Hâcegân • Hâcegân hatmi</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">طریقت علیه</div><div class="muhKeywordTr">Tarîkat-ı aliyye • Yüce tarikat</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">ارکان عظیمه</div><div class="muhKeywordTr">Erkân-ı azîme • Büyük ve önemli esaslar</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">رکن رکین</div><div class="muhKeywordTr">Rükn-i rekîn • Sağlam ve temel esas</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">توسل و تمسک</div><div class="muhKeywordTr">Tevessül ve temessük • Bir vesileye yönelmek ve bağlanmak</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">استغفار و نیاز</div><div class="muhKeywordTr">İstiğfar ve niyaz • Bağışlanma dilemek ve Allah’a yalvarmak</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">تحمید و توحید</div><div class="muhKeywordTr">Tahmîd ve tevhîd • Allah’ı övmek ve O’nun birliğini kabul etmek</div></div>
+  <div class="muhKeyword"><div class="muhKeywordAr">تلاوت قرآن</div><div class="muhKeywordTr">Tilâvet-i Kur’ân • Kur’ân okumak</div></div>
+ </div>
+</div>
+
 <div class="drawerShade" id="shade" onclick="closeMenu()"></div>
 <aside class="drawer" id="drawer">
  <div class="drawerTop"><h2>Menu</h2><button class="closeMenu" onclick="closeMenu()">×</button></div>
- <button type="button" class="item" onclick="goHome()">⌂ &nbsp; Página Inicial</button>
- <button type="button" class="item" onclick="showFavorites()">♡ &nbsp; Palavras Favoritas <span class="favCount" id="favCount"></span></button>
- <button type="button" class="item" onclick="showMalumatlar()">📚 &nbsp; Malumatlar</button>
- <button type="button" class="item" onclick="showSettings()">⚙ &nbsp; Configurações</button>
+ <button class="item" onclick="goHome()">⌂ &nbsp; Página Inicial</button>
+ <button class="item" onclick="showFavorites()">🔤 &nbsp; Palavras</button>
+ <button class="item" onclick="showFavorites()">♡ &nbsp; Palavras Favoritas <span class="favCount" id="favCount"></span></button>
+ <button class="item" onclick="openMuhimme()">✉ &nbsp; Mektuplar ve bazı mesâil-i Muhimme</button>
+ 
+ <button class="item" onclick="alert('A seção de configurações está sendo preparada.')">⚙ &nbsp; Configurações</button>
 </aside>
 
 <script>
+const muhData={"1": {"title": "Birinci cümle", "ar": "ختم خواجگان؛ طریقت علیه نقشبندیه‌نک ارکان عظیمه‌سندن اولوب جناب حقک امریله خضر علیه السلام طرفندن سر حلقه سلسله حضرات خواجگان خواجه عبدالخالق غجدوانی (قدس الله سره العزیز) حضرتلرینه تعلیم بیورلمش، خواجه مشار الیه طرفندن وضع و تأسیس قلنمش بر رکن رکین رککندر.", "pron": "Hatm-i Hâcegân, tarîkat-ı aliyye-i Nakşibendiyye’nin erkân-ı azîmesinden olup Cenâb-ı Hakk’ın emriyle Hızır aleyhisselâm tarafından ser-halka-i silsile hazerât-ı Hâcegân’dan Hâce Abdülhâlık Gucdevânî, kuddise sırruhû’l-azîz, hazretlerine ta‘lîm buyurulmuş, Hâce-i müşârün-ileyh tarafından vaz‘ ve te’sîs kılınmış bir rükn-i rekîndir.", "exp": "Hatm-i Hâcegân’ın Nakşibendiyye tarikatının önemli esaslarından biri olduğu anlatılıyor. Metne göre Hızır aleyhisselâm bunu Hâce Abdülhâlık Gucdevânî hazretlerine öğretmiş, o da bunu tarikatın bir esası olarak ortaya koymuştur."}, "2": {"title": "İkinci cümle", "ar": "بو طریقت جلیله‌ده خواجه عبدالخالق حضرتلرین زمان سعادتلرندن اعتباراً بو رکن قدسی مرعی الاجرا اولمش، آکا توسل و تمسک، اسباب وصولک اهم مهمی عد ایدیلْمشدِر.", "pron": "Bu tarîkat-ı celîlede Hâce Abdülhâlık hazretlerinin zaman-ı saâdetlerinden i‘tibâren bu rükn-i kudsî mer‘îü’l-icrâ olmuş, aka tevessül ve temessük, esbâb-ı vusûlün en mühimmi add edilmiştir.", "exp": "Hatm-i Hâcegân’ın Hâce Abdülhâlık Gucdevânî hazretlerinden itibaren uygulanan kutsal bir esas olduğu ifade ediliyor. Ona yönelmek ve ona bağlı kalmak, Allah’a ulaşmaya vesile olan önemli sebeplerden biri kabul ediliyor."}, "3": {"title": "İkinci paragraf", "ar": "ختم خواجگان؛ اصلاً و فرعاً کتاب و سنتدن مأخوذ و مقتبستدر.", "pron": "Hatm-i Hâcegân, aslen ve fer‘an Kitâb ü Sünnet’ten me’hûz ve muktebistir.", "exp": "Hatm-i Hâcegân’ın esaslarının ve uygulamalarının Kur’ân ve Sünnet’e dayandığı ifade ediliyor."}, "4": {"title": "Üçüncü paragrafın ilk kısmı", "ar": "زیرا متضمن اولدیغی امور الله تعالی‌یه استغفار و نیازدن، جناب رسول الله علیه الصلاة والسلامن، تحمید و توحید خداوندن، تلاوت قرآن عظیم الشاندن عبارتدر.", "pron": "Zîrâ mütezammın olduğu umûr, Allah Teâlâ’ya istiğfâr ve niyâzdan, Cenâb-ı Resûlullah aleyhissalâtü vesselâm’a, tahmîd ve tevhîd-i Hudâ’dan, tilâvet-i Kur’ân-ı Azîmü’ş-şân’dan ibârettir.", "exp": "Metinde istiğfar, niyaz, salât ve selâm, tahmîd, tevhîd ve Kur’ân tilâveti gibi ibadetlerin bulunduğu anlatılıyor."}, "5": {"title": "Üçüncü paragrafın ikinci kısmı", "ar": "بونلرك ایجراسی ایسه داخل دایره تکالیفات و مأمورات الهیه و نبویه‌دندر.", "pron": "Bunların icrâsı ise dâhil-i dâire-i tekâlîfât ve me’mûrât-ı ilâhiyye ve nebeviyyedendir.", "exp": "Buradaki ibadetlerin Allah’ın ve Peygamberimizin bildirdiği emir ve sorumluluklar kapsamında olduğu belirtiliyor."}, "6": {"title": "Dördüncü paragraf", "ar": "بو حیثیله ختم خواجگان بدعات و خرافاتدن معنا بولان کتاب و سنت احکام عملیه‌سندن بشقه بر شی اولمیان، افضل ارکان طریقت جلیله‌در.", "pron": "Bu hasebile Hatm-i Hâcegân, bid‘at ve hurâfâtdan ma‘nen olan Kitâb ve Sünnet ahkâm-ı ameliyyesinden başka bir şey olmayan, efdal erkân-ı tarîkat-ı celîledir.", "exp": "Metin, Hatm-i Hâcegân’ın Kitap ve Sünnet’in amelî hükümleriyle uyumlu olduğunu ve tarikatın önemli esaslarından biri kabul edildiğini ifade ediyor."}};
+const muhWords={"طریقت": "Tarîkat", "علیه": "aleyhe", "نقشبندیه‌نک": "Nakşibendiyye’nin", "ارکان": "erkân", "عظیمه‌سندن": "azîmesinden", "خضر": "Hızır aleyhisselâm", "السلام": "aleyhisselâm", "سلسله": "silsile", "حضرات": "hazerât", "خواجگان": "Hâcegân", "خواجه": "Hâce", "عبدالخالق": "Abdülhâlık", "غجدوانی": "Gucdevânî", "تعلیم": "ta‘lîm", "وضع": "vaz‘", "تأسیس": "te’sîs", "رکن": "rükn", "رکین": "rekîn", "توسل": "tevessül", "تمسک": "temessük", "اصلاً": "aslen", "فرعاً": "fer‘an", "کتاب": "Kitâb", "سنتدن": "Sünnet’ten", "مأخوذ": "me’hûz", "مقتبس": "muktebes", "الله": "Allah", "استغفار": "istiğfâr", "نیازدن": "niyâzdan", "تحمید": "tahmîd", "توحید": "tevhîd", "تلاوت": "tilâvet", "قرآن": "Kur’ân", "تکالیفات": "tekâlîfât", "مأمورات": "me’mûrât", "بدعات": "bid‘at", "خرافاتدن": "hurâfâtdan", "احکام": "ahkâm", "عملیه‌سندن": "ameliyyesinden"};
+const muhExplain={"طریقت": "Manevî eğitim ve terbiye yolu, tarikat.", "ارکان": "Temel esaslar ve ana unsurlar.", "عظیمه‌سندن": "Büyük ve önemli esaslarından.", "خضر": "Hızır aleyhisselâm.", "سلسله": "Manevî silsile, birbirine bağlı mürşidler zinciri.", "خواجگان": "Hâcegân, Nakşibendî geleneğindeki büyük zatlar ve bu silsile.", "تعلیم": "Öğretmek, talim ettirmek.", "وضع": "Ortaya koymak, düzenlemek.", "تأسیس": "Kurmak, tesis etmek.", "رکن": "Temel unsur, esas.", "رکین": "Sağlam, güçlü ve temel.", "توسل": "Allah’a yönelirken bir vesile edinme.", "تمسک": "Bir şeye sıkıca bağlanma.", "اصلاً": "Asıl itibarıyla, esas bakımından.", "فرعاً": "Fer‘î yönden, uygulama bakımından.", "کتاب": "Kur’ân-ı Kerîm, Allah’ın Kitabı.", "سنتدن": "Sünnet’ten, Peygamberimizin yolu ve uygulamasından.", "مأخوذ": "Alınmış, kaynak edinilmiş.", "مقتبس": "İktibas edilmiş, alınmış ve aktarılmış.", "استغفار": "Allah’tan bağışlanma dilemek.", "نیازدن": "Niyazdan, Allah’a yalvarıp yakarmaktan.", "تحمید": "Allah Teâlâ’yı hamd ile övmek.", "توحید": "Allah’ın birliğini kabul ve ifade etmek.", "تلاوت": "Kur’ân-ı Kerîm’i okumak.", "قرآن": "Kur’ân-ı Kerîm.", "تکالیفات": "Dinen yükümlülükler.", "مأمورات": "Emredilmiş işler ve görevler.", "بدعات": "Dinde sonradan ortaya çıkarılan uygulamalar anlamındaki bid‘atler.", "خرافاتدن": "Hurafelerden, asılsız inanışlardan.", "احکام": "Hükümler.", "عملیه‌سندن": "Amelî hükümlerinden, uygulamaya ilişkin hükümlerinden."};
+function muhEscape(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function muhTokenize(text){return text.split(/(\s+|؛|،|\.|\(|\))/).map(t=>{const clean=t.replace(/[؛،.()]/g,'').trim();if(!clean||!muhWords[clean])return muhEscape(t);const important=['طریقت','ارکان','عظیمه‌سندن','خضر','سلسله','خواجگان','تعلیم','وضع','تأسیس','توسل','تمسک','استغفار','نیازدن','توحید','تلاوت','قرآن','بدعات','خرافاتدن'];const c=important.includes(clean)?'c1':'c2';return '<span class="muhWord '+c+'" data-mkey="'+muhEscape(clean)+'" onclick="event.stopPropagation();selectMuhWord(this)">'+muhEscape(t)+'</span>';}).join('')}
+function selectMuhWord(el){document.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');const key=el.dataset.mkey||'',info=document.getElementById('muhInfo');if(!info)return;info.innerHTML='<div class="muhInfoTitle">Seçilen kelime</div><div class="muhInfoLine muhInfoAr">'+muhEscape(key)+'</div><div class="muhInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'Bu kelime metnin bağlamında açıklanmıştır.')+'</div>';info.classList.add('show');info.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function openMuhimme(){closeMenu();document.getElementById('favorites').classList.remove('show');document.getElementById('muhimmePage').classList.add('show');document.getElementById('dayContent').style.display='none';window.scrollTo({top:0,behavior:'smooth'})}
+function closeMuhimme(){document.getElementById('muhimmePage').classList.remove('show');document.getElementById('muhimmeDetail').classList.remove('show');document.getElementById('muhimmeList').style.display='block';document.getElementById('muhKeywords').style.display='block';document.getElementById('dayContent').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
+function openMuhimmeItem(n){const d=muhData[n],detail=document.getElementById('muhimmeDetail');document.getElementById('muhimmeList').style.display='none';document.getElementById('muhKeywords').style.display='none';detail.classList.add('show');detail.innerHTML='<div class="muhimmeDetailHead"><button class="muhimmeBack" style="margin:0;width:auto" onclick="openMuhimme()">‹</button><h3>'+muhEscape(d.title)+'</h3></div><div class="muhimmeTextBox"><div class="muhimmeOttoman">'+muhTokenize(d.ar)+'</div><div class="muhInfo" id="muhInfo"><div class="muhInfoTitle">Kelimeye dokun</div><div class="muhInfoLine">Renkli kelimelerden birine dokunduğunda Türkçe okunuşu ve kısa izahı burada görünür.</div></div><div class="muhSection"><div class="muhSectionTitle">Türkçe okunuşu</div><p>'+muhEscape(d.pron)+'</p></div><div class="muhSection"><div class="muhSectionTitle">Kısa izahı</div><p>'+muhEscape(d.exp)+'</p></div></div><div class="muhNav">'+(n>1?'<button onclick="openMuhimmeItem('+(n-1)+')">‹ Önceki</button>':'<button disabled>‹ Önceki</button>')+(n<6?'<button class="primary" onclick="openMuhimmeItem('+(n+1)+')">Sonraki ›</button>':'<button disabled>Sonraki ›</button>')+'</div>';window.scrollTo({top:0,behavior:'smooth'})}
 /* =========================================================
    FAZİLET TAKVİMİ - GÜN VERİLERİ
    Yeni bir gün eklemek için sadece aşağıdaki calendarData dizisine
@@ -263,11 +160,11 @@ const calendarData = [
       ['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']
     ],
     hadithArabic:'قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ:<br>يَا عَلِيُّ إِنَّ اللهَ تَعَالَى خَلَقَ الْمَعْرُوفَ وَخَلَقَ لَهُ أَهْلًا فَحَبَّبَهُ إِلَيْهِمْ وَحَبَّبَ إِلَيْهِمْ فِعَالَهُ وَوَجَّهَ إِلَيْهِمْ طُلَّابَهُ كَمَا وَجَّهَ الْمَاءَ فِي الْأَرْضِ الْجَرِيبَةِ لِتُحْيِيَ بِهِ وَيَحْيَى بِهَا أَهْلُهَا.',
-    hadithPt:'<div class="sentencePair"><div class="ptSentence">O <span class="term tap c1" data-key="Mensageiro de Allah">Mensageiro de Allah</span> (s.a.v.) disse: “Ó Ali, certamente <span class="term tap c1" data-key="Allah">Allah</span>, o Altíssimo, criou o <span class="term tap c2" data-key="bem">bem</span> e criou <span class="term tap c3" data-key="pessoas">pessoas</span> dignas dele, e fez com que elas amassem o bem e as <span class="term tap c2" data-key="boas ações">boas ações</span>, e direciona os seus buscadores a elas, assim como direciona a <span class="term tap c3" data-key="água">água</span> para a terra seca, para que com ela reviva a terra e os seus habitantes.”</div><div class="trSentence"> Resûlullah Efendimiz (s.a.v.) buyurdular: “Ey Ali! Muhakkak Allahü Teâlâ iyiliği yarattı ve onun için ehil kimseleri de yarattı. Onlara iyilik yapmayı sevdirdi ve iyilik isteyenleri onlara yönlendirir. Nasıl ki suyu kuru toprağa yönlendirerek toprağı ve ehlini ihya ediyorsa, iyileri de ihtiyaç sahiplerine yönlendirir.”</div></div>',
+    hadithPt:'<div class="sentencePair"><div class="ptSentence">O <span class="term tap c1" data-key="Mensageiro de Allah">Mensageiro de Allah</span> (s.a.v.) disse: “Ó Ali, certamente <span class="term tap c1" data-key="Allah">Allah</span>, o Altíssimo, criou o <span class="term tap c2" data-key="bem">bem</span> e criou <span class="term tap c3" data-key="pessoas">pessoas</span> dignas dele, e fez com que elas amassem o bem e as <span class="term tap c2" data-key="boas ações">boas ações</span>, e direciona os seus buscadores a elas, assim como direciona a <span class="term tap c3" data-key="água">água</span> para a terra seca, para que com ela reviva a terra e os seus habitantes.”</div><div class="trSentence"><b>Türkçe anlamı:</b> Resûlullah Efendimiz (s.a.v.) buyurdular: “Ey Ali! Muhakkak Allahü Teâlâ iyiliği yarattı ve onun için ehil kimseleri de yarattı. Onlara iyilik yapmayı sevdirdi ve iyilik isteyenleri onlara yönlendirir. Nasıl ki suyu kuru toprağa yönlendirerek toprağı ve ehlini ihya ediyorsa, iyileri de ihtiyaç sahiplerine yönlendirir.”</div></div>',
     hadithTr:'<span class="term tap c1" data-key="Resûlullah Efendimiz">Resûlullah Efendimiz</span> (s.a.v.) buyurdular: “Ey Ali, muhakkak <span class="term tap c1" data-key="Allâhü Teâlâ">Allâhü Teâlâ</span>, <span class="term tap c2" data-key="iyiliği">iyiliği</span> yarattı, onun için <span class="term tap c3" data-key="ehil kimseler">ehil kimseler</span> de yarattı, onlara, <span class="term tap c2" data-key="iyilik yapmayı">iyilik yapmayı</span> sevdirdi. Nasıl ki <span class="term tap c3" data-key="suyu">suyu</span>, kuru toprağa yönlendirerek toprağı ve ehlini ihya ediyorsa iyileri de ihtiyaç sahiplerine yönlendirir.”',
     source:'(Hâkim, Al-Mustadrak)',
-    storyTitle:'O ESFORÇO DE HAYME ANA',
-    storyPt:'<div class="sentencePair"><div class="ptSentence"><span class="term tap c1" data-key="Hayme Ana">Hayme Ana</span> era uma senhora turcomena (Yörük) pertencente ao ramo Bozok dos Oğuzes, ao clã Kayı, dos descendentes de Gün Han, e seu nome verdadeiro era Fátima. Ela era a mãe de Ertuğrul Gazi e a avó de Osman Gazi, fundador do Estado Otomano.</div><div class="trSentence"> Hayme Ana, Oğuzların Bozok kolunun Kayı Boyu’na mensup bir Türkmen hanımı olup asıl ismi Fâtıma’dır. Ertuğrul Gazi’nin annesi, Osmanlı Devleti’nin kurucusu Osman Gazi’nin ninesidir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Ela era chamada de “Hayme Ana”, expressão que significa “mãe da tenda” ou “anciã da tenda”.</div><div class="trSentence"> Ona, “Çadır anası, çadır büyüğü” manasına gelen “Hayme Ana” derlermiş.</div></div>\n<div class="sentencePair"><div class="ptSentence">O nome da região de Haymana, na Anatólia Central, vem dessa denominação.</div><div class="trSentence"> İç Anadolu’daki Haymana yöresinin ismi buradan gelmektedir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Embora seu local e sua data de nascimento não sejam conhecidos com precisão, Hayme Ana também era chamada de “Devlet Ana”, isto é, “Mãe do Estado”.</div><div class="trSentence"> Doğum yeri ve tarihi tam olarak bilinmeyen Hayme Ana’ya “Devlet Ana” da derlermiş.</div></div>\n<div class="sentencePair"><div class="ptSentence">Hayme Ana vivia na aldeia de Çarşamba, em Domaniç.</div><div class="trSentence"> Hayme Ana, Domaniç’in Çarşamba köyünde otururmuş.</div></div>\n<div class="sentencePair"><div class="ptSentence">Desde então, para os nômades Yörük das aldeias de Demirli, Erikli, Toraman e Fındıcak, o lugar onde Hayme Ana montava sua tenda passou a ser considerado o centro das pastagens de verão.</div><div class="trSentence"> O zamandan beri de Demirli, Erikli, Toraman ve Fındıcak Köyleri yörükleri için Hayme Ana’nın çadır kurduğu yer, yayla için merkez kabul edilmiş.</div></div>\n<div class="sentencePair"><div class="ptSentence">Conta-se que Süleyman Şah, pai de Ertuğrul Gazi, caiu do cavalo e morreu como mártir durante uma expedição.</div><div class="trSentence"> Şöyle anlatılır: Ertuğrul Gazi’nin babası Süleyman Şah, seferdeyken atından düşüp şehit olmuştur.</div></div>\n<div class="sentencePair"><div class="ptSentence">Antes de partir, deixou à sua esposa, Hayme Ana, alguns <span class="term tap c2" data-key="emanetler">bens confiados</span> para que ela os preservasse.</div><div class="trSentence"> Refîkası Hayme Ana’ya, muhafaza etmesi için emanetler bırakmıştır.</div></div>\n<div class="sentencePair"><div class="ptSentence">Entre esses legados estavam o Alcorão Sagrado, o estandarte e seu filho, Hazretleri Ertuğrul Gazi.</div><div class="trSentence"> Kur’ân‑ı Kerîm, sancak ve oğlu Ertuğrul Gazi Hazretlerini emanet olarak bırakmıştır.</div></div>\n<div class="sentencePair"><div class="ptSentence">Süleyman Şah lhe disse: “Você protegerá estas coisas e continuará esta expedição e esta luta.”</div><div class="trSentence"> Süleyman Şah ona, “Bunları muhafaza edecek ve bu sefere, bu mücadeleye devam edeceksin.” demiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Ao estabelecer-se na Anatólia, em Söğüt e Domaniç, ela deu continuidade a esse estandarte e a essa missão.</div><div class="trSentence"> Anadolu’ya, Söğüt’e, Domaniç’e yerleşmek husûsunda bu sancağı devam ettirmiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Ela criou esses filhos e cumpriu sua responsabilidade espiritual para com as gerações que serviriam ao Alcorão Sagrado.</div><div class="trSentence"> Bu evlatları yetiştirmiş, Kur’ân‑ı Kerîm’e hizmet edecek olan nesillere karşı, bu manevî vazifeyi yerine getirmiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Preservar os <span class="term tap c3" data-key="emanet">depósitos confiados</span> e cuidar deles... Por meio do esforço de uma mulher, Hayme Ana, e de sua proteção desses legados, que grande bênção Allah, o Altíssimo, concedeu à sua descendência!</div><div class="trSentence"> Emanetleri muhafaza etmek ve sahip çıkmak… Bir hanımın, Hayme Ana’nın bu gayreti ve onları muhafaza etmesiyle Cenâb‑ı Hak, nasıl büyük bir nimet nasip ediyor, onun nesline!</div></div>\n<div class="sentencePair"><div class="ptSentence">Novamente, durante uma estação de pastagem de verão, Hayme Ana alcançou a misericórdia de Allah, o Altíssimo, e foi sepultada no alto de uma colina.</div><div class="trSentence"> Yine bir yayla mevsiminde Hayme Ana, Cenâb‑ı Hakk’ın rahmetine ermiş, tepenin üstüne defnedilmiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">No ano hijri de 1302 (1886 d.C.), o Sultão Abdülhamîd Khan II, como sinal de seu respeito por seus antepassados, enviou cuidadosamente uma comissão para localizar o túmulo de sua bisavó Hayme Ana e mandou construir sobre ele um mausoléu.</div><div class="trSentence"> Hicrî 1302 (M. 1886)’de Sultan İkinci Abdülhamîd Han, ecdâdına hürmetinin nişânesi olarak büyük itina ile bir heyet gönderip büyük ninesi Hayme Ana’nın kabrini buldurmuş ve üzerine bir türbe yaptırmış.</div></div>\n<div class="sentencePair"><div class="ptSentence">Mandou cobrir suas janelas com cortinas de seda atlas e revestiu o chão com um magnífico tapete tecido em Hereke.</div><div class="trSentence"> Pencerelerini, atlas perdelerle kaplattırıp, zeminini de Hereke dokuması muhteşem bir halı ile döşetmiştir.</div></div>',
+    storyTitle:'HAYME ANA’NIN GAYRETİ',
+    storyPt:'<div class="sentencePair"><div class="ptSentence"><span class="term tap c1" data-key="Hayme Ana">Hayme Ana</span> era uma senhora turcomena (Yörük) pertencente ao ramo Bozok dos Oğuzes, ao clã Kayı, dos descendentes de Gün Han, e seu nome verdadeiro era Fátima. Ela era a mãe de Ertuğrul Gazi e a avó de Osman Gazi, fundador do Estado Otomano.</div><div class="trSentence"><b>Türkçe anlamı:</b> Hayme Ana, Oğuzların Bozok kolunun Kayı Boyu’na mensup bir Türkmen hanımı olup asıl ismi Fâtıma’dır. Ertuğrul Gazi’nin annesi, Osmanlı Devleti’nin kurucusu Osman Gazi’nin ninesidir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Ela era chamada de “Hayme Ana”, expressão que significa “mãe da tenda” ou “anciã da tenda”.</div><div class="trSentence"><b>Türkçe anlamı:</b> Ona, “Çadır anası, çadır büyüğü” manasına gelen “Hayme Ana” derlermiş.</div></div>\n<div class="sentencePair"><div class="ptSentence">O nome da região de Haymana, na Anatólia Central, vem dessa denominação.</div><div class="trSentence"><b>Türkçe anlamı:</b> İç Anadolu’daki Haymana yöresinin ismi buradan gelmektedir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Embora seu local e sua data de nascimento não sejam conhecidos com precisão, Hayme Ana também era chamada de “Devlet Ana”, isto é, “Mãe do Estado”.</div><div class="trSentence"><b>Türkçe anlamı:</b> Doğum yeri ve tarihi tam olarak bilinmeyen Hayme Ana’ya “Devlet Ana” da derlermiş.</div></div>\n<div class="sentencePair"><div class="ptSentence">Hayme Ana vivia na aldeia de Çarşamba, em Domaniç.</div><div class="trSentence"><b>Türkçe anlamı:</b> Hayme Ana, Domaniç’in Çarşamba köyünde otururmuş.</div></div>\n<div class="sentencePair"><div class="ptSentence">Desde então, para os nômades Yörük das aldeias de Demirli, Erikli, Toraman e Fındıcak, o lugar onde Hayme Ana montava sua tenda passou a ser considerado o centro das pastagens de verão.</div><div class="trSentence"><b>Türkçe anlamı:</b> O zamandan beri de Demirli, Erikli, Toraman ve Fındıcak Köyleri yörükleri için Hayme Ana’nın çadır kurduğu yer, yayla için merkez kabul edilmiş.</div></div>\n<div class="sentencePair"><div class="ptSentence">Conta-se que Süleyman Şah, pai de Ertuğrul Gazi, caiu do cavalo e morreu como mártir durante uma expedição.</div><div class="trSentence"><b>Türkçe anlamı:</b> Şöyle anlatılır: Ertuğrul Gazi’nin babası Süleyman Şah, seferdeyken atından düşüp şehit olmuştur.</div></div>\n<div class="sentencePair"><div class="ptSentence">Antes de partir, deixou à sua esposa, Hayme Ana, alguns <span class="term tap c2" data-key="emanetler">bens confiados</span> para que ela os preservasse.</div><div class="trSentence"><b>Türkçe anlamı:</b> Refîkası Hayme Ana’ya, muhafaza etmesi için emanetler bırakmıştır.</div></div>\n<div class="sentencePair"><div class="ptSentence">Entre esses legados estavam o Alcorão Sagrado, o estandarte e seu filho, Hazretleri Ertuğrul Gazi.</div><div class="trSentence"><b>Türkçe anlamı:</b> Kur’ân‑ı Kerîm, sancak ve oğlu Ertuğrul Gazi Hazretlerini emanet olarak bırakmıştır.</div></div>\n<div class="sentencePair"><div class="ptSentence">Süleyman Şah lhe disse: “Você protegerá estas coisas e continuará esta expedição e esta luta.”</div><div class="trSentence"><b>Türkçe anlamı:</b> Süleyman Şah ona, “Bunları muhafaza edecek ve bu sefere, bu mücadeleye devam edeceksin.” demiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Ao estabelecer-se na Anatólia, em Söğüt e Domaniç, ela deu continuidade a esse estandarte e a essa missão.</div><div class="trSentence"><b>Türkçe anlamı:</b> Anadolu’ya, Söğüt’e, Domaniç’e yerleşmek husûsunda bu sancağı devam ettirmiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Ela criou esses filhos e cumpriu sua responsabilidade espiritual para com as gerações que serviriam ao Alcorão Sagrado.</div><div class="trSentence"><b>Türkçe anlamı:</b> Bu evlatları yetiştirmiş, Kur’ân‑ı Kerîm’e hizmet edecek olan nesillere karşı, bu manevî vazifeyi yerine getirmiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">Preservar os <span class="term tap c3" data-key="emanet">depósitos confiados</span> e cuidar deles... Por meio do esforço de uma mulher, Hayme Ana, e de sua proteção desses legados, que grande bênção Allah, o Altíssimo, concedeu à sua descendência!</div><div class="trSentence"><b>Türkçe anlamı:</b> Emanetleri muhafaza etmek ve sahip çıkmak… Bir hanımın, Hayme Ana’nın bu gayreti ve onları muhafaza etmesiyle Cenâb‑ı Hak, nasıl büyük bir nimet nasip ediyor, onun nesline!</div></div>\n<div class="sentencePair"><div class="ptSentence">Novamente, durante uma estação de pastagem de verão, Hayme Ana alcançou a misericórdia de Allah, o Altíssimo, e foi sepultada no alto de uma colina.</div><div class="trSentence"><b>Türkçe anlamı:</b> Yine bir yayla mevsiminde Hayme Ana, Cenâb‑ı Hakk’ın rahmetine ermiş, tepenin üstüne defnedilmiştir.</div></div>\n<div class="sentencePair"><div class="ptSentence">No ano hijri de 1302 (1886 d.C.), o Sultão Abdülhamîd Khan II, como sinal de seu respeito por seus antepassados, enviou cuidadosamente uma comissão para localizar o túmulo de sua bisavó Hayme Ana e mandou construir sobre ele um mausoléu.</div><div class="trSentence"><b>Türkçe anlamı:</b> Hicrî 1302 (M. 1886)’de Sultan İkinci Abdülhamîd Han, ecdâdına hürmetinin nişânesi olarak büyük itina ile bir heyet gönderip büyük ninesi Hayme Ana’nın kabrini buldurmuş ve üzerine bir türbe yaptırmış.</div></div>\n<div class="sentencePair"><div class="ptSentence">Mandou cobrir suas janelas com cortinas de seda atlas e revestiu o chão com um magnífico tapete tecido em Hereke.</div><div class="trSentence"><b>Türkçe anlamı:</b> Pencerelerini, atlas perdelerle kaplattırıp, zeminini de Hereke dokuması muhteşem bir halı ile döşetmiştir.</div></div>',
     storyTr:'<p><span class="term tap c1" data-key="Hayme Ana TR">Hayme Ana</span>, Oğuzların Bozok kolunun (Gün Han oğullarından) Kayı Boyu’na mensup bir Türkmen (Yörük) hanımı olup asıl ismi Fâtıma’dır. Ertuğrul Gazi’nin annesi, Osmanlı Devleti’nin kurucusu Osman Gazi’nin ninesidir.</p>\n<p>Ona, “Çadır anası, çadır büyüğü” manasına gelen “Hayme Ana” derlermiş. İç Anadolu’daki Haymana yöresinin ismi buradan gelmektedir. Doğum yeri ve tarihi tam olarak bilinmeyen Hayme Ana’ya “Devlet Ana” da derlermiş. Hayme Ana, Domaniç’in Çarşamba köyünde otururmuş. O zamandan beri de Demirli, Erikli, Toraman ve Fındıcak Köyleri yörükleri için Hayme Ana’nın çadır kurduğu yer, yayla için merkez kabul edilmiş.</p>\n<p>Şöyle anlatılır: Ertuğrul Gazi’nin babası Süleyman Şah, seferdeyken atından düşüp şehit olmuştur. Refîkası Hayme Ana’ya, muhafaza etmesi için emanetler bırakmıştır. Kur’ân‑ı Kerîm, sancak ve oğlu Ertuğrul Gazi Hazretlerini emanet olarak bırakmıştır. Süleyman Şah ona, “Bunları muhafaza edecek ve bu sefere, bu mücadeleye devam edeceksin.” demiştir. Anadolu’ya, Söğüt’e, Domaniç’e yerleşmek husûsunda bu sancağı devam ettirmiştir. Bu evlatları yetiştirmiş, Kur’ân‑ı Kerîm’e hizmet edecek olan nesillere karşı, bu manevî vazifeyi yerine getirmiştir. Emanetleri muhafaza etmek ve sahip çıkmak… Bir hanımın, Hayme Ana’nın bu gayreti ve onları muhafaza etmesiyle Cenâb‑ı Hak, nasıl büyük bir nimet nasip ediyor, onun nesline!</p>\n<p>Yine bir yayla mevsiminde Hayme Ana, Cenâb‑ı Hakk’ın rahmetine ermiş, tepenin üstüne defnedilmiştir.</p>\n<p>Hicrî 1302 (M. 1886)’de Sultan İkinci Abdülhamîd Han, ecdâdına hürmetinin nişânesi olarak büyük itina ile bir heyet gönderip büyük ninesi Hayme Ana’nın kabrini buldurmuş ve üzerine bir türbe yaptırmış. Pencerelerini, atlas perdelerle kaplattırıp, zeminini de Hereke dokuması muhteşem bir halı ile döşetmiştir.</p>'
   },
   {
@@ -278,64 +175,80 @@ const calendarData = [
       ['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']
     ],
     hadithArabic:'قَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: لَا تَجْلِسُوا عِنْدَ كُلِّ عَالِمٍ إِلَّا عَالِمًا يَدْعُوكُمْ مِنَ الْخَمْسِ إِلَى الْخَمْسِ: مِنَ الشَّكِّ إِلَى الْيَقِينِ وَمِنَ الْكِبْرِ إِلَى التَّوَاضُعِ وَمِنَ الْعَدَاوَةِ إِلَى النَّصِيحَةِ وَمِنَ الرِّيَاءِ إِلَى الْإِخْلَاصِ وَمِنَ الرَّغْبَةِ إِلَى الزُّهْدِ. (كر)',
-    hadithPt:'<div class="sentencePair"><div class="ptSentence">O <span class="term tap c1" data-key="Profeta">Profeta</span> (s.a.v.) disse: “Não se sentem na companhia de todo <span class="term tap c2" data-key="sábio">sábio</span>, mas somente daquele que vos convida de cinco coisas para cinco: da <span class="term tap c3" data-key="dúvida">dúvida</span> para a <span class="term tap c1" data-key="certeza">certeza</span>, da <span class="term tap c2" data-key="arrogância">arrogância</span> para a <span class="term tap c3" data-key="humildade">humildade</span>, da inimizade para o <span class="term tap c1" data-key="conselho sincero">conselho sincero</span>, da ostentação para a <span class="term tap c2" data-key="sinceridade">sinceridade</span> e do desejo pelo mundo para o <span class="term tap c3" data-key="desprendimento">desprendimento</span>.”</div><div class="trSentence"> Peygamber Efendimiz (s.a.v.) buyurdular: “Her âlimin sohbetinde bulunmayınız. Ancak sizi beş şeyden beş şeye davet eden âlimlerin sohbetinde bulununuz: şekten yakîne, kibirden tevâzuya, düşmanlıktan dostluğa, riyâdan ihlâsa ve dünyaya rağbetten zühde.”</div></div>',
+    hadithPt:'<div class="sentencePair"><div class="ptSentence">O <span class="term tap c1" data-key="Profeta">Profeta</span> (s.a.v.) disse: “Não se sentem na companhia de todo <span class="term tap c2" data-key="sábio">sábio</span>, mas somente daquele que vos convida de cinco coisas para cinco: da <span class="term tap c3" data-key="dúvida">dúvida</span> para a <span class="term tap c1" data-key="certeza">certeza</span>, da <span class="term tap c2" data-key="arrogância">arrogância</span> para a <span class="term tap c3" data-key="humildade">humildade</span>, da inimizade para o <span class="term tap c1" data-key="conselho sincero">conselho sincero</span>, da ostentação para a <span class="term tap c2" data-key="sinceridade">sinceridade</span> e do desejo pelo mundo para o <span class="term tap c3" data-key="desprendimento">desprendimento</span>.”</div><div class="trSentence"><b>Türkçe anlamı:</b> Peygamber Efendimiz (s.a.v.) buyurdular: “Her âlimin sohbetinde bulunmayınız. Ancak sizi beş şeyden beş şeye davet eden âlimlerin sohbetinde bulununuz: şekten yakîne, kibirden tevâzuya, düşmanlıktan dostluğa, riyâdan ihlâsa ve dünyaya rağbetten zühde.”</div></div>',
     hadithTr:'<span class="term tap c1" data-key="Peygamber Efendimiz">Peygamber Efendimiz</span> (s.a.v.) buyurdular: “Her <span class="term tap c2" data-key="âlim">âlimin</span> sohbetinde bulunmayınız. Ancak sizi beş şeyden beş şeye davet eden âlimlerin sohbetinde bulununuz; <span class="term tap c3" data-key="şek">şekten</span> <span class="term tap c1" data-key="yakîn">yakîne</span> (tereddütten, görür gibi inanmaya), <span class="term tap c2" data-key="kibir">kibirden</span> <span class="term tap c3" data-key="tevazu">tevâzuya</span>, düşmanlıktan dostluğa, riyâdan ihlâsa, (dünyaya) rağbetten zühde (dünya sevgisini kalbe koymamaya).”',
     source:'(Târîh-i Dımaşk)',
     storyTitle:'PALAVRAS SÁBIAS',
-    storyPt:'<div class="sentencePair"><div class="ptSentence">As pessoas mais valiosas são aquelas que servem de meio para <span class="term tap c1" data-key="elevar">elevar</span> e renovar o Islã.</div><div class="trSentence"> İnsanların en kıymetlileri, İslâm’ın yüceltilmesine ve yenilenmesine vesile olan kimselerdir.</div></div><div class="sentencePair"><div class="ptSentence">Allah, o Altíssimo, faz com que a nossa religião seja promovida por meio do nosso Profeta (s.a.v.), dos amigos de Allah e dos renovadores.</div><div class="trSentence"> Cenâb-ı Hak dinimizi Peygamberimiz (s.a.v.), evliyâullah ve müceddidler vasıtasıyla yüceltmektedir.</div></div><div class="sentencePair"><div class="ptSentence">Por isso, promover os conhecimentos religiosos é uma das maiores virtudes.</div><div class="trSentence"> Bu sebeple dinî ilimlerin yayılması ve yüceltilmesi en büyük kıymetlerden biridir.</div></div><div class="sentencePair"><div class="ptSentence">Ser motivo para a promoção e a revitalização de uma única regra da Sharî‘a já é uma grande virtude.</div><div class="trSentence"> Sadece bir şer‘î hükmün yayılmasına ve ihyasına vesile olmak bile büyük bir kıymettir.</div></div><div class="sentencePair"><div class="ptSentence">Por isso, é necessário ter plena fidelidade e seguir de perto os mujtahids e os profetas.</div><div class="trSentence"> Bunun için müctehidlere ve peygamberlere tam bağlı olmak ve onları örnek almak gerekir.</div></div><div class="sentencePair"><div class="ptSentence">Há uma diferença entre o <span class="term tap c2" data-key="sábio">sábio</span> e o <span class="term tap c3" data-key="devoto">devoto</span>.</div><div class="trSentence"> Âlim ile âbid arasında fark vardır.</div></div><div class="sentencePair"><div class="ptSentence">O sábio que também é devoto e pratica aquilo que sabe é uma pessoa de grande valor.</div><div class="trSentence"> Âlim ve aynı zamanda âbid olan, ilmiyle amel eden insanlar çok kıymetlidir.</div></div><div class="sentencePair"><div class="ptSentence">A diferença entre o sábio e o devoto é tão grande quanto a diferença entre a lua e as estrelas.</div><div class="trSentence"> Âlim ile âbid arasındaki fark, ay ile yıldızlar arasındaki fark kadar büyüktür.</div></div><div class="sentencePair"><div class="ptSentence">A missão profética existe para a continuidade e transmissão do conhecimento.</div><div class="trSentence"> Peygamberlik vazifesi ilmin devamı ve aktarılması içindir.</div></div><div class="sentencePair"><div class="ptSentence">Que Allah, o Altíssimo, nos conceda aprender e ensinar o verdadeiro conhecimento.</div><div class="trSentence"> Cenâb-ı Hak bizlere hakikî ilmi öğrenip öğretmeyi nasip eylesin.</div></div><div class="sentencePair"><div class="ptSentence">Em <em>İhyâü Ulûmi’d-dîn</em> afirma-se: “O conhecimento é a adoração do coração.”</div><div class="trSentence"> İhyâü Ulûmi’d-dîn’de “İlim, kalbin ibadetidir.” denilmektedir.</div></div><div class="sentencePair"><div class="ptSentence">Assim como há purificação e limpeza antes da oração, o coração também precisa ser purificado.</div><div class="trSentence"> Namazdan önce temizlik gerektiği gibi kalbin de temizlenmesi gerekir.</div></div><div class="sentencePair"><div class="ptSentence">A alma que ordena o mal deve ser libertada dos maus hábitos e da má moral, para que seja possível beneficiar-se do conhecimento.</div><div class="trSentence"> Nefs-i emmârenin kötü alışkanlık ve ahlâklardan kurtulması gerekir ki ilimden istifade edilebilsin.</div></div><div class="sentencePair"><div class="ptSentence">A construção e o florescimento do coração acontecem por meio do <span class="term tap c1" data-key="conhecimento">conhecimento</span> espiritual.</div><div class="trSentence"> Kalbin imarı ve güzelleşmesi mânevî ilim ile olur.</div></div><div class="sentencePair"><div class="ptSentence">Primeiro o coração será lavado com ele e, depois, será adornado.</div><div class="trSentence"> Kalp önce onunla temizlenecek, sonra süslenecektir.</div></div><div class="sentencePair"><div class="ptSentence">Uma pessoa sem <span class="term tap c2" data-key="espiritualidade">espiritualidade</span> é como uma ave congelada.</div><div class="trSentence"> Mâneviyatsız bir kişi dondurulmuş bir kuş gibidir.</div></div><div class="sentencePair"><div class="ptSentence">Quando se olha para essa ave, não há nenhuma diferença entre ela e as outras aves, mas dentro dela não há espírito.</div><div class="trSentence"> O kuşa bakıldığında diğer kuşlardan farkı yoktur, fakat içinde ruh yoktur.</div></div><div class="sentencePair"><div class="ptSentence">Assim como essa ave não pode beneficiar a si mesma nem aos outros, uma pessoa sem espiritualidade também não pode beneficiar a si mesma nem aos outros.</div><div class="trSentence"> Bu kuşun kendisine ve başkasına faydası olmadığı gibi, mâneviyatsız insanın da kendisine ve başkasına faydası yoktur.</div></div>',
+    storyPt:'<div class="sentencePair"><div class="ptSentence">As pessoas mais valiosas são aquelas que servem de meio para <span class="term tap c1" data-key="elevar">elevar</span> e renovar o Islã.</div><div class="trSentence"><b>Türkçe anlamı:</b> İnsanların en kıymetlileri, İslâm’ın yüceltilmesine ve yenilenmesine vesile olan kimselerdir.</div></div><div class="sentencePair"><div class="ptSentence">Allah, o Altíssimo, faz com que a nossa religião seja promovida por meio do nosso Profeta (s.a.v.), dos amigos de Allah e dos renovadores.</div><div class="trSentence"><b>Türkçe anlamı:</b> Cenâb-ı Hak dinimizi Peygamberimiz (s.a.v.), evliyâullah ve müceddidler vasıtasıyla yüceltmektedir.</div></div><div class="sentencePair"><div class="ptSentence">Por isso, promover os conhecimentos religiosos é uma das maiores virtudes.</div><div class="trSentence"><b>Türkçe anlamı:</b> Bu sebeple dinî ilimlerin yayılması ve yüceltilmesi en büyük kıymetlerden biridir.</div></div><div class="sentencePair"><div class="ptSentence">Ser motivo para a promoção e a revitalização de uma única regra da Sharî‘a já é uma grande virtude.</div><div class="trSentence"><b>Türkçe anlamı:</b> Sadece bir şer‘î hükmün yayılmasına ve ihyasına vesile olmak bile büyük bir kıymettir.</div></div><div class="sentencePair"><div class="ptSentence">Por isso, é necessário ter plena fidelidade e seguir de perto os mujtahids e os profetas.</div><div class="trSentence"><b>Türkçe anlamı:</b> Bunun için müctehidlere ve peygamberlere tam bağlı olmak ve onları örnek almak gerekir.</div></div><div class="sentencePair"><div class="ptSentence">Há uma diferença entre o <span class="term tap c2" data-key="sábio">sábio</span> e o <span class="term tap c3" data-key="devoto">devoto</span>.</div><div class="trSentence"><b>Türkçe anlamı:</b> Âlim ile âbid arasında fark vardır.</div></div><div class="sentencePair"><div class="ptSentence">O sábio que também é devoto e pratica aquilo que sabe é uma pessoa de grande valor.</div><div class="trSentence"><b>Türkçe anlamı:</b> Âlim ve aynı zamanda âbid olan, ilmiyle amel eden insanlar çok kıymetlidir.</div></div><div class="sentencePair"><div class="ptSentence">A diferença entre o sábio e o devoto é tão grande quanto a diferença entre a lua e as estrelas.</div><div class="trSentence"><b>Türkçe anlamı:</b> Âlim ile âbid arasındaki fark, ay ile yıldızlar arasındaki fark kadar büyüktür.</div></div><div class="sentencePair"><div class="ptSentence">A missão profética existe para a continuidade e transmissão do conhecimento.</div><div class="trSentence"><b>Türkçe anlamı:</b> Peygamberlik vazifesi ilmin devamı ve aktarılması içindir.</div></div><div class="sentencePair"><div class="ptSentence">Que Allah, o Altíssimo, nos conceda aprender e ensinar o verdadeiro conhecimento.</div><div class="trSentence"><b>Türkçe anlamı:</b> Cenâb-ı Hak bizlere hakikî ilmi öğrenip öğretmeyi nasip eylesin.</div></div><div class="sentencePair"><div class="ptSentence">Em <em>İhyâü Ulûmi’d-dîn</em> afirma-se: “O conhecimento é a adoração do coração.”</div><div class="trSentence"><b>Türkçe anlamı:</b> İhyâü Ulûmi’d-dîn’de “İlim, kalbin ibadetidir.” denilmektedir.</div></div><div class="sentencePair"><div class="ptSentence">Assim como há purificação e limpeza antes da oração, o coração também precisa ser purificado.</div><div class="trSentence"><b>Türkçe anlamı:</b> Namazdan önce temizlik gerektiği gibi kalbin de temizlenmesi gerekir.</div></div><div class="sentencePair"><div class="ptSentence">A alma que ordena o mal deve ser libertada dos maus hábitos e da má moral, para que seja possível beneficiar-se do conhecimento.</div><div class="trSentence"><b>Türkçe anlamı:</b> Nefs-i emmârenin kötü alışkanlık ve ahlâklardan kurtulması gerekir ki ilimden istifade edilebilsin.</div></div><div class="sentencePair"><div class="ptSentence">A construção e o florescimento do coração acontecem por meio do <span class="term tap c1" data-key="conhecimento">conhecimento</span> espiritual.</div><div class="trSentence"><b>Türkçe anlamı:</b> Kalbin imarı ve güzelleşmesi mânevî ilim ile olur.</div></div><div class="sentencePair"><div class="ptSentence">Primeiro o coração será lavado com ele e, depois, será adornado.</div><div class="trSentence"><b>Türkçe anlamı:</b> Kalp önce onunla temizlenecek, sonra süslenecektir.</div></div><div class="sentencePair"><div class="ptSentence">Uma pessoa sem <span class="term tap c2" data-key="espiritualidade">espiritualidade</span> é como uma ave congelada.</div><div class="trSentence"><b>Türkçe anlamı:</b> Mâneviyatsız bir kişi dondurulmuş bir kuş gibidir.</div></div><div class="sentencePair"><div class="ptSentence">Quando se olha para essa ave, não há nenhuma diferença entre ela e as outras aves, mas dentro dela não há espírito.</div><div class="trSentence"><b>Türkçe anlamı:</b> O kuşa bakıldığında diğer kuşlardan farkı yoktur, fakat içinde ruh yoktur.</div></div><div class="sentencePair"><div class="ptSentence">Assim como essa ave não pode beneficiar a si mesma nem aos outros, uma pessoa sem espiritualidade também não pode beneficiar a si mesma nem aos outros.</div><div class="trSentence"><b>Türkçe anlamı:</b> Bu kuşun kendisine ve başkasına faydası olmadığı gibi, mâneviyatsız insanın da kendisine ve başkasına faydası yoktur.</div></div>',
     storyTr:'<p>• İnsanların en kıymetlisi, en değerlisi, İslâm’ın tervîcine (yüceltilmesine) ve onun tecdîdine (ihyâsına) vesile olan insanlardır. Cenâb‑ı Hak, Peygamberimiz (s.a.v.) ile, evliyâullah ile, müceddid ile dinimizi tervîc ediyor. Onun için dînî ilimlerin tervîci, en büyük kıymettir. Sadece bir şer’î hükmün tervîcine, ihyasına sebep olmak bile, en büyük kıymettir. Onun için bu müctehidlere, peygamberlere tam bağlılık, tam benzemek lâzımdır.</p><p>• <span class="term tap c2" data-key="Âlim">Âlimle</span> <span class="term tap c3" data-key="âbid">âbid</span> arasında fark var. Âlim ve aynı zamanda âbid olan, ilmiyle âmil olan insanlar çok kıymetlidir. İşte ilmiyle âbid olan insanın kıymetini anlatabilmek için âbidle kıyas edilmiş. Âlim ile âbid arasındaki fark, ay ile yıldızlar arasındaki fark kadar büyük veyahut Resûlullah Efendimiz (s.a.v.) kendisini misal buyurarak “Sizin ednânızdan birisi üzerine fazlım gibi” buyurmuşlar. Peygamberlik vazifesi zaten ilmin devamı içindir. O hakiki ilmi öğrenip öğretebilmeyi Cenâb‑ı Hak nasip eylesin. Âlimin kaleminin mürekkebi ile şehidin kanı tartılmış, âlimin ilminin mürekkebi daha kıymetli gelmiştir.</p><p>• İhyâü Ulûmi’d-dîn’de; ilim, kalbin ibadetidir, deniliyor. Nasıl ki namazdan önce yapılacak taharet ve temizlik varsa, nasıl ki namaz, âzâlarla yapılan ibadetse; ama namazın aslı manevî bir ibadetse ve de âzâlar vasıtasıyla yapıldığı için âzâların temizliği önemliyse, âzâların temizliği olmadan, abdest, tahâret olmadan namaz sahih olmuyorsa, ilim ve ibadet de böyledir. Önce âzâların ve cevârihin temizlenmesi lâzım. Bunun gibi, kalbin de kötü vasıflardan temizlenmesi lâzım, nefs‑i emmârenin kötü vasıflardan, kötü ahlâklardan kurtulması lâzım ki ilimden istifade edilebilsin.</p><p>• Kalbin imarı, imareti, <span class="term tap c1" data-key="ilim">ilim</span> ile olur; ama hangi ilimle olur? Manevî ilimle olur. Kalp önce onunla yıkanacak, ondan sonra tezyînât olacak.</p><p>• Mâneviyatsız bir kişi, dondurulmuş kuşa benzer. O kuşa gidersiniz, bakarsınız, diğer kuşlardan hiçbir farkı yoktur. Ama içinde ruh yoktur. Bu kuşun, kendisine faydası olmadığı gibi başkasına da faydası yoktur. İşte maneviyatsız kişi, bu kuşa benzer.</p>'
   },
   {
-    iso:'2026-09-09', date:'09', month:'Setembro 2026', week:'Quarta-feira', hijri:'27 Rabî al-Awwal 1448',
+    iso:'2026-09-09', date:'09', month:'Setembro 2026', week:'Çarşamba', hijri:'27 Rabî al-Awwal 1448',
     next:'',
     prayers:[['Nascer do Sol','06:08'],['Ishraq','06:47'],['Dhuhr','12:12'],['Asr','15:32'],['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']],
     hadithArabic:'قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: مَنْ مَشَى بِالنَّمِيمَةِ بَيْنَ اثْنَيْنِ سَلَّطَ اللهُ عَلَيْهِ فِي قَبْرِهِ نَارًا تُحْرِقُهُ إِلَى يَوْمِ الْقِيَامَةِ ثُمَّ يُدْخِلُهُ النَّارَ. (مسند الحارث)',
-    hadithPt:'<div class="sentencePair"><div class="ptSentence">O Mensageiro de Allah (s.a.v.) disse: “Quem leva palavras entre duas pessoas, Allah, o Altíssimo, fará cair sobre ele um fogo em seu túmulo que o queimará até o Dia do Juízo; depois, Ele o lançará no Inferno.”</div><div class="trSentence">Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Her kim, iki kimse arasında laf taşırsa Allâhü Teâlâ, ona, kabrinde bir ateş musallat eder de kıyâmete kadar onu yakar. Sonra da onu Cehennem’e atar.”</div></div>',
-    hadithTr:'',
+    hadithPt:'',
+    hadithTr:'Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Her kim, iki kimse arasında laf taşırsa Allâhü Teâlâ, ona, kabrinde bir ateş musallat eder de kıyâmete kadar onu yakar. Sonra da onu Cehennem’e atar.” (Müsnedü’l-Hâris)',
     source:'(Müsnedü’l-Hâris)',
-    storyTitle:'EVITAR A NAMIMA (LEVAR PALAVRAS) - 1',
-    storyPt:'<div class="sentencePair"><div class="ptSentence">Todo crente deve manter-se afastado de ideias e palavras que provoquem rancor e inimizade entre as pessoas, e deve evitar atitudes que destruam a união entre os irmãos na fé. Também não deve dar crédito às palavras de quem tenta colocar as pessoas umas contra as outras.</div><div class="trSentence">Her mümin, insanlar arasında buğz ve düşmanlığa sebep olan fikirlerden ve sözlerden uzak durmalı, din kardeşleri arasında birliği dağıtacak hareketlerden sakınmalıdır. İnsanların arasını bozmaya çalışanların sözlerine de itibar etmemelidir.</div></div><div class="sentencePair"><div class="ptSentence">Quando mencionaram a Huzayfa bin al-Yamân (r.a.) alguém que levava muitas palavras, ele disse: “Ouvi o Mensageiro de Allah (s.a.v.) dizer: ‘Quem pratica namîma não entrará no Paraíso.’”</div><div class="trSentence">Huzeyfe bin Yemân radıyallâhü anh Hazretlerine, çok nemîme yapan (laf taşıyan) birisinden bahsedildiğinde şöyle buyurdular: Resûlullâh Efendimiz sallallâhü aleyhi ve sellem’in şöyle buyurduklarını işittim: “Nemîme yapan, Cennet’e giremez.”</div></div><div class="sentencePair"><div class="ptSentence">Davi (a.s.) disse a seu filho Salomão (a.s.): “Meu filho, evita completamente a namîma, isto é, levar palavras entre as pessoas. A namîma causa ao homem mais dano do que a espada.”</div><div class="trSentence">Dâvûd aleyhisselâm, oğlu Süleymân aleyhisselâm’a şöyle buyurmuştur: “Oğlum, nemîmeden (insanlar arasında laf taşımaktan) son derece sakın! Zira nemîme, insana, kılıçtan daha fazla zarar verir.”</div></div><div class="sentencePair"><div class="ptSentence">Amr bin Maymûn (rah.), dos Tabiîn, contou: Certa vez, quando Moisés (a.s.) subiu ao Monte Sinai para suplicar a Allah, viu uma pessoa sob o Trono Supremo. Desejou alcançar sua elevada posição e perguntou ao seu Senhor quem era aquela pessoa. Allah, o Altíssimo, disse: “Vou informar-te três de suas qualidades: ele nunca invejava ninguém pelas bênçãos concedidas por Allah, nunca desobedecia aos seus pais e jamais levava palavras entre as pessoas.”</div><div class="trSentence">Tabiîn’den Amr bin Meymûn (rah.) şöyle anlattı: Mûsâ aleyhisselâm, Allâhü Teâlâ’ya münâcât için Tûr Dağı’na gittiği bir vakitte, Arş-ı A’lâ’nın altında bir kimse gördü. Onun yüce makamına gıpta etti. Rabb’inden, onun kim olduğunu suâl etti, Hak Teâlâ, “Onun amellerinden üç hasleti sana bildireyim: O, Allâh’ın ihsân ettiği nimetlerinden dolayı hiçbir kimseye haset etmezdi. Ana babasına âsî gelmezdi ve insanlar arasında aslâ laf taşımazdı.” buyurdu.</div></div><div class="sentencePair"><div class="ptSentence">Conta-se que um homem que levava palavras foi até o governador de Basra e disse: “Abdullah bin Hammâm (rah.) fala contra ti.” O governador mandou chamar Abdullah e escondeu o homem que levara as palavras numa sala onde pudesse ouvi-los. Disse a Abdullah: “Ouvi dizer que me satirizas e falas mal de mim.” Ele respondeu: “De modo algum! Que Allah vos conceda o bem! Vós não sois alguém sobre quem se falariam tais coisas.” Então o governador trouxe o homem escondido e disse: “Este homem afirma que fizeste isso.” Abdullah respondeu: “A situação deste homem só pode ser uma de duas: ou está mentindo por falar de algo que não conhece, ou pratica namîma para separar as pessoas. Quanto crédito merece a palavra de alguém com uma dessas duas características?”</div><div class="trSentence">Naklolunduğuna göre, laf taşıyan birisi, Basra valisine gelerek “Abdullah bin Hemmâm (rah.), senin aleyhinde konuşuyor” dedi. Vali, Abdullâh’ı getirtti. O, laf taşıyanı da onu duyacağı başka bir odaya gizledi. Abdullah’a, “Sen, beni hicvediyor, aleyhimde kötü konuşuyormuşsun!” dedi, o ise “Aslâ! Allâh iyiliğinizi versin! Siz, hakkında böyle şeyler konuşulacak bir kimse değilsiniz.” dedi. Gizlediği adamı oraya getirtip “Bu adam, senin böyle yaptığını söylüyor” dedi, Abdullah ise şu cevabı verdi: “Bu adamın hâli, şu iki şeyden birisidir: Ya bilmediği bir şeyi konuştuğundan yalan söylemiş olur; yahut insanların arasını bozmak için nemîme yapmış olur. Artık bu iki vasfa sahip bir kimsenin sözüne ne kadar itibar olunur!”</div></div><div class="sentencePair"><div class="ptSentence">O governador apreciou muito essa resposta e depois repreendeu e expulsou o homem que praticava namîma. (Continua)</div><div class="trSentence">Vali, bu sözü çok beğendi ve daha sonra o nemîmeci adamı azarlayarak yanından kovdu. (Devamı var)</div></div>'
+    storyTitle:'NEMÎMEDEN (LAF TAŞIMAKTAN) SAKINMAK -1',
+    storyPt:'',
+    storyTr:'<p>Her mümin, insanlar arasında buğz ve düşmanlığa sebep olan fikirlerden ve sözlerden uzak durmalı, din kardeşleri arasında birliği dağıtacak hareketlerden sakınmalıdır. İnsanların arasını bozmaya çalışanların sözlerine de itibar etmemelidir.</p><p>Huzeyfe bin Yemân radıyallâhü anh Hazretlerine, çok nemîme yapan (laf taşıyan) birisinden bahsedildiğinde şöyle buyurdular: Resûlullâh Efendimiz sallallâhü aleyhi ve sellem’in şöyle buyurduklarını işittim: “Nemîme yapan, Cennet’e giremez.”</p><p>Dâvûd aleyhisselâm, oğlu Süleymân aleyhisselâm’a şöyle buyurmuştur: “Oğlum, nemîmeden (insanlar arasında laf taşımaktan) son derece sakın! Zira nemîme, insana, kılıçtan daha fazla zarar verir.”</p><p>Tabiîn’den Amr bin Meymûn (rah.) şöyle anlattı: Mûsâ aleyhisselâm, Allâhü Teâlâ’ya münâcât için Tûr Dağı’na gittiği bir vakitte, Arş-ı A’lâ’nın altında bir kimse gördü. Onun yüce makamına gıpta etti. Rabb’inden, onun kim olduğunu suâl etti, Hak Teâlâ, “Onun amellerinden üç hasleti sana bildireyim: O, Allâh’ın ihsân ettiği nimetlerinden dolayı hiçbir kimseye haset etmezdi. Ana babasına âsî gelmezdi ve insanlar arasında aslâ laf taşımazdı.” buyurdu.</p><p>Naklolunduğuna göre, laf taşıyan birisi, Basra valisine gelerek “Abdullah bin Hemmâm (rah.), senin aleyhinde konuşuyor” dedi. Vali, Abdullâh’ı getirtti. O, laf taşıyanı da onu duyacağı başka bir odaya gizledi. Abdullah’a, “Sen, beni hicvediyor, aleyhimde kötü konuşuyormuşsun!” dedi, o ise “Aslâ! Allâh iyiliğinizi versin! Siz, hakkında böyle şeyler konuşulacak bir kimse değilsiniz.” dedi. Gizlediği adamı oraya getirtip “Bu adam, senin böyle yaptığını söylüyor” dedi, Abdullah ise şu cevabı verdi: “Bu adamın hâli, şu iki şeyden birisidir: Ya bilmediği bir şeyi konuştuğundan yalan söylemiş olur; yahut insanların arasını bozmak için nemîme yapmış olur. Artık bu iki vasfa sahip bir kimsenin sözüne ne kadar itibar olunur!”</p><p>Vali, bu sözü çok beğendi ve daha sonra o nemîmeci adamı azarlayarak yanından kovdu. (Devamı var)</p>'
   },
   {
-    iso:'2026-09-10', date:'10', month:'Setembro 2026', week:'Quinta-feira', hijri:'28 Rabî al-Awwal 1448',
+    iso:'2026-09-10', date:'10', month:'Setembro 2026', week:'Perşembe', hijri:'28 Rabî al-Awwal 1448',
     next:'',
     prayers:[['Nascer do Sol','06:08'],['Ishraq','06:47'],['Dhuhr','12:12'],['Asr','15:32'],['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']],
     hadithArabic:'قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: شِرَارُ عِبَادِ اللهِ الْمَشَّاءُونَ بِالنَّمِيمَةِ الْمُفَرِّقُونَ بَيْنَ الْأَحِبَّةِ الْبَاغُونَ الْبُرَآءَ الْعَنَتَ. (حم)',
-    hadithPt:'<div class="sentencePair"><div class="ptSentence">O Mensageiro de Allah (s.a.v.) disse: “Os piores entre os servos de Allah são aqueles que levam palavras, que rompem a amizade entre os amigos e que sempre procuram a intriga e a corrupção.”</div><div class="trSentence">Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Allâhü Teâlâ’nın kullarından en şerlileri, nemîme yapanlar (laf taşıyanlar), dostlar arasını bozanlar ve dâimâ fitne ve fesat peşinde koşanlardır.”</div></div>',
-    hadithTr:'',
+    hadithPt:'',
+    hadithTr:'Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Allâhü Teâlâ’nın kullarından en şerlileri, nemîme yapanlar (laf taşıyanlar), dostlar arasını bozanlar ve dâimâ fitne ve fesat peşinde koşanlardır.” (Müsned-i Ahmed)',
     source:'(Müsned-i Ahmed)',
-    storyTitle:'EVITAR A NAMIMA (LEVAR PALAVRAS) - 2',
-    storyPt:'<div class="sentencePair"><div class="ptSentence">A pessoa de razão e fé completas não deve dar crédito às palavras de quem leva palavras. Ao tomar uma decisão, deve agir com razão, não com precipitação, e deve controlar o coração e a língua. Deve saber que quem leva palavras até ti também levará as tuas palavras a outros.</div><div class="trSentence">Aklı ve imanı kâmil olan kimse, laf taşıyan kimsenin kelâmına itibar etmemelidir. Karar verme husûsunda acele ile değil, aklı ile hareket etmeli, kalbine ve diline sahip olmalıdır. Bilmelidir ki sana laf taşıyan, senden de başkasına söz taşıyacaktır.</div></div><div class="sentencePair"><div class="ptSentence">Yahyâ bin Ebû Kesîr (rah.), dos Tabiîn, disse: “O trabalho que aquele que leva palavras faz em uma hora, um feiticeiro não consegue fazer em um mês.”</div><div class="trSentence">Tâbiîn’den Yahyâ bin Ebû Kesîr (rah.) demiştir ki: Nemîme yapanın bir saatte yaptığı işi, sihirbaz bir ayda yapamaz.</div></div><div class="sentencePair"><div class="ptSentence">Uma mulher aconselhava o filho: “Meu filho, guarda bem os segredos. Nunca leves palavras! Pois a namîma acaba com toda amizade e torna sem valor todo bem.”</div><div class="trSentence">Bir kadın, oğluna şöyle nasihat ediyordu: “Oğlum, sırları iyi sakla. Aslâ laf taşıma! Zira nemîme, her türlü dostluğu bitirir, her türlü iyiliği de kıymetsiz hâle getirir.”</div></div><div class="sentencePair"><div class="ptSentence">Hammâd bin Salama (rah.), dos Tabiîn, contou: Um homem quis comprar um escravo. O vendedor avisou: “Ele pratica namîma, coloca as pessoas umas contra as outras, cuidado com ele.” Mesmo assim, o homem comprou o escravo. Um dia, o escravo foi à esposa do seu senhor e disse: “Seu marido não a ama. Vai divorciar-se de você e casar-se com outra. Se quiser, posso mostrar-lhe um meio de conquistar o amor dele.” Quando ela aceitou, disse: “Raspe um pouco da parte inferior da barba do seu marido, e ele a amará.”</div><div class="trSentence">Yine Tâbiîn’den Hammâd bin Seleme (rah.) şöyle anlatmıştır: Bir kimse bir köle satın almak istedi, satan kimse, “Bu, nemîme yapar, insanları birbirine düşürür, ona dikkat et” dedi, buna rağmen adam, köleyi satın aldı. Bir gün, bu köle, sahibinin hanımına giderek, “Kocan seni sevmiyor, seni boşayıp başkasıyla evlenecek. Dilersen sana, onun muhabbetini kendine bağlayacağın bir yol göstereyim” dedi. Kadın, “Tamam” deyince, köle “Kocanın sakalının alt tarafından biraz tıraş ediver, seni sevecektir” dedi.</div></div><div class="sentencePair"><div class="ptSentence">Depois foi ao senhor e disse: “Sua esposa está a traí-lo e quer matá-lo. Se quiser comprovar a verdade, finja dormir esta noite e verá.” À noite, quando a esposa se aproximou com uma navalha para raspar um pouco da barba como o escravo havia dito, o marido segurou-a e matou-a. Os parentes da mulher também mataram o homem.</div><div class="trSentence">Sonra efendisine giderek, “Karın sana hıyanet ediyor, seni öldürmek istiyor. Bu sözümün hakikat olduğunu anlamak istersen gece uyuyormuş gibi yap, görürsün.” dedi. Gece, karısı, kölenin dediği gibi sakalından biraz tıraş etmek için elinde usturayla yaklaşınca, kocası, onu tutup öldürdü. Kadının akrabaları da o adamı öldürdüler.</div></div><div class="sentencePair"><div class="ptSentence">Eis os maus efeitos da namîma e de casos semelhantes. Por meio da namîma, assuntos íntimos vêm à tona, segredos são revelados, surgem dificuldades materiais e espirituais, a amizade e o afeto desaparecem e a inimizade se inflama. Nas sociedades, o sentimento de união se perde e surge a divisão. Por isso, quando alguém recebe uma palavra sobre seu irmão, não deve abandonar a justiça. Deve adverti-lo com bondade e, se ele pedir desculpas, aceitar suas desculpas.</div><div class="trSentence">İşte bu ve benzeri hâller, nemîmenin kötü eseridir. Nemîme ile mahrem hâller ortaya dökülür, sırlar ifşâ olur, maddeten ve mânen sıkıntılar yüz gösterir, dostluk ve muhabbet silinir, düşmanlık alevlenir. Cemiyetlerde birlik ve beraberlik duyguları kaybolarak tefrikaya sebep olur. Bu sebeple bir kimseden, kendisine bir söz ulaşan kişi, insafı elden bırakmamalı, kardeşini güzelce ikaz etmeli; özür dilerse özrünü kabul etmelidir.</div></div>'
+    storyTitle:'NEMÎMEDEN (LAF TAŞIMAKTAN) SAKINMAK -2',
+    storyPt:'',
+    storyTr:'<p>Aklı ve imanı kâmil olan kimse, laf taşıyan kimsenin kelâmına itibar etmemelidir. Karar verme husûsunda acele ile değil, aklı ile hareket etmeli, kalbine ve diline sahip olmalıdır. Bilmelidir ki sana laf taşıyan, senden de başkasına söz taşıyacaktır.</p><p>Tâbiîn’den Yahyâ bin Ebû Kesîr (rah.) demiştir ki: Nemîme yapanın bir saatte yaptığı işi, sihirbaz bir ayda yapamaz.</p><p>Bir kadın, oğluna şöyle nasihat ediyordu: “Oğlum, sırları iyi sakla. Aslâ laf taşıma! Zira nemîme, her türlü dostluğu bitirir, her türlü iyiliği de kıymetsiz hâle getirir.”</p><p>Yine Tâbiîn’den Hammâd bin Seleme (rah.) şöyle anlatmıştır: Bir kimse bir köle satın almak istedi, satan kimse, “Bu, nemîme yapar, insanları birbirine düşürür, ona dikkat et” dedi, buna rağmen adam, köleyi satın aldı. Bir gün, bu köle, sahibinin hanımına giderek, “Kocan seni sevmiyor, seni boşayıp başkasıyla evlenecek. Dilersen sana, onun muhabbetini kendine bağlayacağın bir yol göstereyim” dedi. Kadın, “Tamam” deyince, köle “Kocanın sakalının alt tarafından biraz tıraş ediver, seni sevecektir” dedi.</p><p>Sonra efendisine giderek, “Karın sana hıyanet ediyor, seni öldürmek istiyor. Bu sözümün hakikat olduğunu anlamak istersen gece uyuyormuş gibi yap, görürsün.” dedi. Gece, karısı, kölenin dediği gibi sakalından biraz tıraş etmek için elinde usturayla yaklaşınca, kocası, onu tutup öldürdü. Kadının akrabaları da o adamı öldürdüler.</p><p>İşte bu ve benzeri hâller, nemîmenin kötü eseridir. Nemîme ile mahrem hâller ortaya dökülür, sırlar ifşâ olur, maddeten ve mânen sıkıntılar yüz gösterir, dostluk ve muhabbet silinir, düşmanlık alevlenir. Cemiyetlerde birlik ve beraberlik duyguları kaybolarak tefrikaya sebep olur. Bu sebeple bir kimseden, kendisine bir söz ulaşan kişi, insafı elden bırakmamalı, kardeşini güzelce ikaz etmeli; özür dilerse özrünü kabul etmelidir.</p>'
   },
   {
-    iso:'2026-09-11', date:'11', month:'Setembro 2026', week:'Sexta-feira', hijri:'30 Rabî al-Awwal 1448',
+    iso:'2026-09-11', date:'11', month:'Setembro 2026', week:'Cuma', hijri:'30 Rabî al-Awwal 1448',
     next:'',
     prayers:[['Nascer do Sol','06:08'],['Ishraq','06:47'],['Dhuhr','12:12'],['Asr','15:32'],['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']],
     hadithArabic:'قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: مَنْ نَصَرَ أَخَاهُ بِظَهْرِ الْغَيْبِ نَصَرَهُ اللهُ فِي الدُّنْيَا وَالْآخِرَةِ. (هق)',
-    hadithPt:'<div class=\"sentencePair\"><div class=\"ptSentence\">O Mensageiro de Allah (s.a.v.) disse: “Quem ajuda seu irmão na sua ausência, Allah, o Altíssimo, o ajudará neste mundo e na outra vida.”</div><div class=\"trSentence\">Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “(Mümin) kardeşine gıyabında yardımcı olan kimseye, Allâhü Teâlâ, dünya ve âhirette yardım eder.”</div></div>',
+    hadithPt:'',
     hadithTr:'Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “(Mümin) kardeşine gıyabında yardımcı olan kimseye, Allâhü Teâlâ, dünya ve âhirette yardım eder.” (Beyhakî, es-Sünenü’l-Kübrâ)',
     source:'(Beyhakî, es-Sünenü’l-Kübrâ)',
-    storyTitle:'SURAQA BIN MÂLIK (R.A.)',
-    storyPt:'<div class="sentencePair"><div class="ptSentence">Quando o Mensageiro de Allah (s.a.v.) partiu de Meca para a Hégira com Abu Bakr (r.a.), os politeístas saíram à procura deles. Suraqa bin Mâlik, habilidoso em seguir rastros, encontrou-os e bloqueou o caminho. Abu Bakr (r.a.) ficou profundamente preocupado que algum mal atingisse o Mensageiro de Allah. Ao ver Suraqa, chorou e disse: “Ó Mensageiro de Allah! Os incrédulos chegaram e nos alcançaram!” O Mensageiro de Allah respondeu: “Ó Abu Bakr! Não te entristeças. Certamente Allah está conosco. Os incrédulos não poderão nos prejudicar!” e fez uma súplica.</div><div class="trSentence">Resûlullah Efendimiz (s.a.v.), Hazret-i Ebûbekir (r.a.) ile hicret için Mekke-i Mükerreme’den yola çıktıklarında müşrikler de arkalarından onları aramaya çıkmışlardı. İz sürmede mâhir olan Sürâka bin Mâlik de onları bulmuş ve yollarını kesmişti. Hz. Ebûbekir radıyallâhü anh, Resûlullah sallallâhü aleyhi ve sellem’e bir zarar gelir diye, son derece korku içindeydi. Sürâka’yı görünce ağladı ve “Yâ Resûlallâh! Kâfirler geldi, bizi yakaladılar!” buyurdu. Resûlullah (s.a.v.), “Yâ Ebâ Bekir! Üzülme. Muhakkak Allah, bizimle beraberdir. Kâfirler, bize bir zarar veremez!” buyurarak dua etti.</div></div><div class="sentencePair"><div class="ptSentence">Suraqa estava sobre o cavalo e já se aproximava bastante quando as patas do cavalo afundaram na areia e ficaram presas. Ao ver isso, Suraqa disse: “Entendi, fizeste uma súplica contra mim. Mas, por favor, concede-me segurança e suplica para libertar meu cavalo. Juro que não sofrereis dano algum por minha parte. Também afastarei de vós os outros incrédulos.”</div><div class="trSentence">Sürâka, atının üzerindeydi ve iyice yaklaşmıştı ki, Sürâka’nın atının ayakları, kuma batıp tutulup kaldı. Bu hâli müşâhede eden Sürâka, “Anladım, benim aleyhimde dua ettiniz. Ama lütuf ve kerem edip bana emân verin, dua edip atımı kurtarın. Vallahi benden zarar görmezsiniz. Diğer kâfirleri de sizden uzaklaştırırım.” dedi.</div></div><div class="sentencePair"><div class="ptSentence">Pela súplica do Mensageiro de Allah, o cavalo de Suraqa foi libertado da areia. Suraqa informou qual era o objetivo dos incrédulos. Ao regressar, desviou os incrédulos para outro lado e cumpriu sua palavra.</div><div class="trSentence">Resûlullah (s.a.v.) Efendimizin duasıyla atı kumdan kurtulan Sürâka, kâfirlerin maksatlarının ne olduğunu haber verdi. Oradan döndüğünde de kafirleri başka tarafa sevk edip sözünü tuttu.</div></div><div class="sentencePair"><div class="ptSentence">Pouco tempo depois, Suraqa aceitou a fé e tornou-se muçulmano. O Mensageiro de Allah anunciou a Suraqa (r.a.) a conquista da Pérsia e que ele usaria a coroa de Kisra, dizendo: “Ó Suraqa, quem sabe como ficarás feliz quando usares os adornos de Kisra?”</div><div class="trSentence">Kısa bir müddet sonra Sürâka, iman ederek Müslüman oldu. Resûlullah (s.a.v.), Sürâka radıyallâhü anh’e İran’ın fethedileceğini, onun da Kisrâ’nın tacını giyeceğini müjdeleyerek “Ey Sürâka, Kisrâ’nın ziynetlerini taktığın zaman, kim bilir nasıl keyiflenirsin?” buyurmuşlardı.</div></div><div class="sentencePair"><div class="ptSentence">Durante o califado de Umar (r.a.), a Pérsia foi conquistada e os braceletes, joias e a coroa de Kisra foram levados a Medina. Umar (r.a.) chamou Suraqa (r.a.), colocou esses adornos nele e, levantando as mãos, disse: “Louvado seja Allah, o Altíssimo, que tirou esses adornos de Kisra bin Hurmuz e os concedeu a Suraqa, um árabe beduíno.”</div><div class="trSentence">Hazret-i Ömer’in (r.a.) hilafeti devrinde, İran fethedilip Kisrâ’nın bilezikleri, mücevherleri ve tacı Medine’ye getirildi. Hz. Ömer (r.a.), Sürâka radıyallâhü anh’i çağırtıp bunları ona giydirdi ve ellerini kaldırıp “Allâhü Teâlâ’ya hamdolsun ki Kisrâ bin Hürmüz’den bu ziynetleri aldı da bedevî bir Arap olan Sürâka’ya nasip etti.” buyurdu.</div></div><div class="sentencePair"><div class="ptSentence">Suraqa (r.a.) faleceu no 24º ano da Hégira, durante o califado de Uthman (r.a.).</div><div class="trSentence">Sürâka (r.a.), Hicret’in 24. senesinde Hazret-i Osman radıyallâhü anh’in hilâfeti devrinde vefat etmiştir.</div></div>'
+    storyTitle:'SÜRÂKA BİN MÂLİK (R.A)',
+    storyPt:'',
+    storyTr:'<p>Resûlullah Efendimiz (s.a.v.), Hazret-i Ebûbekir (r.a.) ile hicret için Mekke-i Mükerreme’den yola çıktıklarında müşrikler de arkalarından onları aramaya çıkmışlardı. İz sürmede mâhir olan Sürâka bin Mâlik de onları bulmuş ve yollarını kesmişti. Hz. Ebûbekir radıyallâhü anh, Resûlullah sallallâhü aleyhi ve sellem’e bir zarar gelir diye, son derece korku içindeydi. Sürâka’yı görünce ağladı ve “Yâ Resûlallâh! Kâfirler geldi, bizi yakaladılar!” buyurdu. Resûlullah (s.a.v.), “Yâ Ebâ Bekir! Üzülme. Muhakkak Allah, bizimle beraberdir. Kâfirler, bize bir zarar veremez!” buyurarak dua etti.</p><p>Sürâka, atının üzerindeydi ve iyice yaklaşmıştı ki, Sürâka’nın atının ayakları, kuma batıp tutulup kaldı. Bu hâli müşâhede eden Sürâka, “Anladım, benim aleyhimde dua ettiniz. Ama lütuf ve kerem edip bana emân verin, dua edip atımı kurtarın. Vallahi benden zarar görmezsiniz. Diğer kâfirleri de sizden uzaklaştırırım.” dedi.</p><p>Resûlullah (s.a.v.) Efendimizin duasıyla atı kumdan kurtulan Sürâka, kâfirlerin maksatlarının ne olduğunu haber verdi. Oradan döndüğünde de kafirleri başka tarafa sevk edip sözünü tuttu.</p><p>Kısa bir müddet sonra Sürâka, iman ederek Müslüman oldu. Resûlullah (s.a.v.), Sürâka radıyallâhü anh’e İran’ın fethedileceğini, onun da Kisrâ’nın tacını giyeceğini müjdeleyerek “Ey Sürâka, Kisrâ’nın ziynetlerini taktığın zaman, kim bilir nasıl keyiflenirsin?” buyurmuşlardı.</p><p>Hazret-i Ömer’in (r.a.) hilafeti devrinde, İran fethedilip Kisrâ’nın bilezikleri, mücevherleri ve tacı Medine’ye getirildi. Hz. Ömer (r.a.), Sürâka radıyallâhü anh’i çağırtıp bunları ona giydirdi ve ellerini kaldırıp “Allâhü Teâlâ’ya hamdolsun ki Kisrâ bin Hürmüz’den bu ziynetleri aldı da bedevî bir Arap olan Sürâka’ya nasip etti.” buyurdu.</p><p>Sürâka (r.a.), Hicret’in 24. senesinde Hazret-i Osman radıyallâhü anh’in hilâfeti devrinde vefat etmiştir.</p>'
   },
   {
-    iso:'2026-09-12', date:'12', month:'Setembro 2026', week:'Sábado', hijri:'2 Rabî al-Akhir 1448',
+    iso:'2026-09-12', date:'12', month:'Setembro 2026', week:'Cumartesi', hijri:'2 Rabî al-Akhir 1448',
     next:'',
     prayers:[['Nascer do Sol','06:08'],['Ishraq','06:47'],['Dhuhr','12:12'],['Asr','15:32'],['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']],
     hadithArabic:'قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: إِنَّ أُنَاسًا مِنْ أُمَّتِي يَأْتُونَ بَعْدِي يَوَدُّ أَحَدُهُمْ لَوِ اشْتَرَى رُؤْيَتِي بِأَهْلِهِ وَمَالِهِ. (ك)',
-    hadithPt:'<div class=\"sentencePair\"><div class=\"ptSentence\">O Mensageiro de Allah (s.a.v.) disse: “Entre a minha comunidade que virá depois de mim haverá pessoas que desejarão ver-me, mesmo que para isso tivessem de sacrificar suas famílias e seus bens.”</div><div class=\"trSentence\">Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Muhakkak benden sonra gelen ümmetimden birtakım insanlar, aile ve mallarını dahi fedâ etmek bahasına, beni görebilmeyi temenni ederlerdi.”</div></div>',
+    hadithPt:'',
     hadithTr:'Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Muhakkak benden sonra gelen ümmetimden birtakım insanlar, aile ve mallarını dahi fedâ etmek bahasına, beni görebilmeyi temenni ederlerdi.” (Hâkim, el-Müstedrek)',
     source:'(Hâkim, el-Müstedrek)',
-    storyTitle:'MUMINUN SALIH NO FIM DOS TEMPOS',
-    storyPt:'<div class="sentencePair"><div class="ptSentence">Abdullah bin Amr (r.a.) contou:</div><div class="trSentence">Abdullah bin Amr radıyallâhü anhümâ şöyle anlattı:</div></div><div class="sentencePair"><div class="ptSentence">“Eu estava na presença do Mensageiro de Allah (s.a.v.). O sol também já havia nascido. O Mensageiro de Allah disse: ‘No Dia do Juízo, um grupo de pessoas comparecerá diante de Allah, o Altíssimo. Sua luz será como a luz do sol.’</div><div class="trSentence">“Resûlullah Efendimiz sallallâhü aleyhi ve sellem’in huzurundaydım. Güneş de doğmuştu. Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular ki: ‘Kıyamet günü, Cenâb-ı Hakk’ın huzuruna bir topluluk, bir kavim gelir. Onların nuru, Güneş’in nuru gibidir.’</div></div><div class="sentencePair"><div class="ptSentence">Abu Bakr (r.a.), ao ouvir isso, disse: ‘Somos nós, ó Mensageiro de Allah?’</div><div class="trSentence">Hazret-i Ebûbekir radıyallâhü anh, bunu işitince dedi ki: ‘Onlar, biz miyiz, ey Allah’ın Resûlü?’</div></div><div class="sentencePair"><div class="ptSentence">O Mensageiro de Allah disse: ‘Não, não sois vós. Porém, há muito bem e muito ganho para vós por serdes companheiros. Eles são pobres. São grupos reunidos de diferentes regiões da terra, emigrantes que migraram de todas as partes do mundo. Boas novas aos estranhos.’ E repetiu isso três vezes.</div><div class="trSentence">Resûlullah Efendimiz (s.a.v.): ‘Hayır, siz değilsiniz. Ancak sizin için de (sahabe olmanızla) birçok hayır, birçok kazanç vardır. Onlar ise fakirlerdir. Onlar, arzın (muhtelif) kıtalarından bir araya gelen topluluklardır. Dünyanın her tarafından hicret eden muhacirlerdir. (Üç kez) Gariplere müjdeler olsun.’ buyurdular.</div></div><div class="sentencePair"><div class="ptSentence">Perguntaram: ‘Quem são os estranhos, ó Mensageiro de Allah?’</div><div class="trSentence">‘Garipler kimlerdir, yâ Resûlallah?’ denildi.</div></div><div class="sentencePair"><div class="ptSentence">Ele respondeu: ‘São pessoas piedosas. São os justos entre pessoas más, num tempo em que os que desobedecem a Allah e ao Seu Mensageiro são mais numerosos do que os obedientes.’</div><div class="trSentence">Buyurdular ki: ‘Onlar, sâlih kimselerdir. Allâh’a isyan edenlerin, Allâh’a ve Resûlüne âsi olanların, itaat edenlerden daha çok olduğu bir zamanda, o kötü insanların içerisindeki sâlih kimselerdir.”</div></div><div class="sentencePair"><div class="ptSentence"><b>CONJUNÇÃO, OBSERVAÇÃO DA LUA E INÍCIO DO MÊS DE RABÎ AL-AKHİR</b></div><div class="trSentence"><b>REBÎULÂHİR AYI İCTİMÂI, RU’YET VE BAŞLANGICI</b></div></div><div class="sentencePair"><div class="ptSentence">A conjunção do mês lunar de Rabî al-Akhir de 1448 ocorreu na sexta-feira, 11 de setembro, às 06h27 no horário da Turquia.</div><div class="trSentence">Hicrî-Kamerî 1448 yılı Rebîulâhir ayı ictimâı, 11 Eylül Cuma günü, Türkiye saati ile 06.27’dedir.</div></div><div class="sentencePair"><div class="ptSentence">A observação da lua nova será na sexta-feira, 11 de setembro, às 20h56 no horário da Turquia.</div><div class="trSentence">Ru’yet ise 11 Eylül Cuma, Türkiye saati ile 20.56’dadır.</div></div><div class="sentencePair"><div class="ptSentence">O crescente começará a ser visto primeiro a partir do Oceano Pacífico e do continente sul-americano, avançando para as regiões ocidentais.</div><div class="trSentence">Hilâl ilk olarak Büyük Okyanus’tan ve Güney Amerika Kıtası’ndan itibaren batı taraflara doğru görülmeye başlayacaktır.</div></div><div class="sentencePair"><div class="ptSentence">Sábado, 12 de setembro, é o primeiro dia do mês de Rabî al-Akhir.</div><div class="trSentence">12 Eylül Cumartesi, Rebîulâhir ayının 1. günüdür.</div></div><div class="sentencePair"><div class="ptSentence"><b>VERSO:</b></div><div class="trSentence"><b>BEYİT:</b></div></div><div class="sentencePair"><div class="ptSentence">As madrugadas são sempre o tempo de alegria dos conhecedores de Allah.<br>As madrugadas são tempo de misericórdia, as madrugadas são tempo de graça.<br><br>Bursalı Hüseyin Rıfat</div><div class="trSentence">Seherler dâima vakt-i safâ-yı ehl-i irfândır<br>Seherler vakt-i rahmettir, seherler vakt-i ihsandır<br><br>Bursalı Hüseyin Rıfat</div></div><div class="sentencePair"><div class="ptSentence">(As madrugadas são sempre o tempo de alegria dos amigos de Allah. As madrugadas são tempo de misericórdia e de graça.)</div><div class="trSentence">(Seherler, dâima gönül erlerinin safâ vaktidir. Seherler, rahmet ve ihsan zamanıdır.)</div></div>'
+    storyTitle:'ÂHİR ZAMANDA SÂLİH MÜMİNLER',
+    storyPt:'',
+    storyTr:'<p>Abdullah bin Amr radıyallâhü anhümâ şöyle anlattı:</p><p>“Resûlullah Efendimiz sallallâhü aleyhi ve sellem’in huzurundaydım. Güneş de doğmuştu. Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular ki: ‘Kıyamet günü, Cenâb-ı Hakk’ın huzuruna bir topluluk, bir kavim gelir. Onların nuru, Güneş’in nuru gibidir.’</p><p>Hazret-i Ebûbekir radıyallâhü anh, bunu işitince dedi ki: ‘Onlar, biz miyiz, ey Allah’ın Resûlü?’</p><p>Resûlullah Efendimiz (s.a.v.): ‘Hayır, siz değilsiniz. Ancak sizin için de (sahabe olmanızla) birçok hayır, birçok kazanç vardır. Onlar ise fakirlerdir. Onlar, arzın (muhtelif) kıtalarından bir araya gelen topluluklardır. Dünyanın her tarafından hicret eden muhacirlerdir. (Üç kez) Gariplere müjdeler olsun.’ buyurdular.</p><p>‘Garipler kimlerdir, yâ Resûlallah?’ denildi.</p><p>Buyurdular ki: ‘Onlar, sâlih kimselerdir. Allâh’a isyan edenlerin, Allâh’a ve Resûlüne âsi olanların, itaat edenlerden daha çok olduğu bir zamanda, o kötü insanların içerisindeki sâlih kimselerdir.”</p><p><b>REBÎULÂHİR AYI İCTİMÂI, RU’YET VE BAŞLANGICI</b></p><p>Hicrî-Kamerî 1448 yılı Rebîulâhir ayı ictimâı, 11 Eylül Cuma günü, Türkiye saati ile 06.27’dedir.</p><p>Ru’yet ise 11 Eylül Cuma, Türkiye saati ile 20.56’dadır.</p><p>Hilâl ilk olarak Büyük Okyanus’tan ve Güney Amerika Kıtası’ndan itibaren batı taraflara doğru görülmeye başlayacaktır.</p><p>12 Eylül Cumartesi, Rebîulâhir ayının 1. günüdür.</p><p><b>BEYİT:</b></p><p>Seherler dâima vakt-i safâ-yı ehl-i irfândır</p><p>Seherler vakt-i rahmettir, seherler vakt-i ihsandır</p><p>Bursalı Hüseyin Rıfat</p><p>(Seherler, dâima gönül erlerinin safâ vaktidir. Seherler, rahmet ve ihsan zamanıdır.)</p>'
+  },
+  {
+    iso:'2026-09-13', date:'13', month:'Setembro 2026', week:'Pazar', hijri:'3 Rabî al-Akhir 1448',
+    next:'',
+    prayers:[['Nascer do Sol','06:08'],['Ishraq','06:47'],['Dhuhr','12:12'],['Asr','15:32'],['Asr Sani','16:24'],['Maghrib','18:05'],['Isha','19:14'],['Isha Sani','19:22'],['Hora da Qibla','08:21']],
+    hadithArabic:'قَالَ رَسُولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: اُعْبُدُوا رَبَّكُمْ وَصَلُّوا خَمْسَكُمْ وَصُومُوا شَهْرَكُمْ وَحُجُّوا بَيْتَكُمْ وَأَدُّوا زَكَاتَكُمْ طَيِّبَةً بِهَا أَنْفُسُكُمْ تَدْخُلُوا جَنَّةَ رَبِّكُمْ عَزَّ وَجَلَّ. (حم)',
+    hadithPt:'',
+    hadithTr:'Resûlullah Efendimiz sallallâhü aleyhi ve sellem buyurdular: “Rabb’inize ibadet edin, beş vakit namazınızı kılın, Ramazan orucunuzu tutun, Beyt’inizi (Kâbe-i Muazzama’yı) haccedin, gönül hoşluğu ile zekâtınızı verin; (böyle yaparsanız) Rabb’iniz Azze ve Celle’nin Cennet’ine girersiniz.” (Müsned-i Ahmed bin Hanbel)',
+    source:'(Müsned-i Ahmed bin Hanbel)',
+    storyTitle:'HÂCE ÂRİF RİVGERÎ (K.S.) HAZRETLERİ VE BAZI NASİHATLERİ -1',
+    storyPt:'',
+    storyTr:'<p>Silsile-i Sâdât’ın onuncu halkası olan Hâce Ârif Rivgerî (k.s.) Hazretleri, Buhârâ’da, Gucdüvân yakınlarındaki Rivger kasabasında doğdu.</p><p>Hâce Ârif Rivgerî (k.s.), Hâce Abdülhâlık-ı Gucdüvânî Hazretlerinin en büyük halîfesidir. Küçük yaşta, üstazına intisâb ederek hizmetine girmiş, vefatına kadar hizmete devam etmiş ve ondan feyz almıştır. Hâce Abdülhâlık Hazretlerinin irtihâlinden sonra irşad vazifesine devam etmiştir. İlim, hilim, zühd ve takvâ sahibi olup ibadetlerine ve sünnet-i seniyyeye son derece bağlıydı.</p><p>Uzun ömür yaşayan Hâce Ârif Rivgerî (k.s.), Rivger’de 634 (M. 1236) senesinde vefat etti ve oraya defnolundu.</p><p>Ârifnâme isimli eserinde şu nasihatlerde bulunmuştur:</p><p>“Ey Ârif! Doğru ve sağlam itikad sahibi ol! Zira gaflete düşmüş ve kirlenmiş bir kalp, bütün uzuvları ve bedeni kirletir. Kulun, Allâhü Teâlâ’nın huzuruna kabul veya reddedilmesi, kulun kalbine (onun itikadına) bağlıdır.”</p><p>“Ey Ârif! Boynuna ağır yük yüklenmiş bir kuş, hiç uçabilir mi? Bunun gibi, dünyaya sımsıkı bağlanmış olan Müslümanın da Allâh’ın rızasına doğru yükselebilmesi ve manevî derecelere ulaşması nasıl mümkün olur?”</p><p>“Evliyâullâhın üç husûsiyeti vardır: Yüksek mertebelere kavuştuktan sonra da mütevâzı olmak; maddî imkânlara sahip olsa bile zühd ile hareket etmek ve güçlü olduğu zaman dahi acziyet göstermek.”</p><p>“İnsanları, dünyadan âhirete, mâsiyetten ibadete, açgözlülükten zühde, cimrilikten cömertliğe, kibirden tevazuya, gafletten zikre teşvik eden; onlara âhireti sevdirip, dünyadan uzaklaştıran ve kötülüklerden muhafaza için lüzumlu ilimleri öğreten insana, mürşid denir.”</p><p>“Seni, Allâhü Teâlâ’yı zikirden (ve onun rızasına kavuşmak için gayretten) alıkoyan şey, dünyadır.”</p><p>“Allâhü Teâlâ’nın nimet verip vermemesi, bir kimse için müsâvî olursa bu, onun, Allâhü Teâlâ’ya muhabbette en yüksek mertebede olduğunun alametidir.” (Devamı var)</p>'
   }
-]
+];
 
 function shareIcon(){return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M12 4l-4 4M12 4l4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>'}
 function prayerHTML(d){return d.prayers.map(p=>`<div class="prayer"><div class="pname">${p[0]}</div><div class="ptime">${p[1]}</div></div>`).join('')}
 function dayPageHTML(d,i){return `<div class="dayPage" data-day="${i}"><div class="header"><div class="date"><div class="day">${d.date}</div><div><div class="month">${d.month}</div><div class="week">${d.week}</div></div></div><div class="hijri">${d.hijri}<br>Calendário Fazilet</div><button class="menuBtn" onclick="openMenu()" aria-label="Menu"><span>☰</span></button></div><div class="ornament"><button class="todayBackBtn" id="todayBack${i}" onclick="goToday()" aria-label="Voltar para hoje"><span>‹</span></button></div><div class="prayers">${prayerHTML(d)}</div></div>`}
-function hadithHTML(d,i){return `<section class="section hadithSection"><div class="hadithShareTop"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar hadith" title="Compartilhar">${shareIcon()}</button></div><div class="accordion hadithAccordion" id="hadithAccordion${i}"><button class="hadithArabicHeader" onclick="toggleAccordion('hadithAccordion${i}')" aria-label="Arapça metne dokunarak aç veya kapat"><div class="arabic hadithArabicPreview">${d.hadithArabic}</div></button><div class="accordionContent"><div class="hadithCard"><div class="lang"><p>${d.hadithPt}</p></div><div class="inlineWord" id="wordPanel${i}"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning" id="wordMeaning${i}"></div><div class="pronunciationBox" id="pronunciationBox${i}"></div><div class="exampleBox" id="exampleBox${i}"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div><div class="source">${d.source}</div></div></div></div></section>`}
-function storyHTML(d,i){return `<section class="section"><div class="story" id="story${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><div class="storyHeader"><span class="storyTitle">${d.storyTitle}</span></div><div class="storyContent"><div class="lang"><div class="langTitle">Português</div>${d.storyPt.startsWith('<p>')?d.storyPt:`<p>${d.storyPt}</p>`}</div><div class="inlineWord storyWordPanel"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning"></div><div class="pronunciationBox"></div><div class="exampleBox"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div></div></div></section>`}
+function hadithHTML(d,i){return `<section class="section"><div class="accordion hadithAccordion" id="hadithAccordion${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><button class="hadithArabicHeader" onclick="toggleAccordion('hadithAccordion${i}')" aria-label="Abrir ou fechar o hadith"><span class="accArrow" aria-hidden="true"></span><div class="arabic hadithArabicPreview">${d.hadithArabic}</div></button><div class="accordionContent"><div class="hadithCard">${d.hadithPt?`<div class="lang"><div class="langTitle">Português</div><div class="studyLegend"><span class="l1">Dinî ifade</span><span class="l2">Önemli kelime</span><span class="l3">Yeni kelime</span></div><p>${d.hadithPt}</p></div>`:`<div class="lang"><div class="langTitle">Türkçe</div><p>${d.hadithTr}</p></div>`}<div class="inlineWord" id="wordPanel${i}"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning" id="wordMeaning${i}"></div><div class="pronunciationBox" id="pronunciationBox${i}"></div><div class="exampleBox" id="exampleBox${i}"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div><div class="source">${d.source}</div></div></div></div></section>`}
+function storyHTML(d,i){return `<section class="section"><div class="story" id="story${i}"><button class="shareBtn" onclick="shareSection(event,this)" aria-label="Compartilhar esta seção" title="Compartilhar">${shareIcon()}</button><div class="storyHeader"><span class="storyTitle">${d.storyTitle}</span></div><div class="storyContent">${d.storyPt?`<div class="lang"><div class="langTitle">Português</div>${d.storyPt.startsWith('<p>')?d.storyPt:`<p>${d.storyPt}</p>`}</div>`:`<div class="lang"><div class="langTitle">Türkçe</div>${d.storyTr.startsWith('<p>')?d.storyTr:`<p>${d.storyTr}</p>`}</div>`}<div class="inlineWord storyWordPanel"><span class="wordPopupArrow" aria-hidden="true"></span><div class="wordLabel">Palavra selecionada</div><div class="wordMeaning"></div><div class="pronunciationBox"></div><div class="exampleBox"></div><div class="bubbles"><button class="bubble s" onclick="speakCurrent()"><i>🔊</i>Pronúncia</button><button class="bubble e" onclick="showExample()"><i>✓</i>Exemplo</button><button class="bubble k" onclick="saveCurrent()"><i>🔖</i>Salvar</button></div></div></div></div></section>`}
 function renderCalendar(){
  const track=document.getElementById('dayTrack');
  track.innerHTML=calendarData.map(dayPageHTML).join('');
@@ -345,16 +258,17 @@ function renderCalendar(){
  document.querySelectorAll('.term.tap').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();selectWord(el)}));
 }
 renderCalendar();
+makeEveryPortugueseWordClickable();
 
 const words={
 'Mensageiro de Allah':{ar:'رَسُولُ الله',pt:'Mensageiro de Allah',tr:'Resûlullah Efendimiz',example:'O Mensageiro de Allah ensinou o bem.',lang:'pt'},
 'Resûlullah Efendimiz':{ar:'رَسُولُ الله',pt:'Mensageiro de Allah',tr:'Resûlullah Efendimiz',example:'Resûlullah Efendimiz recomendou fazer o bem.',lang:'both'},
 'Allah':{ar:'الله',pt:'Allah',tr:'Allah / Allâhü Teâlâ',example:'Allah ama o bem e a misericórdia.',lang:'both'},
 'Allâhü Teâlâ':{ar:'الله تعالى',pt:'Allah, o Altíssimo',tr:'Allâhü Teâlâ',example:'Allah, o Altíssimo, criou o bem.',lang:'both'},
-'bem':{ar:'مَعْرُوف',pt:'bem',tr:'iyilik',example:'Fazer o bem é uma virtude.',exampleTr:'İyilik yapmak bir fazilettir.'},
-'pessoas':{ar:'أَشْخَاص',pt:'pessoas',tr:'insanlar / kimseler',example:'As pessoas ajudam umas às outras.',exampleTr:'İnsanlar birbirlerine yardım eder.'},
+'bem':{ar:'مَعْرُوف',pt:'bem',tr:'iyilik',example:'Fazer o bem é uma virtude.'},
+'pessoas':{ar:'أَشْخَاص',pt:'pessoas',tr:'insanlar / kimseler',example:'As pessoas ajudam umas às outras.'},
 'boas ações':{ar:'أَعْمَال صَالِحَة',pt:'boas ações',tr:'iyi ameller',example:'As boas ações aproximam o servo de Allah.'},
-'água':{ar:'مَاء',pt:'água',tr:'su',example:'A água é uma bênção de Allah.',exampleTr:'Su, Allah’ın bir nimetidir.'},
+'água':{ar:'مَاء',pt:'água',tr:'su',example:'A água é uma bênção de Allah.'},
 'iyiliği':{ar:'الْمَعْرُوف',pt:'bem / bondade',tr:'iyiliği',example:'Allah criou o bem e fez com que as pessoas o amassem.'},
 'ehil kimseler':{ar:'أَهْل',pt:'pessoas dignas',tr:'ehil kimseler',example:'Há pessoas dignas que amam fazer o bem.'},
 'iyilik yapmayı':{ar:'فِعَالَهُ',pt:'fazer o bem',tr:'iyilik yapmayı',example:'Ele gosta de fazer o bem.'},
@@ -382,28 +296,26 @@ const words={
 'sorumluluk':{ar:'مَسْؤُولِيَّة',pt:'responsabilidade',tr:'sorumluluk',example:'A responsabilidade é uma confiança.'},
 'elevar':{ar:'رَفَعَ',pt:'elevar',tr:'yüceltmek',example:'Devemos elevar os valores do Islã.'},
 'devoto':{ar:'عَابِد',pt:'devoto',tr:'âbid',example:'O devoto adora Allah com sinceridade.'},
-'conhecimento':{ar:'عِلْم',pt:'conhecimento',tr:'ilim',example:'O conhecimento ilumina o coração.',exampleTr:'İlim kalbi aydınlatır.'},
-'conhecimentos':{ar:'عُلُوم',pt:'Conhecimentos',tr:'ilimler',example:'Tem que aprender conhecimentos.',exampleTr:'İlim öğrenmek gerekir.'},
+'conhecimento':{ar:'عِلْم',pt:'conhecimento',tr:'ilim',example:'O conhecimento ilumina o coração.'},
 'espiritualidade':{ar:'رُوحَانِيَّة',pt:'espiritualidade',tr:'maneviyat',example:'A espiritualidade dá vida ao coração.'},
 'Âlim':{ar:'عَالِم',pt:'sábio',tr:'âlim',example:'O âlim deve agir de acordo com seu conhecimento.'},
 'âbid':{ar:'عَابِد',pt:'devoto',tr:'âbid',example:'O âbid dedica-se à adoração.'},
 'ilim':{ar:'عِلْم',pt:'conhecimento',tr:'ilim',example:'O conhecimento espiritual purifica o coração.'}
 };
-makeEveryPortugueseWordClickable();
 let currentKey='bem';
 let activeWordPanel=null;
 let activeWordElement=null;
 async function selectWord(el){
- const isOpen=el.classList.contains('selected') && !!activeWordPanel?.classList.contains('show');
- if(isOpen){
-   activeWordPanel.classList.remove('show');
-   el.classList.remove('selected');
+ const sameOpen = el.classList.contains('selected') && !!document.querySelector('.inlineWord.show');
+ if(sameOpen){
+   document.querySelectorAll('.inlineWord.show').forEach(x=>x.classList.remove('show'));
+   document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
    activeWordPanel=null;
    activeWordElement=null;
    return;
  }
+ document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
  document.querySelectorAll('.inlineWord.show').forEach(x=>x.classList.remove('show'));
- document.querySelectorAll('.term.selected,.autoWord.selected').forEach(x=>x.classList.remove('selected'));
  el.classList.add('selected');
  activeWordElement=el;
  currentKey=el.dataset.key || el.textContent.trim();
@@ -418,7 +330,7 @@ async function selectWord(el){
  if(meaning) meaning.innerHTML='<b>'+escapeHTML(w?.tr || 'Anlam aranıyor…')+'</b>';
  if(example){example.classList.remove('show');example.innerHTML='';}
  if(pron){pron.classList.remove('show');pron.textContent='';}
- const fav=readFavorites();
+ const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
  if(saveBtn){saveBtn.classList.toggle('saved',fav.includes(currentKey));saveBtn.innerHTML=fav.includes(currentKey)?'<i>✓</i>Salvo':'<i>🔖</i>Salvar';}
  activeWordPanel.classList.add('show');
  positionWordPanel(el,activeWordPanel,root);
@@ -426,12 +338,13 @@ async function selectWord(el){
    el.classList.add('loading');
    const tr=await translatePTtoTR(currentKey);
    el.classList.remove('loading');
-   if(el.classList.contains('selected') && activeWordPanel?.classList.contains('show') && activeWordElement===el){
-     meaning.innerHTML='<b>'+escapeHTML(tr)+'</b>';
-     currentKey=el.dataset.key || el.textContent.trim();
+   if(el.classList.contains('selected') && activeWordPanel?.classList.contains('show') && currentKey===el.dataset.key){
+     if(meaning) meaning.innerHTML='<b>'+escapeHTML(tr)+'</b>';
+     positionWordPanel(el,activeWordPanel,root);
    }
  }
 }
+function escapeHTML(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
 function positionWordPanel(el,panel,root){
  const parent=panel.offsetParent || root;
  const er=el.getBoundingClientRect(), pr=parent.getBoundingClientRect();
@@ -449,7 +362,6 @@ function positionWordPanel(el,panel,root){
    arrow.style.top=above?'-7px':'auto'; arrow.style.bottom=above?'auto':'-7px'; arrow.style.transform=above?'rotate(45deg)':'rotate(225deg)';
  }
 }
-function escapeHTML(value){return String(value??'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));}
 function getWordData(key){
  if(words[key]) return words[key];
  const low=String(key).trim().toLowerCase();
@@ -476,7 +388,7 @@ function makeEveryPortugueseWordClickable(){
    const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
    const nodes=[];let n;
    while(n=walker.nextNode()){
-     if(n.parentElement?.closest('.inlineWord,.trSentence,.wordMeaning,.exampleBox,.pronunciationBox,.term.tap')) continue;
+     if(n.parentElement?.closest('.term,.studyLegend,.inlineWord')) continue;
      if(/[A-Za-zÀ-ÖØ-öø-ÿ]/.test(n.nodeValue)) nodes.push(n);
    }
    nodes.forEach(node=>{
@@ -484,12 +396,8 @@ function makeEveryPortugueseWordClickable(){
      const parts=node.nodeValue.split(/([A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-’'][A-Za-zÀ-ÖØ-öø-ÿ]+)*)/g);
      parts.forEach(part=>{
        if(/^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-’'][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/.test(part)){
-         const span=document.createElement('span');
-         span.className='autoWord';
-         span.dataset.key=part;
-         span.textContent=part;
-         span.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();selectWord(span)});
-         frag.appendChild(span);
+         const span=document.createElement('span');span.className='term autoWord';span.dataset.key=part;span.textContent=part;
+         span.addEventListener('click',e=>{e.stopPropagation();selectWord(span)});frag.appendChild(span);
        }else frag.appendChild(document.createTextNode(part));
      });
      node.parentNode.replaceChild(frag,node);
@@ -517,27 +425,9 @@ function speakCurrent(){
  const pron=activeWordPanel?.querySelector('.pronunciationBox');
  if(pron){pron.textContent='Pronúncia: '+pronunciation(currentKey);pron.classList.add('show');}
  if(!('speechSynthesis' in window)) return;
- const selected=Math.max(0,Math.min(9,Number(localStorage.getItem('fazilet-voice-index')||0)));
- const profiles=[
-   {label:'Doğal',rate:.92,pitch:1.00},
-   {label:'Yumuşak',rate:.82,pitch:1.04},
-   {label:'Net',rate:.96,pitch:.98},
-   {label:'Sakin',rate:.78,pitch:.94},
-   {label:'Akıcı',rate:1.02,pitch:1.01},
-   {label:'Feminina Natural',rate:.90,pitch:1.06},
-   {label:'Feminina Clara',rate:.96,pitch:1.10},
-   {label:'Feminina Suave',rate:.84,pitch:1.08},
-   {label:'Masculina Natural',rate:.90,pitch:.86},
-   {label:'Masculina Clara',rate:.98,pitch:.82}
- ];
- const speak=()=>{
-   const u=new SpeechSynthesisUtterance(w.pt||currentKey);
-   const voice=voiceForProfile(selected);
-   u.lang=voice?.lang||'pt-BR'; if(voice)u.voice=voice;
-   u.rate=profiles[selected].rate; u.pitch=profiles[selected].pitch; u.volume=1;
-   speechSynthesis.cancel(); speechSynthesis.speak(u);
- };
- if(!speechSynthesis.getVoices().length){const old=speechSynthesis.onvoiceschanged;speechSynthesis.onvoiceschanged=()=>{speechSynthesis.onvoiceschanged=old||null;speak()};setTimeout(speak,700)}else speak();
+ const speak=()=>{const u=new SpeechSynthesisUtterance(w.pt||currentKey);const voice=getBestPortugueseVoice();u.lang=voice?.lang||'pt-BR';if(voice)u.voice=voice;u.rate=.92;u.pitch=1.02;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u);};
+ const voices=speechSynthesis.getVoices();
+ if(!voices.length){const old=speechSynthesis.onvoiceschanged;speechSynthesis.onvoiceschanged=()=>{speechSynthesis.onvoiceschanged=old||null;speak()};setTimeout(speak,600)}else speak();
 }
 function showExample(){
  const b=activeWordPanel?.querySelector('.exampleBox'); if(!b)return;
@@ -551,8 +441,8 @@ function showExample(){
  b.classList.add('show'); if(activeWordElement) positionWordPanel(activeWordElement,activeWordPanel,activeWordPanel.closest('.hadithCard,.story'));
 }
 function saveCurrent(){
- const fav=readFavorites();
- if(!fav.includes(currentKey)){fav.push(currentKey);writeFavorites(fav);}
+ const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');
+ if(!fav.includes(currentKey)){fav.push(currentKey);localStorage.setItem('fazilet-favs',JSON.stringify(fav));}
  updateFavCount();
  const btn=activeWordPanel?.querySelector('.bubble.k');
  if(btn){
@@ -563,70 +453,42 @@ function saveCurrent(){
  }
 }
 document.addEventListener('click',e=>{
- if(e.target.closest('.term.tap,.autoWord,.inlineWord')) return;
+ if(e.target.closest('.term.tap')||e.target.closest('.inlineWord')) return;
  document.querySelectorAll('.inlineWord.show').forEach(p=>p.classList.remove('show'));
- document.querySelectorAll('.term.selected,.autoWord.selected').forEach(x=>x.classList.remove('selected'));
- activeWordPanel=null; activeWordElement=null;
+ document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
 });
 
-function readFavorites(){
-  const keys=['fazilet-favs','fazilet-favorites','fazilet-favoriler','favoriteWords'];
-  for(const key of keys){
-    try{const raw=localStorage.getItem(key); if(!raw) continue; const arr=JSON.parse(raw); if(Array.isArray(arr)){ if(key!=='fazilet-favs' && !localStorage.getItem('fazilet-favs')) localStorage.setItem('fazilet-favs',JSON.stringify(arr)); return arr; }}catch(e){}
-  }
-  return [];
-}
-function writeFavorites(arr){localStorage.setItem('fazilet-favs',JSON.stringify(arr));}
-function updateFavCount(){const fav=readFavorites();document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
-function openMenu(){document.getElementById('drawer').classList.add('show');document.getElementById('shade').classList.add('show');updateFavCount();document.body.style.overflow='hidden'}
-function closeMenu(){document.getElementById('drawer').classList.remove('show');document.getElementById('shade').classList.remove('show');document.body.style.overflow=''}
-function goHome(){closeMenu();closeFavorites();scrollTo(0,0)}
-function closeFavorites(){const el=document.getElementById('favorites');if(el)el.classList.remove('show');document.body.style.overflow=''}
+function updateFavCount(){const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
+function openMenu(){document.getElementById('drawer').classList.add('show');document.getElementById('shade').classList.add('show');updateFavCount()}
+function closeMenu(){document.getElementById('drawer').classList.remove('show');document.getElementById('shade').classList.remove('show')}
+function goHome(){closeMenu();document.getElementById('favorites').classList.remove('show');scrollTo(0,0)}
 function showFavorites(){
- closeMenu();
- const raw=readFavorites();
- const fav=raw.map(x=>typeof x==='string'?x:(x?.key||x?.pt||'')).filter(Boolean);
- const box=document.getElementById('favList');
- if(!fav.length){box.innerHTML='<div class="favEmpty">Ainda não há palavras salvas.</div>';}else{
-   box.innerHTML=fav.map((k,i)=>{
-     const known={Conhecimentos:{pt:'Conhecimentos',tr:'ilimler',ar:'عُلُوم',example:'Tem que aprender conhecimentos.',exampleTr:'İlim öğrenmek gerekir.'}};
-     const w=getWordData(k)||known[k]||{pt:k,tr:translationCache[String(k).trim().toLowerCase()]||'Türkçe anlamı',ar:'',example:'A palavra "'+k+'" aparece nesta frase.',exampleTr:'Bu cümlede “'+k+'” kelimesi kullanılmıştır.'};
-     const exPt=w.example||('A palavra "'+k+'" aparece nesta frase.');
-     const exTr=w.exampleTr||('Bu cümlede “'+(w.tr||k)+'” anlamı kullanılmıştır.');
-     return '<div class="favArchiveItem"><div class="favArchiveTitle"><span class="favNum">'+(i+1)+'.</span> <b>'+escapeHTML(w.pt||k)+'</b> - <span>'+escapeHTML(w.tr||'')+'</span> - <span class="favArabic">'+escapeHTML(w.ar||'')+'</span></div><div class="favEx"><b>Ex:</b><br>• '+escapeHTML(exPt)+'<br><span>'+escapeHTML(exTr)+'</span></div></div>';
-   }).join('');
- }
- document.getElementById('favorites').classList.add('show');
- document.getElementById('favorites').scrollTop=0;
- document.body.style.overflow='hidden';
+ closeMenu();const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');const box=document.getElementById('favList');
+ box.innerHTML=fav.length?fav.map(k=>{const w=getWordData(k)||{pt:k,tr:'',ar:''};return '<div style="padding:10px 0;border-bottom:1px solid #ddcbaa"><b>'+escapeHTML(w.pt||k)+'</b> → '+escapeHTML(w.tr||'')+'<br><small>'+escapeHTML(w.ar||'')+'</small></div>'}).join(''):'<div class="favEmpty">Ainda não há palavras salvas.</div>';
+ document.getElementById('favorites').classList.add('show');document.getElementById('favorites').scrollIntoView({behavior:'smooth'});
 }
 function toggleStory(id='story'){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
 function toggleAccordion(id){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
 function setupPrayerTracker(){
  const pages=[...document.querySelectorAll('.dayPage')];
- let lastCenteredKey='';
+ let lastCenteredIndex=-1;
  function toMinutes(v){const m=(v||'').match(/^(\d{1,2}):(\d{2})$/);return m?Number(m[1])*60+Number(m[2]):9999}
  function formatCountdown(ms){let s=Math.max(0,Math.floor(ms/1000));const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
  function update(){
    const now=new Date(), total=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
-   pages.forEach(page=>{
+   pages.forEach((page)=>{
      const cards=[...page.querySelectorAll('.prayer')]; if(!cards.length)return;
      const valid=cards.map((c,i)=>({c,i,name:c.querySelector('.pname')?.textContent.trim()||'',mins:toMinutes(c.querySelector('.ptime')?.textContent)}))
        .filter(x=>x.name!=='Hora da Qibla' && x.mins<9999);
      if(!valid.length)return;
-     const next=valid.find(x=>total < x.mins) || valid[0];
-     let diffMinutes=next.mins-total;
-     if(diffMinutes<=0) diffMinutes+=24*60;
-     const diffMs=diffMinutes*60000;
+     const next=valid.find(x=>total < x.mins);
+     const nextItem=next||valid[0];
+     const diffMs=next ? (next.mins-total)*60000 : ((24*60-total)+nextItem.mins)*60000;
      const dayIndex=Number(page.dataset.day);
-     cards.forEach(c=>c.classList.remove('active'));
-     next.c.classList.add('active');
+     cards.forEach((c,i)=>c.classList.toggle('active',i===nextItem.i));
      const box=document.getElementById('nextPrayer'+dayIndex);
-     if(box && dayIndex===todayIndex){
-       box.innerHTML='Próxima oração: <b>'+escapeHTML(next.name)+'</b> • '+formatCountdown(diffMs);
-       const key=dayIndex+'-'+next.i;
-       if(key!==lastCenteredKey){next.c.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});lastCenteredKey=key;}
-     }
+     if(box && dayIndex===todayIndex){box.innerHTML='Próxima oração: <b>'+escapeHTML(nextItem.name)+'</b> • '+formatCountdown(diffMs);}
+     if(dayIndex===todayIndex && nextItem.i!==lastCenteredIndex){nextItem.c.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});lastCenteredIndex=nextItem.i;}
    });
  }
  update(); setInterval(update,1000);
@@ -654,19 +516,13 @@ function setDay(day, animate=true){
  currentDay=next;
  const track=document.getElementById('dayTrack');
  track.style.transition=animate?'transform .32s ease':'none';
- const viewport=document.getElementById('dayViewport');
- const pageWidth=viewport ? viewport.clientWidth : document.documentElement.clientWidth;
- track.style.transform=`translate3d(-${currentDay*pageWidth}px,0,0)`;
+ track.style.transform=`translateX(-${currentDay*(100/calendarData.length)}%)`;
  document.querySelectorAll('.dayContentPage').forEach(p=>p.style.display=(Number(p.dataset.contentDay)===currentDay?'block':'none'));
  document.querySelectorAll('.inlineWord.show').forEach(p=>p.classList.remove('show'));
- document.querySelectorAll('.term.selected,.autoWord.selected').forEach(x=>x.classList.remove('selected')); activeWordPanel=null; activeWordElement=null;
+ document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
  updateTodayBack();
  if(changed && animate) window.scrollTo({top:0,behavior:'smooth'});
 }
-window.addEventListener('resize',()=>{ 
- const track=document.getElementById('dayTrack'), viewport=document.getElementById('dayViewport');
- if(track&&viewport) track.style.transform=`translate3d(-${currentDay*viewport.clientWidth}px,0,0)`;
-});
 function goToday(){
  todayIndex=findTodayIndex();
  setDay(todayIndex,true);
@@ -698,211 +554,18 @@ function goToday(){
    }
  },1000);
 })();
-function closeUtility(id){const el=document.getElementById(id);if(el)el.classList.remove('show')}
-['settingsPanel','malumatPanel'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('click',e=>{if(e.target===el)closeUtility(id)})});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();closeFavorites();closeUtility('settingsPanel');closeUtility('malumatPanel')}});
-document.querySelectorAll('.utilityPanel').forEach(p=>p.addEventListener('click',e=>{if(e.target===p)p.classList.remove('show')}));
+setupPrayerTracker(); updateFavCount();
 
-const ARABIC_FONTS=[
- ['amiri','Amiri'],['naskh','Noto Naskh Arabic'],['scheherazade','Scheherazade New'],['lateef','Lateef'],['sulus','Sülüs'],
- ['cairo','Cairo'],['changa','Changa'],['elmessiri','El Messiri'],['harmattan','Harmattan'],['mada','Mada'],
- ['markazi','Markazi Text'],['mirza','Mirza'],['reem','Reem Kufi'],['ruqaa','Ruqaa'],['uthman','KFGQPC Uthman Taha Naskh Regular']
-];
-const TURKISH_FONTS=[['nunito','Nunito'],['bitter','Bitter'],['koho','KoHo'],['raleway','Raleway'],['lora','Lora']];
-const ARABIC_SAMPLE='بِسْمِ اللّٰهِ';
-const LATIN_SAMPLE='Peygamber Efendimiz';
-const ARABIC_SAMPLE_FONTS={amiri:'Amiri',naskh:'Noto Naskh Arabic',scheherazade:'Scheherazade New',lateef:'Lateef',sulus:'Rakkas',cairo:'Cairo',changa:'Changa',elmessiri:'El Messiri',harmattan:'Harmattan',mada:'Mada',markazi:'Markazi Text',mirza:'Mirza',reem:'Reem Kufi',ruqaa:'Aref Ruqaa',uthman:'Uthman Taha'};
-const LATIN_SAMPLE_FONTS={nunito:'Nunito',bitter:'Bitter',koho:'KoHo',raleway:'Raleway',lora:'Lora'};
-function setArabicFont(name){localStorage.setItem('fazilet-ar-font',name);ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));document.body.classList.add('arFont-'+name);renderFontChoices()}
-function setTurkishFont(name){localStorage.setItem('fazilet-tr-font',name);TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));document.body.classList.add('trFont-'+name);renderFontChoices()}
-const VOICE_PROFILES=[
- {name:'Doğal Ses',rate:.92,pitch:1.00,prefer:/fernanda|francisca|helena|bruna|camila/i},
- {name:'Yumuşak Ses',rate:.82,pitch:1.04,prefer:/francisca|helena|fernanda|bruna/i},
- {name:'Net Ses',rate:.96,pitch:.98,prefer:/camila|joana|luciana|daniela/i},
- {name:'Sakin Ses',rate:.78,pitch:.94,prefer:/helena|francisca|fernanda/i},
- {name:'Akıcı Ses',rate:1.02,pitch:1.01,prefer:/camila|joana|bruna/i},
- {name:'Feminina Natural',rate:.90,pitch:1.06,prefer:/fernanda|francisca|helena|bruna|camila|joana|luciana|daniela/i},
- {name:'Feminina Clara',rate:.96,pitch:1.10,prefer:/camila|joana|daniela|luciana/i},
- {name:'Feminina Suave',rate:.84,pitch:1.08,prefer:/helena|francisca|fernanda/i},
- {name:'Masculina Natural',rate:.90,pitch:.86,prefer:/felipe|ricardo|thiago|rafael|gustavo/i},
- {name:'Masculina Clara',rate:.98,pitch:.82,prefer:/felipe|ricardo|thiago|rafael|gustavo/i}
-];
-function getVoiceOptions(){
- if(!('speechSynthesis' in window)) return [];
- const all=speechSynthesis.getVoices().filter(v=>/^pt(?:-BR)?(?:$|-)/i.test(v.lang)||/^pt_/i.test(v.lang));
- const score=v=>{const n=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();let s=0;if(lang==='pt-br')s+=60;else if(lang.startsWith('pt-br'))s+=40;if(/fernanda|francisca|helena|bruna|camila|joana|luciana|marcia|daniela|felipe|ricardo|thiago|rafael|gustavo/i.test(n))s+=35;if(/enhanced|premium|natural|neural|high quality|qualidade/i.test(n))s+=30;if(v.localService===false)s+=8;return s};
- return [...all].sort((a,b)=>score(b)-score(a));
-}
-function voiceForProfile(i){
- const voices=getVoiceOptions(); if(!voices.length)return getBestPortugueseVoice();
- const profile=VOICE_PROFILES[i]||VOICE_PROFILES[0];
- return voices.find(v=>profile.prefer?.test(v.name||'')) || voices[i % voices.length] || voices[0];
-}
-function setVoiceOption(i){localStorage.setItem('fazilet-voice-index',String(i));renderVoiceChoices()}
-function toggleSettingGroup(id){
- const group=document.getElementById(id); if(!group)return;
- const open=!group.classList.contains('open');
- group.classList.toggle('open',open);
- const options=group.querySelector('.settingOptions');
- if(options) options.style.display=open?'block':'none';
-}
-function renderFontChoices(){
- const ar=document.getElementById('arabicFontChoices'),tr=document.getElementById('turkishFontChoices');
- const av=localStorage.getItem('fazilet-ar-font')||'amiri',tv=localStorage.getItem('fazilet-tr-font')||'lora';
- if(ar)ar.innerHTML=ARABIC_FONTS.map(([id,n])=>'<button type="button" class="fontCard '+(id===av?'active':'')+'" onclick="setArabicFont(\''+id+'\')"><span class="arabicSample" style="font-family:\''+ARABIC_SAMPLE_FONTS[id]+'\',serif">'+ARABIC_SAMPLE+'</span><span class="fontName">'+n+'</span></button>').join('');
- if(tr)tr.innerHTML=TURKISH_FONTS.map(([id,n])=>'<button type="button" class="fontCard '+(id===tv?'active':'')+'" onclick="setTurkishFont(\''+id+'\')"><span class="latinSample" style="font-family:\''+LATIN_SAMPLE_FONTS[id]+'\',serif">'+LATIN_SAMPLE+'</span><span class="fontName">'+n+'</span></button>').join('');
-}
-function renderVoiceChoices(){
- const box=document.getElementById('voiceChoices');if(!box)return;
- const voices=getVoiceOptions(), selected=Math.max(0,Math.min(9,Number(localStorage.getItem('fazilet-voice-index')||0)));
- box.innerHTML=VOICE_PROFILES.map((profile,i)=>{const v=voices[i];return '<div class="voiceCard '+(i===selected?'active':'')+'" onclick="setVoiceOption('+i+')"><div class="voiceMain"><span class="voiceName">🔊 '+profile.name+'</span><span class="voiceMeta">'+(v?escapeHTML(v.name)+' • '+escapeHTML(v.lang):'Brezilya Portekizcesi • profil '+(i+1))+'</span></div><button type="button" class="voiceTest" onclick="event.stopPropagation();testVoiceOption('+i+')">▶</button></div>'}).join('');
-}
-function testVoiceOption(i){
- if(!('speechSynthesis' in window))return;
- const text='Olá. Esta é uma demonstração da voz selecionada.';
- const v=voiceForProfile(i),profile=VOICE_PROFILES[i]||VOICE_PROFILES[0];
- const u=new SpeechSynthesisUtterance(text);u.lang=v?.lang||'pt-BR';if(v)u.voice=v;u.rate=profile.rate;u.pitch=profile.pitch;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u);
-}
-function updateSettingsUI(){
- applyTextScale();
- const av=localStorage.getItem('fazilet-ar-font')||'amiri',tv=localStorage.getItem('fazilet-tr-font')||'lora';
- ARABIC_FONTS.forEach(([id])=>document.body.classList.remove('arFont-'+id));TURKISH_FONTS.forEach(([id])=>document.body.classList.remove('trFont-'+id));
- document.body.classList.add('arFont-'+av,'trFont-'+tv);
- renderFontChoices();renderVoiceChoices();
-}
-function showSettings(){closeMenu();document.getElementById('settingsPanel').classList.add('show');updateSettingsUI();if('speechSynthesis' in window){const old=speechSynthesis.onvoiceschanged;speechSynthesis.onvoiceschanged=()=>{speechSynthesis.onvoiceschanged=old||null;renderVoiceChoices()};setTimeout(renderVoiceChoices,500)}}
-function showMalumatlar(){closeMenu();document.getElementById('malumatPanel').classList.add('show')}
-function applyTextScale(){const v=Number(localStorage.getItem('fazilet-text-scale')||100);document.documentElement.style.setProperty('--user-scale',(v/100).toFixed(2));const sizeEl=document.getElementById('sizeValue'); if(sizeEl) sizeEl.textContent=v+'%'}
-function changeTextSize(dir){let v=Number(localStorage.getItem('fazilet-text-scale')||100);v=Math.max(85,Math.min(115,v+dir*5));localStorage.setItem('fazilet-text-scale',v);applyTextScale()}
-async function ensureHtml2Canvas(){
- if(window.html2canvas) return window.html2canvas;
- return await new Promise((resolve,reject)=>{
-   const old=document.querySelector('script[data-h2c="1"]');
-   if(old){old.addEventListener('load',()=>resolve(window.html2canvas));old.addEventListener('error',reject);return;}
-   const sc=document.createElement('script');
-   sc.src='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
-   sc.async=true;sc.dataset.h2c='1';
-   sc.onload=()=>window.html2canvas?resolve(window.html2canvas):reject(new Error('Görsel motoru yüklenemedi'));
-   sc.onerror=()=>reject(new Error('Görsel motoru yüklenemedi'));
-   document.head.appendChild(sc);
- });
-}
-async function shareSection(event,btn){
+function shareSection(event,btn){
  event.preventDefault(); event.stopPropagation();
- const section=btn.closest('.section') || btn.parentElement;
- const source=section?.querySelector('.hadithAccordion,.story');
- if(!source) return;
- const isHadith=source.classList.contains('hadithAccordion');
- btn.disabled=true;
- let clone=null;
- try{
-   const h2c=await ensureHtml2Canvas();
-   clone=source.cloneNode(true);
-   clone.classList.add('open');
-   clone.removeAttribute('id');
-   clone.style.cssText='position:absolute;left:-100000px;top:0;width:760px;max-width:760px;display:block;opacity:1;overflow:visible;background:#fffaf0;border-radius:24px;box-shadow:none;z-index:-1;margin:0;padding:0;';
-   clone.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
-   clone.querySelectorAll('.shareBtn,.inlineWord,.wordPopupArrow,.wordLabel,.bubbles').forEach(el=>el.remove());
-   clone.querySelectorAll('.accordionContent').forEach(el=>{el.style.display='block';el.style.padding='0 28px 24px';el.style.borderTop='0';});
-   clone.querySelectorAll('.hadithArabicHeader').forEach(el=>{el.style.cursor='default';el.style.padding='34px 28px 24px';});
-   clone.querySelectorAll('.hadithArabicPreview').forEach(el=>{el.style.fontSize='30px';el.style.lineHeight='1.9';});
-   clone.querySelectorAll('.hadithCard').forEach(el=>{el.style.padding='18px 10px 10px';});
-   clone.querySelectorAll('.lang').forEach(el=>{el.style.marginTop='10px';});
-   clone.querySelectorAll('.source').forEach(el=>{el.style.fontSize='22px';});
-   clone.querySelectorAll('.term.tap').forEach(el=>{el.style.cursor='default';});
-   document.body.appendChild(clone);
-   if(document.fonts?.ready) await document.fonts.ready;
-   await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
-   const rect=clone.getBoundingClientRect();
-   const canvas=await h2c(clone,{backgroundColor:'#fffaf0',scale:Math.min(3,Math.max(2,window.devicePixelRatio||2)),useCORS:true,allowTaint:false,logging:false,width:Math.ceil(rect.width),height:Math.ceil(clone.scrollHeight)});
-   clone.remove(); clone=null;
-   const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png',1));
-   if(!blob) throw new Error('Hadis görseli oluşturulamadı');
-   const file=new File([blob],'fazilet-takvimi-hadis.png',{type:'image/png'});
-   if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-     await navigator.share({title:'Fazilet Takvimi • Hadis-i Şerif',files:[file]});
-   }else if(navigator.share){
-     const url=URL.createObjectURL(blob);
-     window.open(url,'_blank');
-     setTimeout(()=>URL.revokeObjectURL(url),60000);
-   }else{
-     const url=URL.createObjectURL(blob);
-     const a=document.createElement('a');a.href=url;a.download='fazilet-takvimi-hadis.png';document.body.appendChild(a);a.click();a.remove();
-     setTimeout(()=>URL.revokeObjectURL(url),1500);
-   }
- }catch(err){
-   if(clone) clone.remove();
-   if(err?.name!=='AbortError'){
-     console.error('Hadis görsel paylaşımı:',err);
-     alert('Hadis görseli hazırlanırken bir sorun oluştu. Lütfen tekrar deneyin.');
-   }
- }finally{btn.disabled=false;}
+ const root=btn.closest('.accordion,.story');
+ if(!root) return;
+ const title=root.querySelector('.storyTitle')?.textContent?.trim() || 'Hadith';
+ const text=root.innerText.replace(/\s+/g,' ').trim();
+ const data={title:'Fazilet Takvimi • '+title,text:text,url:location.href};
+ if(navigator.share){ navigator.share(data).catch(()=>{}); }
+ else if(navigator.clipboard){ navigator.clipboard.writeText(text+'\n'+location.href).then(()=>{btn.setAttribute('aria-label','Copiado');setTimeout(()=>btn.setAttribute('aria-label','Compartilhar esta seção'),1200)}).catch(()=>{}); }
 }
-
-// Portekizce uygulaması: iPhone/Safari için en üstten aşağı çekme ile açılır.
-function setupPortuguesePull(){
-  const layer=document.getElementById('ptPullLayer');
-  const hint=document.getElementById('ptPullHint');
-  if(!layer) return;
-  let startY=0,lastY=0,tracking=false,opened=false;
-  const THRESHOLD=90,MAX=360;
-  const atTop=()=>window.scrollY<=2 && document.documentElement.scrollTop<=2 && document.body.scrollTop<=2;
-  function draw(dy){
-    const pull=Math.min(MAX,Math.max(0,dy));
-    const progress=Math.min(1,pull/THRESHOLD);
-    const eased=1-Math.pow(1-progress,.72);
-    layer.style.visibility='visible';
-    layer.style.transform=`translate3d(0,${(-100+eased*100)}%,0)`;
-    if(hint){hint.style.opacity=pull>18?'1':'0';hint.style.transform=pull>18?'translate(-50%,0)':'translate(-50%,-120%)';hint.textContent='↓ Portekizce Öğreniyorum';}
-  }
-  function reset(){
-    tracking=false;layer.classList.remove('dragging');layer.style.transform='';layer.style.visibility='';
-    if(hint){hint.style.opacity='';hint.style.transform='';hint.classList.remove('show');hint.textContent='↓ Portekizce Öğreniyorum';}
-  }
-  function openPT(){
-    tracking=false;opened=true;layer.classList.remove('dragging');layer.classList.add('open');layer.style.transform='';layer.style.visibility='visible';layer.setAttribute('aria-hidden','false');document.documentElement.classList.add('pt-open');document.body.classList.add('pt-open');
-    if(hint){hint.classList.add('show');hint.style.opacity='1';hint.style.transform='translate(-50%,0)';hint.textContent='↑ Fazilet Takvimi';}
-  }
-  function closePT(){
-    opened=false;layer.classList.remove('open');layer.setAttribute('aria-hidden','true');document.documentElement.classList.remove('pt-open');document.body.classList.remove('pt-open');reset();
-  }
-  hint?.addEventListener('click',closePT);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)closePT();});
-  document.addEventListener('touchstart',e=>{
-    if(opened||tracking||!atTop())return;
-    const t=e.touches[0];if(!t)return;startY=t.clientY;lastY=startY;tracking=true;layer.classList.add('dragging');
-  },{capture:true,passive:true});
-  document.addEventListener('touchmove',e=>{
-    if(!tracking||opened)return;const t=e.touches[0];if(!t){reset();return;}const dy=t.clientY-startY;lastY=t.clientY;if(dy<=0){reset();return;}if(e.cancelable)e.preventDefault();draw(dy);
-  },{capture:true,passive:false});
-  document.addEventListener('touchend',()=>{if(!tracking)return;const dy=lastY-startY;if(dy>=THRESHOLD)openPT();else reset();},{capture:true,passive:true});
-  document.addEventListener('touchcancel',reset,{capture:true,passive:true});
-  setTimeout(()=>{if(atTop()&&!opened&&hint){hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),2600)}},700);
-}
-
-// DOM içindeki Portekizce katmanı oluştuktan sonra sistemi başlat.
-document.addEventListener('DOMContentLoaded', setupPortuguesePull);
-
-// Final initialization: font arrays/functions must exist before they are used.
-(function initAppSystems(){
-  setupPrayerTracker();
-  updateFavCount();
-  updateSettingsUI();
-  renderFontChoices();
-  renderVoiceChoices();
-})();
-
-// Service worker registration intentionally disabled so GitHub Pages always serves the newest index.html.
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-
-
-
-
-<div id="ptPullHint" class="ptPullHint">↓ Portekizce Öğreniyorum</div>
-<div id="ptPullLayer" class="ptPullLayer" aria-hidden="true">
-  <iframe id="ptPullFrame" class="ptPullFrame" src="portekizce.html" title="Portekizce Öğreniyorum A1"></iframe>
-</div>
-
-
 </body></html>
