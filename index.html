@@ -117,7 +117,7 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .muhWordInfo{display:none;margin-top:10px;background:#fffdf7;border:1px solid #d8bd8c;border-radius:13px;padding:10px 11px;box-shadow:0 4px 14px rgba(75,39,15,.08)}
 .muhWordInfo.show{display:block;animation:muhOpen .16s ease-out}
 .muhWordInfoAr{direction:rtl;text-align:right;font-family:"Uthman Taha",serif;font-size:21px;color:#1d1711;margin-bottom:4px}
-.muhWordInfoLine{font-size:14px;line-height:1.55;margin:3px 0;color:#45392f}.muhWordInfoLine b{color:var(--green)}
+.muhWordInfoLine{font-size:14px;line-height:1.55;margin:3px 0;color:#45392f}.muhWordInfoLine b{color:var(--green)}.muhFloatingInfo{display:none;position:fixed;z-index:120;background:#fffdf7;border:1px solid #d8bd8c;border-radius:13px;padding:10px 11px;box-shadow:0 8px 28px rgba(45,29,15,.22);max-width:calc(100vw - 24px)}.muhFloatingInfo.show{display:block;animation:muhOpen .16s ease-out}.muhFloatingInfo .muhWordInfoAr{font-size:21px}.muhFloatingInfo .muhWordInfoLine{font-size:14px;line-height:1.55;margin:3px 0;color:#45392f}.muhFloatingInfo .muhWordInfoLine b{color:var(--green)}
 .muhWordsHint{text-align:center;font-size:12px;color:#76695c;margin:0 0 9px}
 @media(max-width:520px){.muhParaOttoman{font-size:21px;line-height:1.95}.muhPron{font-size:15px}.muhExp{font-size:14px}}
 
@@ -134,10 +134,10 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .muhPara{background:#fffaf0;border:0;border-top:1px solid #cdb47f;border-bottom:1px solid #d9c39b;border-radius:0;margin:0;box-shadow:none;overflow:visible}
 .muhPara:first-child{border-top:2px solid #b88b3d}
 .muhPara.open{background:#fffaf0;box-shadow:none;border-color:#b88b3d}
-.muhParaHead{position:relative;padding:22px 58px 24px 58px;background:transparent;cursor:pointer}
+.muhParaHead{position:relative;padding:22px 10px 24px;background:transparent;cursor:pointer}
 .muhParaNo{position:absolute;right:12px;top:20px;width:34px;height:34px;border-radius:50%;background:#b88b3d;color:#fffaf0;border:2px solid #8d6422;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700}
 .muhParaTitle{text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;color:#7b5523;margin:0 0 13px}
-.muhParaOttoman{direction:rtl;text-align:right;font-family:var(--muh-ar-font),'AmiriFazilet','Amiri','Noto Naskh Arabic',serif;font-size:26px;line-height:2.15;color:#17130f;user-select:text}
+.muhParaOttoman{direction:rtl;text-align:justify;text-align-last:center;font-family:var(--muh-ar-font),'AmiriFazilet','Amiri','Noto Naskh Arabic',serif;font-size:26px;line-height:2.15;color:#17130f;user-select:text}
 .muhParaArrow{position:absolute;left:22px;bottom:27px;width:11px;height:11px;border-right:2px solid #9a702d;border-bottom:2px solid #9a702d;transform:rotate(45deg);transition:.2s}
 .muhPara.open .muhParaArrow{transform:rotate(225deg);bottom:22px}
 .muhParaBody{display:none;border-top:1px solid #dfcda9;padding:22px 58px 28px;background:#fdf6e8}
@@ -214,9 +214,7 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 
 <div class="muhimmePage" id="muhimmePage">
  <button class="muhimmeBack" onclick="closeMuhimme()">‹ &nbsp; Ana sayfaya dön</button>
- <div class="muhimmePageTitle">Mektuplar ve bazı mesâil-i Muhimme<small>خَتْمِ خَواجَگانِ آدابی • 171. sayfa</small></div>
  <div class="muhimmePhotoWrap"><img class="muhimmePhoto" src="hatmi-hacegan-171.jpeg" alt="Hatm-i Hâcegân Âdâbı, 171. sayfa"></div>
- <div class="muhimmeScrollHint">171. sayfanın ardından metinleri okumak için aşağı kaydır.</div>
  <div class="muhParaList" id="muhParaList"></div>
  <div class="muhKeywords" id="muhKeywordsBottom"><div class="muhKeywordsTitle">Anahtar Kelimeler</div><div class="muhKeywordsGrid">
  <button class="muhKeyword" onclick="showKeywordInfo('ختم')"><span class="muhKeywordAr">ختم خواجگان</span><span class="muhKeywordTr">Hatm-i Hâcegân</span></button>
@@ -275,11 +273,28 @@ const muhExplain={"ختم":"Bir metni veya duayı belirli usulle tamamlamayı if
 function muhEscape(x){return String(x??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
 function muhClean(t){return t.replace(/[؛،,.!?؟()\[\]{}]/g,'').trim()}
 function muhTokenize(text,p){return text.split(/(\s+)/).map((t,i)=>{if(/^\s+$/.test(t))return t;const key=muhClean(t);const safe=muhEscape(t);if(!key)return safe;return '<span class="muhWord" data-mkey="'+muhEscape(key)+'" onclick="event.stopPropagation();selectMuhWord(this,'+p+')">'+safe+'</span>';}).join('')}
-function selectMuhWord(el,p){const para=document.getElementById('muhPara'+p);if(para&&!para.classList.contains('open')){document.querySelectorAll('.muhPara.open').forEach(x=>x.classList.remove('open'));para.classList.add('open')}document.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');const key=el.dataset.mkey||'';const d=muhData[p];const box=document.getElementById('muhWordInfo'+p);if(!box)return;box.innerHTML='<div class="muhWordInfoAr">'+muhEscape(key)+'</div><div class="muhWordInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhWordInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'Bu kelime metin içindeki anlamına göre değerlendirilir. Ayrıntılı kelime açıklaması daha sonra genişletilebilir.')+'</div>';box.classList.add('show')}
-function toggleMuhPara(n){const el=document.getElementById('muhPara'+n);document.querySelectorAll('.muhPara.open').forEach(x=>{if(x!==el)x.classList.remove('open')});el.classList.toggle('open');el.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));const info=el.querySelector('.muhWordInfo');if(info)info.classList.remove('show')}
+function selectMuhWord(el,p){
+ const para=document.getElementById('muhPara'+p);
+ if(para&&!para.classList.contains('open')){document.querySelectorAll('.muhPara.open').forEach(x=>x.classList.remove('open'));para.classList.add('open')}
+ document.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));
+ el.classList.add('selected');
+ let box=document.getElementById('muhFloatingInfo');
+ if(!box){box=document.createElement('div');box.id='muhFloatingInfo';box.className='muhFloatingInfo';document.body.appendChild(box)}
+ const key=el.dataset.mkey||'';
+ box.innerHTML='<div class="muhWordInfoAr">'+muhEscape(key)+'</div><div class="muhWordInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhWordInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'Bu kelime metin içindeki anlamına göre değerlendirilir.')+'</div>';
+ box.classList.add('show');
+ const r=el.getBoundingClientRect();
+ const margin=12, width=Math.min(330,window.innerWidth-margin*2);
+ box.style.width=width+'px';
+ let left=Math.max(margin,Math.min(window.innerWidth-width-margin,r.left+r.width/2-width/2));
+ let top=r.bottom+8;
+ if(top+box.offsetHeight>window.innerHeight-margin){top=Math.max(margin,r.top-box.offsetHeight-8)}
+ box.style.left=left+'px';box.style.top=top+'px';
+}
+function toggleMuhPara(n){const el=document.getElementById('muhPara'+n);document.querySelectorAll('.muhPara.open').forEach(x=>{if(x!==el)x.classList.remove('open')});el.classList.toggle('open');el.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));const info=document.getElementById('muhFloatingInfo');if(info)info.classList.remove('show')}
 function syncMuhArabicFont(){const root=document.documentElement;const candidates=['fazilet-arabic-font','selectedArabicFontFamily','arabicFontFamily','arabicFont'];let val='';for(const k of candidates){try{val=localStorage.getItem(k)||''}catch(e){}if(val)break}if(val)root.style.setProperty('--muh-ar-font','"'+val.replace(/"/g,'')+'"')}
 function showKeywordInfo(key){const box=document.getElementById('muhKeywordInfo');if(!box)return;box.innerHTML='<div class="muhKeywordInfoAr">'+muhEscape(key)+'</div><div class="muhKeywordInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhKeywordInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'')+'</div>';box.classList.add('show');box.scrollIntoView({behavior:'smooth',block:'nearest'})}
-function renderMuhimme(){const list=document.getElementById('muhParaList');if(!list)return;list.innerHTML=Object.keys(muhData).map(n=>{const d=muhData[n];return '<article class="muhPara" id="muhPara'+n+'"><div class="muhParaHead" onclick="toggleMuhPara('+n+')"><div class="muhParaNo">'+n+'</div><div class="muhParaTitle">'+muhEscape(d.title)+'</div><div class="muhParaOttoman">'+muhTokenize(d.ar,n)+'</div><span class="muhParaArrow"></span></div><div class="muhParaBody"><div class="muhPron">'+muhEscape(d.pron)+'</div><div class="muhExp">'+muhEscape(d.exp)+'</div><div class="muhWordInfo" id="muhWordInfo'+n+'"></div></div></article>'}).join('')}
+function renderMuhimme(){const list=document.getElementById('muhParaList');if(!list)return;list.innerHTML=Object.keys(muhData).map(n=>{const d=muhData[n];return '<article class="muhPara" id="muhPara'+n+'"><div class="muhParaHead" onclick="toggleMuhPara('+n+')"><div class="muhParaOttoman">'+muhTokenize(d.ar,n)+'</div><span class="muhParaArrow"></span></div><div class="muhParaBody"><div class="muhPron">'+muhEscape(d.pron)+'</div><div class="muhExp">'+muhEscape(d.exp)+'</div></div></article>'}).join('')}
 function openMuhimme(){closeMenu();document.getElementById('favorites').classList.remove('show');document.getElementById('muhimmePage').classList.add('show');document.getElementById('dayContent').style.display='none';document.getElementById('homeLearningSection').style.display='none';syncMuhArabicFont();
 renderMuhimme();window.scrollTo({top:0,behavior:'smooth'})}
 function closeMuhimme(){document.getElementById('muhimmePage').classList.remove('show');document.getElementById('dayContent').style.display='block';document.getElementById('homeLearningSection').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
@@ -716,3 +731,4 @@ function shareSection(event,btn){
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
 </script>
 </body></html>
+<style>.muhParaNo,.muhParaTitle{display:none!important}</style>
