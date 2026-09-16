@@ -159,6 +159,28 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 .muhKeywordInfoLine{font-family:Georgia,serif;font-size:15px;line-height:1.6;margin-top:4px;color:#443a33}
 @media(max-width:700px){.muhimmePage{width:100%;margin:0;background:#fbf2df;border:0;box-shadow:none;padding:16px 18px 40px}.muhParaHead{padding-left:34px;padding-right:44px}.muhParaOttoman{font-size:22px;line-height:1.95}.muhParaBody{padding:18px 20px 22px}.muhKeywordsGrid{grid-template-columns:1fr}.muhPron{font-size:16px}.muhExp{font-size:15px}}
 @media(min-width:701px){body{background:#ddd4c5}.muhimmePage{border-radius:3px}}
+
+.settingsOverlay{display:none;position:fixed;inset:0;background:rgba(45,29,15,.48);z-index:80;align-items:center;justify-content:center;padding:18px}.settingsOverlay.show{display:flex}.settingsModal{width:min(520px,94vw);max-height:88vh;overflow:auto;background:#fffaf0;border:1px solid #caa96b;border-radius:22px;box-shadow:0 18px 55px rgba(0,0,0,.25);padding:22px;color:#4d301c}.settingsHead{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #dec9a5;padding-bottom:12px;margin-bottom:14px}.settingsHead h2{margin:0;color:#18563f;font-size:25px}.settingsClose{border:0;background:#f2dfbc;color:#5a2d12;border-radius:50%;width:38px;height:38px;font-size:25px;cursor:pointer}.settingsGroup{margin:15px 0}.settingsLabel{font-weight:800;color:#7b401b;margin-bottom:8px}.settingsOptions{display:flex;flex-wrap:wrap;gap:8px}.settingsOption{border:1px solid #d9c29b;background:#fffdf8;color:#4d3c2d;border-radius:12px;padding:9px 11px;cursor:pointer}.settingsOption.active{background:#23664c;color:#fff;border-color:#23664c}.settingsRange{width:100%;accent-color:#23664c}.settingsNote{font-size:12px;color:#77685b;line-height:1.5;margin-top:6px}.portugueseOpen{margin-top:15px;width:100%;border:1px solid #b88b3d;background:#23664c;color:#fff;border-radius:13px;padding:12px;font:700 16px KoHo,sans-serif;cursor:pointer}.settingsReset{margin-top:10px;width:100%;border:1px solid #d9c29b;background:#fffaf0;color:#7b401b;border-radius:13px;padding:10px;font:600 14px KoHo,sans-serif;cursor:pointer}
+:root{--latin-font:'KoHo',sans-serif;--arabic-dyn:'Uthman Taha','AmiriFazilet','Amiri','Noto Naskh Arabic','Geeza Pro',serif;--content-scale:1}
+body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhExp,.muhKeywords,.muhKeywordTr{font-family:var(--latin-font)}.arabic,.arabic *,.muhParaOttoman,.muhWord,.muhKeywordAr,.muhKeywordInfoAr,.muhInfoAr{font-family:var(--arabic-dyn)!important}.dayContent{font-size:calc(1em * var(--content-scale))}
+
+/* Ana sayfa: Mektuplar ve Portekizce Dersler */
+.homeLearningSection{max-width:760px;margin:26px auto 34px;padding:0 18px}
+.homeLearningTitle{display:flex;align-items:center;gap:10px;margin:0 0 12px;color:#18563f;font-family:Georgia,'Times New Roman',serif;font-size:22px}
+.homeLearningTitle .orn{color:#b88b3d;font-size:20px}
+.homeLearningCards{display:grid;grid-template-columns:1fr;gap:12px}
+.homeLearningCard{display:flex;align-items:center;gap:14px;width:100%;border:1px solid #d7bd88;background:#fffaf0;border-radius:17px;padding:15px 17px;text-align:left;cursor:pointer;box-shadow:0 5px 18px rgba(75,39,15,.07);transition:transform .16s,box-shadow .16s,border-color .16s}
+.homeLearningCard:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(75,39,15,.11);border-color:#b88b3d}
+.homeLearningCard:active{transform:scale(.99)}
+.homeLearningIcon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:none;font-size:25px;background:#e8f0e8;border:1px solid #bfd1c1}
+.homeLearningCard.portuguese .homeLearningIcon{background:#f4e5c9;border-color:#d7bd88}
+.homeLearningText{min-width:0;flex:1}
+.homeLearningText strong{display:block;color:#18563f;font-size:18px;margin-bottom:3px}
+.homeLearningText span{display:block;color:#75685b;font-size:13px;line-height:1.45}
+.homeLearningArrow{font-size:25px;color:#9b702d;flex:none}
+.homeLearningBadge{display:inline-block;margin-top:6px;padding:3px 8px;border-radius:8px;background:#eef4ee;color:#23664c;font-size:11px;font-weight:700}
+@media(min-width:701px){.homeLearningSection{max-width:920px;padding:0}.homeLearningCards{grid-template-columns:1fr 1fr}.homeLearningCard.portuguese{grid-column:2}.homeLearningCard.muhimme{grid-column:1}}
+@media(max-width:700px){.homeLearningSection{margin-top:20px}.homeLearningCard{padding:14px}.homeLearningText strong{font-size:17px}}
 </style>
 </head>
 <body>
@@ -168,6 +190,23 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
 </div>
 
 <div class="dayContent" id="dayContent"></div>
+
+
+<div class="homeLearningSection" id="homeLearningSection">
+ <div class="homeLearningTitle"><span class="orn">❧</span><span>Kütüphane ve Eğitim</span><span class="orn">❧</span></div>
+ <div class="homeLearningCards">
+  <button class="homeLearningCard muhimme" onclick="openMuhimme()">
+   <span class="homeLearningIcon">✉</span>
+   <span class="homeLearningText"><strong>Mektuplar ve bazı mesâil-i Muhimme</strong><span>Osmanlıca metinler, Türkçe okunuş, kısa izah ve kelime çalışması</span><span class="homeLearningBadge">171. sayfa · Hatm-i Hâcegân Âdâbı</span></span>
+   <span class="homeLearningArrow">›</span>
+  </button>
+  <button class="homeLearningCard portuguese" onclick="openPortuguese()">
+   <span class="homeLearningIcon">📚</span>
+   <span class="homeLearningText"><strong>Portekizce Dersler</strong><span>Brezilya Portekizcesi · A1 ve A2 dersleri · hikâyeler · fiiller</span><span class="homeLearningBadge">A1 · A2 · 40 ders · 60 hikâye</span></span>
+   <span class="homeLearningArrow">›</span>
+  </button>
+ </div>
+</div>
 
 <div class="favorites" id="favorites"><div class="section"><div class="sectionHead"><span class="book">🔖</span><h2>Minhas Palavras Favoritas</h2></div><div id="favList" class="storyText"></div></div></div>
 </div>
@@ -191,6 +230,28 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
  </div><div id="muhKeywordInfo" class="muhKeywordInfo"></div></div>
 </div>
 
+
+<div class="settingsOverlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+ <div class="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="settingsHead"><h2 id="settingsTitle">Ayarlar</h2><button class="settingsClose" onclick="closeSettings()">×</button></div>
+  <div class="settingsGroup"><div class="settingsLabel">Yazı boyutu</div><input class="settingsRange" id="textSizeRange" type="range" min="0.85" max="1.3" step="0.05" value="1" oninput="applyTextSize(this.value)"><div class="settingsNote">Metinlerin boyutunu büyütüp küçültebilirsin.</div></div>
+  <div class="settingsGroup"><div class="settingsLabel">Arapça yazı stili</div><div class="settingsOptions" id="arabicFontOptions">
+   <button class="settingsOption" data-font="Uthman Taha" onclick="applyArabicFont('Uthman Taha',this)">Nesih</button>
+   <button class="settingsOption" data-font="AmiriFazilet" onclick="applyArabicFont('AmiriFazilet',this)">Amiri</button>
+   <button class="settingsOption" data-font="Aref Ruqaa" onclick="applyArabicFont('Aref Ruqaa',this)">Ruqaa</button>
+  </div></div>
+  <div class="settingsGroup"><div class="settingsLabel">Latin yazı stili</div><div class="settingsOptions" id="latinFontOptions">
+   <button class="settingsOption" data-font="KoHo" onclick="applyLatinFont('KoHo',this)">KoHo</button>
+   <button class="settingsOption" data-font="Georgia" onclick="applyLatinFont('Georgia',this)">Georgia</button>
+   <button class="settingsOption" data-font="Arial" onclick="applyLatinFont('Arial',this)">Arial</button>
+   <button class="settingsOption" data-font="Times New Roman" onclick="applyLatinFont('Times New Roman',this)">Times</button>
+   <button class="settingsOption" data-font="Verdana" onclick="applyLatinFont('Verdana',this)">Verdana</button>
+  </div></div>
+  <div class="settingsGroup"><div class="settingsLabel">Portekizce Dersler</div><button class="portugueseOpen" onclick="openPortuguese()">🇧🇷 Portekizce Derslerine Git</button></div>
+  <button class="settingsReset" onclick="resetSettings()">Ayarları sıfırla</button>
+ </div>
+</div>
+
 <div class="drawerShade" id="shade" onclick="closeMenu()"></div>
 <aside class="drawer" id="drawer">
  <div class="drawerTop"><h2>Menu</h2><button class="closeMenu" onclick="closeMenu()">×</button></div>
@@ -198,8 +259,8 @@ button:focus-visible,.term.tap:focus-visible{outline:2px solid var(--orange);out
  <button class="item" onclick="showFavorites()">🔤 &nbsp; Palavras</button>
  <button class="item" onclick="showFavorites()">♡ &nbsp; Palavras Favoritas <span class="favCount" id="favCount"></span></button>
  <button class="item" onclick="openMuhimme()">✉ &nbsp; Mektuplar ve bazı mesâil-i Muhimme</button>
- 
- <button class="item" onclick="alert('A seção de configurações está sendo preparada.')">⚙ &nbsp; Configurações</button>
+ <button class="item" onclick="openPortuguese()">🇧🇷 &nbsp; Portekizce Dersler</button>
+ <button class="item" onclick="openSettings()">⚙ &nbsp; Ayarlar</button>
 </aside>
 
 <script>
@@ -216,12 +277,12 @@ function muhClean(t){return t.replace(/[؛،,.!?؟()\[\]{}]/g,'').trim()}
 function muhTokenize(text,p){return text.split(/(\s+)/).map((t,i)=>{if(/^\s+$/.test(t))return t;const key=muhClean(t);const safe=muhEscape(t);if(!key)return safe;return '<span class="muhWord" data-mkey="'+muhEscape(key)+'" onclick="event.stopPropagation();selectMuhWord(this,'+p+')">'+safe+'</span>';}).join('')}
 function selectMuhWord(el,p){const para=document.getElementById('muhPara'+p);if(para&&!para.classList.contains('open')){document.querySelectorAll('.muhPara.open').forEach(x=>x.classList.remove('open'));para.classList.add('open')}document.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');const key=el.dataset.mkey||'';const d=muhData[p];const box=document.getElementById('muhWordInfo'+p);if(!box)return;box.innerHTML='<div class="muhWordInfoAr">'+muhEscape(key)+'</div><div class="muhWordInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhWordInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'Bu kelime metin içindeki anlamına göre değerlendirilir. Ayrıntılı kelime açıklaması daha sonra genişletilebilir.')+'</div>';box.classList.add('show')}
 function toggleMuhPara(n){const el=document.getElementById('muhPara'+n);document.querySelectorAll('.muhPara.open').forEach(x=>{if(x!==el)x.classList.remove('open')});el.classList.toggle('open');el.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));const info=el.querySelector('.muhWordInfo');if(info)info.classList.remove('show')}
-function syncMuhArabicFont(){const root=document.documentElement;const candidates=['selectedArabicFontFamily','arabicFontFamily','arabicFont'];let val='';for(const k of candidates){try{val=localStorage.getItem(k)||''}catch(e){}if(val)break}if(val)root.style.setProperty('--muh-ar-font','"'+val.replace(/"/g,'')+'"')}
+function syncMuhArabicFont(){const root=document.documentElement;const candidates=['fazilet-arabic-font','selectedArabicFontFamily','arabicFontFamily','arabicFont'];let val='';for(const k of candidates){try{val=localStorage.getItem(k)||''}catch(e){}if(val)break}if(val)root.style.setProperty('--muh-ar-font','"'+val.replace(/"/g,'')+'"')}
 function showKeywordInfo(key){const box=document.getElementById('muhKeywordInfo');if(!box)return;box.innerHTML='<div class="muhKeywordInfoAr">'+muhEscape(key)+'</div><div class="muhKeywordInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhKeywordInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'')+'</div>';box.classList.add('show');box.scrollIntoView({behavior:'smooth',block:'nearest'})}
 function renderMuhimme(){const list=document.getElementById('muhParaList');if(!list)return;list.innerHTML=Object.keys(muhData).map(n=>{const d=muhData[n];return '<article class="muhPara" id="muhPara'+n+'"><div class="muhParaHead" onclick="toggleMuhPara('+n+')"><div class="muhParaNo">'+n+'</div><div class="muhParaTitle">'+muhEscape(d.title)+'</div><div class="muhParaOttoman">'+muhTokenize(d.ar,n)+'</div><span class="muhParaArrow"></span></div><div class="muhParaBody"><div class="muhPron">'+muhEscape(d.pron)+'</div><div class="muhExp">'+muhEscape(d.exp)+'</div><div class="muhWordInfo" id="muhWordInfo'+n+'"></div></div></article>'}).join('')}
-function openMuhimme(){closeMenu();document.getElementById('favorites').classList.remove('show');document.getElementById('muhimmePage').classList.add('show');document.getElementById('dayContent').style.display='none';syncMuhArabicFont();
+function openMuhimme(){closeMenu();document.getElementById('favorites').classList.remove('show');document.getElementById('muhimmePage').classList.add('show');document.getElementById('dayContent').style.display='none';document.getElementById('homeLearningSection').style.display='none';syncMuhArabicFont();
 renderMuhimme();window.scrollTo({top:0,behavior:'smooth'})}
-function closeMuhimme(){document.getElementById('muhimmePage').classList.remove('show');document.getElementById('dayContent').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
+function closeMuhimme(){document.getElementById('muhimmePage').classList.remove('show');document.getElementById('dayContent').style.display='block';document.getElementById('homeLearningSection').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
 renderMuhimme();
 
 /* =========================================================
@@ -536,14 +597,22 @@ document.addEventListener('click',e=>{
  document.querySelectorAll('.term.selected').forEach(x=>x.classList.remove('selected'));
 });
 
+function openSettings(){closeMenu();document.getElementById('settingsOverlay').classList.add('show');loadSettings()}
+function closeSettings(){document.getElementById('settingsOverlay').classList.remove('show')}
+function openPortuguese(){closeSettings();closeMenu();window.location.href='portekizce.html'}
+function applyTextSize(v){document.documentElement.style.setProperty('--content-scale',v);localStorage.setItem('fazilet-text-scale',v);const r=document.getElementById('textSizeRange');if(r)r.value=v}
+function applyArabicFont(font,btn){document.documentElement.style.setProperty('--arabic-dyn','"'+font.replace(/"/g,'')+'","AmiriFazilet","Amiri","Noto Naskh Arabic",serif');localStorage.setItem('fazilet-arabic-font',font);document.querySelectorAll('#arabicFontOptions .settingsOption').forEach(x=>x.classList.toggle('active',x===btn));syncMuhArabicFont()}
+function applyLatinFont(font,btn){document.documentElement.style.setProperty('--latin-font','"'+font.replace(/"/g,'')+'",sans-serif');localStorage.setItem('fazilet-latin-font',font);document.querySelectorAll('#latinFontOptions .settingsOption').forEach(x=>x.classList.toggle('active',x===btn))}
+function loadSettings(){const scale=localStorage.getItem('fazilet-text-scale')||'1';applyTextSize(scale);const af=localStorage.getItem('fazilet-arabic-font')||'Uthman Taha';const lf=localStorage.getItem('fazilet-latin-font')||'KoHo';const ab=document.querySelector('#arabicFontOptions [data-font="'+CSS.escape(af)+'"]')||document.querySelector('#arabicFontOptions .settingsOption');const lb=document.querySelector('#latinFontOptions [data-font="'+CSS.escape(lf)+'"]')||document.querySelector('#latinFontOptions .settingsOption');applyArabicFont(af,ab);applyLatinFont(lf,lb)}
+function resetSettings(){localStorage.removeItem('fazilet-text-scale');localStorage.removeItem('fazilet-arabic-font');localStorage.removeItem('fazilet-latin-font');loadSettings()}
 function updateFavCount(){const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
 function openMenu(){document.getElementById('drawer').classList.add('show');document.getElementById('shade').classList.add('show');updateFavCount()}
 function closeMenu(){document.getElementById('drawer').classList.remove('show');document.getElementById('shade').classList.remove('show')}
-function goHome(){closeMenu();document.getElementById('favorites').classList.remove('show');scrollTo(0,0)}
+function goHome(){closeMenu();document.getElementById('favorites').classList.remove('show');document.getElementById('dayContent').style.display='block';document.getElementById('homeLearningSection').style.display='block';scrollTo(0,0)}
 function showFavorites(){
  closeMenu();const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');const box=document.getElementById('favList');
  box.innerHTML=fav.length?fav.map(k=>{const w=getWordData(k)||{pt:k,tr:'',ar:''};return '<div style="padding:10px 0;border-bottom:1px solid #ddcbaa"><b>'+escapeHTML(w.pt||k)+'</b> → '+escapeHTML(w.tr||'')+'<br><small>'+escapeHTML(w.ar||'')+'</small></div>'}).join(''):'<div class="favEmpty">Ainda não há palavras salvas.</div>';
- document.getElementById('favorites').classList.add('show');document.getElementById('favorites').scrollIntoView({behavior:'smooth'});
+ document.getElementById('favorites').classList.add('show');document.getElementById('homeLearningSection').style.display='none';document.getElementById('favorites').scrollIntoView({behavior:'smooth'});
 }
 function toggleStory(id='story'){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
 function toggleAccordion(id){const el=document.getElementById(id);if(el) el.classList.toggle('open')}
