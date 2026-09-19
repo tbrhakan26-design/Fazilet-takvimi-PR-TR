@@ -264,7 +264,7 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 }
 .muhParaHead{padding:22px 4px 24px!important;background:transparent!important}
 .muhParaOttoman,.muhParaOttoman *{
-  font-family:'Amiri','Noto Naskh Arabic','AmiriFazilet',serif!important;
+  font-family:var(--arabic-dyn)!important;
   font-size:23px!important;
   font-weight:400!important;
   line-height:2.18!important;
@@ -347,24 +347,18 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 
   <div class="settingsGroup"><div class="settingsLabel">Arapça yazı stilleri</div>
    <div class="fontGrid" id="arabicFontOptions">
-    <button class="fontCard" data-font="Uthman Taha" onclick="applyArabicFont('Uthman Taha',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Nesih · Uthman Taha</b></button>
-    <button class="fontCard" data-font="AmiriFazilet" onclick="applyArabicFont('AmiriFazilet',this)"><span class="fontSample amiriSample">خَتْمُ خَواجَگان</span><b>Amiri</b></button>
-    <button class="fontCard" data-font="Aref Ruqaa" onclick="applyArabicFont('Aref Ruqaa',this)"><span class="fontSample ruqaaSample">خَتْمُ خَواجَگان</span><b>Ruqaa</b></button>
-    <button class="fontCard" data-font="Uthman Taha" onclick="applyArabicFont('Uthman Taha',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>KFGQPC Uthman Taha</b></button>
-    <button class="fontCard" data-font="Noto Naskh Arabic" onclick="applyArabicFont('Noto Naskh Arabic',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Naskh</b></button>
-    <button class="fontCard" data-font="Amiri" onclick="applyArabicFont('Amiri',this)"><span class="fontSample amiriSample">خَتْمُ خَواجَگان</span><b>Amiri Klasik</b></button>
-    <button class="fontCard" data-font="Aref Ruqaa" onclick="applyArabicFont('Aref Ruqaa',this)"><span class="fontSample ruqaaSample">خَتْمُ خَواجَگان</span><b>Ruqaa Klasik</b></button>
-    <button class="fontCard" data-font="Noto Kufi Arabic" onclick="applyArabicFont('Noto Kufi Arabic',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Kûfî</b></button>
-    <button class="fontCard" data-font="Noto Nastaliq Urdu" onclick="applyArabicFont('Noto Nastaliq Urdu',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Nastalik</b></button>
-    <button class="fontCard" data-font="Scheherazade New" onclick="applyArabicFont('Scheherazade New',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Scheherazade</b></button>
-    <button class="fontCard" data-font="Lateef" onclick="applyArabicFont('Lateef',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Lateef</b></button>
-    <button class="fontCard" data-font="Reem Kufi" onclick="applyArabicFont('Reem Kufi',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Reem Kufi</b></button>
-    <button class="fontCard" data-font="Cairo" onclick="applyArabicFont('Cairo',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Cairo</b></button>
-    <button class="fontCard" data-font="Tajawal" onclick="applyArabicFont('Tajawal',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Tajawal</b></button>
-    <button class="fontCard" data-font="Noto Sans Arabic" onclick="applyArabicFont('Noto Sans Arabic',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Noto Sans Arabic</b></button>
-    <button class="fontCard" data-font="Noto Serif Arabic" onclick="applyArabicFont('Noto Serif Arabic',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Noto Serif Arabic</b></button>
-    <button class="fontCard" data-font="Naskh Klasik" onclick="applyArabicFont('Naskh Klasik',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Naskh Klasik</b></button>
-    <button class="fontCard" data-font="Divani" onclick="applyArabicFont('Divani',this)"><span class="fontSample">خَتْمُ خَواجَگان</span><b>Divanî</b></button>
+    <button class="fontCard" data-font="Amiri" onclick="applyArabicFont('Amiri',this)"><span class="fontSample" style="font-family:'Amiri',serif">خَتْمُ خَواجَگان</span><b>Amiri Klasik</b></button>
+    <button class="fontCard" data-font="Noto Naskh Arabic" onclick="applyArabicFont('Noto Naskh Arabic',this)"><span class="fontSample" style="font-family:'Noto Naskh Arabic',serif">خَتْمُ خَواجَگان</span><b>Noto Naskh</b></button>
+    <button class="fontCard" data-font="Scheherazade New" onclick="applyArabicFont('Scheherazade New',this)"><span class="fontSample" style="font-family:'Scheherazade New',serif">خَتْمُ خَواجَگان</span><b>Scheherazade</b></button>
+    <button class="fontCard" data-font="Aref Ruqaa" onclick="applyArabicFont('Aref Ruqaa',this)"><span class="fontSample" style="font-family:'Aref Ruqaa',serif">خَتْمُ خَواجَگان</span><b>Aref Ruqaa</b></button>
+    <button class="fontCard" data-font="Noto Nastaliq Urdu" onclick="applyArabicFont('Noto Nastaliq Urdu',this)"><span class="fontSample" style="font-family:'Noto Nastaliq Urdu',serif">خَتْمُ خَواجَگان</span><b>Nastalik</b></button>
+    <button class="fontCard" data-font="Lateef" onclick="applyArabicFont('Lateef',this)"><span class="fontSample" style="font-family:'Lateef',serif">خَتْمُ خَواجَگان</span><b>Lateef</b></button>
+    <button class="fontCard" data-font="Noto Serif Arabic" onclick="applyArabicFont('Noto Serif Arabic',this)"><span class="fontSample" style="font-family:'Noto Serif Arabic',serif">خَتْمُ خَواجَگان</span><b>Noto Serif Arabic</b></button>
+    <button class="fontCard" data-font="Noto Sans Arabic" onclick="applyArabicFont('Noto Sans Arabic',this)"><span class="fontSample" style="font-family:'Noto Sans Arabic',sans-serif">خَتْمُ خَواجَگان</span><b>Noto Sans Arabic</b></button>
+    <button class="fontCard" data-font="Noto Kufi Arabic" onclick="applyArabicFont('Noto Kufi Arabic',this)"><span class="fontSample" style="font-family:'Noto Kufi Arabic',sans-serif">خَتْمُ خَواجَگان</span><b>Noto Kufi</b></button>
+    <button class="fontCard" data-font="Reem Kufi" onclick="applyArabicFont('Reem Kufi',this)"><span class="fontSample" style="font-family:'Reem Kufi',sans-serif">خَتْمُ خَواجَگان</span><b>Reem Kufi</b></button>
+    <button class="fontCard" data-font="Cairo" onclick="applyArabicFont('Cairo',this)"><span class="fontSample" style="font-family:'Cairo',sans-serif">خَتْمُ خَواجَگان</span><b>Cairo</b></button>
+    <button class="fontCard" data-font="Tajawal" onclick="applyArabicFont('Tajawal',this)"><span class="fontSample" style="font-family:'Tajawal',sans-serif">خَتْمُ خَواجَگان</span><b>Tajawal</b></button>
    </div>
   </div>
 
@@ -757,12 +751,12 @@ function openSettings(){closeMenu();document.getElementById('settingsOverlay').c
 function closeSettings(){document.getElementById('settingsOverlay').classList.remove('show')}
 function openPortuguese(){closeSettings();closeMenu();window.location.href='portekizce.html'}
 function applyTextSize(v){document.documentElement.style.setProperty('--content-scale',v);localStorage.setItem('fazilet-text-scale',v);const r=document.getElementById('textSizeRange');if(r)r.value=v}
-function applyArabicFont(font,btn){document.documentElement.style.setProperty('--arabic-dyn','"'+font.replace(/"/g,'')+'","AmiriFazilet","Amiri","Noto Naskh Arabic",serif');localStorage.setItem('fazilet-arabic-font',font);document.querySelectorAll('#arabicFontOptions .fontCard').forEach(x=>x.classList.toggle('active',x===btn));syncMuhArabicFont()}
+function applyArabicFont(font,btn){const clean=font.replace(/"/g,'');const stack='"'+clean+'","Amiri","Noto Naskh Arabic",serif';document.documentElement.style.setProperty('--arabic-dyn',stack);document.documentElement.style.setProperty('--muh-ar-font',stack);localStorage.setItem('fazilet-arabic-font',clean);document.querySelectorAll('#arabicFontOptions .fontCard').forEach(x=>x.classList.toggle('active',x===btn));document.querySelectorAll('.arabic,.arabic *, .muhParaOttoman,.muhParaOttoman *, .muhWord,.muhKeywordAr,.muhKeywordInfoAr,.muhInfoAr').forEach(el=>el.style.fontFamily=stack)}
 function applyLatinFont(font,btn){document.documentElement.style.setProperty('--latin-font','"'+font.replace(/"/g,'')+'",sans-serif');localStorage.setItem('fazilet-latin-font',font);document.querySelectorAll('#latinFontOptions .fontCard').forEach(x=>x.classList.toggle('active',x===btn))}
 function getPortugueseVoices(){return (speechSynthesis.getVoices()||[]).filter(v=>/^pt-BR$/i.test(v.lang)||/^pt_BR$/i.test(v.lang)||/^pt-BR/i.test(v.lang)).slice(0,10)}
 function renderPortugueseVoices(){const box=document.getElementById('voiceOptions');if(!box)return;const vs=getPortugueseVoices();box.querySelectorAll('.voiceCard').forEach((b,i)=>{const v=vs[i];b.disabled=!v;b.textContent=v?v.name:'Voz '+(i+1);b.classList.toggle('available',!!v);b.classList.toggle('active',localStorage.getItem('fazilet-pt-voice-index')===String(i))})}
 function selectPortugueseVoice(i,btn){const vs=getPortugueseVoices();if(!vs[i])return;localStorage.setItem('fazilet-pt-voice-index',String(i));document.querySelectorAll('#voiceOptions .voiceCard').forEach(x=>x.classList.toggle('active',x===btn))}
-function loadSettings(){const scale=localStorage.getItem('fazilet-text-scale')||'1';applyTextSize(scale);const af=localStorage.getItem('fazilet-arabic-font')||'Uthman Taha';const lf=localStorage.getItem('fazilet-latin-font')||'KoHo';const ab=document.querySelector('#arabicFontOptions [data-font="'+CSS.escape(af)+'"]')||document.querySelector('#arabicFontOptions .fontCard');const lb=document.querySelector('#latinFontOptions [data-font="'+CSS.escape(lf)+'"]')||document.querySelector('#latinFontOptions .fontCard');applyArabicFont(af,ab);applyLatinFont(lf,lb);renderPortugueseVoices()}
+function loadSettings(){const scale=localStorage.getItem('fazilet-text-scale')||'1';applyTextSize(scale);const af=localStorage.getItem('fazilet-arabic-font')||'Amiri';const lf=localStorage.getItem('fazilet-latin-font')||'KoHo';const ab=document.querySelector('#arabicFontOptions [data-font="'+CSS.escape(af)+'"]')||document.querySelector('#arabicFontOptions .fontCard');const lb=document.querySelector('#latinFontOptions [data-font="'+CSS.escape(lf)+'"]')||document.querySelector('#latinFontOptions .fontCard');applyArabicFont(af,ab);applyLatinFont(lf,lb);renderPortugueseVoices()}
 function resetSettings(){localStorage.removeItem('fazilet-text-scale');localStorage.removeItem('fazilet-arabic-font');localStorage.removeItem('fazilet-latin-font');localStorage.removeItem('fazilet-pt-voice-index');loadSettings()}
 if('speechSynthesis' in window){speechSynthesis.addEventListener('voiceschanged',renderPortugueseVoices)}
 function updateFavCount(){const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
