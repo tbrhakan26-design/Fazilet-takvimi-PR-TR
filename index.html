@@ -234,44 +234,58 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 
 
 <style id="muhimme-after-photo-restored-style">
-/* Yalnızca 171. sayfa görselinden SONRAKİ Osmanlıca metin. Görsel ve anahtar kelimeler değişmez. */
+/* Yalnızca 171. sayfa görselinden SONRAKİ Osmanlıca metin: eski estetik okuma düzeni. */
 .muhParaList{
   width:min(820px,100%)!important;
   margin:0 auto!important;
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  padding:0 8px!important;
+  background:#fffaf0!important;
+  border:1px solid rgba(183,145,76,.46)!important;
+  box-shadow:0 10px 30px rgba(71,43,18,.08)!important;
+  padding:4px 28px 8px!important;
 }
 .muhPara{
   background:transparent!important;
   border:0!important;
-  border-bottom:1px solid rgba(184,139,61,.28)!important;
   border-radius:0!important;
   box-shadow:none!important;
   margin:0!important;
+  position:relative!important;
 }
-.muhPara+.muhPara:before{content:none!important}
-.muhParaHead{padding:20px 8px 22px!important;background:transparent!important}
+.muhPara+.muhPara:before{
+  content:"❧  ·  ✦  ·  ❧"!important;
+  display:block!important;
+  text-align:center!important;
+  color:#b88b3d!important;
+  font-family:Georgia,'Times New Roman',serif!important;
+  font-size:13px!important;
+  letter-spacing:4px!important;
+  opacity:.78!important;
+  margin:4px 0!important;
+}
+.muhParaHead{padding:22px 4px 24px!important;background:transparent!important}
 .muhParaOttoman,.muhParaOttoman *{
-  font-family:var(--arabic-dyn)!important;
-  font-size:22px!important;
+  font-family:'Amiri','Noto Naskh Arabic','AmiriFazilet',serif!important;
+  font-size:23px!important;
   font-weight:400!important;
-  line-height:2.02!important;
+  line-height:2.18!important;
   letter-spacing:0!important;
   color:#17130f!important;
   direction:rtl!important;
-  text-align:right!important;
-  text-align-last:auto!important;
+  text-align:justify!important;
+  text-align-last:center!important;
   font-variant-ligatures:common-ligatures!important;
   font-feature-settings:'liga' 1,'calt' 1!important;
 }
 .muhParaOttoman .muhWord{display:inline!important;color:inherit!important;padding:0 1px!important;outline:0!important}
 .muhParaOttoman .muhWord:hover,.muhParaOttoman .muhWord.selected{background:#ead7ae!important;color:#17130f!important}
+@media(min-width:701px){
+ .muhParaList{padding-left:48px!important;padding-right:48px!important}
+ .muhParaOttoman,.muhParaOttoman *{font-size:24px!important;line-height:2.2!important}
+}
 @media(max-width:700px){
- .muhParaList{padding:0 2px!important}
- .muhParaHead{padding:17px 3px 19px!important}
- .muhParaOttoman,.muhParaOttoman *{font-size:20px!important;line-height:2!important}
+ .muhParaList{padding:2px 18px 7px!important;border-left:0!important;border-right:0!important}
+ .muhParaHead{padding:20px 2px 22px!important}
+ .muhParaOttoman,.muhParaOttoman *{font-size:22px!important;line-height:2.15!important}
 }
 </style>
 </head>
