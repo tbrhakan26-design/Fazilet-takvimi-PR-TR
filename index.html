@@ -185,14 +185,16 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 
 <style id="muh-final-fixes">
 /* Mektuplar son düzen: mevcut Arapça fontu korunur. */
-.muhKeywordsGrid{grid-template-columns:1fr!important;gap:12px!important}
-.muhKeyword{display:block!important;text-align:center!important;padding:15px 18px!important}
-.muhKeywordTop{display:flex;align-items:baseline;justify-content:center;gap:10px;width:100%;text-align:center;direction:rtl}
-.muhKeywordAr{display:inline!important;direction:rtl!important;text-align:center!important;margin:0!important;color:#18563f}
-.muhKeywordArrow{display:inline-block;direction:ltr;font-family:Georgia,'Times New Roman',serif;font-size:18px;color:#9b702d;line-height:1}
-.muhKeywordTr{display:inline!important;direction:ltr;text-align:center!important;font-size:15px!important;margin:0!important;color:#5a4b3f}
-.muhKeywordExp{display:block;text-align:center!important;font-family:var(--latin-font);font-size:13px;line-height:1.5;color:#7a6a5c;margin-top:7px}
-@media(max-width:420px){.muhKeywordTop{gap:7px}.muhKeywordAr{font-size:18px}.muhKeywordTr{font-size:14px!important}.muhKeywordArrow{font-size:16px}}
+.muhKeywordsGrid{grid-template-columns:1fr!important;gap:0!important}
+.muhKeyword{display:block!important;width:100%!important;text-align:center!important;padding:22px 10px 20px!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;color:#30261f!important}
+.muhKeyword+.muhKeyword{border-top:0!important}
+.muhKeywordTop{display:flex!important;align-items:baseline!important;justify-content:center!important;gap:12px!important;width:100%!important;text-align:center!important;direction:rtl!important;flex-wrap:nowrap!important}
+.muhKeywordAr{display:inline-block!important;direction:rtl!important;text-align:center!important;margin:0!important;color:#17130f!important;font-size:22px!important;line-height:1.8!important}
+.muhKeywordArrow{display:inline-block!important;direction:ltr!important;font-family:Georgia,'Times New Roman',serif!important;font-size:20px!important;color:#9b702d!important;line-height:1!important;flex:none!important}
+.muhKeywordTr{display:inline-block!important;direction:ltr!important;text-align:center!important;font-family:var(--latin-font)!important;font-size:17px!important;line-height:1.5!important;margin:0!important;color:#30261f!important}
+.muhKeywordExp{display:block!important;width:100%!important;text-align:center!important;font-family:var(--latin-font)!important;font-size:15px!important;line-height:1.55!important;color:#5a4b3f!important;margin-top:5px!important}
+.muhKeyword:not(:last-child)::after{content:"❧  ·  ✦  ·  ❧";display:block;margin:20px auto 0;color:#b88b3d;font-family:Georgia,'Times New Roman',serif;font-size:14px;letter-spacing:4px}
+@media(max-width:420px){.muhKeyword{padding:18px 2px 17px!important}.muhKeywordTop{gap:7px!important}.muhKeywordAr{font-size:19px!important}.muhKeywordTr{font-size:14px!important}.muhKeywordArrow{font-size:17px!important}.muhKeywordExp{font-size:13px!important}}
 .muhPageNumber{width:min(820px,100%);margin:28px auto 4px;text-align:center;color:#7b5523;font-family:var(--arabic-dyn)!important;font-size:21px;line-height:1.5}
 .muhWord.origin-ar{color:#23664c!important}
 .muhWord.origin-fa{color:#d97924!important}
@@ -227,6 +229,14 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 @media(max-width:700px){.muhParaOttoman{font-size:17px!important;line-height:1.85!important}}
 /* Zengin ayarlar */
 .sizeQuick{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}.sizeBtn{border:1px solid #d9c29b;background:#fffdf8;color:#4d3c2d;border-radius:10px;padding:8px 4px;font:700 12px KoHo,sans-serif}.fontGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.fontCard{min-height:76px;border:1px solid #d9c29b;background:#fffdf8;color:#4d3c2d;border-radius:13px;padding:8px;cursor:pointer;text-align:center}.fontCard.active{background:#23664c;color:#fff;border-color:#23664c}.fontSample{display:block;direction:rtl;font-size:25px;line-height:1.35;font-family:serif;margin-bottom:4px}.fontCard b{display:block;font-size:11px;line-height:1.2}.latinSample{display:block;font-size:21px;line-height:1.35;margin-bottom:6px}.nunitoSample{font-family:Nunito,sans-serif}.bitterSample{font-family:Bitter,serif}.kohoSample{font-family:KoHo,sans-serif}.ralewaySample{font-family:Raleway,sans-serif}.loraSample{font-family:Lora,serif}.voiceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.voiceCard{border:1px solid #d9c29b;background:#fffdf8;color:#4d3c2d;border-radius:11px;padding:9px 7px;font:700 12px KoHo,sans-serif;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.voiceCard:disabled{opacity:.42;cursor:not-allowed}.voiceCard.active{background:#23664c;color:#fff;border-color:#23664c}.voiceCard.available{opacity:1}@media(max-width:520px){.fontGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sizeQuick{grid-template-columns:repeat(2,1fr)}}
+</style>
+
+<style id="muh-ottoman-style-restore">
+/* Mektuplar: sayfa resminden sonraki Osmanlıca metin eski okuma stiline döndürüldü. */
+.muhParaHead{padding:22px 10px 24px!important;background:transparent!important}
+.muhParaOttoman{direction:rtl!important;text-align:justify!important;text-align-last:center!important;font-family:var(--arabic-dyn)!important;font-size:22px!important;line-height:1.95!important;color:#17130f!important;user-select:text}
+.muhParaOttoman .muhWord{color:inherit!important}
+@media(max-width:700px){.muhParaHead{padding:20px 4px 22px!important}.muhParaOttoman{font-size:20px!important;line-height:1.9!important}}
 </style>
 </head>
 <body>
