@@ -300,6 +300,76 @@ body,.app,.dayContent,.lang,.lang p,.ptSentence,.trSentence,.storyContent,.story
 .fontCard{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease}.fontCard:active{transform:scale(.98)}.fontCard.active{box-shadow:0 0 0 2px rgba(35,102,76,.18),0 5px 14px rgba(55,40,22,.10)}
 #arabicFontOptions .fontSample{font-weight:400!important;font-size:27px!important}.fontCard b{font-family:inherit}.fontCard .fontName{display:block;font-size:12px;line-height:1.25;margin-top:3px}
 </style>
+
+<style id="muhimme-ottoman-unboxed-v1">
+/* Osmanlıca bölüm: dış çerçevesiz, doğrudan sayfa zemini üzerinde.
+   Türkçe okunuşu / izah kutularına dokunulmaz. */
+.muhParaList{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.muhParaHead{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.muhParaOttoman,.muhParaOttoman *{
+  font-size:21px!important;
+  line-height:2.05!important;
+}
+@media(max-width:700px){
+  .muhParaList{padding:2px 18px 7px!important;}
+  .muhParaOttoman,.muhParaOttoman *{
+    font-size:19px!important;
+    line-height:2.02!important;
+  }
+}
+</style>
+
+<style id="muhimme-tr-box-center-v1">
+/* Türkçe Okunuşu ve İzahı: mevcut kutular korunur; içerik ortalanır. */
+.muhPron,.muhExp{
+  position:relative!important;
+  text-align:center!important;
+  padding-left:44px!important;
+  padding-right:44px!important;
+}
+.muhBoxTitle{
+  text-align:center!important;
+  font-weight:800!important;
+  color:var(--green)!important;
+  margin:0 auto 10px!important;
+  line-height:1.25!important;
+}
+.muhPronText,.muhExpText{
+  text-align:center!important;
+  margin:0 auto!important;
+  max-width:680px!important;
+}
+.muhPronMiniBtn{
+  position:absolute!important;
+  top:10px!important;
+  right:10px!important;
+  width:30px!important;
+  height:30px!important;
+  padding:0!important;
+  border:1px solid #d6bd8e!important;
+  border-radius:9px!important;
+  background:#f3e2bd!important;
+  color:#5c3a16!important;
+  font:800 11px/30px var(--latin-font)!important;
+  text-align:center!important;
+  cursor:pointer!important;
+  box-shadow:0 2px 7px rgba(75,39,15,.08)!important;
+}
+.muhPron.collapsed .muhPronText{display:none!important}
+.muhPron.collapsed .muhBoxTitle{margin-bottom:0!important}
+@media(max-width:700px){
+  .muhPron,.muhExp{padding-left:38px!important;padding-right:38px!important}
+  .muhPronMiniBtn{top:8px!important;right:8px!important;width:28px!important;height:28px!important;line-height:28px!important}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -442,7 +512,7 @@ function selectMuhWord(el,p){
 function toggleMuhPara(n){const el=document.getElementById('muhPara'+n);document.querySelectorAll('.muhPara.open').forEach(x=>{if(x!==el)x.classList.remove('open')});el.classList.toggle('open');el.querySelectorAll('.muhWord.selected').forEach(x=>x.classList.remove('selected'));const info=document.getElementById('muhFloatingInfo');if(info)info.classList.remove('show')}
 function syncMuhArabicFont(){const root=document.documentElement;const candidates=['fazilet-arabic-font','selectedArabicFontFamily','arabicFontFamily','arabicFont'];let val='';for(const k of candidates){try{val=localStorage.getItem(k)||''}catch(e){}if(val)break}if(val)root.style.setProperty('--muh-ar-font','"'+val.replace(/"/g,'')+'"')}
 function showKeywordInfo(key){const box=document.getElementById('muhKeywordInfo');if(!box)return;box.innerHTML='<div class="muhKeywordInfoAr">'+muhEscape(key)+'</div><div class="muhKeywordInfoLine"><b>Türkçe okunuşu:</b> '+muhEscape(muhWords[key]||key)+'</div><div class="muhKeywordInfoLine"><b>Kısa izahı:</b> '+muhEscape(muhExplain[key]||'')+'</div>';box.classList.add('show');box.scrollIntoView({behavior:'smooth',block:'nearest'})}
-function renderMuhimme(){const list=document.getElementById('muhParaList');if(!list)return;list.innerHTML=Object.keys(muhData).map(n=>{const d=muhData[n];return '<article class="muhPara" id="muhPara'+n+'"><div class="muhParaHead" onclick="toggleMuhPara('+n+')"><div class="muhParaOttoman">'+muhTokenize(d.ar,n)+'</div><span class="muhParaArrow"></span></div><div class="muhParaBody"><div class="muhPron">'+muhEscape(d.pron)+'</div><div class="muhExp">'+muhEscape(d.exp)+'</div></div></article>'}).join('')}
+function renderMuhimme(){const list=document.getElementById('muhParaList');if(!list)return;list.innerHTML=Object.keys(muhData).map(n=>{const d=muhData[n];return '<article class="muhPara" id="muhPara'+n+'"><div class="muhParaHead" onclick="toggleMuhPara('+n+')"><div class="muhParaOttoman">'+muhTokenize(d.ar,n)+'</div><span class="muhParaArrow"></span></div><div class="muhParaBody"><div class="muhPron"><div class="muhBoxTitle">Türkçe Okunuşu</div><button type="button" class="muhPronMiniBtn" aria-label="Türkçe okunuşunu göster veya gizle" onclick="event.stopPropagation();this.closest(\'.muhPron\').classList.toggle(\'collapsed\')">TR</button><div class="muhPronText">'+muhEscape(d.pron)+'</div></div><div class="muhExp"><div class="muhBoxTitle">İzahı</div><div class="muhExpText">'+muhEscape(d.exp)+'</div></div></div></article>'}).join('')}
 function openMuhimme(){closeMenu();document.getElementById('favorites').classList.remove('show');document.getElementById('muhimmePage').classList.add('show');document.documentElement.scrollTop=0;document.body.scrollTop=0;document.getElementById('dayContent').style.display='none';document.getElementById('homeLearningSection').style.display='none';syncMuhArabicFont();
 renderMuhimme();window.scrollTo({top:0,behavior:'smooth'})}
 function closeMuhimme(){document.getElementById('muhimmePage').classList.remove('show');document.getElementById('dayContent').style.display='block';document.getElementById('homeLearningSection').style.display='block';window.scrollTo({top:0,behavior:'smooth'})}
