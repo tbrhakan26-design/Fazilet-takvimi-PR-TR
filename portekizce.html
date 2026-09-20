@@ -134,6 +134,23 @@ body.level-B1{--level:var(--b1);--levelsoft:var(--b1soft)}
 .quizOpt{display:block;width:100%;text-align:left;margin:7px 0}
 .wordPopupHint{font-size:11px;color:var(--muted);margin-top:8px}
 @media(max-width:480px){.studyStrip{grid-template-columns:1fr 1fr}.studyStrip .studyStat:last-child{grid-column:1/-1}.lessonHead h3{font-size:17px}}
+
+/* v7 — fiil sistemi, numaralı ders fiilleri, vurgu kutuları, kompakt hikâye tercümesi */
+.verbGrid{display:grid;gap:8px}
+.verbRow{display:grid;grid-template-columns:42px minmax(105px,1fr) minmax(105px,1fr) 78px;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--green);border-radius:12px;padding:10px 11px}
+.verbIndex{font-weight:800;color:var(--muted);font-size:12px}.verbPt{font-size:17px;font-weight:800}.verbTr{font-size:14px}.verbMode{font-size:11px;color:var(--muted);text-align:right}
+.verbRow:nth-child(3n+2){border-left-color:var(--gold)}.verbRow:nth-child(3n+3){border-left-color:#66728a}
+.verbExample{grid-column:2/-1;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px}
+.lessonVerbList{margin:7px 0 0;padding:0;list-style:none;counter-reset:lv}
+.lessonVerbList li{counter-increment:lv;padding:4px 8px;border-bottom:1px dashed rgba(80,70,60,.12);font-size:13px}
+.lessonVerbList li:before{content:counter(lv) ".";font-weight:800;display:inline-block;width:25px;color:var(--level,var(--green))}
+.lessonBox{background:#fff1c9!important;border:1px solid #e4c56e!important;border-left:5px solid #c38b21!important;color:#514522}
+.lessonBox b{color:#76520d}
+.taskBox{background:#e9e2f5!important;border-left-color:#78639a!important;color:#40384d}
+.storyTr{position:relative;background:linear-gradient(to bottom,rgba(237,229,216,.88),rgba(237,229,216,.18),rgba(237,229,216,0))!important;border-radius:0!important;padding:3px 5px 7px!important;margin:-3px 0 7px!important;font-size:11.5px!important;line-height:1.35!important;color:#716a61!important}
+.storyTr:before{content:none!important}
+.storyText{margin-bottom:0!important}
+@media(max-width:520px){.verbRow{grid-template-columns:32px 1fr 1fr;padding:9px 8px}.verbMode{grid-column:2/-1;text-align:left}.verbExample{grid-column:2/-1}.verbPt{font-size:15px}.verbTr{font-size:13px}}
 </style></head><body>
 <header><h1>Portekizce Öğreniyorum</h1><div class="sub">Brezilya Portekizcesi · A1 + A2 + B1 · yoğun çalışma programı</div></header>
 <nav id="nav"></nav><main id="app"></main>
@@ -191,7 +208,7 @@ function setSearch(v){searchTerm=v.toLowerCase().trim();render()}
 function speakPT(t){if(!("speechSynthesis" in window))return; speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";u.rate=.88;speechSynthesis.speak(u)}
 function levelHome(l){levelFilter=l;page="lessons";nav();render();scrollTo(0,0)}
 function todayLesson(){let n=(new Date().getDate()-1)%66+1;levelFilter="ALL";page="lessons";nav();render();setTimeout(()=>{let e=document.getElementById("lesson-"+n);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},50)}
-function lessonCard(l){let done=lessonDone.includes(l.n);return `<article class="lessonTile ${done?"done":""}"><div class="lessonHead"><div class="lessonNum">${l.n}</div><div><div class="lessonNo">${l.level} · ${esc(l.grammar)}</div><h3>${esc(l.title)}</h3><div class="lessonGoal">${esc(l.goal)}</div></div></div><details><summary class="btn">📚 Ders içeriğini aç</summary><div class="lessonContent"><div class="lessonBox"><b>Aktif kelime/fiiller</b><br>${esc(l.vocab)}</div><div class="sectionTitle"><h3>Örnek cümleler</h3><span class="small">dokun → dinle</span></div>${l.examples.map(x=>`<div class="exampleRow"><p>${esc(x)}</p><button class="btn" onclick="speakPT('${x.replace(/'/g,"\'")}')">🔊</button></div>`).join("")}<h3>Diyalog</h3>${l.dialog.map(x=>`<p>${esc(x)}</p>`).join("")}<div class="taskBox"><b>✍️ Üretim görevi</b><br>${esc(l.task)}</div></div></details><button class="btn green" onclick="toggleLesson(${l.n})">${done?"✓ Tamamlandı":"Dersi tamamla"}</button></article>`}
+function lessonCard(l){let done=lessonDone.includes(l.n);return `<article class="lessonTile ${done?"done":""}"><div class="lessonHead"><div class="lessonNum">${l.n}</div><div><div class="lessonNo">${l.level} · ${esc(l.grammar)}</div><h3>${esc(l.title)}</h3><div class="lessonGoal">${esc(l.goal)}</div></div></div><details><summary class="btn">📚 Ders içeriğini aç</summary><div class="lessonContent"><div class="lessonBox"><b>Aktif kelime / fiiller</b><ol class="lessonVerbList">${String(l.vocab).split(/[,;·]/).map(v=>v.trim()).filter(Boolean).map(v=>`<li>${esc(v)}</li>`).join("")}</ol></div><div class="sectionTitle"><h3>Örnek cümleler</h3><span class="small">dokun → dinle</span></div>${l.examples.map(x=>`<div class="exampleRow"><p>${esc(x)}</p><button class="btn" onclick="speakPT('${x.replace(/'/g,"\'")}')">🔊</button></div>`).join("")}<div class="taskBox"><b>💬 Diyalog</b>${l.dialog.map(x=>`<p>${esc(x)}</p>`).join("")}</div><div class="taskBox"><b>✍️ Üretim görevi</b><br>${esc(l.task)}</div></div></details><button class="btn green" onclick="toggleLesson(${l.n})">${done?"✓ Tamamlandı":"Dersi tamamla"}</button></article>`}
 function render(){
  const a=document.getElementById("app");
  if(page==="saved"){renderSavedWords();return}
@@ -231,8 +248,10 @@ function render(){
    let ss=DATA.stories.filter(s=>(levelFilter==="ALL"||s.level===levelFilter||(!s.level&&levelFilter==="A1"))&&(!searchTerm||(s.title+" "+s.text).toLowerCase().includes(searchTerm)));
    a.innerHTML=`${levelTabs}<div class="card"><h2>${levelFilter==="ALL"?"99 Hikâye":levelFilter+" Hikâyeleri"}</h2><p class="small">${levelFilter==="ALL"?"Tüm seviyeler":levelFilter+" okuma çalışmaları"}</p><div class="toolbar"><button class="btn" onclick="setLevel('ALL')">Tümü</button><button class="btn" onclick="setLevel('A1')">A1</button><button class="btn" onclick="setLevel('A2')">A2</button><button class="btn" onclick="setLevel('B1')">B1</button></div>${ss.map((s,i)=>`<article class="storyTile"><span class="badge">${s.level||"A1"}</span><h3>${DATA.stories.indexOf(s)+1}. ${esc(s.title)}</h3><button class="btn green" onclick="openStory(${DATA.stories.indexOf(s)})">📖 Hikâyeyi aç</button></article>`).join("")}</div>`}
  if(page==="verbs"){
-   a.innerHTML=`<div class="card"><h2>555 Fiil Çalışması</h2><p class="small">111 temel fiilin her biri 5 farklı zaman/işlev bağlamında çalışılır: toplam 555 aktif fiil çalışması.</p>${DATA.verbs.map((v,i)=>`<div class="item"><div class="pt">${i+1}. ${esc(v.pt)}</div><div class="tr">${esc(v.tr)} · ${esc(v.mode)} · ${esc(v.trmode)}</div><p>${esc(v.starter)} <b>${esc(v.pt)}</b></p></div>`).join("")}</div>`}
- if(page==="review"){
+   let unique=[];let seen=new Set();
+   DATA.verbs.forEach(v=>{let k=(v.pt||"").toLowerCase();if(!seen.has(k)){seen.add(k);unique.push(v)}});
+   a.innerHTML=`<div class="card"><div class="kicker">Sistemli fiil çalışması</div><h2>⚡ Portekizce Fiiller</h2><p class="small">Fiiller numaralı ve yatay kartlar halinde. Portekizce → Türkçe → çalışma türü sırasıyla ilerle.</p><div class="studyStrip"><div class="studyStat"><b>${unique.length}</b>Temel fiil</div><div class="studyStat"><b>${DATA.verbs.length}</b>Çalışma</div><div class="studyStat"><b>pt-BR</b>Ses</div></div><div class="verbGrid">${unique.map((v,i)=>`<div class="verbRow"><div class="verbIndex">${i+1}.</div><div class="verbPt">${esc(v.pt)}</div><div class="verbTr">${esc(v.tr)}</div><div class="verbMode">${esc(v.mode||"Fiil")}</div><div class="verbExample"><button class="btn" onclick="speakPT('${String(v.pt).replace(/'/g,"\\'")}')">🔊</button> <b>Ez:</b> ${esc((v.starter||"eu")+" "+v.pt)}</div></div>`).join("")}</div></div>`;
+} if(page==="review"){
    a.innerHTML=`<div class="card"><h2>Aktif Tekrar</h2><p>Dersleri sadece okumak yerine üret: her gün 10 fiil seç, her biriyle bir cümle kur; bir hikâye oku; ardından hikâyeyi 5–8 cümleyle yeniden anlat.</p><div class="lessonBox"><b>B1 hedefi:</b> bağlaçlarla daha uzun konuşmak, geçmiş ve gelecek olayları ilişkilendirmek, görüş gerekçelendirmek, subjuntivo ve condicional yapılarını kontrollü biçimde kullanmak.</div></div>`}
 }
 function openStory(i){
