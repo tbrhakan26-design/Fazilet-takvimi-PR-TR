@@ -202,13 +202,28 @@ body{font-family:var(--pt-tr-font,system-ui,-apple-system,BlinkMacSystemFont,"Se
 /* v12 — Portekizce hutbe metni Türkçeden hafifçe daha kalın */
 .khPt{font-weight:520!important;letter-spacing:.002em}
 .khTr{font-weight:400!important}
+
+/* v13.1 — Ayarlar paneli mobil kaydırma düzeltmesi */
+.settingsPanel,.settingsSheet,.settingsContent{max-height:88vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+#ptSettings{overflow-y:auto!important}
+#ptSettings .sheet,#ptSettings .panel,#ptSettings section{max-height:86vh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+.voiceChoiceTitle{margin-top:2px}
 </style></head><body>
 <header><div class="topTools"><button class="topTool" onclick="go('khutbah')" title="Hutbe">🕌</button><button class="topTool" onclick="openPtSettings()" title="Ayarlar">⚙️</button></div><h1>Portekizce Öğreniyorum</h1><div class="sub">Brezilya Portekizcesi · A1 + A2 + B1 · yoğun çalışma programı</div></header>
 <nav id="nav"></nav><main id="app"></main>
 <div class="settingsShade" id="ptSettings" onclick="if(event.target===this)closePtSettings()">
  <section class="settingsPanel">
   <div class="settingsHead"><div><div class="kicker">Çalışma deneyimi</div><h2>⚙️ Ayarlar</h2></div><button class="btn" onclick="closePtSettings()">✕</button></div>
-  <div class="settingsGroup"><div class="settingsLabel">Yazı boyutu</div><div class="settingBtns"><button onclick="setPtSetting('size','normal',this)">Normal</button><button onclick="setPtSetting('size','large',this)">Büyük</button><button onclick="setPtSetting('size','compact',this)">Kompakt</button></div></div>
+  <div class="settingsGroup"><div class="settingsLabel">Brezilya Portekizcesi sesi</div>
+<div class="settingBtns">
+<button class="voiceModeBtn" data-mode="nova" onclick="savePtVoiceMode('nova',this)">🇧🇷 Nova</button>
+<button class="voiceModeBtn" data-mode="julian" onclick="savePtVoiceMode('julian',this)">🇧🇷 Julian</button>
+<button class="voiceModeBtn" data-mode="device" onclick="savePtVoiceMode('device',this)">📱 Telefon sesleri</button>
+</div>
+<div class="small">Nova: pt-BR-Chirp3-HD-Aoede · Julian: pt-BR-Chirp3-HD-Algieba</div>
+<select id="ptVoiceSelect" onchange="savePtVoice(this.value)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-top:8px"></select>
+<div class="small">Telefon sesleri seçeneğinde cihazındaki pt-BR sesini buradan seçebilirsin.</div></div>
+<div class="settingsGroup"><div class="settingsLabel">Yazı boyutu</div><div class="settingBtns"><button onclick="setPtSetting('size','normal',this)">Normal</button><button onclick="setPtSetting('size','large',this)">Büyük</button><button onclick="setPtSetting('size','compact',this)">Kompakt</button></div></div>
   <div class="settingsGroup"><div class="settingsLabel">Görünüm</div><div class="settingBtns"><button onclick="setPtSetting('theme','default',this)">Açık</button><button onclick="setPtSetting('theme','calm',this)">Sakin</button><button onclick="setPtSetting('focus','toggle',this)">Odak modu</button></div></div>
   <div class="settingsGroup"><div class="settingRow"><div><b>Türkçe alt çeviriler</b><div class="small">Hikâye ve hutbelerde küçük Türkçe satırları göster.</div></div><input id="translationToggle" type="checkbox" checked onchange="toggleTranslations(this.checked)"></div></div>
   <div class="settingsGroup"><div class="settingsLabel">Türkçe yazı stili</div><div class="settingBtns">
@@ -217,15 +232,6 @@ body{font-family:var(--pt-tr-font,system-ui,-apple-system,BlinkMacSystemFont,"Se
 <div class="settingsGroup"><div class="settingsLabel">Arapça yazı stili</div><div class="settingBtns">
 <button onclick="setPtFont('ar','naskh',this)">Nesih</button><button onclick="setPtFont('ar','scheherazade',this)">Scheherazade</button><button onclick="setPtFont('ar','traditional',this)">Klasik</button><button onclick="setPtFont('ar','system',this)">Sistem</button>
 </div><div class="fontPreview" dir="rtl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div></div>
-<div class="settingsGroup"><div class="settingsLabel">Brezilya Portekizcesi sesi</div>
-<div class="settingBtns">
-<button onclick="savePtVoiceMode('nova',this)">🇧🇷 Nova</button>
-<button onclick="savePtVoiceMode('julian',this)">🇧🇷 Julian</button>
-<button onclick="savePtVoiceMode('device',this)">📱 Telefon sesleri</button>
-</div>
-<div class="small">Nova: pt-BR-Chirp3-HD-Aoede · Julian: pt-BR-Chirp3-HD-Algieba</div>
-<select id="ptVoiceSelect" onchange="savePtVoice(this.value)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-top:8px"></select>
-<div class="small">Telefon sesleri seçeneğinde cihazındaki pt-BR sesini buradan seçebilirsin.</div></div>
 <div class="settingsGroup"><div class="settingsLabel">Telaffuz hızı</div><input id="speechRate" style="width:100%" type="range" min=".65" max="1.15" step=".05" value=".88" oninput="saveSpeechRate(this.value)"><div class="small">Yavaş ← telaffuz hızı → normal</div></div>
   <button class="btn" onclick="resetPtSettings()">Ayarları sıfırla</button>
  </section>
@@ -303,8 +309,12 @@ const CLOUD_PT_VOICES={
  nova:{label:"Nova",name:"pt-BR-Chirp3-HD-Aoede",lang:"pt-BR"},
  julian:{label:"Julian",name:"pt-BR-Chirp3-HD-Algieba",lang:"pt-BR"}
 };
+function syncVoiceModeButtons(){
+ const mode=ptVoiceMode();
+ document.querySelectorAll(".voiceModeBtn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));
+}
 function savePtVoiceMode(mode){
- localStorage.setItem("pt_voice_mode",mode);
+ localStorage.setItem("pt_voice_mode",mode);syncVoiceModeButtons();
  const sel=document.getElementById("ptVoiceSelect");
  if(sel)sel.style.display=mode==="device"?"block":"none";
 }
@@ -350,7 +360,7 @@ async function speakPT(text){
  speechSynthesis.speak(u);
 }
 let ptSpeechRate=parseFloat(localStorage.getItem("pt_speech_rate")||".88");
-function openPtSettings(){document.getElementById("ptSettings").classList.add("show");syncPtSettings();fillPtVoices()}
+function openPtSettings(){document.getElementById("ptSettings").classList.add("show");syncPtSettings();syncVoiceModeButtons();fillPtVoices()}
 function closePtSettings(){document.getElementById("ptSettings").classList.remove("show")}
 function setPtSetting(type,val){
  if(type==="size"){localStorage.setItem("pt_size",val)}
