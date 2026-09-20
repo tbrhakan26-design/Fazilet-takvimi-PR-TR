@@ -180,6 +180,28 @@ body.ptCompact .storyTr,body.ptCompact .khTr{display:none}
 body.ptCalm{--bg:#eee8dc;--card:#faf6ee;--text:#352f29}
 body.ptFocus nav{display:none}body.ptFocus main{max-width:700px}
 @media(max-width:520px){.topTools{top:8px;right:8px}.topTool{padding:7px 8px}.settingsPanel{padding:13px}.settingBtns{grid-template-columns:1fr 1fr}}
+
+/* v10 hutbe düzeni */
+.khMetaRow{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+.khListen{border:0;background:#eee5d6;color:#37312b;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800}
+.khAyah{direction:rtl;text-align:center;color:#7b2639;font-family:"Scheherazade New","Noto Naskh Arabic",serif;font-size:26px;line-height:1.9;font-weight:700;margin:8px auto 15px;max-width:95%}
+.khHadith{direction:rtl;text-align:center;color:#245d42;font-family:"Scheherazade New","Noto Naskh Arabic",serif;font-size:23px;line-height:1.85;font-weight:700;margin:8px auto;max-width:95%}
+.khOpeningTr{text-align:center!important;margin-top:14px!important}
+.khPt{overflow-wrap:anywhere;word-break:normal}
+
+/* v11 — Türkçe turuncu fade + font seçenekleri */
+.khTr,.storyTr{
+ background:linear-gradient(to bottom,rgba(238,164,73,.30) 0%,rgba(238,164,73,.16) 48%,rgba(238,164,73,0) 100%)!important;
+ border:0!important;border-radius:0!important;color:#755b43!important;
+ padding:5px 7px 10px!important;margin-top:-2px!important
+}
+body{font-family:var(--pt-tr-font,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif)}
+.khAyah,.khHadith,.verbAr{font-family:var(--pt-ar-font,"Scheherazade New","Noto Naskh Arabic",serif)!important}
+.fontPreview{font-size:12px;color:var(--muted);margin-top:7px}
+
+/* v12 — Portekizce hutbe metni Türkçeden hafifçe daha kalın */
+.khPt{font-weight:520!important;letter-spacing:.002em}
+.khTr{font-weight:400!important}
 </style></head><body>
 <header><div class="topTools"><button class="topTool" onclick="go('khutbah')" title="Hutbe">🕌</button><button class="topTool" onclick="openPtSettings()" title="Ayarlar">⚙️</button></div><h1>Portekizce Öğreniyorum</h1><div class="sub">Brezilya Portekizcesi · A1 + A2 + B1 · yoğun çalışma programı</div></header>
 <nav id="nav"></nav><main id="app"></main>
@@ -189,7 +211,22 @@ body.ptFocus nav{display:none}body.ptFocus main{max-width:700px}
   <div class="settingsGroup"><div class="settingsLabel">Yazı boyutu</div><div class="settingBtns"><button onclick="setPtSetting('size','normal',this)">Normal</button><button onclick="setPtSetting('size','large',this)">Büyük</button><button onclick="setPtSetting('size','compact',this)">Kompakt</button></div></div>
   <div class="settingsGroup"><div class="settingsLabel">Görünüm</div><div class="settingBtns"><button onclick="setPtSetting('theme','default',this)">Açık</button><button onclick="setPtSetting('theme','calm',this)">Sakin</button><button onclick="setPtSetting('focus','toggle',this)">Odak modu</button></div></div>
   <div class="settingsGroup"><div class="settingRow"><div><b>Türkçe alt çeviriler</b><div class="small">Hikâye ve hutbelerde küçük Türkçe satırları göster.</div></div><input id="translationToggle" type="checkbox" checked onchange="toggleTranslations(this.checked)"></div></div>
-  <div class="settingsGroup"><div class="settingsLabel">Telaffuz hızı</div><input id="speechRate" style="width:100%" type="range" min=".65" max="1.15" step=".05" value=".88" oninput="saveSpeechRate(this.value)"><div class="small">Yavaş ← telaffuz hızı → normal</div></div>
+  <div class="settingsGroup"><div class="settingsLabel">Türkçe yazı stili</div><div class="settingBtns">
+<button onclick="setPtFont('tr','system',this)">Sistem</button><button onclick="setPtFont('tr','serif',this)">Klasik</button><button onclick="setPtFont('tr','rounded',this)">Yuvarlak</button>
+</div><div class="fontPreview">Örnek: İlim, güzel ahlâk ve faydalı söz.</div></div>
+<div class="settingsGroup"><div class="settingsLabel">Arapça yazı stili</div><div class="settingBtns">
+<button onclick="setPtFont('ar','naskh',this)">Nesih</button><button onclick="setPtFont('ar','scheherazade',this)">Scheherazade</button><button onclick="setPtFont('ar','traditional',this)">Klasik</button><button onclick="setPtFont('ar','system',this)">Sistem</button>
+</div><div class="fontPreview" dir="rtl">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div></div>
+<div class="settingsGroup"><div class="settingsLabel">Brezilya Portekizcesi sesi</div>
+<div class="settingBtns">
+<button onclick="savePtVoiceMode('nova',this)">🇧🇷 Nova</button>
+<button onclick="savePtVoiceMode('julian',this)">🇧🇷 Julian</button>
+<button onclick="savePtVoiceMode('device',this)">📱 Telefon sesleri</button>
+</div>
+<div class="small">Nova: pt-BR-Chirp3-HD-Aoede · Julian: pt-BR-Chirp3-HD-Algieba</div>
+<select id="ptVoiceSelect" onchange="savePtVoice(this.value)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:#fff;margin-top:8px"></select>
+<div class="small">Telefon sesleri seçeneğinde cihazındaki pt-BR sesini buradan seçebilirsin.</div></div>
+<div class="settingsGroup"><div class="settingsLabel">Telaffuz hızı</div><input id="speechRate" style="width:100%" type="range" min=".65" max="1.15" step=".05" value=".88" oninput="saveSpeechRate(this.value)"><div class="small">Yavaş ← telaffuz hızı → normal</div></div>
   <button class="btn" onclick="resetPtSettings()">Ayarları sıfırla</button>
  </section>
 </div>
@@ -204,12 +241,28 @@ function toggleLesson(n){lessonDone.includes(n)?lessonDone=lessonDone.filter(x=>
 function toggleStory(n){storyDone.includes(n)?storyDone=storyDone.filter(x=>x!==n):storyDone.push(n);localStorage.setItem("pt99_done",JSON.stringify(storyDone));render()}
 let searchTerm="";
 let savedWords=JSON.parse(localStorage.getItem("pt_saved_words")||"[]");
+
+const EXTRA_PT_TR={"a":"-e/-a; bir (dişil)","o":"-i/-ı; bir (eril)","os":"-ler/-lar","as":"-ler/-lar","de":"-den/-dan; -in/-ın","do":"-den/-dan; -in/-ın","da":"-den/-dan; -in/-ın","dos":"-lerden/-ların","das":"-lerden/-ların","em":"-de/-da; içinde","no":"-de/-da (eril)","na":"-de/-da (dişil)","nos":"-lerde/-larda","nas":"-lerde/-larda","para":"için; -e/-a","por":"tarafından; için; boyunca","com":"ile","sem":"olmadan","sobre":"hakkında; üzerinde","e":"ve","ou":"veya","mas":"ama; fakat","porque":"çünkü; neden","que":"ki; ne; hangi","se":"eğer; kendini","um":"bir","uma":"bir","uns":"bazı","umas":"bazı","este":"bu","esta":"bu","esse":"şu/o","essa":"şu/o","isso":"bu/şu","ele":"o (erkek)","ela":"o (kadın)","eles":"onlar","elas":"onlar","eu":"ben","tu":"sen","nós":"biz","vocês":"siz","você":"sen/siz","meu":"benim","minha":"benim","seu":"senin/onun","sua":"senin/onun","nosso":"bizim","nossa":"bizim","não":"hayır; değil; -me/-ma","sim":"evet","muito":"çok","muita":"çok","mais":"daha; daha fazla","menos":"daha az","também":"de/da; ayrıca","já":"zaten; artık","ainda":"hâlâ; henüz","sempre":"her zaman","nunca":"asla; hiç","hoje":"bugün","amanhã":"yarın","ontem":"dün","agora":"şimdi","depois":"sonra","antes":"önce","bem":"iyi","bom":"iyi","boa":"iyi","grande":"büyük","pequeno":"küçük","nova":"yeni","novo":"yeni","deus":"Allah; Tanrı","senhor":"Rab; efendi","mundo":"dünya; âlem","mundos":"dünyalar; âlemler","religião":"din","fé":"iman; inanç","misericórdia":"merhamet","perdão":"bağışlanma","oração":"dua; namaz","profeta":"peygamber","mensageiro":"elçi; resul","servo":"kul","servos":"kullar","muçulmano":"Müslüman","muçulmanos":"Müslümanlar","islam":"İslam","arrependimento":"tövbe","pecado":"günah","pecados":"günahlar","facilidade":"kolaylık","dificuldade":"zorluk","misericordioso":"merhametli","criador":"yaratıcı","jejum":"oruç","viajante":"yolcu","doente":"hasta","gestante":"hamile","lactante":"emziren kadın","água":"su","pura":"temiz/saf","pureza":"temizlik; saflık","impureza":"necaset; kirlilik","palavra":"kelime; söz","palavras":"kelimeler; sözler","verdade":"hakikat; gerçek","falsidade":"bâtıl; yanlışlık","amor":"sevgi","paz":"barış; huzur","coração":"kalp","conhecimento":"bilgi; ilim","tempo":"zaman","dia":"gün","vida":"hayat","pessoa":"kişi","pessoas":"insanlar","família":"aile","comunidade":"toplum; cemaat"};
+function buildStudyDictionary(){
+ const d=DATA.dictionary||{};Object.entries(EXTRA_PT_TR).forEach(([k,v])=>{if(!d[k])d[k]=v});
+ const put=(pt,tr)=>{pt=String(pt||"").trim().toLowerCase();tr=String(tr||"").trim();if(pt&&tr&&!d[pt])d[pt]=tr};
+ (DATA.verbs||[]).forEach(v=>put(v.inf||v.pt||v.verb||v.word,v.tr||v.turkish||v.meaning));
+ (DATA.stories||[]).forEach(s=>(s.words||[]).forEach(w=>Array.isArray(w)?put(w[0],w[1]):put(w.pt||w.word,w.tr||w.meaning)));
+ (DATA.lessons||[]).forEach(l=>{
+   (l.words||[]).forEach(w=>Array.isArray(w)?put(w[0],w[1]):put(w.pt||w.word,w.tr||w.meaning));
+   if(typeof l.vocab==="string") l.vocab.split(/[,;·]/).forEach(x=>{const m=x.trim().match(/^(.+?)\s*=\s*(.+)$/);if(m)put(m[1],m[2])});
+ });
+ DATA.dictionary=d;
+}
 function dictMeaning(w){
- let exact=Object.keys(DATA.dictionary).find(k=>k.toLowerCase()===w.toLowerCase());
- if(exact)return DATA.dictionary[exact];
- // story vocabulary is often richer than the global dictionary
- for(const s of DATA.stories){for(const pair of (s.words||[])){if(String(pair[0]).toLowerCase()===w.toLowerCase())return pair[1]}}
- return "";
+ const raw=String(w||"").toLowerCase().normalize("NFC").replace(/[.,!?;:()[\]“”"']/g,"").trim();
+ const d=DATA.dictionary||{};
+ if(d[raw])return d[raw];
+ const plain=raw.normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+ for(const [k,v] of Object.entries(d)){if(k.normalize("NFD").replace(/[\u0300-\u036f]/g,"")===plain)return v}
+ const endings=["s","es","os","as"];
+ for(const e of endings)if(raw.endsWith(e)&&d[raw.slice(0,-e.length)])return d[raw.slice(0,-e.length)];
+ return "Türkçe karşılığı henüz sözlükte yok";
 }
 function renderSavedWords(){
  let a=document.getElementById("app");
@@ -244,25 +297,78 @@ function closeWord(){let b=document.getElementById("wordPopup");if(b)b.remove()}
 function toggleSavedWord(w){savedWords.includes(w)?savedWords=savedWords.filter(x=>x!==w):savedWords.push(w);localStorage.setItem("pt_saved_words",JSON.stringify(savedWords));let b=document.getElementById("wordPopup");if(b)b.remove()}
 function setLevel(v){levelFilter=v;document.body.className="level-"+v;render()}
 function setSearch(v){searchTerm=v.toLowerCase().trim();render()}
-function speakPT(t){if(!("speechSynthesis" in window))return; speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";u.rate=ptSpeechRate;speechSynthesis.speak(u)}
-function levelHome(l){levelFilter=l;page="lessons";nav();render();scrollTo(0,0)}
-function todayLesson(){let n=(new Date().getDate()-1)%66+1;levelFilter="ALL";page="lessons";nav();render();setTimeout(()=>{let e=document.getElementById("lesson-"+n);if(e)e.scrollIntoView({behavior:"smooth",block:"start"})},50)}
-function lessonCard(l){let done=lessonDone.includes(l.n);return `<article class="lessonTile ${done?"done":""}"><div class="lessonHead"><div class="lessonNum">${l.n}</div><div><div class="lessonNo">${l.level} · ${esc(l.grammar)}</div><h3>${esc(l.title)}</h3><div class="lessonGoal">${esc(l.goal)}</div></div></div><details><summary class="btn">📚 Ders içeriğini aç</summary><div class="lessonContent"><div class="lessonBox"><b>Aktif kelime / fiiller</b><ol class="lessonVerbList">${String(l.vocab).split(/[,;·]/).map(v=>v.trim()).filter(Boolean).map(v=>`<li>${esc(v)}</li>`).join("")}</ol></div><div class="sectionTitle"><h3>Örnek cümleler</h3><span class="small">dokun → dinle</span></div>${l.examples.map(x=>`<div class="exampleRow"><p>${esc(x)}</p><button class="btn" onclick="speakPT('${x.replace(/'/g,"\'")}')">🔊</button></div>`).join("")}<div class="taskBox"><b>💬 Diyalog</b>${l.dialog.map(x=>`<p>${esc(x)}</p>`).join("")}</div><div class="taskBox"><b>✍️ Üretim görevi</b><br>${esc(l.task)}</div></div></details><button class="btn green" onclick="toggleLesson(${l.n})">${done?"✓ Tamamlandı":"Dersi tamamla"}</button></article>`}
 
-const KHUTBAH=[{"pt":"﴿فَقُولَا لَهُ قَوْلًا لَيِّنًا لَعَلَّهُ يَتَذَكَّرُ أَوْ يَخْشَى﴾<br>«إِنَّ اللَّهَ رَفِيقٌ يُحِبُّ الرِّفْقَ»<br>«إِنَّ اللَّهَ يُحِبُّ الرِّفْقَ فِي الْأَمْرِ كُلِّهِ»","tr":"“Onunla yumuşak bir söz söyleyin. Belki öğüt alır veya Allah’tan korkar.”<br>“Şüphesiz Allah Refîktir, yumuşak davranmayı sever.”<br>“Şüphesiz Allah bütün işlerde yumuşak davranmayı sever.”"},{"pt":"Em nome de Deus, o Clemente, o Misericordioso. “Sede benévolos, e não sejais intransigentes!” Louvado seja Deus, com um louvor abundante, puro e abençoado, conforme convém à majestade de Sua Face e à grandeza de Seu Poder. Testemunho que não há divindade além de Deus, testemunho pelo qual vivemos, morreremos e seremos ressuscitados no Dia da Ressurreição. E testemunho que nosso mestre Muhammad é Seu servo e Mensageiro. Ó Deus, concede Tuas bênçãos e paz sobre ele entre os primeiros e os últimos. Prosseguindo:","tr":"Rahmân ve Rahîm olan Allah’ın adıyla. “Merhametli olun ve katı davranmayın!” Bundan sonra:"},{"pt":"A facilidade na jurisprudência islâmica constitui uma das características mais marcantes desta religião e uma dádiva divina por meio da qual Deus Louvado seja elevou a posição desta mensagem eterna. Todo aquele que contempla as normas da nobre Sharia, em seus diversos aspectos e circunstâncias, percebe claramente que a facilidade e a remoção das dificuldades são objetivos fundamentais. Isso é comprovado pelas palavras do Altíssimo reveladas na surata Al Haj versículo 78: “E não vos impôs dificuldade alguma quanto à religião, porque é o credo de vosso pai, Abraão. Ele vos denominou muçulmanos, antes deste.”, e mencionou na surata Al Bacara versículo 185: “Deus vos deseja a comodidade e não a dificuldade.”","tr":""},{"pt":"Da mesma forma, os ensinamentos do Mensageiro de Deus (S.A.A.S) esclarecem os propósitos da Sharia. O Profeta (S.A.A.S) disse: “A prática da religião é fácil, e a religião é mais forte do que o fanatismo.” (Al-Bukhari). Também (S.A.A.S) disse: “A melhor parte de vossa religião é a mais fácil; a melhor parte de vossa religião é a mais fácil; a melhor parte de vossa religião é a mais fácil.” (Ahmad). E em outra passagem ainda o Profeta (S.A.A.S) afirmou: “Deus ama que Suas concessões sejam aceitas, assim como ama que Suas obrigações sejam cumpridas.” (Ibn Hibban). E, conforme narrou Jabir ibn Abdullah (que Deus esteja satisfeito com ele), que o Profeta (S.A.A.S) declarou: “Deus não me enviou para impor dificuldades nem para agir com rigor; enviou-me como mestre e facilitador.” (Muslim).","tr":""},{"pt":"Manifestações da facilidade na Jurisprudência Islâmica<br>1. A abertura da porta do arrependimento","tr":"Tövbe kapısının açık olması"},{"pt":"Deus, Exaltado seja, revelou na surata Al Zummar versículo 53: “Dize: Ó Meus servos que transgredistes contra vós mesmos! Não desespereis da misericórdia de Deus. Em verdade, Deus perdoa todos os pecados. Ele é, por certo, o Perdoador, o Misericordioso.” Alguns podem não perceber a grandeza dessa facilidade até conhecerem a legislação dos povos anteriores. Quando o povo de Moisés (Que a paz esteja com ele) adorou o bezerro de ouro e desejou arrepender-se, Deus determinou-lhes uma prova extremamente severa: deveriam matar uns aos outros para que seu arrependimento fosse aceito.","tr":""},{"pt":"Deus Louvado seja revelou na surata Al Bacara 54: “Ó povo meu, por certo que vos condenastes, ao adorardes o bezerro. Voltai, portanto, arrependidos, penitenciando-vos para o vosso Criador, e imolai-vos mutuamente. Isso será preferível aos olhos de vosso Criador. Ele vos absolverá, porque é o Remissório, o Misericordiosíssimo.”","tr":""},{"pt":"Quanto ao Islam, a misericórdia e a facilidade manifestam-se no fato de que o arrependimento sincero basta para que Deus aceite o servo. Quem abandona o pecado, arrepende-se sinceramente, decide não voltar a cometê-lo e restitui os direitos de seus proprietários, encontrará Deus Altíssimo aceitando seu arrependimento.","tr":""},{"pt":"2. A facilidade nas regras da purificação","tr":"Temizlik hükümlerindeki kolaylık"},{"pt":"Entre as graças concedidas a esta comunidade está a simplificação das normas relativas à pureza ritual. Nas legislações anteriores, quando uma roupa era atingida por impureza, era necessário cortar a parte contaminada. Conforme relatado pelo Imam Ahmad, o Mensageiro de Deus (S.A.A.S) disse: “Quando a urina atingia a roupa de um dos filhos de Israel, eles cortavam a parte atingida com uma tesoura.” Na Jurisprudência Islâmica, entretanto, basta lavar a parte impura com água pura.","tr":"İslam hukukunda ise necis olan kısmı temiz suyla yıkamak yeterlidir."},{"pt":"3. A facilidade no jejum","tr":"Oruçtaki kolaylık"},{"pt":"Deus Exaltado seja permitiu que o doente, o viajante, a gestante e a lactante interrompam o jejum, conforme mencionado na surata Al Bacara versículo 184: “o cumprir o jejum, por achar-se enfermo ou em viagem, jejuará, depois, o mesmo número de dias.” O Profeta (S.A.A.S) disse: “Deus dispensou o viajante de metade da oração e do jejum, e concedeu licença à gestante e à lactante.” (Narrado por An-Nasa'i). Também faz parte dessa misericórdia o fato de que quem come ou bebe por esquecimento durante o jejum não invalida seu jejum. O Profeta (S.A.A.S) disse: “Quem comer ou beber por esquecimento enquanto jejua deve completar seu jejum, pois foi Deus Quem o alimentou e o saciou.” (Narrado por An-Nasa'i).","tr":""},{"pt":"Esses são apenas alguns exemplos entre muitos outros que demonstram que a Sharia Islâmica é apropriada para todos os tempos e lugares, sendo fundamentada na facilidade e na remoção das dificuldades. Essa é uma característica exclusiva da religião do Islam.","tr":""},{"pt":"O Profeta (S.A.A.S) disse: “Fui enviado com a religião monoteísta, reta e tolerante.” E Ibn Abbas (que Deus esteja satisfeito com ambos) relatou que perguntaram ao Mensageiro de Deus (S.A.A.S): “Qual religião é a mais amada por Deus?” Ele (S.A.A.S) respondeu: “A religião monoteísta, reta e tolerante.” (Narrado por Ahmad).","tr":""},{"pt":"O Profeta Muhammad (S.A.A.S) disse: “Fui enviado com a religião monoteísta, reta e tolerante (Al-Hanifiyyah As-Samhah).” E foi narrado por Ibn Abbas (que Deus esteja satisfeito com ambos) que perguntaram ao Mensageiro de Deus (S.A.A.S): “Qual religião é a mais amada por Deus?” Ele respondeu: “A religião monoteísta, reta e tolerante (Al-Hanifiyyah As-Samhah).” (Narrado por Ahmad).","tr":""},{"pt":"A expressão Al-Hanifiyyah refere-se à religião que se afasta da falsidade e se volta para a verdade, isto é, o monoteísmo puro legado pelo Profeta Abraão (Ibrahim). Já As-Samhah significa a religião fácil, moderada, tolerante e desprovida de rigor excessivo.","tr":""},{"pt":"Entre as nobres características do Mensageiro de Deus (S.A.A.S) está o fato de ter sido enviado como facilitador, portador de boas novas e libertador dos pesados fardos e das severas restrições que recaíam sobre as comunidades anteriores. Deus, o Altíssimo, revelou na surata Al Araf versículo 157: “São aqueles que seguem o Mensageiro, o Profeta iletrado, o qual encontram mencionado em sua Tora e seu Evangelho, o qual lhes recomenda o bem e lhes proíbe o ilícito, prescreve-lhes todo o bem e veda-lhes o imundo, alivia-os dos seus fardos e livra-os dos grilhões que os deprimem.”","tr":""},{"pt":"O termo “fardo” (isr) refere-se às legislações rigorosas e às obrigações pesadas impostas às nações que precederam esta comunidade. Em Sua infinita misericórdia, Deus Louvado seja aliviou a Ummah islâmica, removendo dela esses encargos e tornando lícitas muitas coisas que haviam sido proibidas aos povos anteriores.","tr":""},{"pt":"Por essa razão, o muçulmano recita constantemente esta grandiosa súplica revelada no Alcorão na surata Al Bacara versículo 286: “Ó Senhor nosso, não nos condenes, se nos esquecermos ou nos equivocarmos! Ó Senhor nosso, não nos imponhas carga, como a que impuseste aos nossos antepassados! Ó Senhor nosso, não nos sobrecarregues com o que não podemos suportar! Absolve-nos! Perdoa-nos! Tem misericórdia de nós! Tu és nosso Protetor! Concede-nos a vitória sobre os incrédulos!”","tr":""},{"pt":"E em um hadith autêntico, Deus Exaltado seja respondeu a essa súplica dizendo: “Já o fiz.” Ou seja, Deus aceitou essa invocação, atendeu ao pedido de Seus servos e concedeu à comunidade de Muhammad (S.A.A.S) a facilidade, a misericórdia e o alívio dos encargos excessivos que pesavam sobre as nações anteriores. Ou seja, aceitei vossa súplica e concedi aquilo que Me pedistes.","tr":""},{"pt":"Estas são minhas palavras e rogo perdão a Deus, o Grandioso, por mim e por vós. E nossa última de nossas súplicas é: Louvado seja Deus, Senhor dos mundos.","tr":""}];
-function renderKhutbah(){
- const a=document.getElementById("app");
- a.innerHTML=`<div class="card khHero"><div class="kicker">Dinleme · okuma · kelime</div><h2>🕌 Portekizce Hutbe Çalışması</h2><p class="heroNote">Hutbeyi paragraf paragraf çalış. Portekizce kelimelere dokunarak Türkçe anlamını gör, telaffuzunu dinle ve kelime defterine kaydet.</p><div class="khTools"><button class="btn green" onclick="speakPT(KHUTBAH.map(x=>x.pt).join(' '))">🔊 Hutbenin tamamını dinle</button><button class="btn" onclick="openSaved()">🔖 Kelime defteri</button></div></div>
- <div class="card">${KHUTBAH.map((x,i)=>`<article class="khPara"><div class="storyMeta"><span class="khTag">Bölüm ${i+1}</span><span class="khTag">${i<2?"A1–A2":i<4?"A2":"B1"}</span></div><p class="khPt">${storyTokenize(x.pt)}</p>${x.tr?`<p class="khTr">${esc(x.tr)}</p>`:""}<button class="btn" onclick="speakPT(KHUTBAH[${i}].pt)">🔊 Dinle</button></article>`).join("")}</div>`;
+
+const CLOUD_PT_VOICES={
+ nova:{label:"Nova",name:"pt-BR-Chirp3-HD-Aoede",lang:"pt-BR"},
+ julian:{label:"Julian",name:"pt-BR-Chirp3-HD-Algieba",lang:"pt-BR"}
+};
+function savePtVoiceMode(mode){
+ localStorage.setItem("pt_voice_mode",mode);
+ const sel=document.getElementById("ptVoiceSelect");
+ if(sel)sel.style.display=mode==="device"?"block":"none";
+}
+function ptVoiceMode(){return localStorage.getItem("pt_voice_mode")||"nova"}
+async function speakCloudPT(text){
+ const mode=ptVoiceMode(), cfg=CLOUD_PT_VOICES[mode];
+ if(!cfg)return false;
+ // İsteğe bağlı güvenli sunucu/proxy adresi. API anahtarı HTML içine konmaz.
+ const endpoint=localStorage.getItem("pt_tts_endpoint")||"";
+ if(!endpoint)return false;
+ try{
+   const res=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},
+     body:JSON.stringify({text:String(text||""),languageCode:"pt-BR",voiceName:cfg.name})});
+   if(!res.ok)throw new Error("TTS");
+   const blob=await res.blob(); const url=URL.createObjectURL(blob);
+   const audio=new Audio(url); audio.onended=()=>URL.revokeObjectURL(url); await audio.play(); return true;
+ }catch(e){return false}
+}
+function brazilVoices(){return ("speechSynthesis" in window)?speechSynthesis.getVoices().filter(v=>/^pt[-_]BR/i.test(v.lang)):[]}
+function fillPtVoices(){
+ const mode=ptVoiceMode();
+ const el=document.getElementById("ptVoiceSelect");if(!el)return;el.style.display=mode==="device"?"block":"none";
+ const vs=brazilVoices(),saved=localStorage.getItem("pt_voice_name")||"";
+ el.innerHTML=vs.length?vs.map((v,i)=>`<option value="${esc(v.name)}" ${v.name===saved?"selected":""}>${esc(v.name)} · ${esc(v.lang)}</option>`).join(""):`<option>Varsayılan pt-BR sesi</option>`;
+}
+function savePtVoice(name){localStorage.setItem("pt_voice_name",name)}
+function getBrazilianStudyVoice(){
+ const vs=brazilVoices();if(!vs.length)return null;
+ const saved=localStorage.getItem("pt_voice_name");
+ if(saved){const v=vs.find(x=>x.name===saved);if(v)return v}
+ // Varsayılan olarak listede birden fazla ses varsa ilk yerine ikinci pt-BR sesi kullan.
+ return vs.length>1?vs[1]:vs[0];
+}
+async function speakPT(text){
+ if(!text)return;
+ const mode=ptVoiceMode();
+ if(mode!=="device" && await speakCloudPT(text))return;
+ if(!("speechSynthesis" in window))return;
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(String(text).replace(/<[^>]*>/g," "));
+ u.lang="pt-BR";u.rate=parseFloat(localStorage.getItem("pt_speech_rate")||"0.9");
+ const v=getBrazilianStudyVoice();if(v)u.voice=v;
+ speechSynthesis.speak(u);
 }
 let ptSpeechRate=parseFloat(localStorage.getItem("pt_speech_rate")||".88");
-function openPtSettings(){document.getElementById("ptSettings").classList.add("show");syncPtSettings()}
+function openPtSettings(){document.getElementById("ptSettings").classList.add("show");syncPtSettings();fillPtVoices()}
 function closePtSettings(){document.getElementById("ptSettings").classList.remove("show")}
 function setPtSetting(type,val){
  if(type==="size"){localStorage.setItem("pt_size",val)}
  if(type==="theme"){localStorage.setItem("pt_theme",val)}
  if(type==="focus"){localStorage.setItem("pt_focus",localStorage.getItem("pt_focus")==="1"?"0":"1")}
  applyPtSettings();syncPtSettings()
+}
+
+function setPtFont(kind,val){
+ localStorage.setItem(kind==="tr"?"pt_tr_font":"pt_ar_font",val);applyPtFonts()
+}
+function applyPtFonts(){
+ const tr=localStorage.getItem("pt_tr_font")||"system";
+ const ar=localStorage.getItem("pt_ar_font")||"naskh";
+ const trMap={system:'system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',serif:'Georgia,"Times New Roman",serif',rounded:'"Trebuchet MS","Arial Rounded MT Bold",Arial,sans-serif'};
+ const arMap={naskh:'"Noto Naskh Arabic","Scheherazade New",serif',scheherazade:'"Scheherazade New","Scheherazade","Noto Naskh Arabic",serif',traditional:'"Amiri","Noto Naskh Arabic",serif',system:'Arial,Tahoma,sans-serif'};
+ document.documentElement.style.setProperty("--pt-tr-font",trMap[tr]||trMap.system);
+ document.documentElement.style.setProperty("--pt-ar-font",arMap[ar]||arMap.naskh);
 }
 function toggleTranslations(on){localStorage.setItem("pt_translations",on?"1":"0");applyPtSettings()}
 function saveSpeechRate(v){ptSpeechRate=parseFloat(v);localStorage.setItem("pt_speech_rate",v)}
@@ -276,7 +382,7 @@ function syncPtSettings(){
  let t=document.getElementById("translationToggle");if(t)t.checked=localStorage.getItem("pt_translations")!=="0";
  let r=document.getElementById("speechRate");if(r)r.value=localStorage.getItem("pt_speech_rate")||".88";
 }
-function resetPtSettings(){["pt_size","pt_theme","pt_focus","pt_translations","pt_speech_rate"].forEach(k=>localStorage.removeItem(k));ptSpeechRate=.88;applyPtSettings();syncPtSettings()}
+function resetPtSettings(){["pt_size","pt_theme","pt_focus","pt_translations","pt_speech_rate","pt_tr_font","pt_ar_font"].forEach(k=>localStorage.removeItem(k));ptSpeechRate=.88;applyPtSettings();syncPtSettings()}
 function render(){
  const a=document.getElementById("app");
  if(page==="saved"){renderSavedWords();return}
@@ -332,5 +438,5 @@ function openStory(i){
  const trs=(s.tr||"").match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[s.tr||""];
  const paired=pts.map((p,j)=>`<p class="storyText">${storyTokenize(p.trim())}</p><p class="storyTr">${esc((trs[j]||"").trim())}</p>`).join("");
  document.getElementById("app").innerHTML=`<button class="btn backHome" onclick="go('stories')">← ${levelFilter} hikâyelerine dön</button><div class="card story"><span class="badge">${levelFilter}</span><h2>${i+1}. ${esc(s.title)}</h2><div class="storyMeta"><span class="badge">📖 Hikâye ${i+1}/99</span><span class="badge">👆 Kelimelere dokunabilirsin</span></div>${paired}<button class="btn" onclick="speakPT(DATA.stories[${i}].text)">🔊 Portekizce hikâyeyi dinle</button></div><div class="card"><h2>Kelime çalışması</h2>${s.words.map(w=>`<span class="wordtag">${esc(w[0])} = ${esc(w[1])}</span>`).join("")}<h3>Anlama soruları</h3><p>1. Metnin ana konusu nedir?</p><p>2. Kişi hangi sorun veya durumla karşılaşıyor?</p><p>3. Olayın sonucunu Portekizce iki cümleyle anlat.</p><h3>Üretim</h3><textarea placeholder="Hikâyeyi kendi cümlelerinle Portekizce yeniden yaz..."></textarea><p><button class="btn green" onclick="toggleStory(${i})">${storyDone.includes(i)?"✓ Tamamlandı":"Hikâyeyi tamamla"}</button></p></div>`} 
-applyPtSettings();nav();render();
+buildStudyDictionary();applyPtFonts();applyPtSettings();if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=fillPtVoices;nav();render();
 </script></body></html>
