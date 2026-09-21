@@ -345,6 +345,17 @@ button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible
 .compactAction{border:1px solid rgba(75,47,36,.13);background:#f6efe8;color:#4b2f24;border-radius:10px;padding:8px 10px;font-size:11px;font-weight:750;margin-top:7px}
 .efficientFooter{display:flex;gap:8px;padding:11px 14px 14px;border-top:1px solid rgba(75,47,36,.08)}.efficientFooter>*{flex:1}
 .efficientLesson .lessonWords{margin-top:7px}.efficientLesson .wordtag{color:#4b2f24}
+
+/* v28 — Hikâye ve Hutbe Türkçe aç/kapat oku */
+.khPara,.storyPara,.storyBlock{position:relative}
+.translationArrow{float:right;margin:-2px 2px 5px 8px;width:32px;height:32px;border:1px solid rgba(75,47,36,.14);border-radius:10px;background:#f6efe8;color:#4b2f24;font-size:18px;font-weight:800;display:grid;place-items:center;padding:0;line-height:1}
+.translationArrow.open{background:#eadfD2}
+.tapTranslation{display:none!important;clear:both}
+.tapTranslation.translationOpen{display:block!important}
+
+.storySentence{position:relative;padding-right:38px}
+.storySentence>.translationArrow{position:absolute;right:0;top:2px;float:none}
+.khPara>.translationArrow{float:right}
 </style></head><body><div id="readingProgress" aria-hidden="true" style="position:fixed;left:0;top:0;height:3px;width:0;background:var(--green);z-index:9999;transition:width .12s linear"></div>
 <button id="backTop" aria-label="Yukarı dön" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;right:14px;bottom:82px;z-index:50;border:0;border-radius:50%;width:44px;height:44px;background:var(--green);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.18);font-size:18px">↑</button>
 
@@ -543,8 +554,8 @@ function renderKhutbah(){
  const a=document.getElementById("app"), opening=KHUTBAH[0];
  const ar=String(opening.pt||"").split(/\n|<br\s*\/?>/i).filter(Boolean);
  a.innerHTML=`<div class="card khHero"><div class="kicker">Dinleme · okuma · kelime</div><h2>🕌 Portekizce Hutbe Çalışması</h2><p class="heroNote">Hutbeyi paragraf paragraf çalış. Portekizce kelimelere dokunarak Türkçe anlamını gör, telaffuzunu dinle ve kelime defterine kaydet.</p><div class="khTools"><button class="btn green" onclick="speakPT(KHUTBAH.slice(1).map(x=>x.pt).join(' '))">🔊 Hutbenin tamamını dinle</button><button class="btn" onclick="openSaved()">🔖 Kelime defteri</button></div></div>
- <div class="card"><article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[0].pt)">🔊 Dinle</button><span class="khTag">Bölüm 1</span><span class="khTag">Ayet · Hadis</span></div>${ar[0]?`<div class="khAyah">${ar[0]}</div>`:""}${ar.slice(1).map(v=>`<div class="khHadith">${v}</div>`).join("")}<p class="khTr khOpeningTr">${esc(opening.tr)}</p></article>
- ${KHUTBAH.slice(1).map((x,j)=>{const i=j+1,level=i<8?"A1–A2":i<20?"A2":"B1";return `<article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[${i}].pt)">🔊 Dinle</button><span class="khTag">Bölüm ${i+1}</span><span class="khTag">${level}</span></div><p class="khPt">${storyTokenize(x.pt)}</p><p class="khTr">${esc(x.tr)}</p></article>`}).join("")}</div>`;
+ <div class="card"><article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[0].pt)">🔊 Dinle</button><span class="khTag">Bölüm 1</span><span class="khTag">Ayet · Hadis</span></div>${ar[0]?`<div class="khAyah">${ar[0]}</div>`:""}${ar.slice(1).map(v=>`<div class="khHadith">${v}</div>`).join("")}<button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><p class="khTr khOpeningTr tapTranslation">${esc(opening.tr)}</p></article>
+ ${KHUTBAH.slice(1).map((x,j)=>{const i=j+1,level=i<8?"A1–A2":i<20?"A2":"B1";return `<article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[${i}].pt)">🔊 Dinle</button><span class="khTag">Bölüm ${i+1}</span><span class="khTag">${level}</span></div><p class="khPt">${storyTokenize(x.pt)}</p><button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><p class="khTr tapTranslation">${esc(x.tr)}</p></article>`}).join("")}</div>`;
 }
 
 
@@ -758,7 +769,7 @@ function openStory(i){
  const s=DATA.stories[i]; page="stories"; levelFilter=s.level||"A1"; document.body.className="level-"+levelFilter; nav();
  const pts=s.text.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[s.text];
  const trs=(s.tr||"").match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[s.tr||""];
- const paired=pts.map((p,j)=>`<p class="storyText">${storyTokenize(p.trim())}</p><p class="storyTr">${esc((trs[j]||"").trim())}</p>`).join("");
+ const paired=pts.map((p,j)=>`<div class="storySentence"><p class="storyText">${storyTokenize(p.trim())}</p><button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><p class="storyTr tapTranslation">${esc((trs[j]||"").trim())}</p></div>`).join("");
  document.getElementById("app").innerHTML=`<button class="btn backHome" onclick="go('stories')">← ${levelFilter} hikâyelerine dön</button><div class="card story"><span class="badge">${levelFilter}</span><h2>${i+1}. ${esc(s.title)}</h2><div class="storyMeta"><span class="badge">📖 Hikâye ${i+1}/99</span><span class="badge">👆 Kelimelere dokunabilirsin</span></div>${paired}<button class="btn" onclick="speakPT(DATA.stories[${i}].text)">🔊 Portekizce hikâyeyi dinle</button></div><div class="card"><h2>Kelime çalışması</h2>${s.words.map(w=>`<span class="wordtag">${esc(w[0])} = ${esc(w[1])}</span>`).join("")}<h3>Anlama soruları</h3><p>1. Metnin ana konusu nedir?</p><p>2. Kişi hangi sorun veya durumla karşılaşıyor?</p><p>3. Olayın sonucunu Portekizce iki cümleyle anlat.</p><h3>Üretim</h3><textarea placeholder="Hikâyeyi kendi cümlelerinle Portekizce yeniden yaz..."></textarea><p><button class="btn green" onclick="toggleStory(${i})">${storyDone.includes(i)?"✓ Tamamlandı":"Hikâyeyi tamamla"}</button></p></div>`} 
 buildStudyDictionary();applyPtFonts();applyPtSettings();if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=fillPtVoices;nav();render();
 
@@ -786,5 +797,15 @@ buildStudyDictionary();applyPtFonts();applyPtSettings();if("speechSynthesis" in 
  },{passive:true});
  window.appBack=appBack;
 })();
+
+
+function toggleTranslation(btn){
+ const tr=btn.nextElementSibling;
+ if(!tr)return;
+ const open=tr.classList.toggle("translationOpen");
+ btn.classList.toggle("open",open);
+ btn.textContent=open?"⌃":"⌄";
+ btn.setAttribute("aria-label",open?"Türkçe çeviriyi gizle":"Türkçe çeviriyi göster");
+}
 
 </script></body></html>
