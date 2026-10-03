@@ -356,6 +356,19 @@ button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible
 .storySentence{position:relative;padding-right:38px}
 .storySentence>.translationArrow{position:absolute;right:0;top:2px;float:none}
 .khPara>.translationArrow{float:right}
+
+/* v29 — Hikâye ve hutbede çeviri için yalnız ok */
+.translationArrow{
+ border:0!important;background:transparent!important;box-shadow:none!important;
+ border-radius:0!important;width:auto!important;height:auto!important;
+ min-width:28px;padding:0 4px!important;color:#4b2f24!important;
+ font-size:27px!important;font-weight:500!important;line-height:1!important;
+ appearance:none!important;-webkit-appearance:none!important;
+}
+.translationArrow.open{background:transparent!important}
+.storySentence{padding-right:42px!important}
+.storySentence>.translationArrow{position:absolute!important;right:4px!important;top:5px!important;float:none!important}
+.khPara>.translationArrow{background:transparent!important}
 </style></head><body><div id="readingProgress" aria-hidden="true" style="position:fixed;left:0;top:0;height:3px;width:0;background:var(--green);z-index:9999;transition:width .12s linear"></div>
 <button id="backTop" aria-label="Yukarı dön" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;right:14px;bottom:82px;z-index:50;border:0;border-radius:50%;width:44px;height:44px;background:var(--green);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.18);font-size:18px">↑</button>
 
