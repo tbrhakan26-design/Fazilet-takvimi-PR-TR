@@ -369,6 +369,797 @@ button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible
 .storySentence{padding-right:42px!important}
 .storySentence>.translationArrow{position:absolute!important;right:4px!important;top:5px!important;float:none!important}
 .khPara>.translationArrow{background:transparent!important}
+
+/* v30 — Hikâye çeviri oku paragraf sonuna bitişik */
+.storySentence{position:relative!important;padding-right:0!important}
+.storySentence .storyText{display:block!important;padding-right:0!important}
+.storyInlineArrow{
+ position:static!important;float:none!important;display:inline!important;
+ vertical-align:baseline!important;margin-left:5px!important;
+ border:0!important;background:none!important;box-shadow:none!important;
+ border-radius:0!important;width:auto!important;height:auto!important;
+ min-width:0!important;padding:0!important;color:#4b2f24!important;
+ font-size:22px!important;font-weight:500!important;line-height:1!important;
+ appearance:none!important;-webkit-appearance:none!important;
+}
+
+/* v31 — Hikâye sadeleştirme ve paragraf araçları */
+.storyEndTools{display:inline-flex;align-items:center;gap:7px;margin-left:5px;vertical-align:baseline}
+.storyInlineArrow{
+ color:#d97822!important;
+ font-size:24px!important;
+ font-weight:800!important;
+ transform:scaleX(1.12)!important; /* yaklaşık 110° daha açık chevron görünümü */
+ transform-origin:center!important;
+}
+.storyInlineSpeak{
+ border:0!important;background:transparent!important;box-shadow:none!important;
+ padding:0!important;margin:0!important;width:auto!important;height:auto!important;
+ min-width:0!important;font-size:18px!important;line-height:1!important;
+ vertical-align:baseline!important;appearance:none!important;-webkit-appearance:none!important;
+}
+.storyTr.tapTranslation{
+ position:relative!important;
+ border-left:2px solid #e8892f!important;
+ border-top:2px solid #e8892f!important;
+ border-radius:8px 0 0 0!important;
+ padding:9px 10px 10px 12px!important;
+ margin-top:8px!important;
+}
+
+/* v32 — Hikâye oklarının açısı ve şekli birebir aynı */
+.storyInlineArrow{
+ transform:none!important;
+ font-family:Arial,sans-serif!important;
+ font-size:27px!important;
+ font-weight:700!important;
+ display:inline-block!important;
+}
+.storyInlineArrow.arrowDown{transform:rotate(180deg)!important}
+
+/* v33 — Tek geometrili, satır ortalı hikâye oku */
+.storyEndTools{
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ gap:8px!important;
+ margin-left:7px!important;
+ vertical-align:middle!important;
+ line-height:1!important;
+}
+.storyInlineArrow{
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ position:static!important;
+ width:25px!important;height:25px!important;
+ min-width:25px!important;
+ margin:0!important;padding:0!important;
+ border:0!important;background:transparent!important;box-shadow:none!important;
+ transform:none!important;
+ vertical-align:middle!important;
+}
+.storyChevron{
+ display:block!important;
+ width:13px!important;height:13px!important;
+ border-left:4px solid #df7d20!important;
+ border-top:4px solid #df7d20!important;
+ transform:rotate(45deg)!important; /* yukarı */
+ transform-origin:center!important;
+ box-sizing:border-box!important;
+}
+.storyInlineArrow.arrowDown .storyChevron{
+ transform:rotate(225deg)!important; /* aynı okun tam 180° tersi */
+}
+.storyInlineSpeak{
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ vertical-align:middle!important;
+ margin:0!important;
+ line-height:1!important;
+}
+
+/* v34 — Ok geometrisi sabit: yalnız yön değişir */
+.storyInlineArrow{
+ width:28px!important;height:28px!important;min-width:28px!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ margin:0!important;padding:0!important;border:0!important;background:transparent!important;
+ box-shadow:none!important;transform:rotate(0deg)!important;
+ transform-origin:50% 50%!important;
+}
+.storyChevron{
+ width:15px!important;height:15px!important;
+ display:block!important;
+ border:0!important;
+ border-left:3px solid #df7d20!important;
+ border-top:3px solid #df7d20!important;
+ box-sizing:border-box!important;
+ transform:rotate(45deg)!important;
+ transform-origin:50% 50%!important;
+}
+.storyInlineArrow.arrowDown{
+ transform:rotate(180deg)!important;
+}
+.storyInlineArrow.arrowDown .storyChevron{
+ transform:rotate(45deg)!important;
+}
+/* Araçları metin satırının görsel merkezinde tut */
+.storyEndTools{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ gap:8px!important;vertical-align:middle!important;line-height:1!important;
+}
+
+/* v35 — Aynı ok, sadece yön değiştirir */
+.storyInlineArrow{
+ transform:rotate(0deg)!important;
+ transition:transform .16s ease!important;
+ transform-origin:50% 50%!important;
+}
+.storyInlineArrow .storyChevron{
+ width:15px!important;height:15px!important;
+ border-left:3px solid #df7d20!important;
+ border-top:3px solid #df7d20!important;
+ transform:rotate(225deg)!important; /* kapalı: aşağı */
+ transform-origin:50% 50%!important;
+ box-sizing:border-box!important;
+}
+.storyInlineArrow.arrowDown{
+ transform:rotate(0deg)!important;
+}
+.storyInlineArrow:not(.arrowDown){
+ transform:rotate(180deg)!important; /* açık: AYNI oku yukarı çevir */
+}
+.storyInlineArrow:not(.arrowDown) .storyChevron,
+.storyInlineArrow.arrowDown .storyChevron{
+ width:15px!important;height:15px!important;
+ border-left-width:3px!important;border-top-width:3px!important;
+ border-left-color:#df7d20!important;border-top-color:#df7d20!important;
+ transform:rotate(225deg)!important;
+}
+
+/* v36 — Kesin ok düzeltmesi: TEK SVG, yalnız 180° yön değişimi */
+.storyInlineArrow{
+ display:inline-flex!important;
+ align-items:center!important;
+ justify-content:center!important;
+ width:30px!important;height:24px!important;min-width:30px!important;
+ padding:0!important;margin:0!important;
+ border:0!important;background:none!important;box-shadow:none!important;
+ border-radius:0!important;
+ transform:rotate(180deg)!important; /* Türkçe açık: yukarı */
+ transform-origin:50% 50%!important;
+ transition:transform .16s ease!important;
+}
+.storyInlineArrow.arrowDown{
+ transform:rotate(0deg)!important; /* Türkçe kapalı: aşağı */
+}
+.storyChevronSvg{
+ display:block!important;
+ width:24px!important;height:14px!important;
+ overflow:visible!important;
+}
+.storyChevronSvg polyline{
+ fill:none!important;
+ stroke:#df7d20!important;
+ stroke-width:3!important;
+ stroke-linecap:round!important;
+ stroke-linejoin:round!important;
+ vector-effect:non-scaling-stroke!important;
+}
+.storyInlineArrow.arrowDown .storyChevronSvg,
+.storyInlineArrow:not(.arrowDown) .storyChevronSvg{
+ width:24px!important;height:14px!important;
+ transform:none!important;
+}
+
+/* v37 — Ok sabit konumda; yalnız aynı geometrinin yönü görünür/gizli */
+.storyInlineArrow,
+.storyInlineArrow.arrowDown,
+.storyInlineArrow:not(.arrowDown){
+ transform:none!important;
+ width:30px!important;height:24px!important;min-width:30px!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ padding:0!important;margin:0!important;border:0!important;background:transparent!important;
+ box-shadow:none!important;vertical-align:middle!important;
+}
+.storyChevronSvg{
+ width:24px!important;height:14px!important;display:block!important;
+ overflow:visible!important;transform:none!important;
+}
+.storyChevronSvg .chevDown,
+.storyChevronSvg .chevUp{
+ fill:none!important;stroke:#df7d20!important;stroke-width:3!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important;
+ vector-effect:non-scaling-stroke!important;
+}
+.storyInlineArrow.arrowDown .chevDown{display:block!important}
+.storyInlineArrow.arrowDown .chevUp{display:none!important}
+.storyInlineArrow:not(.arrowDown) .chevDown{display:none!important}
+.storyInlineArrow:not(.arrowDown) .chevUp{display:block!important}
+.storyEndTools{align-items:center!important;vertical-align:middle!important}
+
+/* v38 — Görünür 180° ok animasyonu */
+.storyInlineArrow,
+.storyInlineArrow.arrowDown,
+.storyInlineArrow:not(.arrowDown){
+ transform:none!important;
+ width:30px!important;height:24px!important;min-width:30px!important;
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ padding:0!important;margin:0!important;border:0!important;background:transparent!important;
+ box-shadow:none!important;overflow:visible!important;
+}
+.storyChevronSvg{
+ width:24px!important;height:14px!important;display:block!important;overflow:visible!important;
+ transform-origin:50% 50%!important;
+ transition:transform .34s cubic-bezier(.4,0,.2,1)!important;
+}
+.storyInlineArrow.arrowDown .storyChevronSvg{transform:rotate(0deg)!important}
+.storyInlineArrow:not(.arrowDown) .storyChevronSvg{transform:rotate(180deg)!important}
+.storyChevronSvg .chevOne{
+ display:block!important;fill:none!important;stroke:#df7d20!important;stroke-width:3!important;
+ stroke-linecap:round!important;stroke-linejoin:round!important;vector-effect:non-scaling-stroke!important;
+}
+
+/* v39 — Ok dönüşü JS tarafından kare kare uygulanır */
+.storyChevronSvg{
+ transform-origin:50% 50%!important;
+ transition:none!important;
+ will-change:transform!important;
+}
+
+/* v40 — Tüm Portekizce paragraflarda ortak ok + kompakt ses */
+.ptInlineTools{
+ display:inline-flex!important;align-items:center!important;gap:5px!important;
+ margin-left:5px!important;vertical-align:middle!important;line-height:1!important;
+ white-space:nowrap!important;
+}
+.ptInlineTools .storyInlineArrow{
+ width:25px!important;height:20px!important;min-width:25px!important;
+ vertical-align:middle!important;
+}
+.ptInlineTools .storyChevronSvg{width:22px!important;height:13px!important}
+.ptMiniSpeak{
+ font-size:14px!important;width:22px!important;height:22px!important;min-width:22px!important;
+ padding:0!important;margin:0!important;border:0!important;background:transparent!important;
+ box-shadow:none!important;line-height:1!important;
+}
+.ptInlineUnit .tapTranslation{margin-top:5px!important}
+.lessonPtLine{margin:2px 0!important;font-size:13px!important;line-height:1.6!important;color:#4b2f24}
+.practiceSentence{display:block!important;padding:7px 0!important}
+.practiceSentence .sentenceTR{display:none!important}
+.practiceSentence .sentenceTR.translationOpen{display:block!important}
+.dialogLine{padding:3px 0}
+.dialogLine>p{margin:2px 0!important}
+.dialogTR{display:none;background:linear-gradient(to bottom,rgba(238,164,73,.24),rgba(238,164,73,.06));border-left:2px solid #e8892f;border-top:2px solid #e8892f;padding:6px 8px;font-size:11px;color:#694733}
+.dialogTR.translationOpen{display:block!important}
+.khPt .ptInlineTools{margin-left:6px!important}
+.resourcePT{display:grid!important;grid-template-columns:28px 1fr!important;align-items:start!important}
+.resourceTR.translationOpen{display:block!important}
+
+/* v41 — Kelimenin hemen altında sözlük konuşma balonu */
+.wordBubble{
+ position:fixed!important;z-index:99999!important;
+ background:#fffaf2!important;border:1px solid rgba(94,60,39,.18)!important;
+ border-radius:14px!important;padding:11px 12px 9px!important;
+ box-shadow:0 9px 28px rgba(55,38,27,.20)!important;
+ color:#4b2f24!important;box-sizing:border-box!important;
+}
+.wordBubbleArrow{
+ position:absolute;top:-7px;width:13px;height:13px;
+ background:#fffaf2;border-left:1px solid rgba(94,60,39,.18);
+ border-top:1px solid rgba(94,60,39,.18);transform:translateX(-50%) rotate(45deg);
+}
+.wordBubble.above .wordBubbleArrow{top:auto;bottom:-7px;transform:translateX(-50%) rotate(225deg)}
+.wordBubblePt{font-size:16px;font-weight:850;color:#4b2f24;margin-bottom:3px}
+.wordBubbleTr{font-size:13px;line-height:1.4;color:#6b4935}
+.wordBubbleTr small{display:block;font-size:9px;color:#9a7c68;margin-top:3px}
+.wordLoading{font-size:11px;color:#92745f}
+.wordBubbleActions{display:flex;gap:7px;margin-top:8px}
+.wordBubbleActions button{
+ width:34px;height:30px;border:1px solid rgba(75,47,36,.12);border-radius:9px;
+ background:#f5eadf;color:#4b2f24;display:grid;place-items:center;padding:0;font-size:15px
+}
+.storyWord{cursor:pointer;position:relative}
+
+/* v42 — kelime dokunma alanı */
+.storyWord,.wordtag{
+ pointer-events:auto!important;
+ touch-action:manipulation!important;
+ -webkit-tap-highlight-color:rgba(223,125,32,.14);
+}
+.wordBubble{pointer-events:auto!important}
+
+/* v43 — Sözlük balonu: "Portekizce - Türkçe" tek satır */
+.wordBubbleMeaning{
+ display:flex!important;
+ align-items:baseline!important;
+ flex-wrap:wrap!important;
+ gap:0!important;
+ font-size:14px!important;
+ line-height:1.45!important;
+ color:#4b2f24!important;
+}
+.wordBubbleMeaning .wordBubblePt{
+ display:inline!important;
+ margin:0!important;
+ font-size:14px!important;
+ font-weight:850!important;
+ color:#4b2f24!important;
+}
+.wordDash{
+ display:inline!important;
+ padding:0 5px!important;
+ color:#9a6542!important;
+ font-weight:700!important;
+}
+.wordBubbleMeaning .wordBubbleTr{
+ display:inline!important;
+ font-size:14px!important;
+ line-height:inherit!important;
+ color:#6b4935!important;
+}
+.wordBubbleActions{
+ display:flex!important;
+ align-items:center!important;
+ gap:7px!important;
+ margin-top:7px!important;
+}
+
+/* v44 — Her paragrafın açılır Türkçe bölümü: örnekteki yeşil şeritli kart */
+.paragraphTurkish{
+ display:none;
+ box-sizing:border-box!important;
+ width:100%!important;
+ margin:7px 0 12px!important;
+ padding:10px 12px 11px 14px!important;
+ background:linear-gradient(90deg,#f1eadf 0%,#f7f1e7 100%)!important;
+ border:0!important;
+ border-left:5px solid #2f7b62!important;
+ border-radius:12px!important;
+ color:#67594d!important;
+ font-size:13px!important;
+ line-height:1.55!important;
+ text-align:left!important;
+ font-weight:400!important;
+}
+.paragraphTurkish.translationOpen,
+.paragraphTurkish.show{
+ display:block!important;
+}
+.paragraphTurkish b{
+ color:#2f715b!important;
+ font-weight:850!important;
+ margin-right:4px!important;
+}
+.paragraphTurkish span{
+ color:#67594d!important;
+ font-weight:400!important;
+}
+
+/* v46 — Referanstaki gibi kalın, yuvarlatılmış yeşil sol şerit */
+.paragraphTurkish{
+ position:relative!important;
+ border-left:0!important;
+ overflow:hidden!important;
+ padding-left:17px!important;
+}
+.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ left:0!important;
+ top:0!important;
+ bottom:0!important;
+ width:7px!important;
+ background:#2f7b62!important;
+ border-radius:12px 0 0 12px!important;
+}
+
+/* v47 — Türkçe kutu: turuncu şerit yok, dört köşe oval, yeşil şerit oval */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish{
+ border:0!important;
+ border-top:0!important;
+ border-left:0!important;
+ border-right:0!important;
+ border-bottom:0!important;
+ border-radius:16px!important;
+ overflow:hidden!important;
+ background:linear-gradient(90deg,#f1eadf 0%,#f7f1e7 100%)!important;
+ padding-left:18px!important;
+}
+.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ left:4px!important;
+ top:5px!important;
+ bottom:5px!important;
+ width:7px!important;
+ background:#2f7b62!important;
+ border-radius:999px!important;
+}
+
+/* v48 — Referans: yeşil şerit kutunun sol kenarına tamamen yapışık */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish{
+ position:relative!important;
+ overflow:hidden!important;
+ border:0!important;
+ border-radius:16px!important;
+ padding-left:20px!important;
+}
+.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ left:0!important;
+ top:0!important;
+ bottom:0!important;
+ width:8px!important;
+ background:#2f7b62!important;
+ border-radius:16px 0 0 16px!important;
+ margin:0!important;
+}
+
+/* v49 — TÜM açılır Türkçe paragraflar: referanstaki #748074 şerit */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ position:relative!important;
+ overflow:hidden!important;
+ border:0!important;
+ border-top:0!important;
+ border-right:0!important;
+ border-bottom:0!important;
+ border-left:0!important;
+ border-radius:16px!important;
+ padding-left:21px!important;
+}
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ z-index:1!important;
+ left:0!important;
+ top:0!important;
+ bottom:0!important;
+ width:9px!important;
+ margin:0!important;
+ background:#748074!important;
+ border-radius:16px 0 0 16px!important;
+ box-shadow:none!important;
+ opacity:1!important;
+}
+
+/* v50 — İnce kapsül şerit: sağ ve sol kenarları tamamen yuvarlak */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ left:3px!important;
+ top:4px!important;
+ bottom:4px!important;
+ width:6px!important;
+ background:#748074!important;
+ border-radius:999px!important;
+}
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ padding-left:18px!important;
+}
+
+/* v51 — Türkçe kutunun solunda HİLAL biçimli #748074 vurgu */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ position:relative!important;
+ overflow:hidden!important;
+ padding-left:20px!important;
+}
+
+/* Düz/kapsül şerit yerine kutunun sol ovalini takip eden hilal */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ left:-11px!important;
+ top:50%!important;
+ bottom:auto!important;
+ width:24px!important;
+ height:calc(100% - 8px)!important;
+ min-height:28px!important;
+ transform:translateY(-50%)!important;
+ background:transparent!important;
+ border:6px solid #748074!important;
+ border-right-color:transparent!important;
+ border-radius:50%!important;
+ box-sizing:border-box!important;
+ opacity:1!important;
+ box-shadow:none!important;
+}
+
+/* v52 — REFERANS IMG_7909: sol kenarı takip eden şerit */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ position:relative!important;
+ overflow:hidden!important;
+ border:1px solid rgba(116,128,116,.10)!important;
+ border-radius:22px!important;
+ padding-left:24px!important;
+ background:linear-gradient(105deg,#f3eee1 0%,#f4f1e8 58%,#eef2e9 100%)!important;
+ box-shadow:0 8px 22px rgba(84,76,64,.06)!important;
+}
+
+/* Fotoğraftaki gibi sol kenara yapışık; üst-sol ve alt-sol ovali takip eder */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ z-index:2!important;
+ left:0!important;
+ top:0!important;
+ bottom:0!important;
+ width:10px!important;
+ height:auto!important;
+ min-height:0!important;
+ margin:0!important;
+ transform:none!important;
+ box-sizing:border-box!important;
+ background:#748074!important;
+ border:0!important;
+ border-radius:22px 0 0 22px!important;
+ opacity:1!important;
+ box-shadow:none!important;
+}
+
+/* v53 — Yeşil vurgu düz dikey değil; kutunun oval sol kenarını takip eden kavis */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ z-index:2!important;
+ left:-14px!important;
+ top:-2px!important;
+ bottom:-2px!important;
+ width:31px!important;
+ height:auto!important;
+ margin:0!important;
+ transform:none!important;
+ background:transparent!important;
+ border:8px solid #748074!important;
+ border-right:0!important;
+ border-radius:24px 0 0 24px!important;
+ box-sizing:border-box!important;
+ opacity:1!important;
+ box-shadow:none!important;
+}
+
+/* v54 — Referanstaki sol kenar: kavisli adaçayı alan + oval iç oyuk */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ position:relative!important;
+ overflow:hidden!important;
+ border-radius:22px!important;
+ padding-left:24px!important;
+ isolation:isolate!important;
+}
+
+/* Yeşil ana alan: sol dış kenara yapışık */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ content:""!important;
+ position:absolute!important;
+ z-index:-2!important;
+ left:0!important;
+ top:0!important;
+ bottom:0!important;
+ width:18px!important;
+ height:auto!important;
+ margin:0!important;
+ transform:none!important;
+ background:#748074!important;
+ border:0!important;
+ border-radius:22px 0 0 22px!important;
+ box-shadow:none!important;
+ opacity:1!important;
+}
+
+/* İç krem yüzey sola doğru oval biçimde taşarak yeşili kavisli gösterir */
+.paragraphTurkish::after,
+.storyTr.tapTranslation.paragraphTurkish::after,
+.khTr.tapTranslation.paragraphTurkish::after,
+.ptInlineTR.paragraphTurkish::after,
+.sentenceTR.tapTranslation.paragraphTurkish::after,
+.resourceTR.tapTranslation.paragraphTurkish::after,
+.dialogTR.paragraphTurkish::after{
+ content:""!important;
+ position:absolute!important;
+ z-index:-1!important;
+ left:9px!important;
+ right:0!important;
+ top:0!important;
+ bottom:0!important;
+ background:linear-gradient(105deg,#f3eee1 0%,#f4f1e8 58%,#eef2e9 100%)!important;
+ border-radius:22px!important;
+ pointer-events:none!important;
+}
+
+/* v55 — Daha ince, daha uzun ve uçları daha keskin kavisli sol vurgu */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ border-radius:20px!important;
+ padding-left:21px!important;
+}
+
+/* İnce ana adaçayı alan */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ left:0!important;
+ top:0!important;
+ bottom:0!important;
+ width:13px!important;
+ background:#748074!important;
+ border-radius:20px 0 0 20px!important;
+}
+
+/* İç yüzey daha sola yaklaşır; üst/alt uçlarda ince ve uzun sivrilen kavis bırakır */
+.paragraphTurkish::after,
+.storyTr.tapTranslation.paragraphTurkish::after,
+.khTr.tapTranslation.paragraphTurkish::after,
+.ptInlineTR.paragraphTurkish::after,
+.sentenceTR.tapTranslation.paragraphTurkish::after,
+.resourceTR.tapTranslation.paragraphTurkish::after,
+.dialogTR.paragraphTurkish::after{
+ left:6px!important;
+ right:0!important;
+ top:-1px!important;
+ bottom:-1px!important;
+ border-radius:28px 20px 20px 28px!important;
+ background:linear-gradient(105deg,#f3eee1 0%,#f4f1e8 58%,#eef2e9 100%)!important;
+}
+
+/* v56 — Türkçe kutular: daha keskin ama tamamen köşeli değil */
+.paragraphTurkish,
+.storyTr.tapTranslation.paragraphTurkish,
+.khTr.tapTranslation.paragraphTurkish,
+.ptInlineTR.paragraphTurkish,
+.sentenceTR.tapTranslation.paragraphTurkish,
+.resourceTR.tapTranslation.paragraphTurkish,
+.dialogTR.paragraphTurkish{
+ border-radius:11px!important;
+}
+
+/* Yeşil vurgu da yeni daha keskin kutu geometrisini takip etsin */
+.paragraphTurkish::before,
+.storyTr.tapTranslation.paragraphTurkish::before,
+.khTr.tapTranslation.paragraphTurkish::before,
+.ptInlineTR.paragraphTurkish::before,
+.sentenceTR.tapTranslation.paragraphTurkish::before,
+.resourceTR.tapTranslation.paragraphTurkish::before,
+.dialogTR.paragraphTurkish::before{
+ border-radius:11px 0 0 11px!important;
+}
+.paragraphTurkish::after,
+.storyTr.tapTranslation.paragraphTurkish::after,
+.khTr.tapTranslation.paragraphTurkish::after,
+.ptInlineTR.paragraphTurkish::after,
+.sentenceTR.tapTranslation.paragraphTurkish::after,
+.resourceTR.tapTranslation.paragraphTurkish::after,
+.dialogTR.paragraphTurkish::after{
+ border-radius:17px 11px 11px 17px!important;
+}
+
+/* v57 — Masaüstünde ekranın ortadaki 3/5'lik bölümünü kullan */
+@media (min-width: 900px){
+  body{
+    overflow-x:hidden!important;
+  }
+
+  /* Uygulamanın ana taşıyıcıları: ekranın %60'ı ve tam ortada */
+  .app,
+  #app,
+  main,
+  .container,
+  .page,
+  .pageWrap,
+  .content,
+  .contentWrap{
+    width:60vw!important;
+    max-width:60vw!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    box-sizing:border-box!important;
+  }
+
+  /* Tam ekran tanımlanmış olabilecek sayfa bölümlerini de merkez sütuna çek */
+  header,
+  .topbar,
+  .topBar,
+  .appHeader,
+  .bottomNav,
+  .bottom-nav,
+  nav{
+    box-sizing:border-box!important;
+  }
+}
+
+/* Telefonda mevcut görünüm korunur */
+@media (max-width: 899px){
+  .app,
+  #app,
+  main,
+  .container,
+  .page,
+  .pageWrap,
+  .content,
+  .contentWrap{
+    max-width:none;
+  }
+}
 </style></head><body><div id="readingProgress" aria-hidden="true" style="position:fixed;left:0;top:0;height:3px;width:0;background:var(--green);z-index:9999;transition:width .12s linear"></div>
 <button id="backTop" aria-label="Yukarı dön" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;right:14px;bottom:82px;z-index:50;border:0;border-radius:50%;width:44px;height:44px;background:var(--green);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.18);font-size:18px">↑</button>
 
@@ -423,15 +1214,51 @@ function buildStudyDictionary(){
  });
  DATA.dictionary=d;
 }
+function normalizePtWord(w){
+ return String(w||"").toLowerCase().normalize("NFC").replace(/[.,!?;:()[\]“”"’'«»]/g,"").trim();
+}
 function dictMeaning(w){
- const raw=String(w||"").toLowerCase().normalize("NFC").replace(/[.,!?;:()[\]“”"']/g,"").trim();
- const d=DATA.dictionary||{};
+ const raw=normalizePtWord(w), d=DATA.dictionary||{};
+ if(!raw)return "";
  if(d[raw])return d[raw];
+
  const plain=raw.normalize("NFD").replace(/[\u0300-\u036f]/g,"");
- for(const [k,v] of Object.entries(d)){if(k.normalize("NFD").replace(/[\u0300-\u036f]/g,"")===plain)return v}
- const endings=["s","es","os","as"];
- for(const e of endings)if(raw.endsWith(e)&&d[raw.slice(0,-e.length)])return d[raw.slice(0,-e.length)];
- return "Türkçe karşılığı henüz sözlükte yok";
+ for(const [k,v] of Object.entries(d)){
+   if(k.normalize("NFD").replace(/[\u0300-\u036f]/g,"")===plain)return v;
+ }
+ // Güvenli, basit çoğul varyantları.
+ const forms=[];
+ if(raw.endsWith("ões"))forms.push(raw.slice(0,-3)+"ão");
+ if(raw.endsWith("ães"))forms.push(raw.slice(0,-3)+"ão");
+ if(raw.endsWith("ais"))forms.push(raw.slice(0,-3)+"al");
+ if(raw.endsWith("eis"))forms.push(raw.slice(0,-3)+"el");
+ if(raw.endsWith("is"))forms.push(raw.slice(0,-2)+"il");
+ if(raw.endsWith("ns"))forms.push(raw.slice(0,-2)+"m");
+ if(raw.endsWith("es"))forms.push(raw.slice(0,-2),raw.slice(0,-1));
+ if(raw.endsWith("s"))forms.push(raw.slice(0,-1));
+ for(const f of forms)if(f&&d[f])return d[f];
+
+ const cache=JSON.parse(localStorage.getItem("pt_tr_cache")||"{}");
+ return cache[raw]||"";
+}
+async function lookupWordTR(w){
+ const raw=normalizePtWord(w);
+ let local=dictMeaning(raw);
+ if(local)return {text:local,source:"local"};
+ try{
+   const url="https://api.mymemory.translated.net/get?q="+encodeURIComponent(raw)+"&langpair=pt|tr";
+   const res=await fetch(url,{headers:{"Accept":"application/json"}});
+   if(!res.ok)throw new Error("lookup");
+   const j=await res.json();
+   let tr=String(j?.responseData?.translatedText||"").trim();
+   if(!tr||tr.toLowerCase()===raw.toLowerCase())throw new Error("empty");
+   const cache=JSON.parse(localStorage.getItem("pt_tr_cache")||"{}");
+   cache[raw]=tr; localStorage.setItem("pt_tr_cache",JSON.stringify(cache));
+   DATA.dictionary[raw]=tr;
+   return {text:tr,source:"online"};
+ }catch(e){
+   return {text:"Bu kelimenin doğrulanmış Türkçe karşılığı henüz bulunamadı.",source:"missing"};
+ }
 }
 function renderSavedWords(){
  const levelSavedWords=(savedWords||[]).filter(w=>{
@@ -451,22 +1278,59 @@ function quickQuiz(){
  let a=document.getElementById("app");a.innerHTML=`<div class="card"><div class="kicker">Hızlı tekrar</div><h2>${esc(w)}</h2><p>Bu kelimenin Türkçesi hangisi?</p><div class="quizBox">${opts.map(o=>`<button class="btn quizOpt" onclick="alert('${String(o).replace(/'/g,"\\'")===String(correct).replace(/'/g,"\\'")?"Doğru ✓":"Tekrar dene"}')">${esc(o)}</button>`).join("")}</div><button class="btn" onclick="openSaved()">← Kelime defterine dön</button></div>`;
 }
 function storyTokenize(t){
- return t.split(/(\s+|[,.!?;:()“”"—–])/).map(x=>{
-   let clean=x.toLowerCase().replace(/^[^a-zà-ÿçãõáéíóúâêô]+|[^a-zà-ÿçãõáéíóúâêô]+$/gi,"");
-   if(!clean)return x;
-   let key=Object.keys(DATA.dictionary).find(k=>k.toLowerCase()===clean);
-   let tr=dictMeaning(clean);
-   return `<span class="storyWord" onclick="showWord(event,'${clean.replace(/'/g,"\\'")}','${String(tr).replace(/'/g,"\\'")}')">${esc(x)}</span>`;
+ return String(t||"").split(/(\s+|[,.!?;:()“”"«»—–])/).map(x=>{
+   let clean=normalizePtWord(x);
+   if(!clean||!/^[a-zà-ÿçãõáéíóúâêôü]+$/i.test(clean))return x;
+   return `<span class="storyWord" data-pt="${esc(clean)}">${esc(x)}</span>`;
  }).join("");
 }
-function showWord(e,w,tr){
- e.stopPropagation();let old=document.getElementById("wordPopup");if(old)old.remove();
- let saved=savedWords.includes(w);
- let box=document.createElement("div");box.id="wordPopup";box.className="wordPopup";
- box.innerHTML=`<div class="wordPopupTop"><div><div class="wordPopupPt">${esc(w)}</div><div class="wordPopupTr">${tr?esc(tr):"Bu kelime sözlükte kayıtlı değil."}</div></div><button class="wordClose" onclick="closeWord()">×</button></div>
- <div class="wordPopupActions"><button class="btn" onclick="speakPT('${w.replace(/'/g,"\\'")}')">🔊 Telaffuz</button><button class="btn ${saved?"saved":""}" onclick="toggleSavedWord('${w.replace(/'/g,"\\'")}')">${saved?"✓ Kaydedildi":"🔖 Kaydet"}</button></div><div class="wordPopupHint">Kelimeyi dinle, Türkçesini gör ve kişisel kelime defterine kaydet.</div>`;
+async function showWord(target,w){
+ closeWord();
+ const raw=normalizePtWord(w);
+ if(!target||!raw)return;
+ const box=document.createElement("div");
+ box.id="wordPopup"; box.className="wordBubble"; box.setAttribute("role","dialog");
+ box.innerHTML=`<div class="wordBubbleArrow"></div>
+   <div class="wordBubbleMeaning"><b class="wordBubblePt">${esc(raw)}</b><span class="wordDash"> - </span><span class="wordBubbleTr"><span class="wordLoading">Türkçe anlam aranıyor…</span></span></div>
+   <div class="wordBubbleActions">
+     <button type="button" data-word-action="speak" aria-label="Kelimeyi dinlet">🔊</button>
+     <button type="button" class="saveBubbleBtn" data-word-action="save" aria-label="Kelimeyi kaydet">${savedWords.includes(raw)?"✓":"🔖"}</button>
+   </div>`;
+ box.dataset.word=raw;
  document.body.appendChild(box);
+ positionWordBubble(target,box);
+
+ const result=await lookupWordTR(raw);
+ if(!document.body.contains(box))return;
+ const tr=box.querySelector(".wordBubbleTr");
+ if(tr)tr.innerHTML=`<b>${esc(result.text)}</b>`;
+ positionWordBubble(target,box);
 }
+function positionWordBubble(target,box){
+ if(!target||!box)return;
+ const r=target.getBoundingClientRect(), bw=Math.min(290,innerWidth-20);
+ box.style.width=bw+"px";
+ let left=r.left+r.width/2-bw/2;
+ left=Math.max(10,Math.min(left,innerWidth-bw-10));
+ let top=r.bottom+10;
+ box.style.left=left+"px"; box.style.top=top+"px";
+ requestAnimationFrame(()=>{
+   const br=box.getBoundingClientRect();
+   if(br.bottom>innerHeight-8 && r.top>br.height+12){
+     box.classList.add("above");
+     box.style.top=(r.top-br.height-10)+"px";
+   }
+   const arrow=box.querySelector(".wordBubbleArrow");
+   if(arrow)arrow.style.left=Math.max(15,Math.min(bw-15,r.left+r.width/2-left))+"px";
+ });
+}
+function toggleSavedWordKeepBubble(w,btn){
+ savedWords.includes(w)?savedWords=savedWords.filter(x=>x!==w):savedWords.push(w);
+ localStorage.setItem("pt_saved_words",JSON.stringify(savedWords));
+ if(btn)btn.textContent=savedWords.includes(w)?"✓":"🔖";
+}
+function speakWordPT(w){speakPT(w,true)}
+
 function closeWord(){let b=document.getElementById("wordPopup");if(b)b.remove()}
 function toggleSavedWord(w){savedWords.includes(w)?savedWords=savedWords.filter(x=>x!==w):savedWords.push(w);localStorage.setItem("pt_saved_words",JSON.stringify(savedWords));let b=document.getElementById("wordPopup");if(b)b.remove()}
 function setLevel(v){levelFilter=v;document.body.className="level-"+v;render()}
@@ -516,14 +1380,17 @@ function getBrazilianStudyVoice(){
  // Varsayılan olarak listede birden fazla ses varsa ilk yerine ikinci pt-BR sesi kullan.
  return vs.length>1?vs[1]:vs[0];
 }
-async function speakPT(text){
+async function speakPT(text,isWord=false){
  if(!text)return;
  const mode=ptVoiceMode();
  if(mode!=="device" && await speakCloudPT(text))return;
  if(!("speechSynthesis" in window))return;
  speechSynthesis.cancel();
  const u=new SpeechSynthesisUtterance(String(text).replace(/<[^>]*>/g," "));
- u.lang="pt-BR";u.rate=parseFloat(localStorage.getItem("pt_speech_rate")||"0.9");
+ u.lang="pt-BR";
+ const base=parseFloat(localStorage.getItem("pt_speech_rate")||"0.88");
+ u.rate=isWord?Math.min(base,0.78):base;
+ u.pitch=1;u.volume=1;
  const v=getBrazilianStudyVoice();if(v)u.voice=v;
  speechSynthesis.speak(u);
 }
@@ -567,8 +1434,8 @@ function renderKhutbah(){
  const a=document.getElementById("app"), opening=KHUTBAH[0];
  const ar=String(opening.pt||"").split(/\n|<br\s*\/?>/i).filter(Boolean);
  a.innerHTML=`<div class="card khHero"><div class="kicker">Dinleme · okuma · kelime</div><h2>🕌 Portekizce Hutbe Çalışması</h2><p class="heroNote">Hutbeyi paragraf paragraf çalış. Portekizce kelimelere dokunarak Türkçe anlamını gör, telaffuzunu dinle ve kelime defterine kaydet.</p><div class="khTools"><button class="btn green" onclick="speakPT(KHUTBAH.slice(1).map(x=>x.pt).join(' '))">🔊 Hutbenin tamamını dinle</button><button class="btn" onclick="openSaved()">🔖 Kelime defteri</button></div></div>
- <div class="card"><article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[0].pt)">🔊 Dinle</button><span class="khTag">Bölüm 1</span><span class="khTag">Ayet · Hadis</span></div>${ar[0]?`<div class="khAyah">${ar[0]}</div>`:""}${ar.slice(1).map(v=>`<div class="khHadith">${v}</div>`).join("")}<button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><p class="khTr khOpeningTr tapTranslation">${esc(opening.tr)}</p></article>
- ${KHUTBAH.slice(1).map((x,j)=>{const i=j+1,level=i<8?"A1–A2":i<20?"A2":"B1";return `<article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[${i}].pt)">🔊 Dinle</button><span class="khTag">Bölüm ${i+1}</span><span class="khTag">${level}</span></div><p class="khPt">${storyTokenize(x.pt)}</p><button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><p class="khTr tapTranslation">${esc(x.tr)}</p></article>`}).join("")}</div>`;
+ <div class="card"><article class="khPara"><div class="khMetaRow"><button class="khListen" onclick="speakPT(KHUTBAH[0].pt)">🔊 Dinle</button><span class="khTag">Bölüm 1</span><span class="khTag">Ayet · Hadis</span></div>${ar[0]?`<div class="khAyah">${ar[0]}</div>`:""}${ar.slice(1).map(v=>`<div class="khHadith">${v}</div>`).join("")}<button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><div class="khTr khOpeningTr tapTranslation paragraphTurkish"><span>${esc(opening.tr)}</span></div></article>
+ ${KHUTBAH.slice(1).map((x,j)=>{const i=j+1,level=i<8?"A1–A2":i<20?"A2":"B1";return `<article class="khPara"><div class="khMetaRow"><span class="khTag">Bölüm ${i+1}</span><span class="khTag">${level}</span></div><div class="ptInlineUnit"><p class="khPt">${storyTokenize(x.pt)}<span class="ptInlineTools"><button type="button" class="translationArrow storyInlineArrow arrowDown" onclick="togglePtInline(this)" aria-label="Türkçe çeviriyi göster"><svg class="storyChevronSvg" viewBox="0 0 24 14" aria-hidden="true"><polyline class="chevOne" points="3,3 12,11 21,3"></polyline></svg></button><button type="button" class="storyInlineSpeak ptMiniSpeak" onclick="speakPT(${JSON.stringify(x.pt)})" aria-label="Paragrafı dinlet">🔊</button></span></p><div class="khTr tapTranslation ptInlineTR paragraphTurkish"><span>${esc(x.tr)}</span></div></div></article>`}).join("")}</div>`;
 }
 
 
@@ -627,16 +1494,16 @@ function lessonCard(l){
    </div></div>
 
    <div class="studyStep"><span class="stepNo">2</span><div><b>KELİMELER · ${vocab.length} ifade</b>
-     <div class="lessonWords">${vocab.map((w,i)=>{let pt=w.split("=")[0].trim();return `<button type="button" class="wordtag" onclick="showWord('${esc(pt)}')">${i+1}. ${esc(w)}</button>`}).join("")}</div>
+     <div class="lessonWords">${vocab.map((w,i)=>{let pt=w.split("=")[0].trim();return `<button type="button" class="wordtag" data-pt="${esc(pt)}">${i+1}. ${esc(w)}</button>`}).join("")}</div>
    </div></div>
 
    ${examples.length?`<div class="studyStep"><span class="stepNo">3</span><div><b>ÖRNEK + TEKRAR</b>
-     ${examples.slice(0,4).map((x,i)=>`<div class="practiceSentence"><button type="button" class="sentenceMain" onclick="toggleSentenceTR(this)"><strong>${i+1}.</strong> ${storyTokenize(x)}<small>Türkçeyi göster</small></button><button type="button" class="iconStudyBtn" onclick="speakPT(${JSON.stringify(x)})">🔊</button><div class="sentenceTR">${esc(lessonExampleTR(l.n,i)||"")}</div></div>`).join("")}
+     ${examples.slice(0,4).map((x,i)=>`<div class="practiceSentence ptInlineUnit"><p class="lessonPtLine"><strong>${i+1}.</strong> ${storyTokenize(x)}<span class="ptInlineTools"><button type="button" class="translationArrow storyInlineArrow arrowDown" onclick="togglePtInline(this)" aria-label="Türkçe çeviriyi göster"><svg class="storyChevronSvg" viewBox="0 0 24 14" aria-hidden="true"><polyline class="chevOne" points="3,3 12,11 21,3"></polyline></svg></button><button type="button" class="storyInlineSpeak ptMiniSpeak" onclick="speakPT(${JSON.stringify(x)})" aria-label="Cümleyi dinlet">🔊</button></span></p><div class="sentenceTR tapTranslation ptInlineTR paragraphTurkish"><span>${esc(lessonExampleTR(l.n,i)||"Türkçe karşılığı bu ders verisinde bulunmuyor.")}</span></div></div>`).join("")}
    </div></div>`:""}
 
    ${dialog.length?`<div class="studyStep"><span class="stepNo">4</span><div><b>KONUŞMA PRATİĞİ</b>
      <p class="studyHint">Önce dinle, sonra ekrana bakmadan aynı diyaloğu sesli kur.</p>
-     <div class="dialogPractice">${dialog.map(x=>`<p>${storyTokenize(x)}</p>`).join("")}</div>
+     <div class="dialogPractice">${dialog.map(x=>`<div class="ptInlineUnit dialogLine"><p>${storyTokenize(x)}<span class="ptInlineTools"><button type="button" class="translationArrow storyInlineArrow arrowDown" onclick="togglePtInline(this)" aria-label="Türkçe çeviriyi göster"><svg class="storyChevronSvg" viewBox="0 0 24 14" aria-hidden="true"><polyline class="chevOne" points="3,3 12,11 21,3"></polyline></svg></button><button type="button" class="storyInlineSpeak ptMiniSpeak" onclick="speakPT(${JSON.stringify(x)})" aria-label="Satırı dinlet">🔊</button></span></p><div class="tapTranslation ptInlineTR dialogTR paragraphTurkish"><span>Türkçe karşılığı bu ders verisinde bulunmuyor.</span></div></div>`).join("")}</div>
      <button type="button" class="compactAction" onclick="speakPT(${JSON.stringify(dialog.join(" "))})">🔊 Diyaloğu oynat</button>
    </div></div>`:""}
 
@@ -695,7 +1562,7 @@ function toggleResourceTR(btn){
 }
 function openStudyResource(id){activeStudyResource=id;page="resource";render();window.scrollTo(0,0)}
 function resourcePair(pt,tr,n){
- return `<div class="resourcePair"><button type="button" class="resourcePT" onclick="toggleResourceTR(this)"><span class="resourceNum">${n||""}</span><span>${storyTokenize(pt)}</span><span class="resourceChevron">⌄</span></button><div class="resourceTR">${esc(tr||"")}</div><button type="button" class="resourceSpeak" title="Dinlet" aria-label="Cümleyi dinlet" onclick="speakPT(${JSON.stringify(pt)})">🔊</button></div>`;
+ return `<div class="resourcePair ptInlineUnit"><p class="resourcePT"><span class="resourceNum">${n||""}</span><span>${storyTokenize(pt)}<span class="ptInlineTools"><button type="button" class="translationArrow storyInlineArrow arrowDown" onclick="togglePtInline(this)" aria-label="Türkçe çeviriyi göster"><svg class="storyChevronSvg" viewBox="0 0 24 14" aria-hidden="true"><polyline class="chevOne" points="3,3 12,11 21,3"></polyline></svg></button><button type="button" class="storyInlineSpeak ptMiniSpeak" onclick="speakPT(${JSON.stringify(pt)})" aria-label="Cümleyi dinlet">🔊</button></span></span></p><div class="resourceTR tapTranslation ptInlineTR paragraphTurkish"><span>${esc(tr||"")}</span></div></div>`;
 }
 function studyResourceCards(){
  return `<div class="studyLibrary"><div class="studyLibraryHead"><div><span class="kicker">PDF çalışma arşivi</span><h2>Ek çalışma başlıkları</h2><p>Başlığa dokun; içeriğe gir. Portekizce cümleye dokununca Türkçesi açılır.</p></div></div>
@@ -782,8 +1649,8 @@ function openStory(i){
  const s=DATA.stories[i]; page="stories"; levelFilter=s.level||"A1"; document.body.className="level-"+levelFilter; nav();
  const pts=s.text.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[s.text];
  const trs=(s.tr||"").match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[s.tr||""];
- const paired=pts.map((p,j)=>`<div class="storySentence"><p class="storyText">${storyTokenize(p.trim())}</p><button type="button" class="translationArrow" onclick="toggleTranslation(this)" aria-label="Türkçe çeviriyi göster">⌄</button><p class="storyTr tapTranslation">${esc((trs[j]||"").trim())}</p></div>`).join("");
- document.getElementById("app").innerHTML=`<button class="btn backHome" onclick="go('stories')">← ${levelFilter} hikâyelerine dön</button><div class="card story"><span class="badge">${levelFilter}</span><h2>${i+1}. ${esc(s.title)}</h2><div class="storyMeta"><span class="badge">📖 Hikâye ${i+1}/99</span><span class="badge">👆 Kelimelere dokunabilirsin</span></div>${paired}<button class="btn" onclick="speakPT(DATA.stories[${i}].text)">🔊 Portekizce hikâyeyi dinle</button></div><div class="card"><h2>Kelime çalışması</h2>${s.words.map(w=>`<span class="wordtag">${esc(w[0])} = ${esc(w[1])}</span>`).join("")}<h3>Anlama soruları</h3><p>1. Metnin ana konusu nedir?</p><p>2. Kişi hangi sorun veya durumla karşılaşıyor?</p><p>3. Olayın sonucunu Portekizce iki cümleyle anlat.</p><h3>Üretim</h3><textarea placeholder="Hikâyeyi kendi cümlelerinle Portekizce yeniden yaz..."></textarea><p><button class="btn green" onclick="toggleStory(${i})">${storyDone.includes(i)?"✓ Tamamlandı":"Hikâyeyi tamamla"}</button></p></div>`} 
+ const paired=pts.map((p,j)=>`<div class="storySentence"><p class="storyText"><span>${storyTokenize(p.trim())}</span><span class="storyEndTools"><button type="button" class="translationArrow storyInlineArrow arrowDown" onclick="toggleStoryTranslation(this)" aria-label="Türkçe çeviriyi göster"><svg class="storyChevronSvg" viewBox="0 0 24 14" aria-hidden="true"><polyline class="chevOne" points="3,3 12,11 21,3"></polyline></svg></button><button type="button" class="storyInlineSpeak" onclick="speakPT(${JSON.stringify(p.trim())})" aria-label="Paragrafı dinlet">🔊</button></span></p><div class="storyTr tapTranslation paragraphTurkish"><span>${esc((trs[j]||"").trim())}</span></div></div>`).join("");
+ document.getElementById("app").innerHTML=`<button class="btn backHome" onclick="go('stories')">← ${levelFilter} hikâyelerine dön</button><div class="card story"><span class="badge">${levelFilter}</span><h2>${i+1}. ${esc(s.title)}</h2>${paired}<button class="btn" onclick="speakPT(DATA.stories[${i}].text)">🔊 Portekizce hikâyeyi dinle</button></div><div class="card"><h2>Kelime çalışması</h2>${s.words.map(w=>`<span class="wordtag">${esc(w[0])} = ${esc(w[1])}</span>`).join("")}<h3>Anlama soruları</h3><p>1. Metnin ana konusu nedir?</p><p>2. Kişi hangi sorun veya durumla karşılaşıyor?</p><p>3. Olayın sonucunu Portekizce iki cümleyle anlat.</p><h3>Üretim</h3><textarea placeholder="Hikâyeyi kendi cümlelerinle Portekizce yeniden yaz..."></textarea><p><button class="btn green" onclick="toggleStory(${i})">${storyDone.includes(i)?"✓ Tamamlandı":"Hikâyeyi tamamla"}</button></p></div>`} 
 buildStudyDictionary();applyPtFonts();applyPtSettings();if("speechSynthesis" in window)speechSynthesis.onvoiceschanged=fillPtVoices;nav();render();
 
 /* v27 — Global sağa kaydırarak geri */
@@ -817,8 +1684,91 @@ function toggleTranslation(btn){
  if(!tr)return;
  const open=tr.classList.toggle("translationOpen");
  btn.classList.toggle("open",open);
- btn.textContent=open?"⌃":"⌄";
+ btn.classList.toggle("arrowDown",!open);
  btn.setAttribute("aria-label",open?"Türkçe çeviriyi gizle":"Türkçe çeviriyi göster");
 }
+
+
+function toggleStoryTranslation(btn){
+ const wrap=btn.closest(".storySentence");
+ const tr=wrap?wrap.querySelector(".storyTr"):null;
+ const svg=btn.querySelector(".storyChevronSvg");
+ if(!tr||!svg||btn.dataset.turning==="1")return;
+
+ const opening=!tr.classList.contains("translationOpen");
+ btn.dataset.turning="1";
+
+ // Türkçe durumunu değiştir.
+ tr.classList.toggle("translationOpen",opening);
+ btn.setAttribute("aria-label",opening?"Türkçe çeviriyi gizle":"Türkçe çeviriyi göster");
+
+ // Aynı oku gerçek zamanlı olarak 180° çevir.
+ const from=opening?0:180;
+ const to=opening?180:0;
+ const duration=360;
+ const start=performance.now();
+
+ function frame(now){
+   const p=Math.min(1,(now-start)/duration);
+   const ease=0.5-Math.cos(Math.PI*p)/2;
+   const deg=from+(to-from)*ease;
+   svg.style.setProperty("transform","rotate("+deg+"deg)","important");
+   if(p<1){
+     requestAnimationFrame(frame);
+   }else{
+     svg.style.setProperty("transform","rotate("+to+"deg)","important");
+     btn.classList.toggle("arrowDown",!opening);
+     btn.dataset.turning="0";
+   }
+ }
+ requestAnimationFrame(frame);
+}
+
+
+function togglePtInline(btn){
+ const unit=btn.closest(".ptInlineUnit");
+ const tr=unit?unit.querySelector(".ptInlineTR"):null;
+ const svg=btn.querySelector(".storyChevronSvg");
+ if(!tr||!svg||btn.dataset.turning==="1")return;
+ const opening=!tr.classList.contains("translationOpen");
+ btn.dataset.turning="1";
+ tr.classList.toggle("translationOpen",opening);
+ tr.classList.toggle("show",opening);
+ btn.setAttribute("aria-label",opening?"Türkçe çeviriyi gizle":"Türkçe çeviriyi göster");
+ const from=opening?0:180, to=opening?180:0, duration=360, start=performance.now();
+ function frame(now){
+   const p=Math.min(1,(now-start)/duration);
+   const ease=.5-Math.cos(Math.PI*p)/2;
+   svg.style.setProperty("transform","rotate("+(from+(to-from)*ease)+"deg)","important");
+   if(p<1)requestAnimationFrame(frame);
+   else{svg.style.setProperty("transform","rotate("+to+"deg)","important");btn.classList.toggle("arrowDown",!opening);btn.dataset.turning="0";}
+ }
+ requestAnimationFrame(frame);
+}
+
+
+
+
+
+/* v42 — Dinamik içeriklerin tamamı için tek, güvenilir kelime dokunma sistemi */
+document.addEventListener("click",function(e){
+ const action=e.target.closest("[data-word-action]");
+ if(action){
+   e.preventDefault();e.stopPropagation();
+   const box=action.closest("#wordPopup");
+   const w=box?box.dataset.word:"";
+   if(action.dataset.wordAction==="speak"){speakWordPT(w);return}
+   if(action.dataset.wordAction==="save"){toggleSavedWordKeepBubble(w,action);return}
+ }
+ const word=e.target.closest(".storyWord,.wordtag");
+ if(word){
+   e.preventDefault();e.stopPropagation();
+   const w=word.dataset.pt || word.textContent || "";
+   showWord(word,w);
+   return;
+ }
+ const b=document.getElementById("wordPopup");
+ if(b&&!b.contains(e.target))closeWord();
+},false);
 
 </script></body></html>
