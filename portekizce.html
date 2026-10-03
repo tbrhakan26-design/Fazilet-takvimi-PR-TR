@@ -1160,6 +1160,83 @@ button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible
     max-width:none;
   }
 }
+
+/* v58 — A1/A2/B1 hikâye listeleri sade: kartın tamamı açma alanı */
+.storyListClean{
+ display:grid!important;
+ gap:12px!important;
+ margin-top:14px!important;
+}
+.storyTile.storyTileOpen{
+ cursor:pointer!important;
+ min-height:92px!important;
+ display:flex!important;
+ align-items:center!important;
+ padding:20px 22px!important;
+ border-radius:12px!important;
+ user-select:none!important;
+ -webkit-tap-highlight-color:transparent!important;
+}
+.storyTile.storyTileOpen h3{
+ margin:0!important;
+ width:100%!important;
+}
+.storyTile.storyTileOpen:active{
+ transform:scale(.992)!important;
+}
+.storyTile.storyTileOpen:focus-visible{
+ outline:2px solid #748074!important;
+ outline-offset:3px!important;
+}
+
+/* v59-fixed — Hikâye listesi: sadece başlık kartları; kartın tamamı açar */
+.storyListClean{display:grid!important;gap:12px!important;margin-top:14px!important}
+.storyTile.storyTileOpen{
+ cursor:pointer!important;min-height:88px!important;display:flex!important;
+ align-items:center!important;padding:20px 22px!important;border-radius:12px!important;
+ user-select:none!important;-webkit-tap-highlight-color:transparent!important
+}
+.storyTile.storyTileOpen h3{margin:0!important;width:100%!important}
+.storyTile.storyTileOpen:active{transform:scale(.992)!important}
+.storyTile.storyTileOpen:focus-visible{outline:2px solid #748074!important;outline-offset:3px!important}
+
+/* v60 — Fiiller de hikâyeler gibi A1 / A2 / B1 bölümlerine ayrılır */
+.verbLevelWrap{margin-top:16px}
+.verbLevelSummary{
+ display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+ margin:0 2px 12px;padding:0 2px;flex-wrap:wrap
+}
+.verbLevelSummary strong{font-size:22px}
+.verbLevelSummary span{font-size:12px;opacity:.66}
+.verbLevelDots i{display:inline-block!important}
+@media(max-width:600px){
+ .verbLevelSummary{align-items:flex-start;flex-direction:column;gap:3px}
+}
+
+/* v72 — Fiiller: Arapça okunabilirlik ve yükleme düzeltmeleri */
+.verbAr{
+  font-family:var(--pt-ar-font,"Scheherazade New","Noto Naskh Arabic",serif)!important;
+  font-size:1.18em!important;line-height:1.9!important;
+  text-align:right!important;unicode-bidi:plaintext!important;
+}
+
+
+.verbArabicRefresh{border:1px solid #d7d0c2;background:#f6f1e7;color:#51483f;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:750;cursor:pointer}
+.verbArabicRefresh:active{transform:scale(.97)}
+
+
+/* v74 — Fiile dokununca 3 örnek cümle */
+.verbRowExpandable{cursor:pointer!important}
+.verbExpandMark{display:inline-block;font-size:.85em;transition:transform .22s ease;margin-left:4px}
+.verbRowExpandable.examplesOpen .verbExpandMark{transform:rotate(180deg)}
+.verbExamples{display:none;grid-column:1/-1;padding:12px 8px 4px;margin-top:8px;border-top:1px solid rgba(90,80,65,.13)}
+.verbExamples.open{display:grid;gap:9px}
+.verbExample{display:grid;grid-template-columns:24px 1fr;gap:7px;padding:9px 10px;border-radius:10px;background:#f7f3e9}
+.verbExNo{font-weight:800;color:#748074}
+.verbExPt{font-weight:650;line-height:1.55;color:#3f382f}
+.verbExTr{font-size:.92em;line-height:1.45;margin-top:2px;color:#6a6259}
+.verbExSpeak{border:0;background:transparent;padding:2px 5px;margin-left:5px;cursor:pointer}
+
 </style></head><body><div id="readingProgress" aria-hidden="true" style="position:fixed;left:0;top:0;height:3px;width:0;background:var(--green);z-index:9999;transition:width .12s linear"></div>
 <button id="backTop" aria-label="Yukarı dön" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;right:14px;bottom:82px;z-index:50;border:0;border-radius:50%;width:44px;height:44px;background:var(--green);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.18);font-size:18px">↑</button>
 
@@ -1202,6 +1279,54 @@ function toggleStory(n){storyDone.includes(n)?storyDone=storyDone.filter(x=>x!==
 let searchTerm="";
 let savedWords=JSON.parse(localStorage.getItem("pt_saved_words")||"[]");
 
+
+/* v61 — Gerçek, tekrarsız A1/A2/B1 fiil havuzu */
+(function(){
+ const V={"A1":[["ser","olmak"],["estar","olmak / bulunmak"],["ter","sahip olmak"],["haver","var olmak"],["fazer","yapmak"],["ir","gitmek"],["vir","gelmek"],["ver","görmek"],["dar","vermek"],["dizer","söylemek"],["falar","konuşmak"],["comer","yemek"],["beber","içmek"],["ler","okumak"],["escrever","yazmak"],["abrir","açmak"],["fechar","kapatmak"],["entrar","girmek"],["sair","çıkmak"],["chegar","varmak"],["voltar","dönmek"],["ficar","kalmak"],["morar","oturmak / ikamet etmek"],["viver","yaşamak"],["trabalhar","çalışmak"],["estudar","ders çalışmak"],["aprender","öğrenmek"],["ensinar","öğretmek"],["perguntar","sormak"],["responder","cevap vermek"],["entender","anlamak"],["saber","bilmek"],["conhecer","tanımak"],["querer","istemek"],["precisar","ihtiyaç duymak"],["poder","-ebilmek"],["gostar","hoşlanmak"],["amar","sevmek"],["ajudar","yardım etmek"],["esperar","beklemek / ummak"],["procurar","aramak"],["encontrar","bulmak"],["comprar","satın almak"],["vender","satmak"],["pagar","ödemek"],["levar","götürmek"],["trazer","getirmek"],["usar","kullanmak"],["colocar","koymak"],["tirar","çıkarmak"],["pegar","almak / tutmak"],["deixar","bırakmak"],["começar","başlamak"],["terminar","bitirmek"],["continuar","devam etmek"],["parar","durmak"],["andar","yürümek"],["correr","koşmak"],["sentar","oturmak"],["levantar","kalkmak"],["dormir","uyumak"],["acordar","uyanmak"],["lavar","yıkamak"],["limpar","temizlemek"],["cozinhar","yemek pişirmek"],["preparar","hazırlamak"],["rezar","namaz kılmak / dua etmek"],["agradecer","teşekkür etmek"],["pedir","istemek / rica etmek"],["receber","almak / teslim almak"],["enviar","göndermek"],["mostrar","göstermek"],["ouvir","duymak"],["escutar","dinlemek"],["olhar","bakmak"],["assistir","izlemek"],["visitar","ziyaret etmek"],["viajar","seyahat etmek"],["chamar","çağırmak"],["conversar","sohbet etmek"],["brincar","oynamak"],["jogar","oynamak"],["ganhar","kazanmak"],["perder","kaybetmek"],["escolher","seçmek"],["mudar","değiştirmek"],["tentar","denemek"],["conseguir","başarmak / yapabilmek"],["sentir","hissetmek"],["sorrir","gülümsemek"],["chorar","ağlamak"],["rir","gülmek"],["nascer","doğmak"],["morrer","ölmek"],["passar","geçmek"],["seguir","takip etmek"],["guardar","saklamak"],["repetir","tekrarlamak"],["praticar","pratik yapmak"],["organizar","düzenlemek"],["resolver","çözmek"],["cortar","kesmek"],["explicar","açıklamak"],["pensar","düşünmek"],["lembrar","hatırlamak"],["esquecer","unutmak"],["decidir","karar vermek"],["acontecer","olmak / meydana gelmek"],["dever","gerekmek"],["orar","dua etmek"]],"A2":[["aceitar","kabul etmek"],["acompanhar","eşlik etmek / takip etmek"],["alugar","kiralamak"],["aparecer","ortaya çıkmak / görünmek"],["aproveitar","yararlanmak / değerlendirmek"],["atender","ilgilenmek / cevaplamak"],["aumentar","artırmak"],["baixar","indirmek / düşürmek"],["buscar","aramak / gidip almak"],["caminhar","yürümek"],["cancelar","iptal etmek"],["casar","evlenmek"],["combinar","kararlaştırmak / uymak"],["convidar","davet etmek"],["custar","mal olmak"],["descansar","dinlenmek"],["descobrir","keşfetmek"],["dirigir","sürmek / yönetmek"],["dividir","bölmek / paylaşmak"],["emprestar","ödünç vermek"],["frequentar","devam etmek / sık gitmek"],["gastar","harcamak"],["gravar","kaydetmek"],["imaginar","hayal etmek"],["ligar","telefon etmek / açmak"],["mandar","göndermek / emretmek"],["marcar","işaretlemek / randevu ayarlamak"],["melhorar","iyileşmek / iyileştirmek"],["nadar","yüzmek"],["oferecer","sunmak / ikram etmek"],["participar","katılmak"],["passear","gezmek"],["perceber","fark etmek"],["planejar","planlamak"],["preferir","tercih etmek"],["preocupar","endişelendirmek"],["prometer","söz vermek"],["proteger","korumak"],["recomendar","tavsiye etmek"],["reservar","rezervasyon yapmak"],["subir","çıkmak / yükselmek"],["telefonar","telefon etmek"],["trocar","değiştirmek / takas etmek"],["vencer","yenmek / kazanmak"],["arrumar","düzenlemek / hazırlamak"],["carregar","taşımak / şarj etmek"],["consertar","tamir etmek"],["desligar","kapatmak"],["experimentar","denemek"],["faltar","eksik olmak / gelmemek"],["funcionar","çalışmak"],["informar","bilgilendirmek"],["inscrever-se","kaydolmak"],["lembrar-se","hatırlamak"],["mudar-se","taşınmak"],["piorar","kötüleşmek"],["preencher","doldurmak"],["reclamar","şikâyet etmek"],["separar","ayırmak"],["depender","bağlı olmak"],["descer","inmek"],["durar","sürmek"],["evitar","kaçınmak"],["incluir","dahil etmek"],["manter","sürdürmek / korumak"]],"B1":[["abandonar","terk etmek"],["alcançar","ulaşmak"],["analisar","analiz etmek"],["apoiar","desteklemek"],["assumir","üstlenmek / varsaymak"],["atingir","ulaşmak / etkilemek"],["avaliar","değerlendirmek"],["comprovar","kanıtlamak"],["concluir","sonuçlandırmak"],["concordar","katılmak / aynı fikirde olmak"],["considerar","değerlendirmek / göz önünde bulundurmak"],["construir","inşa etmek"],["contribuir","katkıda bulunmak"],["convencer","ikna etmek"],["criar","yaratmak"],["defender","savunmak"],["demonstrar","göstermek / kanıtlamak"],["desenvolver","geliştirmek"],["destacar","vurgulamak"],["determinar","belirlemek"],["discutir","tartışmak"],["estabelecer","kurmak / belirlemek"],["exigir","talep etmek / gerektirmek"],["existir","var olmak"],["expressar","ifade etmek"],["garantir","garanti etmek / sağlamak"],["gerar","üretmek / oluşturmak"],["identificar","tespit etmek"],["impedir","engellemek"],["influenciar","etkilemek"],["investir","yatırım yapmak"],["lidar","başa çıkmak"],["obter","elde etmek"],["ocorrer","meydana gelmek"],["permitir","izin vermek"],["produzir","üretmek"],["propor","önermek"],["reconhecer","tanımak / kabul etmek"],["reduzir","azaltmak"],["representar","temsil etmek"],["revelar","ortaya çıkarmak"],["sugerir","önermek"],["superar","aşmak"],["transformar","dönüştürmek"],["verificar","kontrol etmek / doğrulamak"],["adaptar","uyarlamak"],["admitir","kabul etmek"],["alertar","uyarmak"],["ampliar","genişletmek"],["argumentar","savunmak / gerekçelendirmek"],["beneficiar","yarar sağlamak"],["caracterizar","nitelendirmek"],["comparar","karşılaştırmak"],["comunicar","bildirmek / iletişim kurmak"],["concentrar","yoğunlaştırmak"],["confirmar","doğrulamak"],["conservar","korumak"],["consumir","tüketmek"],["controlar","kontrol etmek"],["criticar","eleştirmek"],["cumprir","yerine getirmek"],["declarar","ilan etmek / beyan etmek"],["definir","tanımlamak"],["eliminar","ortadan kaldırmak"],["enfrentar","yüzleşmek"],["envolver","içermek / dahil etmek"],["estimar","tahmin etmek / değer vermek"],["explorar","araştırmak / keşfetmek"],["facilitar","kolaylaştırmak"],["favorecer","desteklemek / yarar sağlamak"],["fornecer","sağlamak"],["indicar","belirtmek / göstermek"],["interpretar","yorumlamak"],["investigar","araştırmak"],["justificar","gerekçelendirmek"],["limitar","sınırlamak"],["modificar","değiştirmek"],["negociar","müzakere etmek"],["observar","gözlemlemek"],["prever","öngörmek"],["proibir","yasaklamak"],["promover","teşvik etmek"],["questionar","sorgulamak"],["realizar","gerçekleştirmek"],["recusar","reddetmek"],["refletir","düşünmek / yansıtmak"],["relacionar","ilişkilendirmek"],["substituir","yerine koymak"],["valorizar","değer vermek"],["variar","değişiklik göstermek"],["aprofundar","derinleştirmek"],["cooperar","iş birliği yapmak"],["debater","tartışmak"],["distinguir","ayırt etmek"],["elaborar","hazırlamak / geliştirmek"],["enfatizar","vurgulamak"],["equilibrar","dengelemek"],["formular","formüle etmek"],["implementar","uygulamak"],["incentivar","teşvik etmek"],["integrar","bütünleştirmek"],["medir","ölçmek"],["preservar","korumak"],["prevenir","önlemek"],["reagir","tepki vermek"],["recuperar","geri kazanmak / iyileşmek"],["reformular","yeniden düzenlemek"],["solucionar","çözmek"],["sustentar","desteklemek / sürdürmek"],["transmitir","aktarmak"]]};
+ DATA.verbs=[];
+ ["A1","A2","B1"].forEach(level=>V[level].forEach(x=>DATA.verbs.push({pt:x[0],tr:x[1],level})));
+})();
+
+/* v63 — Eksik fiilleri gerçek yeni fiillerle tamamla; tekrar üretme */
+(function(){
+ const target={A1:111,A2:222,B1:333};
+ const extra={"A1":[["acender","yakmak / açmak"],["apagar","söndürmek / silmek"],["cantar","şarkı söylemek"],["dançar","dans etmek"],["desenhar","çizmek"],["estacionar","park etmek"],["fotografar","fotoğraf çekmek"],["jantar","akşam yemeği yemek"],["almoçar","öğle yemeği yemek"],["tomar","almak / içmek"],["vestir","giymek"],["calçar","ayakkabı giymek"],["chover","yağmur yağmak"],["nevar","kar yağmak"],["soletrar","harf harf söylemek"],["contar","saymak / anlatmak"],["copiar","kopyalamak"],["repetir","tekrarlamak"],["responder","cevaplamak"],["perguntar","sormak"],["telefonar","telefon etmek"],["comprar","satın almak"],["vender","satmak"],["pagar","ödemek"],["custar","fiyatı olmak"],["visitar","ziyaret etmek"],["viajar","seyahat etmek"],["passear","gezmek"],["nadar","yüzmek"],["descansar","dinlenmek"],["acordar","uyanmak"],["dormir","uyumak"],["sonhar","rüya görmek"],["cozinhar","yemek pişirmek"],["lavar","yıkamak"],["secar","kurutmak"],["varrer","süpürmek"],["arrumar","düzenlemek"],["cuidar","bakmak / ilgilenmek"],["morar","ikamet etmek"],["chegar","varmak"]],"A2":[["acrescentar","eklemek"],["adiar","ertelemek"],["adivinhar","tahmin etmek"],["avisar","haber vermek"],["alcançar","ulaşmak"],["alterar","değiştirmek"],["apresentar","sunmak / tanıştırmak"],["aprovar","onaylamak / geçmek"],["assinar","imzalamak"],["atravessar","karşıya geçmek"],["aumentar","artırmak"],["cancelar","iptal etmek"],["celebrar","kutlamak"],["comparar","karşılaştırmak"],["completar","tamamlamak"],["conectar","bağlamak"],["confirmar","doğrulamak"],["consertar","tamir etmek"],["consultar","danışmak / kontrol etmek"],["continuar","devam etmek"],["convidar","davet etmek"],["devolver","geri vermek"],["discutir","tartışmak"],["dividir","bölmek / paylaşmak"],["emprestar","ödünç vermek"],["encerrar","sona erdirmek"],["entregar","teslim etmek"],["esconder","saklamak"],["evitar","kaçınmak"],["experimentar","denemek"],["explicar","açıklamak"],["faltar","eksik olmak / gelmemek"],["formar","oluşturmak"],["frequentar","devam etmek / sık gitmek"],["funcionar","çalışmak"],["gastar","harcamak"],["gravar","kaydetmek"],["imprimir","yazdırmak"],["informar","bilgilendirmek"],["instalar","kurmak"],["interessar","ilgilendirmek"],["ligar","telefon etmek / açmak"],["mandar","göndermek"],["marcar","işaretlemek / ayarlamak"],["melhorar","iyileştirmek"],["misturar","karıştırmak"],["oferecer","sunmak / ikram etmek"],["participar","katılmak"],["perceber","fark etmek"],["planejar","planlamak"],["preencher","doldurmak"],["preocupar","endişelendirmek"],["prometer","söz vermek"],["proteger","korumak"],["reclamar","şikâyet etmek"],["recomendar","tavsiye etmek"],["reservar","rezervasyon yapmak"],["separar","ayırmak"],["subir","çıkmak"],["descer","inmek"],["trocar","değiştirmek"],["durar","sürmek"],["depender","bağlı olmak"],["incluir","dahil etmek"],["manter","korumak / sürdürmek"],["medir","ölçmek"],["pesar","tartmak"],["servir","servis etmek / yaramak"],["sugerir","önermek"],["descobrir","keşfetmek"],["dirigir","sürmek / yönetmek"],["preferir","tercih etmek"],["permitir","izin vermek"],["proibir","yasaklamak"],["traduzir","çevirmek"],["produzir","üretmek"],["construir","inşa etmek"],["destruir","yıkmak"],["corrigir","düzeltmek"],["reunir","toplamak / buluşmak"],["escolher","seçmek"],["decidir","karar vermek"],["lembrar","hatırlamak"],["esquecer","unutmak"],["conseguir","başarmak"],["tentar","denemek"],["imaginar","hayal etmek"],["notar","fark etmek"],["parecer","görünmek"],["pertencer","ait olmak"],["crescer","büyümek"],["diminuir","azalmak / azaltmak"],["melhorar","iyileşmek"],["piorar","kötüleşmek"],["mudar","değişmek / değiştirmek"],["receber","almak / teslim almak"],["enviar","göndermek"],["entender","anlamak"],["aprender","öğrenmek"],["ensinar","öğretmek"],["explicar","açıklamak"],["descrever","betimlemek"],["contar","anlatmak / saymak"],["acontecer","meydana gelmek"],["continuar","devam etmek"],["parar","durmak"],["recomeçar","yeniden başlamak"],["organizar","düzenlemek"],["preparar","hazırlamak"],["combinar","kararlaştırmak / uymak"],["aproveitar","yararlanmak"],["atender","ilgilenmek / cevaplamak"],["buscar","aramak / gidip almak"]],"B1":[["abordar","ele almak"],["absorver","özümsemek / emmek"],["acomodar","yerleştirmek / uyum sağlamak"],["adotar","benimsemek"],["afirmar","belirtmek / ileri sürmek"],["agrupar","gruplamak"],["ameaçar","tehdit etmek"],["antecipar","öngörmek / erkene almak"],["aplicar","uygulamak"],["apontar","işaret etmek / belirtmek"],["aprofundar","derinleştirmek"],["argumentar","gerekçelendirmek"],["associar","ilişkilendirmek"],["atribuir","atfetmek / vermek"],["calcular","hesaplamak"],["captar","algılamak / yakalamak"],["classificar","sınıflandırmak"],["coincidir","örtüşmek"],["colaborar","iş birliği yapmak"],["comentar","yorumlamak"],["compensar","telafi etmek"],["competir","rekabet etmek"],["compor","oluşturmak / bestelemek"],["compreender","kavramak"],["comprometer","taahhüt etmek / riske atmak"],["conceber","tasarlamak / kavramak"],["conceder","vermek / tanımak"],["conduzir","yürütmek / sürmek"],["configurar","yapılandırmak"],["confrontar","yüzleşmek / karşılaştırmak"],["conquistar","kazanmak / fethetmek"],["constatar","tespit etmek"],["constituir","oluşturmak"],["contestar","itiraz etmek"],["contratar","işe almak / sözleşme yapmak"],["contrastar","karşılaştırmak"],["coordenar","koordine etmek"],["corresponder","karşılık gelmek"],["debater","tartışmak"],["deduzir","sonuç çıkarmak"],["demitir","işten çıkarmak"],["denunciar","ihbar etmek / kınamak"],["derivar","türemek"],["detectar","tespit etmek"],["diferenciar","farklılaştırmak"],["divulgar","duyurmak / yayımlamak"],["dominar","hakim olmak"],["efetuar","gerçekleştirmek"],["elaborar","hazırlamak / geliştirmek"],["emitir","yayınlamak / çıkarmak"],["enfatizar","vurgulamak"],["enfrentar","yüzleşmek"],["envolver","içermek / dahil etmek"],["equilibrar","dengelemek"],["estabelecer","kurmak / belirlemek"],["estimar","tahmin etmek"],["evidenciar","ortaya koymak"],["exercer","icra etmek / uygulamak"],["expandir","genişletmek"],["explorar","araştırmak / keşfetmek"],["facilitar","kolaylaştırmak"],["favorecer","desteklemek"],["formular","formüle etmek"],["fortalecer","güçlendirmek"],["fundamentar","temellendirmek"],["gerenciar","yönetmek"],["ignorar","görmezden gelmek"],["implementar","uygulamak"],["implicar","gerektirmek / ima etmek"],["incentivar","teşvik etmek"],["incorporar","bünyesine katmak"],["induzir","yönlendirmek / sebep olmak"],["inferir","çıkarım yapmak"],["inovar","yenilik yapmak"],["integrar","bütünleştirmek"],["interferir","müdahale etmek"],["interpretar","yorumlamak"],["intervir","müdahale etmek"],["investigar","araştırmak"],["justificar","gerekçelendirmek"],["liderar","liderlik etmek"],["manifestar","ifade etmek / göstermek"],["minimizar","en aza indirmek"],["negociar","müzakere etmek"],["otimizar","optimize etmek"],["persistir","ısrar etmek / sürmek"],["ponderar","değerlendirmek"],["prejudicar","zarar vermek"],["preservar","korumak"],["prevenir","önlemek"],["priorizar","öncelik vermek"],["processar","işlemek"],["questionar","sorgulamak"],["reagir","tepki vermek"],["reformular","yeniden düzenlemek"],["regular","düzenlemek"],["rejeitar","reddetmek"],["relatar","aktarmak / rapor etmek"],["ressaltar","vurgulamak"],["restringir","kısıtlamak"],["retomar","yeniden ele almak / sürdürmek"],["solucionar","çözmek"],["sustentar","desteklemek / sürdürmek"],["tender","eğilim göstermek"],["transmitir","aktarmak"],["validar","doğrulamak"],["viabilizar","uygulanabilir hale getirmek"],["vincular","bağlamak / ilişkilendirmek"],["administrar","yönetmek"],["adquirir","edinmek"],["alegar","iddia etmek"],["aproximar","yaklaştırmak"],["articular","ifade etmek / bağlantı kurmak"],["assegurar","güvence altına almak"],["avaliar","değerlendirmek"],["beneficiar","yarar sağlamak"],["caracterizar","nitelendirmek"],["consolidar","pekiştirmek"],["contemplar","göz önünde bulundurmak"],["converter","dönüştürmek"],["deparar-se","karşılaşmak"],["desencadear","tetiklemek"],["desempenhar","yerine getirmek / rol oynamak"],["destinar","tahsis etmek"],["diagnosticar","teşhis etmek"],["disponibilizar","kullanıma sunmak"],["distinguir","ayırt etmek"],["diversificar","çeşitlendirmek"],["estabilizar","istikrara kavuşturmak"],["estruturar","yapılandırmak"],["evoluir","gelişmek"],["financiar","finanse etmek"],["fiscalizar","denetlemek"],["fomentar","teşvik etmek"],["generalizar","genellemek"],["harmonizar","uyumlaştırmak"],["ilustrar","örneklemek"],["inibir","engellemek"],["intensificar","yoğunlaştırmak"],["mediar","arabuluculuk etmek"],["monitorar","izlemek"],["mobilizar","harekete geçirmek"],["orientar","yönlendirmek"],["proporcionar","sağlamak"],["reconsiderar","yeniden değerlendirmek"],["reproduzir","yeniden üretmek"],["resgatar","kurtarmak / geri kazanmak"],["revisar","gözden geçirmek"],["sensibilizar","farkındalık kazandırmak"],["simular","simüle etmek"],["submeter","sunmak / tabi tutmak"],["supervisionar","denetlemek"],["violar","ihlal etmek"],["abranger","kapsamak"],["acentuar","vurgulamak / artırmak"],["adequar","uyarlamak"],["alocar","tahsis etmek"],["arrecadar","gelir toplamak"],["assimilar","özümsemek"],["certificar","belgelendirmek"],["compatibilizar","uyumlu hale getirmek"],["delimitar","sınırlandırmak"],["desvincular","bağını koparmak"],["dimensionar","boyutlandırmak"],["disseminar","yaymak"],["empregar","kullanmak / istihdam etmek"],["enquadrar","çerçevelemek / sınıflandırmak"],["estimular","teşvik etmek"],["extrapolar","aşmak / genellemek"],["flexibilizar","esnekleştirmek"],["homologar","onaylamak"],["legitimar","meşrulaştırmak"],["mapear","haritalamak"],["mensurar","ölçmek"],["normatizar","standartlaştırmak"],["potencializar","güçlendirmek"],["racionalizar","rasyonelleştirmek"],["reivindicar","talep etmek"],["sistematizar","sistemleştirmek"],["abolir","kaldırmak / yürürlükten kaldırmak"],["abster-se","kaçınmak / çekimser kalmak"],["acentuar","vurgulamak"],["acionar","harekete geçirmek"],["aderir","katılmak / benimsemek"],["agilizar","hızlandırmak"],["agravar","ağırlaştırmak"],["alinhar","hizalamak / uyumlaştırmak"],["aludir","ima etmek / değinmek"],["amparar","desteklemek / korumak"],["anular","iptal etmek"],["apurar","araştırmak / kesinleştirmek"],["arcar","üstlenmek"],["atenuar","hafifletmek"],["atrelar","bağlamak / ilişkilendirmek"],["autenticar","doğrulamak"],["capacitar","yetkinleştirmek"],["citar","alıntılamak / belirtmek"],["coibir","engellemek"],["coletar","toplamak"],["compilar","derlemek"],["complementar","tamamlamak"],["concretizar","gerçekleştirmek"],["condicionar","koşula bağlamak"],["conferir","kontrol etmek / vermek"],["conscientizar","bilinçlendirmek"],["contabilizar","hesaplamak / kaydetmek"],["contextualizar","bağlama oturtmak"],["contrariar","karşı çıkmak"],["convergir","yakınlaşmak / birleşmek"],["corroborar","doğrulamak / desteklemek"],["decretar","kararlaştırmak / ilan etmek"],["delegar","yetki devretmek"],["delinear","ana hatlarını çizmek"],["demandar","gerektirmek / talep etmek"],["depreciar","değerini düşürmek"],["desafiar","meydan okumak"],["descartar","elemek / göz ardı etmek"],["deslocar","yer değiştirmek"],["desmistificar","yanlış inanışı çürütmek"],["despontar","öne çıkmak"],["detalhar","ayrıntılandırmak"],["deteriorar","kötüleşmek"],["direcionar","yönlendirmek"],["discriminar","ayırt etmek / ayrımcılık yapmak"],["elucidar","açıklığa kavuşturmak"],["embasar","temellendirmek"],["encaminhar","yönlendirmek / iletmek"],["endossar","desteklemek / onaylamak"],["enunciar","ifade etmek"],["erradicar","ortadan kaldırmak"],["esclarecer","açıklığa kavuşturmak"],["especificar","belirtmek"],["estipular","şart koşmak / belirlemek"],["estratificar","katmanlara ayırmak"],["exemplificar","örneklemek"],["formalizar","resmileştirmek"],["hierarquizar","hiyerarşik sıralamak"],["incidir","etki etmek / meydana gelmek"],["indexar","indekslemek"],["instaurar","başlatmak / kurmak"],["intermediar","aracılık etmek"],["legislar","yasa yapmak"],["maximizar","en üst düzeye çıkarmak"],["mitigar","hafifletmek"],["notificar","bildirmek"],["objetivar","amaçlamak"],["operacionalizar","uygulanabilir hale getirmek"],["padronizar","standartlaştırmak"],["pleitear","talep etmek / savunmak"],["postular","ileri sürmek"],["quantificar","nicelendirmek"],["ratificar","onaylamak"],["readequar","yeniden uyarlamak"],["reavaliar","yeniden değerlendirmek"],["recompor","yeniden oluşturmak"],["redimensionar","yeniden boyutlandırmak"],["regulamentar","düzenlemeye bağlamak"],["reiterar","yinelemek"],["remeter","göndermek / atıfta bulunmak"],["repercutir","yankı uyandırmak"],["replicar","yanıtlamak / çoğaltmak"],["respaldar","desteklemek"],["salientar","vurgulamak"],["segmentar","bölümlere ayırmak"],["subsidiar","desteklemek / veri sağlamak"],["suscitar","gündeme getirmek"],["traçar","çizmek / planlamak"],["transcender","aşmak"],["unificar","birleştirmek"],["usufruir","yararlanmak"],["zelar","özen göstermek / korumak"],["abalar","sarsmak"],["abdicar","vazgeçmek / feragat etmek"],["abrigar","barındırmak"],["acarretar","yol açmak"],["acatar","kabul etmek / uymak"],["acumular","biriktirmek"],["adaptar-se","uyum sağlamak"],["adentrar","içeri girmek"],["afastar","uzaklaştırmak"],["agregar","eklemek / bir araya getirmek"],["ajuizar","değerlendirmek"],["alavancar","hızlandırmak / kaldıraç etkisi yaratmak"],["alternar","dönüşümlü yapmak"],["amenizar","hafifletmek"],["ancorar","dayandırmak / demirlemek"],["apropriar-se","benimsemek / sahiplenmek"],["arbitrar","karara bağlamak"],["articular-se","koordine olmak"],["assemelhar-se","benzemek"],["atrever-se","cesaret etmek"],["balizar","sınırlarını belirlemek"],["banir","yasaklamak / uzaklaştırmak"],["centralizar","merkezileştirmek"],["cessar","sona ermek"],["cogitar","düşünmek / değerlendirmek"],["conciliar","uzlaştırmak"],["condensar","yoğunlaştırmak"],["confrontar-se","karşı karşıya gelmek"],["consagrar","adamak / yerleşik hale getirmek"],["conter","içermek / kontrol altında tutmak"],["contrapor","karşılaştırmak / karşı koymak"],["culminar","sonuçlanmak / doruğa ulaşmak"],["decorrer","kaynaklanmak / geçmek"],["deflagrar","başlatmak / tetiklemek"],["desconsiderar","göz ardı etmek"],["desdobrar","açmak / ayrıntılandırmak"],["desencorajar","cesaretini kırmak"],["desonerar","yükten / vergiden muaf tutmak"],["desviar","saptırmak"],["diluir","seyreltmek / azaltmak"],["disciplinar","düzenlemek / disipline etmek"],["dispor","düzenlemek / sahip olmak"],["dissociar","ayırmak / ilişiğini kesmek"],["efetivar","yürürlüğe koymak / kalıcılaştırmak"],["emanar","yayılmak / kaynaklanmak"],["emergir","ortaya çıkmak"],["empreender","girişimde bulunmak"],["encadear","zincirlemek / birbirine bağlamak"],["englobar","kapsamak"],["equiparar","eşitlemek / denk tutmak"],["esboçar","taslak çizmek"],["esgotar","tüketmek / sona erdirmek"],["estender","uzatmak / genişletmek"],["eximir","muaf tutmak"],["figurar","yer almak / görünmek"],["frisar","vurgulamak"],["fundir","birleştirmek / eritmek"],["incumbir","görevlendirmek"],["intercalar","araya yerleştirmek"],["internalizar","içselleştirmek"],["inviabilizar","uygulanamaz hale getirmek"],["isentar","muaf tutmak"],["materializar","somutlaştırmak"],["nortear","yön vermek"],["perpetuar","sürdürmek / kalıcılaştırmak"],["preconizar","savunmak / önermek"],["pressupor","varsaymak"],["proliferar","çoğalmak / yayılmak"],["prosseguir","devam etmek"],["reafirmar","yeniden doğrulamak"],["rechaçar","reddetmek"],["reconciliar","uzlaştırmak"],["reconfigurar","yeniden yapılandırmak"],["recrutar","işe almak / toplamak"],["redigir","kaleme almak"],["reforçar","güçlendirmek"],["remodelar","yeniden biçimlendirmek"],["renunciar","vazgeçmek / istifa etmek"],["reorientar","yeniden yönlendirmek"],["requerer","gerektirmek / talep etmek"],["resguardar","korumak"],["reestruturar","yeniden yapılandırmak"],["revogar","yürürlükten kaldırmak"],["sanar","gidermek / düzeltmek"],["sancionar","onaylamak / yaptırım uygulamak"],["sintetizar","özetlemek / sentezlemek"],["sobrepor","üst üste koymak / öncelik vermek"],["subordinar","bağlı kılmak"],["suprimir","kaldırmak / bastırmak"],["suspender","askıya almak"],["teorizar","kuramsallaştırmak"],["uniformizar","tek biçimli hale getirmek"],["vetar","veto etmek / yasaklamak"],["vislumbrar","öngörmek / fark etmek"],["vulnerabilizar","savunmasız hale getirmek"],["coexistir","bir arada var olmak"],["descentralizar","merkeziyetçiliği azaltmak"],["descontinuar","sonlandırmak"],["disponibilizar-se","hazır olmak / kendini sunmak"],["enaltecer","övmek / yüceltmek"],["interligar","birbirine bağlamak"],["problematizar","sorunsallaştırmak"],["reintegrar","yeniden bütünleştirmek"],["retroceder","geri çekilmek"],["salvaguardar","güvence altına almak"],["transpor","aktarmak / aşmak"],["vigorar","yürürlükte olmak"]]};
+ const current={A1:[],A2:[],B1:[]};
+ DATA.verbs.forEach(v=>{if(current[v.level])current[v.level].push(v)});
+ const norm=s=>String(s||"").toLocaleLowerCase("pt-BR").trim();
+ const used=new Set(), rebuilt=[];
+ function add(level,v){
+   const k=norm(v&&v.pt);
+   if(!k||used.has(k))return false;
+   used.add(k); rebuilt.push({pt:v.pt,tr:v.tr,level}); return true;
+ }
+ function fill(level,target,pools){
+   let n=0;
+   for(const pool of pools){
+     for(const v of pool){
+       if(add(level,v)){n++; if(n===target)return;}
+     }
+   }
+ }
+ const exA1=extra.A1.map(x=>({pt:x[0],tr:x[1],level:"A1"}));
+ const exA2=extra.A2.map(x=>({pt:x[0],tr:x[1],level:"A2"}));
+ const exB1=extra.B1.map(x=>({pt:x[0],tr:x[1],level:"B1"}));
+
+ // A1 sabit: 1–111.
+ fill("A1",111,[current.A1,exA1]);
+
+ // A2: 112–333. Önce A2, eksik kalırsa mevcut B1 havuzundan devam eder.
+ fill("A2",222,[current.A2,exA2,current.B1,exB1]);
+
+ // B1: 334–666. A1/A2'de kullanılan hiçbir fiil tekrar alınmaz.
+ fill("B1",333,[current.B1,exB1,current.A2,exA2,current.A1,exA1]);
+
+ DATA.verbs=rebuilt;
+ const expected={A1:111,A2:222,B1:333};
+ const actual={A1:0,A2:0,B1:0};
+ DATA.verbs.forEach(v=>{if(actual[v.level]!==undefined)actual[v.level]++});
+ window.__verbIntegrity={expected,actual,ok:Object.keys(expected).every(k=>expected[k]===actual[k])};
+})();
 const EXTRA_PT_TR={"a":"-e/-a; bir (dişil)","o":"-i/-ı; bir (eril)","os":"-ler/-lar","as":"-ler/-lar","de":"-den/-dan; -in/-ın","do":"-den/-dan; -in/-ın","da":"-den/-dan; -in/-ın","dos":"-lerden/-ların","das":"-lerden/-ların","em":"-de/-da; içinde","no":"-de/-da (eril)","na":"-de/-da (dişil)","nos":"-lerde/-larda","nas":"-lerde/-larda","para":"için; -e/-a","por":"tarafından; için; boyunca","com":"ile","sem":"olmadan","sobre":"hakkında; üzerinde","e":"ve","ou":"veya","mas":"ama; fakat","porque":"çünkü; neden","que":"ki; ne; hangi","se":"eğer; kendini","um":"bir","uma":"bir","uns":"bazı","umas":"bazı","este":"bu","esta":"bu","esse":"şu/o","essa":"şu/o","isso":"bu/şu","ele":"o (erkek)","ela":"o (kadın)","eles":"onlar","elas":"onlar","eu":"ben","tu":"sen","nós":"biz","vocês":"siz","você":"sen/siz","meu":"benim","minha":"benim","seu":"senin/onun","sua":"senin/onun","nosso":"bizim","nossa":"bizim","não":"hayır; değil; -me/-ma","sim":"evet","muito":"çok","muita":"çok","mais":"daha; daha fazla","menos":"daha az","também":"de/da; ayrıca","já":"zaten; artık","ainda":"hâlâ; henüz","sempre":"her zaman","nunca":"asla; hiç","hoje":"bugün","amanhã":"yarın","ontem":"dün","agora":"şimdi","depois":"sonra","antes":"önce","bem":"iyi","bom":"iyi","boa":"iyi","grande":"büyük","pequeno":"küçük","nova":"yeni","novo":"yeni","deus":"Allah; Tanrı","senhor":"Rab; efendi","mundo":"dünya; âlem","mundos":"dünyalar; âlemler","religião":"din","fé":"iman; inanç","misericórdia":"merhamet","perdão":"bağışlanma","oração":"dua; namaz","profeta":"peygamber","mensageiro":"elçi; resul","servo":"kul","servos":"kullar","muçulmano":"Müslüman","muçulmanos":"Müslümanlar","islam":"İslam","arrependimento":"tövbe","pecado":"günah","pecados":"günahlar","facilidade":"kolaylık","dificuldade":"zorluk","misericordioso":"merhametli","criador":"yaratıcı","jejum":"oruç","viajante":"yolcu","doente":"hasta","gestante":"hamile","lactante":"emziren kadın","água":"su","pura":"temiz/saf","pureza":"temizlik; saflık","impureza":"necaset; kirlilik","palavra":"kelime; söz","palavras":"kelimeler; sözler","verdade":"hakikat; gerçek","falsidade":"bâtıl; yanlışlık","amor":"sevgi","paz":"barış; huzur","coração":"kalp","conhecimento":"bilgi; ilim","tempo":"zaman","dia":"gün","vida":"hayat","pessoa":"kişi","pessoas":"insanlar","família":"aile","comunidade":"toplum; cemaat"};
 function buildStudyDictionary(){
  const d=DATA.dictionary||{};Object.entries(EXTRA_PT_TR).forEach(([k,v])=>{if(!d[k])d[k]=v});
@@ -1590,6 +1715,84 @@ function renderStudyResource(){
  }
  a.innerHTML=`<div class="resourceHero"><button class="btn" onclick="page='lessons';render()">← Derslere dön</button><span class="kicker">Ek çalışma</span><h2>${title}</h2><p>${sub}</p></div>${body}`;
 }
+
+
+async function diacritizeArabicText(ar){
+  return String(ar||"").trim();
+}
+
+async function fillVerbArabic(){
+  const cells=[...document.querySelectorAll(".verbAr[data-pt]")];
+  let cache={};
+  try{cache=JSON.parse(localStorage.getItem("pt_ar_verb_cache")||"{}")}catch(e){}
+  const pending=[];
+  for(const cell of cells){
+    const pt=String(cell.dataset.pt||"").toLowerCase().trim();
+    if(!pt)continue;
+    const shown=cell.textContent.trim();
+    if(cache[pt]){
+      cell.textContent=await diacritizeArabicText(cache[pt]);
+    }else if(shown && shown!=="—"){
+      cell.textContent=await diacritizeArabicText(shown);
+      cache[pt]=shown;
+    }else{
+      cell.textContent="…";
+      pending.push({cell,pt});
+    }
+  }
+  try{localStorage.setItem("pt_ar_verb_cache",JSON.stringify(cache))}catch(e){}
+
+  let cursor=0;
+  async function worker(){
+    while(cursor<pending.length){
+      const item=pending[cursor++];
+      try{
+        const u="https://api.mymemory.translated.net/get?q="+encodeURIComponent(item.pt)+"&langpair=pt|ar";
+        const r=await fetch(u,{headers:{"Accept":"application/json"}});
+        if(!r.ok)throw new Error("lookup");
+        const j=await r.json();
+        const ar=String(j?.responseData?.translatedText||"").trim();
+        if(!ar || ar.toLowerCase()===item.pt)throw new Error("empty");
+        cache[item.pt]=ar;
+        item.cell.textContent=await diacritizeArabicText(ar);
+        try{localStorage.setItem("pt_ar_verb_cache",JSON.stringify(cache))}catch(e){}
+      }catch(e){
+        item.cell.textContent="—";
+        item.cell.title="Arapça karşılık yüklenemedi";
+      }
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(6,pending.length)},worker));
+}
+
+
+function verbExamples(v){
+  const pt=String(v&&v.pt||"").trim();
+  const tr=String(v&&v.tr||"").trim();
+  let rows;
+  if(v&&v.level==="A1"){
+    rows=[
+      [`Eu quero ${pt}.`,`${tr} istiyorum.`],
+      [`É importante ${pt}.`,`${tr} önemlidir.`],
+      [`Eu gosto de ${pt}.`,`${tr} seviyorum.`]
+    ];
+  }else{
+    rows=[
+      [`Eu preciso ${pt} hoje.`,`Bugün ${tr} gerekiyor.`],
+      [`Quero ${pt} com calma.`,`Sakin bir şekilde ${tr} istiyorum.`],
+      [`É importante ${pt} todos os dias.`,`Her gün ${tr} önemlidir.`]
+    ];
+  }
+  return rows.map((x,i)=>`<div class="verbExample"><span class="verbExNo">${i+1}.</span><div><div class="verbExPt">${storyTokenize(x[0])}<button type="button" class="verbExSpeak" onclick="event.stopPropagation();speakPT(${JSON.stringify(x[0])})" aria-label="Cümleyi dinlet">🔊</button></div><div class="verbExTr">${esc(x[1])}</div></div></div>`).join("");
+}
+function toggleVerbExamples(row){
+  const box=row.querySelector(".verbExamples");
+  if(!box)return;
+  const open=box.classList.toggle("open");
+  row.classList.toggle("examplesOpen",open);
+  row.setAttribute("aria-expanded",open?"true":"false");
+}
+
 function render(){
  if(page==="resource"){renderStudyResource();return}
  const a=document.getElementById("app");
@@ -1634,14 +1837,23 @@ function render(){
  if(page==="stories"){
    let levelTabs=`<div class="levelNav"><button class="${levelFilter==="A1"?"on":""}" onclick="setLevel('A1')">A1</button><button class="${levelFilter==="A2"?"on":""}" onclick="setLevel('A2')">A2</button><button class="${levelFilter==="B1"?"on":""}" onclick="setLevel('B1')">B1</button></div>`;
    let ss=DATA.stories.filter(s=>(levelFilter==="ALL"||s.level===levelFilter||(!s.level&&levelFilter==="A1"))&&(!searchTerm||(s.title+" "+s.text).toLowerCase().includes(searchTerm)));
-   a.innerHTML=`${levelTabs}<div class="card"><h2>${levelFilter==="ALL"?"99 Hikâye":levelFilter+" Hikâyeleri"}</h2><p class="small">${levelFilter==="ALL"?"Tüm seviyeler":levelFilter+" okuma çalışmaları"}</p><div class="toolbar"><button class="btn" onclick="setLevel('ALL')">Tümü</button><button class="btn" onclick="setLevel('A1')">A1</button><button class="btn" onclick="setLevel('A2')">A2</button><button class="btn" onclick="setLevel('B1')">B1</button></div>${ss.map((s,i)=>`<article class="storyTile"><span class="badge">${s.level||"A1"}</span><h3>${DATA.stories.indexOf(s)+1}. ${esc(s.title)}</h3><button class="btn green" onclick="openStory(${DATA.stories.indexOf(s)})">📖 Hikâyeyi aç</button></article>`).join("")}</div>`}
+   a.innerHTML=`${levelTabs}<div class="storyListClean">${ss.map((s,i)=>{const si=DATA.stories.indexOf(s);return `<article class="storyTile storyTileOpen" role="button" tabindex="0" onclick="openStory(${si})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openStory(${si})}"><h3>${si+1}. ${esc(s.title)}</h3></article>`}).join("")}</div>`}
  if(page==="verbs"){
-   let unique=[];let seen=new Set();
-   DATA.verbs.forEach(v=>{let k=(v.pt||"").toLowerCase();if(!seen.has(k)){seen.add(k);unique.push(v)}});
+   const levelTabs=`<div class="levelNav"><button class="${levelFilter==="A1"?"on":""}" onclick="setLevel('A1')">A1</button><button class="${levelFilter==="A2"?"on":""}" onclick="setLevel('A2')">A2</button><button class="${levelFilter==="B1"?"on":""}" onclick="setLevel('B1')">B1</button></div>`;
    const AR={"fazer":"فَعَلَ","ir":"ذَهَبَ","vir":"جَاءَ","ver":"رَأَى","dar":"أَعْطَى","dizer":"قَالَ","falar":"تَكَلَّمَ","comer":"أَكَلَ","beber":"شَرِبَ","ler":"قَرَأَ","escrever":"كَتَبَ","abrir":"فَتَحَ","fechar":"أَغْلَقَ","entrar":"دَخَلَ","sair":"خَرَجَ","chegar":"وَصَلَ","voltar":"رَجَعَ","ficar":"بَقِيَ","morar":"سَكَنَ","viver":"عَاشَ","trabalhar":"عَمِلَ","estudar":"دَرَسَ","aprender":"تَعَلَّمَ","ensinar":"عَلَّمَ","perguntar":"سَأَلَ","responder":"أَجَابَ","entender":"فَهِمَ","saber":"عَرَفَ","conhecer":"عَرَفَ","pensar":"فَكَّرَ","lembrar":"تَذَكَّرَ","esquecer":"نَسِيَ","querer":"أَرَادَ","precisar":"اِحْتَاجَ","poder":"اِسْتَطَاعَ","dever":"وَجَبَ","gostar":"أَحَبَّ","amar":"أَحَبَّ","ajudar":"سَاعَدَ","esperar":"اِنْتَظَرَ","procurar":"بَحَثَ","encontrar":"وَجَدَ","comprar":"اِشْتَرَى","vender":"بَاعَ","pagar":"دَفَعَ","levar":"أَخَذَ","trazer":"جَلَبَ","usar":"اِسْتَخْدَمَ","colocar":"وَضَعَ","tirar":"أَزَالَ","pegar":"أَخَذَ","deixar":"تَرَكَ","começar":"بَدَأَ","terminar":"أَنْهَى","acabar":"اِنْتَهَى","continuar":"اِسْتَمَرَّ","parar":"تَوَقَّفَ","andar":"مَشَى","correr":"رَكَضَ","sentar":"جَلَسَ","levantar":"نَهَضَ","dormir":"نَامَ","acordar":"اِسْتَيْقَظَ","lavar":"غَسَلَ","limpar":"نَظَّفَ","cozinhar":"طَبَخَ","preparar":"حَضَّرَ","cortar":"قَطَعَ","rezar":"صَلَّى","orar":"دَعَا","jejuar":"صَامَ","agradecer":"شَكَرَ","pedir":"طَلَبَ","receber":"اِسْتَلَمَ","enviar":"أَرْسَلَ","mostrar":"أَرَى","explicar":"شَرَحَ","ouvir":"سَمِعَ","escutar":"اِسْتَمَعَ","olhar":"نَظَرَ","assistir":"شَاهَدَ","visitar":"زَارَ","viajar":"سَافَرَ","chamar":"نَادَى","conversar":"تَحَدَّثَ","brincar":"لَعِبَ","jogar":"لَعِبَ","ganhar":"فَازَ","perder":"خَسِرَ","escolher":"اِخْتَارَ","decidir":"قَرَّرَ","mudar":"غَيَّرَ","tentar":"حَاوَلَ","conseguir":"نَجَحَ","acontecer":"حَدَثَ","sentir":"شَعَرَ","sorrir":"اِبْتَسَمَ","chorar":"بَكَى","rir":"ضَحِكَ","nascer":"وُلِدَ","morrer":"مَاتَ","ter":"مَلَكَ","ser":"كَانَ","estar":"كَانَ","haver":"وُجِدَ","passar":"مَرَّ","seguir":"تَبِعَ","guardar":"حَفِظَ","repetir":"كَرَّرَ","praticar":"تَدَرَّبَ","organizar":"نَظَّمَ","comparar":"قَارَنَ","resolver":"حَلَّ"};
-   a.innerHTML=`<div class="card"><div class="kicker">Fiil listesi</div><h2>⚡ Portekizce Fiiller</h2><p class="small">Portekizce → Türkçe → Arapça. Numaraların altındaki üç küçük renk A1, A2 ve B1 seviye renklerini gösterir.</p>
-   <div class="verbHead"><span>No</span><span>Portekizce</span><span>Türkçe</span><span>Arapça</span></div>
-   <div class="verbGrid">${unique.map((v,i)=>`<div class="verbRow"><div class="verbIndex"><b>${i+1}.</b><span class="verbLevelDots" title="A1 · A2 · B1"><i class="a1"></i><i class="a2"></i><i class="b1"></i></span></div><div class="verbPt">${esc(v.pt)}</div><div class="verbTr">${esc(v.tr)}</div><div class="verbAr" lang="ar">${esc(AR[(v.pt||"").toLowerCase()]||"—")}</div></div>`).join("")}</div></div>`;
+   const levels=["A1","A2","B1"];
+   const selected=["A1","A2","B1"].includes(levelFilter)?levelFilter:"A1";
+   if(!["A1","A2","B1"].includes(levelFilter)){
+     levelFilter=selected;
+     try{localStorage.setItem("pt_level_filter",selected)}catch(e){}
+   }
+   const verbs=(Array.isArray(DATA.verbs)?DATA.verbs:[]).filter(v=>v&&v.level===selected);
+   a.innerHTML=`${levelTabs}<div class="verbLevelWrap">
+     <div class="verbLevelSummary"><strong>${selected} Fiilleri</strong><span>${verbs.length} fiil</span><button type="button" class="verbArabicRefresh" onclick="fillVerbArabic()" title="Eksik Arapçaları yeniden yükle">↻ Arapça</button></div>
+     <div class="verbHead"><span>No</span><span>Portekizce</span><span>Türkçe</span><span>Arapça</span></div>
+     <div class="verbGrid">${verbs.length?verbs.map((v,i)=>`<div class="verbRow verbRowExpandable" role="button" tabindex="0" aria-expanded="false" onclick="if(!event.target.closest('button,.storyWord'))toggleVerbExamples(this)" onkeydown="if((event.key==='Enter'||event.key===' ')&&!event.target.closest('button')){event.preventDefault();toggleVerbExamples(this)}"><div class="verbIndex"><b>${(selected==="A1"?1:selected==="A2"?112:334)+i}.</b><span class="verbLevelDots"><i class="${selected.toLowerCase()}"></i></span></div><div class="verbPt">${esc(v.pt||"—")} <span class="verbExpandMark">⌄</span></div><div class="verbTr">${esc(v.tr||"—")}</div><div class="verbAr" lang="ar" dir="rtl" data-pt="${esc(String(v.pt||"").toLowerCase())}">${esc(AR[String(v.pt||"").toLowerCase()]||"—")}</div><div class="verbExamples">${verbExamples(v)}</div></div>`).join(""):`<div class="card"><p>Bu seviyenin fiilleri yüklenemedi.</p></div>`}</div>
+   </div>`;
+   setTimeout(fillVerbArabic,0);
 } if(page==="review"){
    a.innerHTML=`<div class="card"><h2>Aktif Tekrar</h2><p>Dersleri sadece okumak yerine üret: her gün 10 fiil seç, her biriyle bir cümle kur; bir hikâye oku; ardından hikâyeyi 5–8 cümleyle yeniden anlat.</p><div class="lessonBox"><b>B1 hedefi:</b> bağlaçlarla daha uzun konuşmak, geçmiş ve gelecek olayları ilişkilendirmek, görüş gerekçelendirmek, subjuntivo ve condicional yapılarını kontrollü biçimde kullanmak.</div></div>`}
 }
