@@ -184,6 +184,27 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 .homeLearningBadge{display:inline-block;margin-top:6px;padding:3px 8px;border-radius:8px;background:#eef4ee;color:#23664c;font-size:11px;font-weight:700}
 @media(min-width:701px){.homeLearningSection{max-width:920px;padding:0}.homeLearningCards{grid-template-columns:1fr 1fr}.homeLearningCard.portuguese{grid-column:2}.homeLearningCard.muhimme{grid-column:1}}
 @media(max-width:700px){.homeLearningSection{margin-top:20px}.homeLearningCard{padding:14px}.homeLearningText strong{font-size:17px}}
+
+/* Fazilet Takvimi — kişisel hesap sistemi */
+.fazAuthGate{position:fixed;inset:0;z-index:100000;background:linear-gradient(145deg,#f8efdc,#e9efe7);display:grid;place-items:center;padding:18px;overflow:auto}
+.fazAuthGate[hidden]{display:none!important}
+.fazAuthCard{width:min(430px,100%);background:#fffaf0;border:1px solid #d6bd8e;border-radius:24px;padding:28px 25px;box-shadow:0 22px 70px rgba(75,39,15,.17);color:#5a2d12}
+.fazAuthMark{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;background:#6b3f24;color:#fffaf0;font-size:30px}
+.fazAuthCard h1{text-align:center;margin:6px 0 7px;font-size:28px;color:#5a2d12}
+.fazAuthCard>p{text-align:center;margin:0 auto 20px;color:#75685b;font-size:14px;line-height:1.5;max-width:340px}
+.fazAuthTabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;background:#eee3cf;border-radius:13px;margin-bottom:17px}
+.fazAuthTabs button{border:0;border-radius:9px;background:transparent;padding:10px 7px;color:#6b5138;font-weight:800;cursor:pointer}
+.fazAuthTabs button.active{background:#6b3f24;color:white}
+.fazAuthCard label{display:block;font-size:13px;font-weight:800;margin:11px 0 5px}
+.fazAuthCard input{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:12px 13px;border:1px solid #d9c29b;border-radius:11px;background:#fffdf8;color:#30261f;font:inherit;outline:none}
+.fazAuthCard input:focus{border-color:#6b3f24;box-shadow:0 0 0 3px rgba(107,63,36,.10)}
+.fazAuthPrimary{width:100%;margin-top:16px;border:0;border-radius:12px;padding:13px;background:#6b3f24;color:white;font-weight:850;font-size:15px;cursor:pointer}
+.fazAuthLink{display:block;margin:11px auto 0;border:0;background:transparent;color:#7b401b;text-decoration:underline;cursor:pointer}
+.fazAuthMessage{min-height:20px;margin-top:12px;text-align:center;font-size:13px;line-height:1.4}.fazAuthMessage.error{color:#a33a35}.fazAuthMessage.ok{color:#6b3f24}
+.fazAuthSetup{margin-top:14px;padding:11px 12px;background:#fff0ce;border:1px solid #e1c68d;border-radius:11px;color:#6b4b1e;font-size:12px;line-height:1.5}
+.fazUserChip{position:fixed;z-index:900;right:12px;bottom:12px;display:flex;align-items:center;gap:8px;max-width:calc(100vw - 24px);padding:7px 8px 7px 11px;background:#fffaf0;border:1px solid #d7bd88;border-radius:999px;box-shadow:0 6px 20px rgba(75,39,15,.13);font-size:12px;color:#5a2d12}
+.fazUserChip[hidden]{display:none!important}.fazUserChip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fazUserChip button{border:0;border-radius:999px;padding:7px 10px;background:#6b3f24;color:white;font-weight:800;cursor:pointer}
+
 </style>
 
 <style id="muh-final-fixes">
@@ -370,8 +391,42 @@ body,.app,.dayContent,.lang,.lang p,.ptSentence,.trSentence,.storyContent,.story
   .muhPronMiniBtn{top:8px!important;right:8px!important;width:28px!important;height:28px!important;line-height:28px!important}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+
+<div id="fazAuthGate" class="fazAuthGate" hidden>
+  <main class="fazAuthCard">
+    <div class="fazAuthMark">☾</div>
+    <h1>Falar ler Takvimi</h1>
+    <p>Kişisel hesabınla giriş yap. Takvim ve çalışma bölümlerini kendi hesabınla kullan.</p>
+    <div class="fazAuthTabs">
+      <button id="fazLoginTab" class="active" type="button" onclick="fazSetAuthMode('login')">Giriş Yap</button>
+      <button id="fazSignupTab" type="button" onclick="fazSetAuthMode('signup')">Hesap Oluştur</button>
+    </div>
+    <label id="fazNameLabel" hidden>Ad Soyad
+      <input id="fazAuthName" type="text" autocomplete="name" placeholder="Adınız">
+    </label>
+    <label>E-posta
+      <input id="fazAuthEmail" type="email" autocomplete="email" inputmode="email" placeholder="ornek@email.com">
+    </label>
+    <label>Şifre
+      <input id="fazAuthPassword" type="password" autocomplete="current-password" minlength="6" placeholder="En az 6 karakter">
+    </label>
+    <button id="fazAuthSubmit" class="fazAuthPrimary" type="button" onclick="fazSubmitAuth()">Giriş Yap</button>
+    <button id="fazForgotBtn" class="fazAuthLink" type="button" onclick="fazResetPassword()">Şifremi unuttum</button>
+    <div id="fazAuthMessage" class="fazAuthMessage" aria-live="polite"></div>
+    <div id="fazAuthSetup" class="fazAuthSetup" hidden>
+      <b>Yönetici kurulumu gerekli</b><br>
+      Supabase Project URL ve Publishable/Anon Key henüz eklenmedi.
+    </div>
+  </main>
+</div>
+<div id="fazUserChip" class="fazUserChip" hidden>
+  <span>👤 <b id="fazUserName">Hesabım</b></span>
+  <button type="button" onclick="fazLogout()">Çıkış</button>
+</div>
+
 <div class="app">
 <div class="dayViewport" id="dayViewport">
  <div class="dayTrack" id="dayTrack"></div>
@@ -963,5 +1018,105 @@ if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.se
  const list=document.getElementById('muhParaList'); if(list) observer.observe(list,{childList:true,subtree:true});
  apply();
 })();
+</script>
+<script>
+
+/* Fazilet Takvimi Auth v1
+   Güvenlik: Buraya yalnızca Supabase Project URL ve Publishable/Anon Key yazılır.
+   service_role / secret key ASLA tarayıcı koduna eklenmez. */
+const FAZ_AUTH_CONFIG={
+  url:"SUPABASE_PROJECT_URL",
+  key:"SUPABASE_PUBLISHABLE_OR_ANON_KEY"
+};
+let fazSupabase=null;
+let fazAuthMode="login";
+
+function fazAuthConfigured(){
+  return /^https:\/\/.+\.supabase\.co$/i.test(FAZ_AUTH_CONFIG.url) &&
+    !!FAZ_AUTH_CONFIG.key && !FAZ_AUTH_CONFIG.key.includes("SUPABASE_");
+}
+function fazAuthMessage(message,type=""){
+  const el=document.getElementById("fazAuthMessage");
+  if(!el)return;
+  el.textContent=message||"";
+  el.className="fazAuthMessage"+(type?" "+type:"");
+}
+function fazSetAuthMode(mode){
+  fazAuthMode=mode==="signup"?"signup":"login";
+  document.getElementById("fazLoginTab")?.classList.toggle("active",fazAuthMode==="login");
+  document.getElementById("fazSignupTab")?.classList.toggle("active",fazAuthMode==="signup");
+  const nl=document.getElementById("fazNameLabel"); if(nl)nl.hidden=fazAuthMode!=="signup";
+  const submit=document.getElementById("fazAuthSubmit"); if(submit)submit.textContent=fazAuthMode==="signup"?"Hesap Oluştur":"Giriş Yap";
+  const forgot=document.getElementById("fazForgotBtn"); if(forgot)forgot.hidden=fazAuthMode!=="login";
+  const pw=document.getElementById("fazAuthPassword"); if(pw)pw.autocomplete=fazAuthMode==="signup"?"new-password":"current-password";
+  fazAuthMessage("");
+}
+function fazShowSession(session){
+  const gate=document.getElementById("fazAuthGate");
+  const chip=document.getElementById("fazUserChip");
+  if(session?.user){
+    if(gate)gate.hidden=true;
+    if(chip)chip.hidden=false;
+    const meta=session.user.user_metadata||{};
+    const name=document.getElementById("fazUserName");
+    if(name)name.textContent=meta.display_name||session.user.email||"Hesabım";
+    document.documentElement.dataset.fazUser=session.user.id;
+  }else{
+    if(gate)gate.hidden=false;
+    if(chip)chip.hidden=true;
+    delete document.documentElement.dataset.fazUser;
+  }
+}
+async function fazSubmitAuth(){
+  if(!fazSupabase){fazAuthMessage("Hesap sistemi henüz yönetici tarafından bağlanmadı.","error");return}
+  const email=document.getElementById("fazAuthEmail")?.value.trim()||"";
+  const password=document.getElementById("fazAuthPassword")?.value||"";
+  const display_name=document.getElementById("fazAuthName")?.value.trim()||"";
+  if(!email||!password){fazAuthMessage("E-posta ve şifreyi doldurun.","error");return}
+  if(password.length<6){fazAuthMessage("Şifre en az 6 karakter olmalı.","error");return}
+  fazAuthMessage("İşlem yapılıyor…");
+  try{
+    if(fazAuthMode==="signup"){
+      const {data,error}=await fazSupabase.auth.signUp({email,password,options:{data:{display_name}}});
+      if(error)throw error;
+      if(data.session)fazShowSession(data.session);
+      else fazAuthMessage("Hesabın oluşturuldu. E-postana gelen doğrulama bağlantısını aç.","ok");
+    }else{
+      const {data,error}=await fazSupabase.auth.signInWithPassword({email,password});
+      if(error)throw error;
+      fazShowSession(data.session);
+    }
+  }catch(err){fazAuthMessage(err?.message||"İşlem tamamlanamadı.","error")}
+}
+async function fazResetPassword(){
+  if(!fazSupabase){fazAuthMessage("Hesap sistemi henüz bağlanmadı.","error");return}
+  const email=document.getElementById("fazAuthEmail")?.value.trim()||"";
+  if(!email){fazAuthMessage("Önce e-posta adresini yaz.","error");return}
+  try{
+    const {error}=await fazSupabase.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+    if(error)throw error;
+    fazAuthMessage("Şifre yenileme bağlantısı e-postana gönderildi.","ok");
+  }catch(err){fazAuthMessage(err?.message||"Bağlantı gönderilemedi.","error")}
+}
+async function fazLogout(){
+  if(fazSupabase)await fazSupabase.auth.signOut();
+}
+async function fazInitAuth(){
+  const gate=document.getElementById("fazAuthGate");
+  const setup=document.getElementById("fazAuthSetup");
+  if(!fazAuthConfigured()||!window.supabase?.createClient){
+    if(gate)gate.hidden=false;
+    if(setup)setup.hidden=false;
+    return;
+  }
+  fazSupabase=window.supabase.createClient(FAZ_AUTH_CONFIG.url,FAZ_AUTH_CONFIG.key,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
+  const {data}=await fazSupabase.auth.getSession();
+  fazShowSession(data?.session||null);
+  fazSupabase.auth.onAuthStateChange((_event,session)=>setTimeout(()=>fazShowSession(session),0));
+}
+document.addEventListener("DOMContentLoaded",fazInitAuth);
+
 </script>
 </body></html>
