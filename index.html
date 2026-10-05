@@ -1097,8 +1097,7 @@ function fazShowSession(session){
   const gate=document.getElementById("fazAuthGate");
   const chip=document.getElementById("fazUserChip");
   if(session?.user){
-    if(gate)gate.hidden=fazRecoveryMode;
-    if(fazRecoveryMode)gate.hidden=false;
+    if(gate)gate.hidden=!fazRecoveryMode;
     if(chip)chip.hidden=false;
     const meta=session.user.user_metadata||{};
     const name=document.getElementById("fazUserName");
@@ -1109,6 +1108,12 @@ function fazShowSession(session){
     if(chip)chip.hidden=true;
     delete document.documentElement.dataset.fazUser;
   }
+}
+function fazAuthTimeout(promise,ms=15000){
+  return Promise.race([
+    promise,
+    new Promise((_,reject)=>setTimeout(()=>reject(new Error("Giriş sunucusundan yanıt alınamadı. İnternet bağlantını kontrol edip tekrar dene.")),ms))
+  ]);
 }
 async function fazSubmitAuth(){
   if(!fazSupabase){fazAuthMessage("Hesap sistemi henüz yönetici tarafından bağlanmadı.","error");return}
@@ -1125,9 +1130,13 @@ async function fazSubmitAuth(){
       if(data.session)fazShowSession(data.session);
       else fazAuthMessage("Hesabın oluşturuldu. E-postana gelen doğrulama bağlantısını aç.","ok");
     }else{
-      const {data,error}=await fazSupabase.auth.signInWithPassword({email,password});
+      const {data,error}=await fazAuthTimeout(fazSupabase.auth.signInWithPassword({email,password}));
       if(error)throw error;
+      fazRecoveryMode=false;
       fazShowSession(data.session);
+      const gate=document.getElementById("fazAuthGate");
+      if(gate)gate.hidden=true;
+      fazAuthMessage("");
     }
   }catch(err){fazAuthMessage(err?.message||"İşlem tamamlanamadı.","error")}
 }
