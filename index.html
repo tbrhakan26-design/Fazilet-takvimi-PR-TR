@@ -404,9 +404,6 @@ body,.app,.dayContent,.lang,.lang p,.ptSentence,.trSentence,.storyContent,.story
       <button id="fazLoginTab" class="active" type="button" onclick="fazSetAuthMode('login')">Giriş Yap</button>
       <button id="fazSignupTab" type="button" onclick="fazSetAuthMode('signup')">Hesap Oluştur</button>
     </div>
-    <label id="fazNameLabel" hidden>Ad Soyad
-      <input id="fazAuthName" type="text" autocomplete="name" placeholder="Adınız">
-    </label>
     <label>E-posta
       <input id="fazAuthEmail" type="email" autocomplete="email" inputmode="email" placeholder="ornek@email.com">
     </label>
@@ -1056,7 +1053,6 @@ function fazSetAuthMode(mode){
   fazAuthMode=mode==="signup"?"signup":"login";
   document.getElementById("fazLoginTab")?.classList.toggle("active",fazAuthMode==="login");
   document.getElementById("fazSignupTab")?.classList.toggle("active",fazAuthMode==="signup");
-  const nl=document.getElementById("fazNameLabel"); if(nl)nl.hidden=fazAuthMode!=="signup";
   const submit=document.getElementById("fazAuthSubmit"); if(submit)submit.textContent=fazAuthMode==="signup"?"Hesap Oluştur":"Giriş Yap";
   const forgot=document.getElementById("fazForgotBtn"); if(forgot)forgot.hidden=fazAuthMode!=="login";
   const pw=document.getElementById("fazAuthPassword"); if(pw)pw.autocomplete=fazAuthMode==="signup"?"new-password":"current-password";
@@ -1066,7 +1062,6 @@ function fazShowRecovery(){
   fazRecoveryMode=true;
   const gate=document.getElementById("fazAuthGate"); if(gate)gate.hidden=false;
   const tabs=document.querySelector(".fazAuthTabs"); if(tabs)tabs.hidden=true;
-  const name=document.getElementById("fazNameLabel"); if(name)name.hidden=true;
   const email=document.getElementById("fazAuthEmail")?.closest("label"); if(email)email.hidden=true;
   const pw=document.getElementById("fazAuthPassword")?.closest("label"); if(pw)pw.hidden=true;
   const submit=document.getElementById("fazAuthSubmit"); if(submit)submit.hidden=true;
@@ -1109,34 +1104,23 @@ function fazShowSession(session){
     delete document.documentElement.dataset.fazUser;
   }
 }
-function fazAuthTimeout(promise,ms=15000){
-  return Promise.race([
-    promise,
-    new Promise((_,reject)=>setTimeout(()=>reject(new Error("Giriş sunucusundan yanıt alınamadı. İnternet bağlantını kontrol edip tekrar dene.")),ms))
-  ]);
-}
 async function fazSubmitAuth(){
   if(!fazSupabase){fazAuthMessage("Hesap sistemi henüz yönetici tarafından bağlanmadı.","error");return}
   const email=document.getElementById("fazAuthEmail")?.value.trim()||"";
   const password=document.getElementById("fazAuthPassword")?.value||"";
-  const display_name=document.getElementById("fazAuthName")?.value.trim()||"";
   if(!email||!password){fazAuthMessage("E-posta ve şifreyi doldurun.","error");return}
   if(password.length<6){fazAuthMessage("Şifre en az 6 karakter olmalı.","error");return}
   fazAuthMessage("İşlem yapılıyor…");
   try{
     if(fazAuthMode==="signup"){
-      const {data,error}=await fazSupabase.auth.signUp({email,password,options:{data:{display_name}}});
+      const {data,error}=await fazSupabase.auth.signUp({email,password});
       if(error)throw error;
       if(data.session)fazShowSession(data.session);
       else fazAuthMessage("Hesabın oluşturuldu. E-postana gelen doğrulama bağlantısını aç.","ok");
     }else{
-      const {data,error}=await fazAuthTimeout(fazSupabase.auth.signInWithPassword({email,password}));
+      const {data,error}=await fazSupabase.auth.signInWithPassword({email,password});
       if(error)throw error;
-      fazRecoveryMode=false;
       fazShowSession(data.session);
-      const gate=document.getElementById("fazAuthGate");
-      if(gate)gate.hidden=true;
-      fazAuthMessage("");
     }
   }catch(err){fazAuthMessage(err?.message||"İşlem tamamlanamadı.","error")}
 }
