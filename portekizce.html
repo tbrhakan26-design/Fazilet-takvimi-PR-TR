@@ -1278,6 +1278,60 @@ button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible
   }
 }
 
+
+/* v80 — Masaüstü üst menü: ana içerikle aynı 60vw merkez sütun */
+@media (min-width:900px){
+  nav#nav{
+    width:60vw!important;max-width:60vw!important;
+    margin-left:auto!important;margin-right:auto!important;
+    padding:10px 14px 16px!important;
+    justify-content:center!important;align-items:center!important;
+    gap:10px!important;overflow-x:visible!important;
+    border-radius:0 0 18px 18px;
+  }
+  nav#nav button{
+    font-size:15px!important;padding:12px 17px!important;
+    border-radius:22px!important;flex:0 0 auto!important;
+  }
+}
+
+
+/* v81 — A1 / A2 / B1 kartları her ekranda alt alta */
+.levelCards{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:18px!important;
+  width:100%!important;
+}
+.levelCard{
+  width:100%!important;
+  max-width:none!important;
+  padding:24px!important;
+  margin:0!important;
+}
+.levelCard h2{font-size:25px!important}
+.levelCard .desc{font-size:16px!important;line-height:1.65!important;min-height:0!important}
+.levelCard .dashboard{gap:12px!important}
+.levelCard .dash{padding:14px 10px!important}
+.levelCard .dash b{font-size:20px!important}
+
+@media (min-width:900px){
+  .levelCards{
+    grid-template-columns:1fr!important;
+    gap:20px!important;
+  }
+  .levelCard{
+    padding:28px 30px!important;
+  }
+  .levelCard h2{font-size:27px!important}
+  .levelCard .desc{font-size:17px!important}
+}
+@media (max-width:560px){
+  .levelCards{grid-template-columns:1fr!important;gap:14px!important}
+  .levelCard{padding:20px!important}
+  .levelCard h2{font-size:23px!important}
+}
+
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head><body><div id="readingProgress" aria-hidden="true" style="position:fixed;left:0;top:0;height:3px;width:0;background:var(--green);z-index:9999;transition:width .12s linear"></div>
 <button id="backTop" aria-label="Yukarı dön" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;right:14px;bottom:82px;z-index:50;border:0;border-radius:50%;width:44px;height:44px;background:var(--green);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.18);font-size:18px">↑</button>
