@@ -22,7 +22,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:#e9e1d4;color:var(--brown);font-family:"KoHo",sans-serif}
 body{min-height:100vh}.app{max-width:510px;min-height:100vh;margin:auto;background:var(--cream);position:relative;padding-bottom:25px;overflow-x:hidden}
-.header{padding:18px 25px 0;position:relative}.date{display:flex;gap:12px}.day{font-size:76px;line-height:.76;letter-spacing:-5px;color:#612f10}.month{font-size:22px;font-weight:700;padding-top:3px}.week{font-size:18px;margin-top:4px}.hijri{font-size:17px;color:var(--green);line-height:1.45;margin-top:14px}
+.header{padding:18px 25px 0;position:relative}.date{display:flex;gap:12px}.day{font-size:64px;line-height:.80;letter-spacing:-4px;color:#612f10}.month{font-size:20px;font-weight:700;padding-top:2px}.week{font-size:16px;margin-top:3px}.hijri{font-size:16px;color:var(--green);line-height:1.42;margin-top:13px}
 .menuBtn{position:absolute;right:23px;top:11px;width:58px;height:58px;border:0;border-radius:50%;background:#fae6c1;color:var(--brown);font-size:27px;line-height:1}
 .menuBtn{touch-action:manipulation}.menuBtn span{display:block;font:28px -apple-system,BlinkMacSystemFont,sans-serif;line-height:1}
 .ornament{height:38px;margin:5px 18px 0;position:relative}.ornament:before{content:"❧  ───  ✦  ───  ❧";position:absolute;left:50%;transform:translateX(-50%);color:var(--brown2);font-size:20px;white-space:nowrap}.todayBackBtn{display:none;position:absolute;left:-2px;top:0;width:44px;height:34px;border:1px solid rgba(220,197,160,.55);border-radius:18px;background:rgba(255,250,240,.72);color:var(--brown2);font:32px/27px -apple-system,BlinkMacSystemFont,sans-serif;align-items:center;justify-content:center;z-index:5;box-shadow:0 2px 8px rgba(79,42,17,.08)}.todayBackBtn.show{display:flex}.todayBackBtn span{display:block;transform:translateY(-1px)}
@@ -202,8 +202,14 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 .fazAuthLink{display:block;margin:11px auto 0;border:0;background:transparent;color:#7b401b;text-decoration:underline;cursor:pointer}
 .fazAuthMessage{min-height:20px;margin-top:12px;text-align:center;font-size:13px;line-height:1.4}.fazAuthMessage.error{color:#a33a35}.fazAuthMessage.ok{color:#6b3f24}
 .fazAuthSetup{margin-top:14px;padding:11px 12px;background:#fff0ce;border:1px solid #e1c68d;border-radius:11px;color:#6b4b1e;font-size:12px;line-height:1.5}
-.fazUserChip{position:fixed;z-index:900;right:12px;bottom:12px;display:flex;align-items:center;gap:8px;max-width:calc(100vw - 24px);padding:7px 8px 7px 11px;background:#fffaf0;border:1px solid #d7bd88;border-radius:999px;box-shadow:0 6px 20px rgba(75,39,15,.13);font-size:12px;color:#5a2d12}
-.fazUserChip[hidden]{display:none!important}.fazUserChip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fazUserChip button{border:0;border-radius:999px;padding:7px 10px;background:#6b3f24;color:white;font-weight:800;cursor:pointer}
+.fazUserChip{position:absolute;z-index:35;right:91px;top:11px;width:58px;height:58px;display:flex;align-items:center;justify-content:center;padding:0;background:#fae6c1;border:0;border-radius:50%;box-shadow:none;color:#5a2d12;cursor:pointer;transition:.18s ease}
+.fazUserChip[hidden]{display:none!important}
+.fazUserChip .fazProfileIcon{font-size:27px;line-height:1;display:block}
+.fazUserChip #fazUserName,.fazUserChip button{display:none}
+.fazUserChip.open{width:auto;min-width:190px;height:58px;padding:0 8px 0 15px;border:1px solid #d7bd88;border-radius:999px;background:#fffaf0;gap:8px;justify-content:flex-start;box-shadow:0 6px 20px rgba(75,39,15,.13)}
+.fazUserChip.open .fazProfileIcon{font-size:21px}
+.fazUserChip.open #fazUserName{display:block;max-width:105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+.fazUserChip.open button{display:block;margin-left:auto;border:0;border-radius:999px;padding:7px 10px;background:#6b3f24;color:white;font-weight:800;cursor:pointer}
 
 </style>
 
@@ -428,9 +434,10 @@ body,.app,.dayContent,.lang,.lang p,.ptSentence,.trSentence,.storyContent,.story
     </div>
   </main>
 </div>
-<div id="fazUserChip" class="fazUserChip" hidden>
-  <span>👤 <b id="fazUserName">Hesabım</b></span>
-  <button type="button" onclick="fazLogout()">Çıkış</button>
+<div id="fazUserChip" class="fazUserChip" hidden role="button" tabindex="0" aria-label="Profil" onclick="fazToggleProfile(event)">
+  <span class="fazProfileIcon" aria-hidden="true">👤</span>
+  <b id="fazUserName">Hesabım</b>
+  <button type="button" onclick="event.stopPropagation();fazLogout()">Çıkış</button>
 </div>
 
 <div class="app">
@@ -1134,6 +1141,14 @@ async function fazResetPassword(){
     fazAuthMessage("Şifre yenileme bağlantısı e-postana gönderildi.","ok");
   }catch(err){fazAuthMessage(err?.message||"Bağlantı gönderilemedi.","error")}
 }
+function fazToggleProfile(event){
+  event?.stopPropagation();
+  document.getElementById("fazUserChip")?.classList.toggle("open");
+}
+document.addEventListener("click",e=>{
+  const chip=document.getElementById("fazUserChip");
+  if(chip && !chip.contains(e.target))chip.classList.remove("open");
+});
 async function fazLogout(){
   if(fazSupabase)await fazSupabase.auth.signOut();
 }
