@@ -415,6 +415,15 @@ body,.app,.dayContent,.lang,.lang p,.ptSentence,.trSentence,.storyContent,.story
     </label>
     <button id="fazAuthSubmit" class="fazAuthPrimary" type="button" onclick="fazSubmitAuth()">Giriş Yap</button>
     <button id="fazForgotBtn" class="fazAuthLink" type="button" onclick="fazResetPassword()">Şifremi unuttum</button>
+    <div id="fazRecoveryBox" hidden>
+      <label>Yeni şifre
+        <input id="fazNewPassword" type="password" autocomplete="new-password" minlength="6" placeholder="En az 6 karakter">
+      </label>
+      <label>Yeni şifre tekrar
+        <input id="fazNewPassword2" type="password" autocomplete="new-password" minlength="6" placeholder="Şifreyi tekrar yaz">
+      </label>
+      <button class="fazAuthPrimary" type="button" onclick="fazUpdatePassword()">Yeni Şifreyi Kaydet</button>
+    </div>
     <div id="fazAuthMessage" class="fazAuthMessage" aria-live="polite"></div>
     <div id="fazAuthSetup" class="fazAuthSetup" hidden>
       <b>Yönetici kurulumu gerekli</b><br>
@@ -1030,6 +1039,8 @@ const FAZ_AUTH_CONFIG={
 };
 let fazSupabase=null;
 let fazAuthMode="login";
+let fazRecoveryMode=false;
+const FAZ_PASSWORD_REDIRECT="https://tbrhakan26-design.github.io/Fazilet-takvimi-PR-TR/";
 
 function fazAuthConfigured(){
   return /^https:\/\/.+\.supabase\.co$/i.test(FAZ_AUTH_CONFIG.url) &&
@@ -1051,11 +1062,43 @@ function fazSetAuthMode(mode){
   const pw=document.getElementById("fazAuthPassword"); if(pw)pw.autocomplete=fazAuthMode==="signup"?"new-password":"current-password";
   fazAuthMessage("");
 }
+function fazShowRecovery(){
+  fazRecoveryMode=true;
+  const gate=document.getElementById("fazAuthGate"); if(gate)gate.hidden=false;
+  const tabs=document.querySelector(".fazAuthTabs"); if(tabs)tabs.hidden=true;
+  const name=document.getElementById("fazNameLabel"); if(name)name.hidden=true;
+  const email=document.getElementById("fazAuthEmail")?.closest("label"); if(email)email.hidden=true;
+  const pw=document.getElementById("fazAuthPassword")?.closest("label"); if(pw)pw.hidden=true;
+  const submit=document.getElementById("fazAuthSubmit"); if(submit)submit.hidden=true;
+  const forgot=document.getElementById("fazForgotBtn"); if(forgot)forgot.hidden=true;
+  const box=document.getElementById("fazRecoveryBox"); if(box)box.hidden=false;
+  const title=document.querySelector(".fazAuthCard h1"); if(title)title.textContent="Yeni Şifre Belirle";
+  const desc=document.querySelector(".fazAuthCard > p"); if(desc)desc.textContent="Hesabın için yeni şifreni belirle.";
+  fazAuthMessage("Yeni şifreni iki kez yaz.");
+}
+async function fazUpdatePassword(){
+  if(!fazSupabase){fazAuthMessage("Hesap sistemi henüz bağlanmadı.","error");return}
+  const p1=document.getElementById("fazNewPassword")?.value||"";
+  const p2=document.getElementById("fazNewPassword2")?.value||"";
+  if(p1.length<6){fazAuthMessage("Yeni şifre en az 6 karakter olmalı.","error");return}
+  if(p1!==p2){fazAuthMessage("Yazdığın iki şifre aynı değil.","error");return}
+  fazAuthMessage("Yeni şifre kaydediliyor…");
+  try{
+    const {error}=await fazSupabase.auth.updateUser({password:p1});
+    if(error)throw error;
+    fazRecoveryMode=false;
+    fazAuthMessage("Şifren başarıyla yenilendi. Giriş ekranına yönlendiriliyorsun…","ok");
+    await fazSupabase.auth.signOut();
+    setTimeout(()=>{ location.href=FAZ_PASSWORD_REDIRECT; },900);
+  }catch(err){fazAuthMessage(err?.message||"Şifre yenilenemedi.","error")}
+}
+
 function fazShowSession(session){
   const gate=document.getElementById("fazAuthGate");
   const chip=document.getElementById("fazUserChip");
   if(session?.user){
-    if(gate)gate.hidden=true;
+    if(gate)gate.hidden=fazRecoveryMode;
+    if(fazRecoveryMode)gate.hidden=false;
     if(chip)chip.hidden=false;
     const meta=session.user.user_metadata||{};
     const name=document.getElementById("fazUserName");
@@ -1093,7 +1136,7 @@ async function fazResetPassword(){
   const email=document.getElementById("fazAuthEmail")?.value.trim()||"";
   if(!email){fazAuthMessage("Önce e-posta adresini yaz.","error");return}
   try{
-    const {error}=await fazSupabase.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+    const {error}=await fazSupabase.auth.resetPasswordForEmail(email,{redirectTo:FAZ_PASSWORD_REDIRECT});
     if(error)throw error;
     fazAuthMessage("Şifre yenileme bağlantısı e-postana gönderildi.","ok");
   }catch(err){fazAuthMessage(err?.message||"Bağlantı gönderilemedi.","error")}
@@ -1112,9 +1155,15 @@ async function fazInitAuth(){
   fazSupabase=window.supabase.createClient(FAZ_AUTH_CONFIG.url,FAZ_AUTH_CONFIG.key,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
   });
+  fazSupabase.auth.onAuthStateChange((event,session)=>{
+    setTimeout(()=>{
+      if(event==="PASSWORD_RECOVERY"){ fazShowRecovery(); return; }
+      if(!fazRecoveryMode)fazShowSession(session);
+    },0);
+  });
   const {data}=await fazSupabase.auth.getSession();
-  fazShowSession(data?.session||null);
-  fazSupabase.auth.onAuthStateChange((_event,session)=>setTimeout(()=>fazShowSession(session),0));
+  const recoveryHint=location.hash.includes("type=recovery")||new URLSearchParams(location.search).get("type")==="recovery";
+  if(recoveryHint){ fazShowRecovery(); } else { fazShowSession(data?.session||null); }
 }
 document.addEventListener("DOMContentLoaded",fazInitAuth);
 
