@@ -211,6 +211,78 @@ body{font-family:var(--latin-font)}.lang p,.storyContent .lang p,.muhPron,.muhEx
 .fazUserChip.open #fazUserName{display:block;max-width:105px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
 .fazUserChip.open button{display:block;margin-left:auto;border:0;border-radius:999px;padding:7px 10px;background:#6b3f24;color:white;font-weight:800;cursor:pointer}
 
+
+
+/* Menü yenilemesi — daha modern kart düzeni + seçili Latin yazı tipi */
+.drawer{
+  width:min(370px,90%)!important;
+  padding:22px 18px 28px!important;
+  background:
+    radial-gradient(circle at 100% 0,rgba(233,121,27,.10),transparent 190px),
+    linear-gradient(180deg,#fffaf0 0%,#fbf2df 100%)!important;
+}
+.drawerTop{
+  padding:2px 2px 18px!important;
+  margin-bottom:12px!important;
+  border-bottom:1px solid rgba(220,197,160,.72)!important;
+}
+.drawerTop h2{
+  font-size:27px!important;
+  letter-spacing:.2px!important;
+  color:var(--brown)!important;
+}
+.closeMenu{
+  width:46px!important;height:46px!important;
+  background:#f7dfb9!important;
+  border:1px solid rgba(123,64,27,.10)!important;
+  box-shadow:0 3px 10px rgba(75,39,15,.08)!important;
+}
+.drawer a,.drawer button.item{
+  display:flex!important;
+  align-items:center!important;
+  width:100%!important;
+  min-height:58px!important;
+  margin:8px 0!important;
+  padding:13px 15px!important;
+  border:1px solid rgba(220,197,160,.72)!important;
+  border-radius:16px!important;
+  background:rgba(255,250,240,.88)!important;
+  color:var(--brown)!important;
+  box-shadow:0 4px 14px rgba(75,39,15,.055)!important;
+  font-size:18px!important;
+  line-height:1.28!important;
+  font-family:var(--latin-font,"KoHo",sans-serif)!important;
+  transition:transform .16s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease!important;
+}
+.drawer a:hover,.drawer button.item:hover{
+  background:#fff6e6!important;
+  border-color:#d5b77f!important;
+  box-shadow:0 6px 18px rgba(75,39,15,.09)!important;
+  transform:translateX(-2px);
+}
+.drawer a:active,.drawer button.item:active{
+  transform:scale(.985)!important;
+  background:#f7ead5!important;
+}
+.drawer button.item:first-of-type{
+  background:linear-gradient(135deg,#edf4ee,#fffaf0)!important;
+  border-color:#bfd1c2!important;
+}
+.drawer .favCount{
+  margin-left:auto!important;
+  min-width:23px!important;
+  padding:2px 7px!important;
+  border-radius:999px!important;
+  background:#e6efe8!important;
+  color:var(--green)!important;
+  font-size:12px!important;
+  text-align:center!important;
+}
+@media(max-width:520px){
+  .drawer{width:min(350px,92%)!important;padding:18px 14px 24px!important}
+  .drawer a,.drawer button.item{min-height:55px!important;font-size:17px!important;padding:12px 13px!important}
+}
+
 </style>
 
 <style id="muh-final-fixes">
@@ -909,6 +981,22 @@ function renderPortugueseVoices(){const box=document.getElementById('voiceOption
 function selectPortugueseVoice(i,btn){const vs=getPortugueseVoices();if(!vs[i])return;localStorage.setItem('fazilet-pt-voice-index',String(i));document.querySelectorAll('#voiceOptions .voiceCard').forEach(x=>x.classList.toggle('active',x===btn))}
 function loadSettings(){const scale=localStorage.getItem('fazilet-text-scale')||'1';applyTextSize(scale);const af=localStorage.getItem('fazilet-arabic-font')||'AmiriFazilet';const lf=localStorage.getItem('fazilet-latin-font')||'KoHo';const ab=document.querySelector('#arabicFontOptions [data-font="'+CSS.escape(af)+'"]')||document.querySelector('#arabicFontOptions .fontCard');const lb=document.querySelector('#latinFontOptions [data-font="'+CSS.escape(lf)+'"]')||document.querySelector('#latinFontOptions .fontCard');applyArabicFont(af,ab);applyLatinFont(lf,lb);renderPortugueseVoices()}
 function resetSettings(){localStorage.removeItem('fazilet-text-scale');localStorage.removeItem('fazilet-arabic-font');localStorage.removeItem('fazilet-latin-font');localStorage.removeItem('fazilet-pt-voice-index');loadSettings()}
+
+/* Kaydedilmiş yazı tipi / boyut ayarlarını site açılır açılmaz uygula. */
+function applySavedFaziletSettings(){
+  try{
+    const scale=localStorage.getItem('fazilet-text-scale')||'1';
+    const af=localStorage.getItem('fazilet-arabic-font')||'AmiriFazilet';
+    const lf=localStorage.getItem('fazilet-latin-font')||'KoHo';
+    applyTextSize(scale);
+    const ab=document.querySelector('#arabicFontOptions [data-font="'+CSS.escape(af)+'"]')||document.querySelector('#arabicFontOptions .fontCard');
+    const lb=document.querySelector('#latinFontOptions [data-font="'+CSS.escape(lf)+'"]')||document.querySelector('#latinFontOptions .fontCard');
+    applyArabicFont(af,ab);
+    applyLatinFont(lf,lb);
+  }catch(e){console.warn('Kaydedilmiş görünüm ayarları uygulanamadı.',e)}
+}
+document.addEventListener('DOMContentLoaded',applySavedFaziletSettings);
+
 if('speechSynthesis' in window){speechSynthesis.addEventListener('voiceschanged',renderPortugueseVoices)}
 function updateFavCount(){const fav=JSON.parse(localStorage.getItem('fazilet-favs')||'[]');document.getElementById('favCount').textContent=fav.length?'('+fav.length+')':''}
 function openMenu(){document.getElementById('drawer').classList.add('show');document.getElementById('shade').classList.add('show');updateFavCount()}
